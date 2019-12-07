@@ -136,7 +136,7 @@ author:
 footer:
   links:
     - label: "Website"
-      icon: "fab fa-fw fa-twitter-square"
+      icon: "fas fa-fw fa-globe-americas"
       url: "https://vlab.ustc.edu.cn/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
@@ -185,6 +185,7 @@ exclude:
   # package.json
   # Rakefile
   - "README*"
+  - /script
   # tmp
   # /docs # ignore Minimal Mistakes /docs
   # /test # ignore Minimal Mistakes /test
