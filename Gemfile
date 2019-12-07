@@ -21,7 +21,7 @@ group :jekyll_plugins do
 
   # Class 2: Optional plugins on GitHub Pages
   gem "jekyll-redirect-from"
-  #gem "jekyll-mentions"
+  gem "jekyll-mentions"
   gem "jekyll-seo-tag"
   #gem "jekyll-coffeescript"
   gem "jekyll-include-cache"

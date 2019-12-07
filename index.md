@@ -1,5 +1,5 @@
 ---
-title: "Vlab 服务器文档"
+title: "Vlab 文档"
 ---
 
-AAAAAAAA
+欢迎来到 Vlab 维护文档，请在菜单中查找你需要的内容。
