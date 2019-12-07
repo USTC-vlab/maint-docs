@@ -1,0 +1,14 @@
+.svn
+.sass-cache
+
+# Bundler
+Gemfile.lock
+/vendor
+.bundle/
+
+# Jekyll
+_site
+
+# Jekyll Plugins
+.git-metadata
+.jekyll-metadata
