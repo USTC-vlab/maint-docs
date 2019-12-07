@@ -287,11 +287,7 @@ defaults:
   # _posts
   - scope:
       path: ""
-      type: pages
     values:
       layout: single
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
+      toc: true
+      toc_sticky: true
