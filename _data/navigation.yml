@@ -11,3 +11,5 @@ menu:
     children:
       - title: "概览"
         url: "/gen2/"
+      - title: "SSH 证书认证"
+        url: "/gen2/ssh-ca"
