@@ -15,8 +15,10 @@ theme:
   name: 'material'
   language: 'zh'
   palette:
-    primary: 'teal'
-    accent: 'teal'
+    primary: 'blue'
+    accent: 'blue'
+  feature:
+    tabs: true
 
 # Customization
 extra:
@@ -39,9 +41,7 @@ markdown_extensions:
   - markdown.extensions.def_list
 
 nav:
-  - 主页: index.md
-  - 第一代服务器:
-    - 概览: gen1/index.md
-  - 第二代服务器:
-    - 概览: gen2/index.md
-    - SSH 证书认证: gen2/ssh-ca.md
+  - 概览: index.md
+  - SSH 证书认证: ssh-ca.md
+  - 旧版本:
+    - 第一代: history/gen1.md
