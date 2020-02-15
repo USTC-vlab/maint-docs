@@ -29,18 +29,14 @@ extra:
 extra_javascript:
   - assets/js/extra.js
 
-theme:
-    name: 'material'
-    language: 'zh'
-
 markdown_extensions:
-    - admonition
-    - attr_list
-    - codehilite
-    - footnotes
-    - pymdownx.details
-    - pymdownx.superfences
-    - markdown.extensions.def_list
+  - admonition
+  - attr_list
+  - codehilite
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - markdown.extensions.def_list
 
 nav:
   - 主页: index.md
