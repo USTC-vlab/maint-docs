@@ -42,7 +42,7 @@
     
     
       
-        <title>Vlab 第二代服务器</title>
+        <title>Vlab</title>
       
     
     
@@ -91,7 +91,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#_1" tabindex="0" class="md-skip">
+      <a href="#vlab" tabindex="0" class="md-skip">
         跳转至
       </a>
     
@@ -117,7 +117,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Vlab 第二代服务器
+                概览
               
             </span>
           
@@ -268,6 +268,8 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
+      
+    
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         概览
@@ -280,6 +282,8 @@
       
 <nav class="md-nav md-nav--secondary">
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">目录</label>
@@ -379,6 +383,8 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">目录</label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -423,9 +429,8 @@
                   <a href="https://github.com/iBug/vlab/edit/master/docs/index.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>概览</h1>
-                
-                <h2 id="_1">计算服务器</h2>
+                <h1 id="vlab">Vlab 第二代服务器集群</h1>
+<h2 id="_1">计算服务器</h2>
 <p>第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）。另有一台存储服务器。</p>
 <p>网络方面，这款服务器自带一个四口千兆网卡（系统内名称为 <code>eno1</code> 到 <code>eno4</code>），一个百兆口连接 HPE iLO 5（即 HPE 的 IPMI 远程管理卡）。另外每台服务器扩展了两个 10 Gbps 的光纤接口（分别为 <code>ens1f0</code> 和 <code>ens1f1</code>），通过一个光交换机在所有计算服务器和存储服务器的 iSCSI 端口实现一个内网互联。</p>
 <h2 id="_2">操作系统</h2>
