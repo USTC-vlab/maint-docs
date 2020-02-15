@@ -6,17 +6,12 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://ibugone.com/vlab/gen1/</loc>
+     <loc>https://ibugone.com/vlab/ssh-ca/</loc>
      <lastmod>2020-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://ibugone.com/vlab/gen2/</loc>
-     <lastmod>2020-02-15</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://ibugone.com/vlab/gen2/ssh-ca/</loc>
+     <loc>https://ibugone.com/vlab/history/gen1/</loc>
      <lastmod>2020-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
