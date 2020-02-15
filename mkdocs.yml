@@ -43,5 +43,7 @@ markdown_extensions:
 nav:
   - 概览: index.md
   - SSH 证书认证: ssh-ca.md
+  - 网络配置: networking.md
+
   - 旧版本:
     - 第一代: history/gen1.md
