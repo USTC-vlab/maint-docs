@@ -1,0 +1,51 @@
+site_name: "Vlab"
+site_description: "Vlab 维护文档"
+site_author: 'iBug'
+site_url: 'https://ibugone.com/vlab/'
+
+# Repository
+repo_name: 'iBug/vlab'
+repo_url: 'https://github.com/iBug/vlab'
+
+# Copyright
+copyright: 'Copyright &copy; 2019-2020 iBug'
+
+# Configuration
+theme:
+  name: 'material'
+  language: 'zh'
+  palette:
+    primary: 'teal'
+    accent: 'teal'
+
+# Customization
+extra:
+  social:
+    - type: 'globe'
+      link: 'https://vlab.ustc.edu.cn/'
+    - type: 'github'
+      link: 'https://github.com/USTC-vlab'
+
+extra_javascript:
+  - assets/js/extra.js
+
+theme:
+    name: 'material'
+    language: 'zh'
+
+markdown_extensions:
+    - admonition
+    - attr_list
+    - codehilite
+    - footnotes
+    - pymdownx.details
+    - pymdownx.superfences
+    - markdown.extensions.def_list
+
+nav:
+  - 主页: index.md
+  - 第一代服务器:
+    - 概览: gen1/index.md
+  - 第二代服务器:
+    - 概览: gen2/index.md
+    - SSH 证书认证: gen2/ssh-ca.md

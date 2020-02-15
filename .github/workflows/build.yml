@@ -1,0 +1,35 @@
+name: Build website
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.8.x
+    - name: Cache setup
+      id: cache-pip
+      uses: actions/cache@v1
+      with:
+        path: env
+        key: linux-venv-mkdocs-material-20200215
+    - name: Install dependencies
+      if: steps.cache-pip.outputs.cache-hit != 'true'
+      run: |
+        python3 -m venv env
+        env/bin/pip3 install mkdocs mkdocs-material
+    - name: Build site
+      run: |
+        env/bin/mkdocs build
+        : > site/.nojekyll
+    - name: Deploy to GitHub Pages
+      run: |
+        git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
+          "https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" test
+        mv test/.git site/.git && rmdir test/
+        pushd site/ &>/dev/null
+        git add -A
+        git -c user.name=GitHub -c user.email=noreply@github.com commit -m 'Auto deploy from GitHub Actions'
+        git push
+        popd &>/dev/null
