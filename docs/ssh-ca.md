@@ -1,6 +1,4 @@
----
-title: "SSH 证书认证"
----
+# SSH 证书认证
 
 关于 OpenSSH 的证书认证方式，可以参考 [iBug 的博客](https://ibugone.com/p/30)（英文）。
 
