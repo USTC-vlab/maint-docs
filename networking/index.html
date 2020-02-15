@@ -13,7 +13,7 @@
         <meta name="description" content="Vlab 维护文档">
       
       
-        <link rel="canonical" href="https://ibugone.com/vlab/ssh-ca/">
+        <link rel="canonical" href="https://ibugone.com/vlab/networking/">
       
       
         <meta name="author" content="iBug">
@@ -42,7 +42,7 @@
     
     
       
-        <title>SSH 证书认证 - Vlab</title>
+        <title>网络配置 - Vlab</title>
       
     
     
@@ -91,7 +91,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#ssh" tabindex="0" class="md-skip">
+      <a href="#_1" tabindex="0" class="md-skip">
         跳转至
       </a>
     
@@ -117,7 +117,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                SSH 证书认证
+                网络配置
               
             </span>
           
@@ -275,6 +275,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../ssh-ca/" title="SSH 证书认证" class="md-nav__link">
+      SSH 证书认证
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -285,22 +297,53 @@
       
     
     
-    <a href="./" title="SSH 证书认证" class="md-nav__link md-nav__link--active">
-      SSH 证书认证
-    </a>
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        网络配置
+      </label>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../networking/" title="网络配置" class="md-nav__link">
+    <a href="./" title="网络配置" class="md-nav__link md-nav__link--active">
       网络配置
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    校园网
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    光纤内网
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    容器内网
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -357,6 +400,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    校园网
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    光纤内网
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    容器内网
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -367,14 +440,27 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/iBug/vlab/edit/master/docs/ssh-ca.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/iBug/vlab/edit/master/docs/networking.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="ssh">SSH 证书认证</h1>
-<p>关于 OpenSSH 的证书认证方式，可以参考 <a href="https://ibugone.com/p/30">iBug 的博客</a>（英文）。</p>
-<p>CA 公钥：</p>
-<div class="codehilite"><pre><span></span><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6KdAJzKLswXyjf4SipNL1dlK1Vq0KNOit/MTDLiamkqvHJDiKceLYmN97y3Chdx8ofXwW6sRUBJRrjmYq6M0JZSGc8roUtUnSai1P5q1kZQ59x1IhsduTg4WENSteSB6vIvpyoSmcIhi3v9UHgUsl4MsnHxffxx5BiyW7UHPY3MzzkRZL96A4QXUOFd9P+NED3zHmEZ9B2Q66+s2ep2FmNralK4XwRaVxBO2r9san8vYU5pH2TzYZLYxNZ/AFX3bLV5M+AmZytaSNLcuIzZHyqbYawvD+Lee00VB9A3JcaqsjDUCtHZ5gQsZMmqw2r7gj9lDqM6Fw6A8y5rWNJP3Q+FOEEYvzGnQ/SnzU0MpMvGpYWrm/uCJ8pFdbYTYkxAJ+VO0lJ5mAIN664cX0DQ3OyGH/xmCNWGGCfGfmvWqwMwD6Kzo06xcqzsoqaMxwgBuVyICE+VvVCf3pcX4HERDrZY0TMjZxaTc8Ws2xQHJbqekv6nIjQWUgH7LIjkYvycQkxXE2dWfDy/c2SRiKWuxW9n8Hymmfp3lbBHzlCa/LtHeuPIzmBUHUoGya0feWFjrbGnKcPs3etNqpvyIGngMaecTAsbrf5v+J1M0VLCfwzwLt13/G1BCb+BK22vYzMTusrR+6A68Fm6OWSFlBYp31uVLxPg0nqtiW8bi1FbD0hQ==
-</code></pre></div>
+                <h1 id="_1">网络配置</h1>
+<p>与本代 Vlab 集群相关的网络有三个，下面分别介绍</p>
+<h2 id="_2">校园网</h2>
+<p>所有机器都在电三楼 524 机房，通过铜线直接接入电三楼的 VLAN，该 VLAN 有三个 IP 地址段 202.38.75.0/24, 202.38.79.0/24, 202.38.86.0/24。</p>
+<p>除 pv1 外所有机器的四个网口做一个 bond，然后将这个 bond 桥接，系统中显示的界面名称为 <code>vmbr0</code>。方便起见所有主机的校园网 IP 都从 202.38.75.0/24 网段中取，记录在域名 <code>pv#.vlab.ibugone.net</code> 中。</p>
+<p>pv1 的 eno3 和 eno4 分别接在存储服务器的两个控制器的管理端口上，不接入校园网，因此 pv1 只有 eno1 和 eno2 两个千兆网口做 bond。</p>
+<h2 id="_3">光纤内网</h2>
+<p>光纤界面为 <code>ens1f0</code> 和 <code>ens1f1</code>，只有服务器集群内部连通，由于每台计算服务器各自接入校园网，所以光纤内网只用于互联（包括连接 iSCSI），不用于转发。</p>
+<p>IP 分配情况：10.0.0.11 - 10.0.0.18 为各主机的 ens1f0 端口，10.0.0.21 - 10.0.0.28 为 <code>ens1f1</code> 界面，10.0.0.1 分配给 pv1 备用，10.0.0.2 和 10.0.0.3 为存储服务器的管理端口，为避免冲突不分配。</p>
+<h2 id="_4">容器内网</h2>
+<p>容器之间的连接基于 overlay 网络，overlay 实现采用 VXLAN，因此 MTU 为 1450（这个地方有坑）。IP 地址段为 172.31.0.0/16，目前使用情况：</p>
+<ul>
+<li>172.31.0.1 为内网网关，运行在 CT100 上，该容器同时连接校园网，IP 为 202.38.75.252，提供所有学生机的校园网访问</li>
+<li>172.31.0.2 为 web 服务器的内网 IP，web 容器为 CT101，校园网界面为 202.38.75.226，也是域名 <code>vlab.ustc.edu.cn</code> 指向的地址</li>
+<li>172.31.0.0/24 保留，用于实验以及主机接入</li>
+<li>172.31.0.0 和 172.31.255.255 根据 IP 协议不是单播地址，无法使用</li>
+<li>172.31.1.0 - 172.31.255.254 分配给学生机使用</li>
+</ul>
                 
                   
                 
@@ -396,7 +482,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="概览" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../ssh-ca/" title="SSH 证书认证" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -405,19 +491,19 @@
                 <span class="md-footer-nav__direction">
                   上一页
                 </span>
-                概览
+                SSH 证书认证
               </span>
             </div>
           </a>
         
         
-          <a href="../networking/" title="网络配置" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../history/gen1/" title="第一代" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   下一页
                 </span>
-                网络配置
+                第一代
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
