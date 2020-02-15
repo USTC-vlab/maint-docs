@@ -1,345 +1,444 @@
+
+
+
+
 <!doctype html>
-<!--
-  Minimal Mistakes Jekyll Theme 4.17.2 by Michael Rose
-  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
-  Free for personal and commercial use under the MIT license
-  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
--->
 <html lang="zh" class="no-js">
   <head>
-    <meta charset="utf-8">
-
-<!-- begin _includes/seo.html --><title>Vlab 第二代服务器 - Vlab 维护文档</title>
-<meta name="description" content="第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）。另有一台存储服务器。">
-
-
-  <meta name="author" content="Your Name">
-
-
-<meta property="og:type" content="article">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:site_name" content="Vlab 维护文档">
-<meta property="og:title" content="Vlab 第二代服务器">
-<meta property="og:url" content="https://ibugone.com/vlab/gen2/">
-
-
-  <meta property="og:description" content="第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）。另有一台存储服务器。">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2019-12-07T22:11:48+00:00">
-
-
-
-  <meta property="article:modified_time" content="2019-12-07T22:16:11+00:00">
-
-
-
-  
-
-  
-
-
-<link rel="canonical" href="https://ibugone.com/vlab/gen2/">
-
-
-
-
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
     
-      "@type": "Person",
-      "name": "Vlab",
-      "url": "https://ibugone.com/vlab/"
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Vlab 维护文档">
+      
+      
+        <link rel="canonical" href="https://ibugone.com/vlab/gen2/">
+      
+      
+        <meta name="author" content="iBug">
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="ja">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
     
-  }
-</script>
-
-
-
-
-
-
-<!-- end _includes/seo.html -->
-
-
-<link href="/vlab/feed.xml" type="application/atom+xml" rel="alternate" title="Vlab 维护文档 Feed">
-
-<!-- https://t.co/dKP3o1e -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script>
-  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
-</script>
-
-<!-- For all browsers -->
-<link rel="stylesheet" href="/vlab/assets/css/main.css">
-
-<!--[if IE]>
-  <style>
-    /* old IE unsupported flexbox fixes */
-    .greedy-nav .site-title {
-      padding-right: 3em;
-    }
-    .greedy-nav button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-    }
-  </style>
-<![endif]-->
-
-
-
-    <!-- start custom head snippets -->
-
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
-
-<!-- end custom head snippets -->
-
+    
+      
+        <title>Vlab 第二代服务器</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.adb8469c.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
   </head>
-
-  <body class="layout--single">
-    <nav class="skip-links">
-  <h2 class="screen-reader-text">Skip links</h2>
-  <ul>
-    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
-    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
-    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
-  </ul>
-</nav>
-
-    <!--[if lt IE 9]>
-<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
-<![endif]-->
-
-    
-
-<div class="masthead">
-  <div class="masthead__inner-wrap">
-    <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
         
-        <a class="site-title" href="/vlab/">
-          Vlab
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://ibugone.com/vlab/" title="Vlab" aria-label="Vlab" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
           
         </a>
-        <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="https://vlab.ustc.edu.cn/" >主页</a>
-            </li></ul>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Vlab
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Vlab 第二代服务器
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
         
-        <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">Toggle menu</span>
-          <div class="navicon"></div>
-        </button>
-        <ul class="hidden-links hidden"></ul>
-      </nav>
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-
-    <div class="initial-content">
+        
+      </div>
       
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
 
 
-
-<div id="main" role="main">
   
-  <div class="sidebar sticky">
+
+<a href="https://github.com/iBug/vlab/" title="前往 Github 仓库" class="md-source" data-md-source="github">
   
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
   
+  <div class="md-source__repository">
+    iBug/vlab
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
     
+    <div class="md-container">
+      
+        
       
       
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://ibugone.com/vlab/" title="Vlab" class="md-nav__button md-logo">
       
+        <i class="md-icon"></i>
       
-    
-    
-      
-
-<nav class="nav__list">
+    </a>
+    Vlab
+  </label>
   
-  <input id="ac-toc" name="accordion-toc" type="checkbox" />
-  <label for="ac-toc">Toggle Menu</label>
-  <ul class="nav__items">
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/iBug/vlab/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    iBug/vlab
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
     
-      <li>
-        
-          <span class="nav__sub-title">第一代服务器</span>
-        
+      
+      
+      
 
-        
-        <ul>
-          
-            
-            
 
-            
-            
+  <li class="md-nav__item">
+    <a href=".." title="主页" class="md-nav__link">
+      主页
+    </a>
+  </li>
 
-            <li><a href="/vlab/gen1/" class="">概览</a></li>
-          
-        </ul>
-        
-      </li>
     
-      <li>
-        
-          <span class="nav__sub-title">第二代服务器</span>
-        
+      
+      
+      
 
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      第一代服务器
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        第一代服务器
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
         
-        <ul>
+        
           
-            
-            
-
-            
-            
-
-            <li><a href="/vlab/gen2/" class="active">概览</a></li>
           
-            
-            
-
-            
-            
-
-            <li><a href="/vlab/gen2/ssh-ca" class="">SSH 证书认证</a></li>
           
-        </ul>
+
+
+  <li class="md-nav__item">
+    <a href="../gen1/" title="概览" class="md-nav__link">
+      概览
+    </a>
+  </li>
+
         
-      </li>
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      第二代服务器
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        第二代服务器
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+    <a href="./" title="概览" class="md-nav__link md-nav__link--active">
+      概览
+    </a>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="ssh-ca/" title="SSH 证书认证" class="md-nav__link">
+      SSH 证书认证
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
     
   </ul>
 </nav>
-    
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/iBug/vlab/edit/master/docs/gen2/index.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>概览</h1>
+                
+                <p>第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）。另有一台存储服务器。</p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
   
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../gen1/" title="概览" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                概览
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="ssh-ca/" title="SSH 证书认证" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                SSH 证书认证
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019-2020 iBug
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://vlab.ustc.edu.cn/" target="_blank" rel="noopener" title="globe" class="md-footer-social__link fa fa-globe"></a>
+    
+      <a href="https://github.com/USTC-vlab" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
   </div>
 
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Vlab 第二代服务器">
-    <meta itemprop="description" content="第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）。另有一台存储服务器。">
-    <meta itemprop="datePublished" content="December 07, 2019">
-    <meta itemprop="dateModified" content="December 07, 2019">
-
-    <div class="page__inner-wrap">
+    </div>
+  </div>
+</footer>
       
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Vlab 第二代服务器
-</h1>
+    </div>
+    
+      <script src="../assets/javascripts/application.c33a9706.js"></script>
+      
+        
+        
           
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        
-          <aside class="sidebar__right sticky">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
               
-            </nav>
-          </aside>
-        
-        <p>第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）。另有一台存储服务器。</p>
-
-        
-      </section>
-
-      <footer class="page__meta">
-        
-        
-
-
-        
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-12-07">December 07, 2019</time></p>
-        
-      </footer>
-
-      
-
-      
-  <nav class="pagination">
-    
-      <a href="#" class="pagination--pager disabled">Previous</a>
-    
-    
-      <a href="/vlab/gen2/ssh-ca/" class="pagination--pager" title="SSH 证书认证
-">Next</a>
-    
-  </nav>
-
-    </div>
-
-    
-  </article>
-
-  
-  
-</div>
-
-    </div>
-
-    
-
-    <div id="footer" class="page__footer">
-      <footer>
-        <!-- start custom footer snippets -->
-
-<!-- end custom footer snippets -->
-        <div class="page__footer-follow">
-  <ul class="social-icons">
-    
-
-    
-      
-        
-          <li><a href="https://vlab.ustc.edu.cn/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-globe-americas" aria-hidden="true"></i> Website</a></li>
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.ja.js"></script>
+              
+            
+          
+          
         
       
-        
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
+        <script src="../assets/js/extra.js"></script>
       
     
-
-    <li><a href="/vlab/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
-  </ul>
-</div>
-
-<div class="page__footer-copyright">&copy; 2020 Vlab. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
-
-      </footer>
-    </div>
-
-    
-  <script src="/vlab/assets/js/main.min.js"></script>
-  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
-
-
-
-
-
-
-
-
-
-
   </body>
 </html>
