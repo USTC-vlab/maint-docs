@@ -91,7 +91,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#vlab" tabindex="0" class="md-skip">
+      <a href="#_1" tabindex="0" class="md-skip">
         跳转至
       </a>
     
@@ -117,7 +117,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                概览
+                首页
               
             </span>
           
@@ -183,43 +183,6 @@
         
       
       
-        
-
-<nav class="md-tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href="." class="md-tabs__link md-tabs__link--active">
-        概览
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="history/gen1/" class="md-tabs__link">
-          旧版本
-        </a>
-      
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-      
       <main class="md-main" role="main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -273,53 +236,22 @@
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        概览
-      </label>
-    
-    <a href="." title="概览" class="md-nav__link md-nav__link--active">
-      概览
+    <a href="." title="首页" class="md-nav__link md-nav__link--active">
+      首页
     </a>
     
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
+  </li>
+
     
-  
-  
-    <label class="md-nav__title" for="__toc">目录</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    计算服务器
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    操作系统
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    存储服务器
-  </a>
-  
-</li>
       
       
       
-      
-      
-    </ul>
-  
-</nav>
-    
+
+
+  <li class="md-nav__item">
+    <a href="overview/" title="概览" class="md-nav__link">
+      概览
+    </a>
   </li>
 
     
@@ -354,14 +286,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
-    <label class="md-nav__link" for="nav-4">
-      旧版本
+    <label class="md-nav__link" for="nav-5">
+      历史版本
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        旧版本
+      <label class="md-nav__title" for="nav-5">
+        历史版本
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -400,36 +332,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">目录</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    计算服务器
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    操作系统
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    存储服务器
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -443,14 +345,13 @@
                   <a href="https://github.com/iBug/vlab/edit/master/docs/index.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="vlab">Vlab 第二代服务器集群</h1>
-<h2 id="_1">计算服务器</h2>
-<p>第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）。另有一台存储服务器。</p>
-<p>网络方面，这款服务器自带一个四口千兆网卡（系统内名称为 <code>eno1</code> 到 <code>eno4</code>），一个百兆口连接 HPE iLO 5（即 HPE 的 IPMI 远程管理卡）。另外每台服务器扩展了两个 10 Gbps 的光纤接口（分别为 <code>ens1f0</code> 和 <code>ens1f1</code>），通过一个光交换机在所有计算服务器和存储服务器的 iSCSI 端口实现一个内网互联。</p>
-<h2 id="_2">操作系统</h2>
-<p>这批服务器全部安装 <a href="https://pve.proxmox.com/">Proxmox VE</a> 6.x 的系统，基于 Debian 10。</p>
-<h2 id="_3">存储服务器</h2>
-<p>存储为 HPE 的专用存储服务器，有 24 个 2.5 寸 SAS 盘位和两个 iSCSI 控制器。购买时带有 18 块 1.2 TB 的硬盘，后来邢凯老师提供了一个额外的硬盘笼，扩展了 24 个盘位，正好放下 8 台计算服务器各自带的 3 块机械硬盘。</p>
+                <h1 id="_1">远程教学云桌面平台<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">注意</p>
+<p>本文档平台的维护文档，内容仅对维护工作有用，用户请看<a href="https://vlab.ustc.edu.cn/docs/">用户文档</a>。</p>
+<p>本文档不是教学文档，维护者应当具备一定的 Linux 服务器操作经验。如对内容理解有问题，请自行 <a href="https://www.google.com/">Google</a>。<br />
+Linux 入门可以参考校 Linux 用户协会的 <a href="https://101.ustclug.org/">Linux 101 课程讲义</a>或其他<a href="https://www.runoob.com/linux/linux-tutorial.html">在线教程</a>。</p>
+</div>
                 
                   
                 
@@ -473,13 +374,13 @@
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="ssh-ca/" title="SSH 证书认证" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="overview/" title="概览" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   下一页
                 </span>
-                SSH 证书认证
+                概览
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -495,7 +396,7 @@
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2019-2020 iBug
+            Copyright &copy; 2019-2020 iBug, USTCLUG and USTC Vlab
           </div>
         
         powered by

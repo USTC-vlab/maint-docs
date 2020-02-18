@@ -183,45 +183,6 @@
         
       
       
-        
-
-  
-
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href="../.." class="md-tabs__link">
-        概览
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="./" class="md-tabs__link md-tabs__link--active">
-          旧版本
-        </a>
-      
-    </li>
-  
-
-      
-    </ul>
-  </div>
-</nav>
-      
       <main class="md-main" role="main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -267,7 +228,19 @@
 
 
   <li class="md-nav__item">
-    <a href="../.." title="概览" class="md-nav__link">
+    <a href="../.." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../overview/" title="概览" class="md-nav__link">
       概览
     </a>
   </li>
@@ -306,14 +279,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
-    <label class="md-nav__link" for="nav-4">
-      旧版本
+    <label class="md-nav__link" for="nav-5">
+      历史版本
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        旧版本
+      <label class="md-nav__title" for="nav-5">
+        历史版本
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -447,14 +420,14 @@
                   <a href="https://github.com/iBug/vlab/edit/master/docs/history/gen1.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="vlab">Vlab 第一代服务器</h1>
+                <h1 id="vlab">Vlab 第一代服务器<a class="headerlink" href="#vlab" title="Permanent link">&para;</a></h1>
 <p>第一代 Vlab 远程虚拟桌面平台在 2019 年 6 月由一位学长初步配置好，经过 @iBug 和 @taoky 等人进一步调整并编写前端管理系统后，于 2019 年秋季学期开始小范围测试（正式上线）。</p>
-<h2 id="_1">硬件</h2>
+<h2 id="_1">硬件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>第一代 Vlab 服务器包含双路 Intel Xeon E5-2630 v4 处理器（共 20 核心、40 线程），安装内存 128 GB（8 x 16 GB DDR4 2400 ECC）。硬盘配置为一块 Intel Optane 905P 480GB（系统盘，swap 和缓存）和四块 HPE 2.4TB SAS 硬盘。</p>
 <p>另外该服务器上还有一块 NVIDIA Tesla T4 GPU，原本计划用于加速深度学习等负载，实际上由于承担的课程实验任务类型不同，并未派上用场。</p>
-<h2 id="_2">操作系统</h2>
+<h2 id="_2">操作系统<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>搭建这台服务器的学长选择了 Ubuntu 18.04 LTS，但是将内核替换为 3.10.0-514.61.1.el7.x86_64（来自 RHEL 7.3 EUS），原因是 NVIDIA 的驱动（内核模块）需要编译，而且对内核版本非常敏感，为了保证这个难整的驱动能正常使用，不方便将内核交由 apt 管理升级。</p>
-<h2 id="_3">虚拟化</h2>
+<h2 id="_3">虚拟化<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>采用 <a href="https://linuxcontainers.org/">LXD</a> 容器，运行一个定制的镜像（Ubuntu Minimal 安装了 Xfce 和 Xilinx Vivado），为 2019 年秋季学期的《数字电路实验》课程提供服务。</p>
                 
                   
@@ -500,7 +473,7 @@
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2019-2020 iBug
+            Copyright &copy; 2019-2020 iBug, USTCLUG and USTC Vlab
           </div>
         
         powered by
