@@ -2,13 +2,13 @@
 
 ## 计算服务器 {#compute-server}
 
-第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap 和缓存）和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）。另有一台存储服务器。
+第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap，缓存和少量固定存储，如容器镜像）和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）。另有一台存储服务器。
 
 网络方面，这款服务器自带一个四口千兆网卡（系统内名称为 `eno1` 到 `eno4`），一个百兆口连接 HPE iLO 5（即 HPE 的 IPMI 远程管理卡）。另外每台服务器扩展了两个 10 Gbps 的光纤接口（分别为 `ens1f0` 和 `ens1f1`），通过一个光交换机在所有计算服务器和存储服务器的 iSCSI 端口实现一个内网互联。
 
 ## 操作系统 {#operating-system}
 
-这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 6.x 的系统，基于 Debian 10。
+这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 6.x 的系统，基于 Debian 10。本平台使用 Proxmox VE 管理容器，不使用 KVM 虚拟机。
 
 ## 存储服务器 {#storage-server}
 
@@ -24,4 +24,4 @@
 - 八台计算服务器，主机名为 pv1, pv2 到 pv8，标签为 ==VLAB 1== 到 ==VLAB 8==
 - 机房的网线接口
 
-机柜背后最上方是华为的光交换机，参见[网络配置](../networking)。
+机柜背后最上方是华为的光交换机，参见[网络配置](../networking/)。
