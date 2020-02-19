@@ -490,7 +490,7 @@
 <p>pv1 的 eno3 和 eno4 分别接在存储服务器的两个控制器的管理端口上，不接入校园网，因此 pv1 只有 eno1 和 eno2 两个千兆网口做 bond。</p>
 <h2 id="fibre-intranet">光纤内网<a class="headerlink" href="#fibre-intranet" title="Permanent link">&para;</a></h2>
 <p>光纤界面为 <code>ens1f0</code> 和 <code>ens1f1</code>，通过一个华为光交换机互联，因此只有服务器集群内部连通，由于每台计算服务器各自接入校园网，所以光纤内网只用于互联（包括连接 iSCSI），不用于转发。</p>
-<p>IP 分配情况：10.0.0.11 - 10.0.0.18 为各主机的 ens1f0 端口，10.0.0.21 - 10.0.0.28 为 <code>ens1f1</code> 界面，10.0.0.1 分配给 pv1 备用，10.0.0.2 和 10.0.0.3 为存储服务器的管理端口，为避免冲突不分配。</p>
+<p>IP 分配情况：10.0.0.11 - 10.0.0.18 为各主机的 ens1f0 界面，10.0.0.21 - 10.0.0.28 为 ens1f1 界面，10.0.0.1 分配给 pv1 备用，10.0.0.2 和 10.0.0.3 为存储服务器的管理端口，为避免冲突不分配。</p>
 <p>运行在这个网络上的设施有 iSCSI 和 NFS（用于共享容器镜像，LVM 带锁不能直接多机同时挂载）。</p>
 <h2 id="overlay-intranet">容器内网<a class="headerlink" href="#overlay-intranet" title="Permanent link">&para;</a></h2>
 <p>容器之间的连接基于 overlay 网络，overlay 实现采用 VXLAN，因此 MTU 为 1450（这个地方有坑）。IP 地址段为 172.31.0.0/16，目前使用情况：</p>
