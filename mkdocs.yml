@@ -51,6 +51,8 @@ nav:
     - 网络界面: networking/index.md
     - 容器内网: networking/intranet.md
     - 防火墙与安全: networking/firewall.md
+  - 工作流程:
+    - 配置新主机: workflow/new-host.md
 
   - 历史版本:
     - 第一代: history/gen1.md
