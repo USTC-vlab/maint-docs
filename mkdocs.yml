@@ -53,6 +53,7 @@ nav:
     - 防火墙与安全: networking/firewall.md
   - 工作流程:
     - 配置新主机: workflow/new-host.md
+    - 打包容器镜像: workflow/pack-image.md
 
   - 历史版本:
     - 第一代: history/gen1.md

@@ -22,3 +22,13 @@ PermitRootLogin prohibit-password
 
 PasswordAuthentication no
 ```
+
+## 用户 CA
+
+由于 Proxmox VE 没有提供直接在容器内执行命令的 API，因此我们通过内嵌 SSH CA 的方式自己造个轮子。
+
+出于管理的考虑，用户 CA 和主机 CA 独立。公钥：
+
+```text
+ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3ZHisQY0iMpUNDQNaxcnRSqDbauE8ih6/MrEENJZa7FHKINOPi+bunK1wEXPqlKfu8INEBWCf95+t86z+jXVxmQE176xenS92wiLvR4MZyCBfD5DXAB0mK5iV1eQug5P/cD8Pohr/3wywFbKgKzsix9unky9sJGr86RunSwJbAkMGlw==
+```
