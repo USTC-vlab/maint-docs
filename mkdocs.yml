@@ -31,6 +31,10 @@ extra:
 extra_javascript:
   - assets/js/extra.js
 
+extra_css:
+  # Borrow CSS from Linux 101
+  - 'https://101.ustclug.org/css/extra.css'
+
 markdown_extensions:
   - admonition
   - attr_list
