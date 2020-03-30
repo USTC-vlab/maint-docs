@@ -2,7 +2,7 @@
 
 所有 8 台 Proxmox VE 主机及两个特殊容器（CT100 gateway 和 CT101 web）的 SSH 登录均使用证书。
 
-关于 OpenSSH 的证书认证方式，可以参考 [iBug 的博客](https://ibugone.com/p/30)（英文）以及校 Linux 用户协会的[服务器维护文档](https://docs.ustclug.org/infrastructure/sshca/sshca/)。
+关于 OpenSSH 的证书认证方式，可以参考 [iBug 的博客](https://ibugone.com/p/30)（英文）以及校 Linux 用户协会的[服务器维护文档](https://docs.ustclug.org/infrastructure/sshca/)。
 
 CA 公钥：
 
@@ -16,7 +16,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6KdAJzKLswXyjf4SipNL1dlK1Vq0KNOit/MTDLiam
 HostKey /etc/ssh/ssh_host_rsa_key
 HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
 
-AuthorizedKeysFile /dev/null  # 屏蔽公钥认证
+AuthorizedKeysFile /dev/null  # 屏蔽不带证书的公钥认证
 
 PermitRootLogin prohibit-password
 
