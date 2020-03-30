@@ -69,6 +69,8 @@
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
     
+      <link rel="stylesheet" href="https://101.ustclug.org/css/extra.css">
+    
     
       
     
@@ -353,9 +355,59 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        配置新主机
+      </label>
+    
     <a href="./" title="配置新主机" class="md-nav__link md-nav__link--active">
       配置新主机
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    远程访问
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    软件源
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    安装软件（可选）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    配置防火墙
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -430,6 +482,43 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    远程访问
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    软件源
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    安装软件（可选）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    配置防火墙
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -444,9 +533,104 @@
                 
                 
                 <h1 id="_1">配置新主机并加入集群<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>使用 U 盘安装好 Proxmox VE，主机名为 <code>pv#</code>，其中 <code>#</code> 为数字，手动递增。</p>
-<p>先配好 SSH 访问，对 SSH Host Key 签名，并加入 TrustedUserCAKeys。</p>
-<p>TBA...</p>
+<p>使用 U 盘安装好 Proxmox VE，主机名为 <code>pv#.vlab.ustc.edu.cn</code>（Proxmox 安装程序要求，装好后可以改），其中 <code>#</code> 为数字，手动递增。</p>
+<h2 id="_2">远程访问<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>先配好 SSH 访问，对 SSH Host Key 签名，并加入 TrustedUserCAKeys。见 <a href="../../ssh-ca/">SSH 证书认证</a> 一页。</p>
+<p><strong>在加入现有的 Proxmox VE 集群后</strong>删除 root 密码（<code>passwd -d root</code>）。</p>
+<h2 id="_3">软件源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>修改 <code>/etc/apt/sources.list</code>，将软件源替换为 TUNA：</p>
+<div class="codehilite"><pre><span></span><code><span class="k">deb</span> <span class="s">https://mirrors6.tuna.tsinghua.edu.cn/debian</span> <span class="kp">buster</span> <span class="kp">main</span> <span class="kp">contrib</span>
+<span class="k">deb</span> <span class="s">https://mirrors6.tuna.tsinghua.edu.cn/debian</span> <span class="kp">buster-updates</span> <span class="kp">main</span> <span class="kp">contrib</span>
+<span class="k">deb</span> <span class="s">https://mirrors6.tuna.tsinghua.edu.cn/debian-security</span> <span class="kp">buster/updates</span> <span class="kp">main</span> <span class="kp">contrib</span>
+</code></pre></div>
+
+<p>删除 <code>/etc/apt/sources.list.d/pve-enterprise.list</code>，新建 <code>/etc/apt/sources.list.d/pve.list</code>，写入以下内容：</p>
+<div class="codehilite"><pre><span></span><code><span class="k">deb</span> <span class="s">https://mirrors6.tuna.tsinghua.edu.cn/proxmox/debian</span> <span class="kp">buster</span> <span class="kp">pve-no-subscription</span>
+</code></pre></div>
+
+<p>刷新软件源并安装更新。</p>
+<h2 id="_4">安装软件（可选）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>从 APT 安装一些软件以便管理和调试。请尽可能保持主机系统简洁。</p>
+<ul>
+<li>Vim 宇宙第一文本编辑器</li>
+<li>Htop 任务管理器</li>
+<li>iptables-persistent 用于保存 iptables 配置</li>
+<li>ipmitool 用于维护 IPMI，<strong>使用最简安装（即 <code>--no-install-recommendeds</code>）</strong></li>
+</ul>
+<h2 id="_5">配置防火墙<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>需要安装 <code>iptables-persistent</code> 软件包。将以下内容保存为 <code>iptables.sh</code> 并运行：</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+
+<span class="nb">set</span> +ex
+
+<span class="c1">##### IPv4 #####</span>
+<span class="c1">#iptables -F</span>
+<span class="c1">#iptables -X</span>
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> iptables -F VLAB
+
+<span class="c1">##### Rules #####</span>
+iptables -A VLAB -i lo -j ACCEPT
+iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A VLAB -p icmp -j ACCEPT
+iptables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
+iptables -A VLAB -j DROP
+iptables -Z VLAB
+iptables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+iptables -I INPUT -i ens1f1 -j ACCEPT
+iptables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+iptables -I INPUT -i ens1f0 -j ACCEPT
+iptables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+iptables -I INPUT -i vmbr0 -j VLAB
+iptables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+iptables -I INPUT -i vmbr1 -j VLAB
+
+iptables -F FORWARD
+iptables -A FORWARD -i vmbr0 -j DROP
+iptables -A FORWARD -i vmbr1 -j DROP
+
+iptables -t nat -F
+iptables -t nat -X
+iptables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
+iptables -t nat -Z
+iptables-save &gt; /etc/iptables/rules.v4
+
+<span class="c1">##### IPv6 #####</span>
+<span class="c1">#ip6tables -F</span>
+<span class="c1">#ip6tables -X</span>
+ip6tables -P INPUT ACCEPT
+ip6tables -P FORWARD ACCEPT
+ip6tables -P OUTPUT ACCEPT
+ip6tables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> ip6tables -F VLAB
+
+<span class="c1">##### Rules #####</span>
+ip6tables -A VLAB -i lo -j ACCEPT
+ip6tables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+ip6tables -A VLAB -p ipv6-icmp -j ACCEPT
+ip6tables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
+ip6tables -A VLAB -j DROP
+ip6tables -Z VLAB
+ip6tables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+ip6tables -I INPUT -i ens1f1 -j ACCEPT
+ip6tables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+ip6tables -I INPUT -i ens1f0 -j ACCEPT
+ip6tables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+ip6tables -I INPUT -i vmbr0 -j VLAB
+ip6tables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+ip6tables -I INPUT -i vmbr1 -j VLAB
+
+ip6tables -F FORWARD
+ip6tables -A FORWARD -i vmbr0 -j DROP
+ip6tables -A FORWARD -i vmbr1 -j DROP
+
+ip6tables -t nat -F
+ip6tables -t nat -X
+ip6tables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
+ip6tables -t nat -Z
+ip6tables-save &gt; /etc/iptables/rules.v6
+</code></pre></div>
                 
                   
                 
