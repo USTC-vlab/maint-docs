@@ -24,6 +24,7 @@ jobs:
         env/bin/mkdocs build
         : > site/.nojekyll
         echo -n 'vlab.ibugone.com' > site/CNAME
+        printf 'User-Agent: *\nDisallow: /\n' > site/robots.txt
     - name: Deploy to GitHub Pages
       run: |
         git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
