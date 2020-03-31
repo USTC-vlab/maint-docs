@@ -372,16 +372,105 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     
     <label class="md-nav__link" for="nav-6">
-      历史版本
+      其他资料
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
+        其他资料
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        踩坑记录
+      </label>
+    
+    <a href="./" title="踩坑记录" class="md-nav__link md-nav__link--active">
+      踩坑记录
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#proxmox-ve" class="md-nav__link">
+    Proxmox VE
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    在向集群添加节点时，需要保证集群中已有的节点全部开启并正常连接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      历史版本
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
         历史版本
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -434,7 +523,7 @@
         
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    在向集群添加节点时，需要保证集群中已有的节点全部开启。
+    在向集群添加节点时，需要保证集群中已有的节点全部开启并正常连接
   </a>
   
 </li>
@@ -465,21 +554,21 @@
                 
                 <h1 id="_1">踩坑记录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="proxmox-ve">Proxmox VE<a class="headerlink" href="#proxmox-ve" title="Permanent link">&para;</a></h2>
-<h3 id="_2">在向集群添加节点时，需要保证集群中已有的节点全部开启。<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="_2">在向集群添加节点时，需要保证集群中已有的节点全部开启并正常连接<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>否则，未开启的节点由于没有收到更新通知，可能在加入集群时出现错误。</p>
 <p>在出现错误的节点上的症状：</p>
 <ul>
-<li><code>pvesr.service</code> 无法运行。错误中包含 "error with cfs lock 'file-replication_cfg': no quorum!"</li>
+<li><code>pvesr.service</code> 无法运行，错误信息包含 "error with cfs lock 'file-replication_cfg': no quorum!"</li>
 <li><code>pvecm status</code> 显示 "Cannot initialize CMAP service"</li>
-<li><code>corosync.service</code> 未在运行。</li>
+<li><code>corosync.service</code> 未在运行</li>
 </ul>
 <p>解决方法：</p>
 <ol>
-<li>关闭 <code>pve-cluster.service</code>。</li>
-<li>执行 <code>pmxcfs -l</code>，将集群文件系统以 "local mode" 启动。</li>
-<li>从正常运行的节点上复制 <code>/etc/pve/corosync.conf</code>，覆盖错误节点的相应文件。</li>
-<li><code>killall pmxcfs</code>。</li>
-<li>重启 <code>pve-cluster.service</code>。</li>
+<li>关闭 <code>pve-cluster.service</code></li>
+<li>执行 <code>pmxcfs -l</code>，将集群文件系统以 local mode 启动</li>
+<li>从正常运行的节点上复制 <code>/etc/pve/corosync.conf</code>，覆盖错误节点的相应文件</li>
+<li><code>killall pmxcfs</code></li>
+<li>重启 <code>pve-cluster.service</code> 和 <code>corosync.service</code></li>
 </ol>
                 
                   
@@ -498,6 +587,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../workflow/pack-image/" title="打包容器镜像" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                打包容器镜像
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../history/gen1/" title="第一代" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                第一代
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
