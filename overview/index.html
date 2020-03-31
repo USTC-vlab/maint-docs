@@ -363,6 +363,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../networking/host/" title="主机网卡" class="md-nav__link">
+      主机网卡
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../networking/intranet/" title="容器内网" class="md-nav__link">
       容器内网
     </a>
@@ -506,10 +518,34 @@
           
 
 
-  <li class="md-nav__item">
-    <a href="../records/" title="工作总结" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7-2" type="checkbox" id="nav-7-2">
+    
+    <label class="md-nav__link" for="nav-7-2">
       工作总结
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-2">
+        工作总结
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../records/2020-03-31/" title="2020 年 3 月 31 日" class="md-nav__link">
+      2020 年 3 月 31 日
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -630,21 +666,25 @@
                 
                 <h1 id="vlab">Vlab 第二代服务器集群<a class="headerlink" href="#vlab" title="Permanent link">&para;</a></h1>
 <h2 id="compute-server">计算服务器<a class="headerlink" href="#compute-server" title="Permanent link">&para;</a></h2>
-<p>第二代 Vlab 服务器共有 8 台，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），安装内存 160 GB（2 x 16 GB + 4 x 32 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap，缓存和少量固定存储，如容器镜像）和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）。另有一台存储服务器。</p>
+<p>第二代 Vlab 服务器共有 8 台，分别命名为 pv1 到 pv8。每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），预装内存 32 GB（2 x 16 GB DDR4 2400 ECC）。硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap，缓存和少量固定存储，如容器镜像）和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）。另有一台存储服务器。</p>
+<p>所有服务器的内存在购入时均升级至 160 GB（2 x 16 GB + 4 x 32 GB），其中 pv2 ~ pv8 的内存在 2020 年 3 月底再次升级至 224 GB（2 x 16 GB + 6 x 32 GB）。</p>
 <p>网络方面，这款服务器自带一个四口千兆网卡（系统内名称为 <code>eno1</code> 到 <code>eno4</code>），一个百兆口连接 HPE iLO 5（即 HPE 的 IPMI 远程管理卡）。另外每台服务器扩展了两个 10 Gbps 的光纤接口（分别为 <code>ens1f0</code> 和 <code>ens1f1</code>），通过一个光交换机在所有计算服务器和存储服务器的 iSCSI 端口实现一个内网互联。</p>
+<p><a href="../history/gen1/">第一代 Vlab</a> 的唯一一台服务器在重装后有限提供服务，命名为 pv0，因此集群共有 9 台计算服务器。与 2019 年秋季时相比，它多了 32 GB 的内存（NUMA 不均衡）和一块 Intel X520-DA2 光纤卡用于接入光纤网络。</p>
+<p>主机的 IPMI 地址为 10.38.79.100 至 10.38.79.108，最后一位数字和主机名一致。</p>
 <h2 id="operating-system">操作系统<a class="headerlink" href="#operating-system" title="Permanent link">&para;</a></h2>
 <p>这批服务器全部安装 <a href="https://pve.proxmox.com/">Proxmox VE</a> 6.x 的系统，基于 Debian 10。本平台使用 Proxmox VE 管理容器，不使用 KVM 虚拟机。</p>
 <h2 id="storage-server">存储服务器<a class="headerlink" href="#storage-server" title="Permanent link">&para;</a></h2>
 <p>存储服务器为 HPE MSA 1050，有 24 个 2.5 寸 SAS 盘位和两个 iSCSI 控制器。购买时带有 18 块 1.2 TB 的硬盘，后来邢凯老师提供了一个额外的硬盘笼，扩展了 24 个盘位，正好放下 8 台计算服务器各自带的 3 块机械硬盘。</p>
-<p>该存储服务器有两个控制器，每个控制器各有一个以太网口（用于管理界面）和一个光纤接口（10 Gbps，用于数据传输）。目前两个控制器的管理接口都直连在 pv1 上（eno3 和 eno4），地址分别为 10.0.0.2 (eno3) 和 10.0.0.3 (eno4)。</p>
+<p>该存储服务器有两个控制器，每个控制器各有一个以太网口（用于管理界面）和一个光纤接口（10 Gbps，用于数据传输）。目前两个控制器的管理接口都接入校园网，地址分别为 10.38.79.98 和 10.38.79.99。</p>
 <h2 id="location">机房<a class="headerlink" href="#location" title="Permanent link">&para;</a></h2>
-<p>机房在电三楼 524，所有设备都在同一个机柜中，上面贴有标签。从下往上分别为：</p>
+<p>机房在电三楼 524，除 pv0 以外的所有设备都在同一个机柜中，上面贴有标签。从下往上分别为：</p>
 <ul>
 <li>存储服务器的两个硬盘笼（标签 <mark>VLAB S0</mark> 和 <mark>VLAB S1</mark>）</li>
 <li>八台计算服务器，主机名为 pv1, pv2 到 pv8，标签为 <mark>VLAB 1</mark> 到 <mark>VLAB 8</mark></li>
 <li>机房的网线接口</li>
 </ul>
 <p>机柜背后最上方是华为的光交换机，参见<a href="../networking/">网络配置</a>。</p>
+<p>pv0 在上述机柜左侧紧挨的机柜最下方。</p>
 <h2 id="resources">其他资源<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <p>学校官方域名 <code>vlab.ustc.edu.cn</code> 属于本项目，指向 A 202.38.75.226 及 AAAA 2001:da8:d800:75::226。另有静态 IP 地址 202.38.75.252 用作学生机网关，没有域名。</p>
 <p>另有数个没有出校权限的静态 IP，意义有限，这里不一一列出。</p>

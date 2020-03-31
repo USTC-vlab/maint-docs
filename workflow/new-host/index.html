@@ -297,6 +297,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../networking/host/" title="主机网卡" class="md-nav__link">
+      主机网卡
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../networking/intranet/" title="容器内网" class="md-nav__link">
       容器内网
     </a>
@@ -396,7 +408,28 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    配置网卡
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     配置防火墙
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    挂载存储服务器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfs" class="md-nav__link">
+    挂载 NFS 镜像共享
   </a>
   
 </li>
@@ -501,10 +534,34 @@
           
 
 
-  <li class="md-nav__item">
-    <a href="../../records/" title="工作总结" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7-2" type="checkbox" id="nav-7-2">
+    
+    <label class="md-nav__link" for="nav-7-2">
       工作总结
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-2">
+        工作总结
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../records/2020-03-31/" title="2020 年 3 月 31 日" class="md-nav__link">
+      2020 年 3 月 31 日
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -592,7 +649,28 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    配置网卡
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     配置防火墙
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    挂载存储服务器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfs" class="md-nav__link">
+    挂载 NFS 镜像共享
   </a>
   
 </li>
@@ -641,80 +719,23 @@
 <li>iptables-persistent 用于保存 iptables 配置</li>
 <li>ipmitool 用于维护 IPMI，<strong>使用最简安装（即 <code>--no-install-recommendeds</code>）</strong></li>
 </ul>
-<h2 id="_5">配置防火墙<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>需要安装 <code>iptables-persistent</code> 软件包。将以下内容保存为 <code>iptables.sh</code> 并运行：</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/sh</span>
-
-<span class="nb">set</span> +ex
-
-<span class="c1">##### IPv4 #####</span>
-<span class="c1">#iptables -F</span>
-<span class="c1">#iptables -X</span>
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> iptables -F VLAB
-
-<span class="c1">##### Rules #####</span>
-iptables -A VLAB -i lo -j ACCEPT
-iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A VLAB -p icmp -j ACCEPT
-iptables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
-iptables -A VLAB -j DROP
-iptables -Z VLAB
-iptables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i ens1f1 -j ACCEPT
-iptables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i ens1f0 -j ACCEPT
-iptables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i vmbr0 -j VLAB
-iptables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i vmbr1 -j VLAB
-
-iptables -F FORWARD
-iptables -A FORWARD -i vmbr0 -j DROP
-iptables -A FORWARD -i vmbr1 -j DROP
-
-iptables -t nat -F
-iptables -t nat -X
-iptables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
-iptables -t nat -Z
-iptables-save &gt; /etc/iptables/rules.v4
-
-<span class="c1">##### IPv6 #####</span>
-<span class="c1">#ip6tables -F</span>
-<span class="c1">#ip6tables -X</span>
-ip6tables -P INPUT ACCEPT
-ip6tables -P FORWARD ACCEPT
-ip6tables -P OUTPUT ACCEPT
-ip6tables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> ip6tables -F VLAB
-
-<span class="c1">##### Rules #####</span>
-ip6tables -A VLAB -i lo -j ACCEPT
-ip6tables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-ip6tables -A VLAB -p ipv6-icmp -j ACCEPT
-ip6tables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
-ip6tables -A VLAB -j DROP
-ip6tables -Z VLAB
-ip6tables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i ens1f1 -j ACCEPT
-ip6tables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i ens1f0 -j ACCEPT
-ip6tables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i vmbr0 -j VLAB
-ip6tables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i vmbr1 -j VLAB
-
-ip6tables -F FORWARD
-ip6tables -A FORWARD -i vmbr0 -j DROP
-ip6tables -A FORWARD -i vmbr1 -j DROP
-
-ip6tables -t nat -F
-ip6tables -t nat -X
-ip6tables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
-ip6tables -t nat -Z
-ip6tables-save &gt; /etc/iptables/rules.v6
+<h2 id="_5">配置网卡<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>参见<a href="../../networking/host/">主机网卡</a>一页。</p>
+<h2 id="_6">配置防火墙<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>需要安装 <code>iptables-persistent</code> 软件包。将<a href="../../networking/firewall/">防火墙</a>一页给出的脚本保存为 <code>iptables.sh</code> 并运行。</p>
+<h2 id="_7">挂载存储服务器<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>使用 iSCSI 命令行管理工具</p>
+<div class="codehilite"><pre><span></span><code>iscsiadm -m discover
+iscsiadm -d2 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span class="m">10</span>.0.0.200 --login
 </code></pre></div>
+
+<p>存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。</p>
+<h2 id="nfs">挂载 NFS 镜像共享<a class="headerlink" href="#nfs" title="Permanent link">&para;</a></h2>
+<p>挂载 NFS 共享所用的 <code>/etc/fstab</code> 条目：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">10.0.0.1:/var/lib/vz /mnt/container-template nfs rw,async,hard,intr,noexec 0 0</span>
+</code></pre></div>
+
+<p>注意先在 pv1 上编辑 <code>/etc/exports</code> 并运行 <code>exportfs -a</code> 刷新挂载权限。</p>
                 
                   
                 

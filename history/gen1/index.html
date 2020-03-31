@@ -297,6 +297,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../networking/host/" title="主机网卡" class="md-nav__link">
+      主机网卡
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../networking/intranet/" title="容器内网" class="md-nav__link">
       容器内网
     </a>
@@ -440,10 +452,34 @@
           
 
 
-  <li class="md-nav__item">
-    <a href="../../records/" title="工作总结" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7-2" type="checkbox" id="nav-7-2">
+    
+    <label class="md-nav__link" for="nav-7-2">
       工作总结
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-2">
+        工作总结
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../records/2020-03-31/" title="2020 年 3 月 31 日" class="md-nav__link">
+      2020 年 3 月 31 日
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -506,22 +542,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#hardware" class="md-nav__link">
     硬件
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#operating-system" class="md-nav__link">
     操作系统
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#containerization" class="md-nav__link">
     虚拟化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow-ups" class="md-nav__link">
+    后续
   </a>
   
 </li>
@@ -563,22 +606,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#hardware" class="md-nav__link">
     硬件
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#operating-system" class="md-nav__link">
     操作系统
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#containerization" class="md-nav__link">
     虚拟化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow-ups" class="md-nav__link">
+    后续
   </a>
   
 </li>
@@ -604,13 +654,15 @@
                 
                 <h1 id="vlab">Vlab 第一代服务器<a class="headerlink" href="#vlab" title="Permanent link">&para;</a></h1>
 <p>第一代 Vlab 远程虚拟桌面平台在 2019 年 6 月由李子天学长初步配置好，经过 @iBug 和 @taoky 等人进一步调整并编写前端管理系统后，于 2019 年秋季学期开始小范围测试（正式上线）。</p>
-<h2 id="_1">硬件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="hardware">硬件<a class="headerlink" href="#hardware" title="Permanent link">&para;</a></h2>
 <p>第一代 Vlab 服务器包含双路 Intel Xeon E5-2630 v4 处理器（共 20 核心、40 线程），安装内存 128 GB（8 x 16 GB DDR4 2400 ECC）。硬盘配置为一块 Intel Optane 905P 480GB（系统盘，swap 和缓存）和四块 HPE 2.4TB SAS 硬盘。</p>
-<p>另外该服务器上还有一块 NVIDIA Tesla T4 GPU，原本计划用于加速深度学习等负载，实际上由于承担的课程实验任务类型不同，并未派上用场。</p>
-<h2 id="_2">操作系统<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>另外该服务器上还有一块 NVIDIA Tesla P4 GPU，原本计划用于加速深度学习等负载，实际上由于承担的课程实验任务类型不同，并未派上用场。</p>
+<h2 id="operating-system">操作系统<a class="headerlink" href="#operating-system" title="Permanent link">&para;</a></h2>
 <p>搭建这台服务器的学长选择了 Ubuntu 18.04 LTS，但是将内核替换为 3.10.0-514.61.1.el7.x86_64（来自 RHEL 7.3 EUS），原因是 NVIDIA 的驱动（内核模块）需要编译，而且对内核版本非常敏感，为了保证这个难整的驱动能正常使用，不方便将内核交由 apt 管理升级。</p>
-<h2 id="_3">虚拟化<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="containerization">虚拟化<a class="headerlink" href="#containerization" title="Permanent link">&para;</a></h2>
 <p>采用 <a href="https://linuxcontainers.org/">LXD</a> 容器，运行一个定制的镜像（Ubuntu Minimal 安装了 Xfce 和 Xilinx Vivado），为 2019 年秋季学期的《数字电路实验》课程提供服务。</p>
+<h2 id="follow-ups">后续<a class="headerlink" href="#follow-ups" title="Permanent link">&para;</a></h2>
+<p>这台机器在 2020 年 3 月底被重装为 Proxmox VE 系统，内存由 128 GB 升级到 160 GB，提供 GPU 容器服务。</p>
                 
                   
                 
@@ -632,7 +684,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../records/" title="工作总结" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../records/2020-03-31/" title="2020 年 3 月 31 日" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -641,7 +693,7 @@
                 <span class="md-footer-nav__direction">
                   上一页
                 </span>
-                工作总结
+                2020 年 3 月 31 日
               </span>
             </div>
           </a>
