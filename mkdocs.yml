@@ -58,6 +58,8 @@ nav:
   - 工作流程:
     - 配置新主机: workflow/new-host.md
     - 打包容器镜像: workflow/pack-image.md
+  - 远程桌面:
+    - 配置与管理: vnc/config.md
   - 其他资料:
     - 踩坑记录: traps.md
 
