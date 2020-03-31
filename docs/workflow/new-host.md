@@ -35,80 +35,31 @@ deb https://mirrors6.tuna.tsinghua.edu.cn/proxmox/debian buster pve-no-subscript
 - iptables-persistent 用于保存 iptables 配置
 - ipmitool 用于维护 IPMI，**使用最简安装（即 `--no-install-recommendeds`）**
 
+## 配置网卡
+
+参见[主机网卡](../networking/host.md)一页。
+
 ## 配置防火墙
 
-需要安装 `iptables-persistent` 软件包。将以下内容保存为 `iptables.sh` 并运行：
+需要安装 `iptables-persistent` 软件包。将[防火墙](../networking/firewall.md)一页给出的脚本保存为 `iptables.sh` 并运行。
+
+## 挂载存储服务器
+
+使用 iSCSI 命令行管理工具
 
 ```shell
-#!/bin/sh
-
-set +ex
-
-##### IPv4 #####
-#iptables -F
-#iptables -X
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -N VLAB >/dev/null 2>&1 || iptables -F VLAB
-
-##### Rules #####
-iptables -A VLAB -i lo -j ACCEPT
-iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A VLAB -p icmp -j ACCEPT
-iptables -A VLAB -p tcp -m state --state NEW --sport 1024:65535 -m multiport --dports 22,80,443,8006 -j ACCEPT
-iptables -A VLAB -j DROP
-iptables -Z VLAB
-iptables -D INPUT -i ens1f1 -j ACCEPT >/dev/null 2>&1
-iptables -I INPUT -i ens1f1 -j ACCEPT
-iptables -D INPUT -i ens1f0 -j ACCEPT >/dev/null 2>&1
-iptables -I INPUT -i ens1f0 -j ACCEPT
-iptables -D INPUT -i vmbr0 -j VLAB >/dev/null 2>&1
-iptables -I INPUT -i vmbr0 -j VLAB
-iptables -D INPUT -i vmbr1 -j VLAB >/dev/null 2>&1
-iptables -I INPUT -i vmbr1 -j VLAB
-
-iptables -F FORWARD
-iptables -A FORWARD -i vmbr0 -j DROP
-iptables -A FORWARD -i vmbr1 -j DROP
-
-iptables -t nat -F
-iptables -t nat -X
-iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8006
-iptables -t nat -Z
-iptables-save > /etc/iptables/rules.v4
-
-##### IPv6 #####
-#ip6tables -F
-#ip6tables -X
-ip6tables -P INPUT ACCEPT
-ip6tables -P FORWARD ACCEPT
-ip6tables -P OUTPUT ACCEPT
-ip6tables -N VLAB >/dev/null 2>&1 || ip6tables -F VLAB
-
-##### Rules #####
-ip6tables -A VLAB -i lo -j ACCEPT
-ip6tables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-ip6tables -A VLAB -p ipv6-icmp -j ACCEPT
-ip6tables -A VLAB -p tcp -m state --state NEW --sport 1024:65535 -m multiport --dports 22,80,443,8006 -j ACCEPT
-ip6tables -A VLAB -j DROP
-ip6tables -Z VLAB
-ip6tables -D INPUT -i ens1f1 -j ACCEPT >/dev/null 2>&1
-ip6tables -I INPUT -i ens1f1 -j ACCEPT
-ip6tables -D INPUT -i ens1f0 -j ACCEPT >/dev/null 2>&1
-ip6tables -I INPUT -i ens1f0 -j ACCEPT
-ip6tables -D INPUT -i vmbr0 -j VLAB >/dev/null 2>&1
-ip6tables -I INPUT -i vmbr0 -j VLAB
-ip6tables -D INPUT -i vmbr1 -j VLAB >/dev/null 2>&1
-ip6tables -I INPUT -i vmbr1 -j VLAB
-
-ip6tables -F FORWARD
-ip6tables -A FORWARD -i vmbr0 -j DROP
-ip6tables -A FORWARD -i vmbr1 -j DROP
-
-ip6tables -t nat -F
-ip6tables -t nat -X
-ip6tables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8006
-ip6tables -t nat -Z
-ip6tables-save > /etc/iptables/rules.v6
+iscsiadm -m discover
+iscsiadm -d2 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login
 ```
+
+存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。
+
+## 挂载 NFS 镜像共享
+
+挂载 NFS 共享所用的 `/etc/fstab` 条目：
+
+```
+10.0.0.1:/var/lib/vz /mnt/container-template nfs rw,async,hard,intr,noexec 0 0
+```
+
+注意先在 pv1 上编辑 `/etc/exports` 并运行 `exportfs -a` 刷新挂载权限。

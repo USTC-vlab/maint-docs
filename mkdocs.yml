@@ -53,6 +53,7 @@ nav:
   - SSH 证书认证: ssh-ca.md
   - 网络配置:
     - 网络界面: networking/index.md
+    - 主机网卡: networking/host.md
     - 容器内网: networking/intranet.md
     - 防火墙与安全: networking/firewall.md
   - 工作流程:
@@ -62,7 +63,8 @@ nav:
     - 配置与管理: vnc/config.md
   - 其他资料:
     - 踩坑记录: traps.md
-    - 工作总结: records/index.md
+    - 工作总结:
+      - 2020 年 3 月 31 日: records/2020-03-31.md
 
   - 历史版本:
     - 第一代: history/gen1.md
