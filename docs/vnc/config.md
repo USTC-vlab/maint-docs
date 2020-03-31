@@ -19,7 +19,7 @@ vncmux 的配置文件存储在 `/etc/vnc_multiplexer/config.json`，目前如�
     "logger_ip": "127.0.0.1",
     "logger_port": 5555,
     "enable_notification": true,
-    "notification_file": "/etc/vnc_multiplexer/notification0327.png",
+    "notification_file": "/etc/vnc_multiplexer/notification.png",
     "enable_admin": true,
     "admin_port": 5557,
     "enable_websocket": true,
@@ -42,7 +42,7 @@ vncmux 的配置文件存储在 `/etc/vnc_multiplexer/config.json`，目前如�
 
 * `ra2_private_key_file`： RealVNC 协议私钥文件，用于证明服务器的身份。必须为 PKCS#8 RSA 2048 私钥文件。
 
-* `enabled_protocol`： 允许的协议。`VeNCrypt` 为 TigerVNC 使用的协议。 `RA2`, `RA2r`, `RA2_256`, `RA2_256` 均为 RealVNC 的加密协议, `RA2ne`, `RA2ne_256` 为 RealVNC 使用的非加密协议，建议关闭。
+* `enabled_protocol`： 允许的协议。`VeNCrypt` 为 TigerVNC 使用的协议。 `RA2`, `RA2r`, `RA2_256`, `RA2r_256` 均为 RealVNC 的加密协议, `RA2ne`, `RA2ne_256` 为 RealVNC 使用的非加密协议，建议关闭。
 
 * `enable_log`： 是否开启日志。日志将在每个连接关闭后通过 UDP 报文发送给日志服务器。
 
