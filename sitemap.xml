@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://vlab.ibugone.com/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/overview/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/ssh-ca/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/networking/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/networking/intranet/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/networking/firewall/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/workflow/new-host/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/workflow/pack-image/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/history/gen1/</loc>
-     <lastmod>2020-03-30</lastmod>
+     <lastmod>2020-03-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
