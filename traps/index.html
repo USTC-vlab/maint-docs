@@ -489,6 +489,46 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lvm" class="md-nav__link">
+    LVM
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cannot-process-volume-group-pve" class="md-nav__link">
+    开机显示 Cannot process volume group pve 等错误信息
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    解决步骤
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ct-100-ct-101" class="md-nav__link">
+    CT 100 和 CT 101 无法启动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -617,6 +657,46 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lvm" class="md-nav__link">
+    LVM
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cannot-process-volume-group-pve" class="md-nav__link">
+    开机显示 Cannot process volume group pve 等错误信息
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    解决步骤
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ct-100-ct-101" class="md-nav__link">
+    CT 100 和 CT 101 无法启动
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -654,6 +734,35 @@
 <li><code>killall pmxcfs</code></li>
 <li>重启 <code>pve-cluster.service</code> 和 <code>corosync.service</code></li>
 </ol>
+<h2 id="lvm">LVM<a class="headerlink" href="#lvm" title="Permanent link">&para;</a></h2>
+<h3 id="cannot-process-volume-group-pve">开机显示 Cannot process volume group pve 等错误信息<a class="headerlink" href="#cannot-process-volume-group-pve" title="Permanent link">&para;</a></h3>
+<p>这一步比较麻烦，主要是因为 IPMI 提供的那个远程终端经常卡。</p>
+<p>原因是系统中有 <code>/dev/sda</code> 和 <code>/dev/sdb</code> 两个设备，其中一个是 SSD，另一个不知道是哪来的（可能是 IPMI 的虚拟设备），为了不让 LVM 每次运行时都吐槽一遍 <code>open /dev/sdX failed: no medium found</code>，将报错的那个设备屏蔽，方法是在 <code>/etc/lvm/lvm.conf</code> 中的 <code>global_filters</code> 中加入一个 <code>"r|/dev/sdX|"</code>，使 LVM 扫描 PV 时忽略这个设备。</p>
+<p><strong>坑点</strong>：在不明情况下这两个设备会互换，导致原先的过滤规则把真正的系统盘给过滤掉了，留下一个空设备，无法开机启动（rootfs 在 LV 卷 pve/root 上）</p>
+<p>好在目前没有发现空设备从 sdb 变成 sda 的情况，因此每个主机最多只需要处理一次就行（其实到现在一共就处理过一次）。</p>
+<p><strong>坑点 2</strong>：LVM 是开机启动必须的功能，因此 LVM 相关的工具（<code>lvm</code> 命令）和配置文件（即 <code>/etc/lvm/lvm.conf</code>）会打包进 initramfs 里，这时候这个配置文件在系统里和 initramfs 里就有独立的两份了，要修改得把两份都修改掉。</p>
+<h4 id="_3">解决步骤<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ol>
+<li>开机失败，进入 initramfs，这里有个 busybox 和 <code>lvm</code> 工具</li>
+<li>编辑 <code>/etc/lvm/lvm.conf</code>，找到 <code>global_filters</code>，把其中的 <code>r|/dev/sda|</code> 换成 <code>r|/dev/sdb|</code>（或者反过来改，取决于原先内容是什么以及前面报 no medium found 的是哪个设备）</li>
+<li><code>lvm vgscan</code>，这时候再 <code>lvm vgs</code> 应该就能看到 pve 这个 VG 了</li>
+<li><code>lvm lvchange -ay pve/root</code> 激活 rootfs 卷，找个地方挂载起来</li>
+<li>chroot 进去，把 <code>/etc/lvm/lvm.conf</code> <strong>再改一遍</strong>（和第 2 步相同）</li>
+<li><code>update-initramfs -u -k all</code> 更新 initramfs，重启</li>
+</ol>
+<h3 id="ct-100-ct-101">CT 100 和 CT 101 无法启动<a class="headerlink" href="#ct-100-ct-101" title="Permanent link">&para;</a></h3>
+<p>LVM 卷不能多个主机同时使用（active 状态），如果出现这种情况会导致 LVM 拒绝使用受影响的卷。</p>
+<p>目前我们的 VG <code>user-data</code> 是共享的，而 VG <code>pve</code> 是每个主机自己的 SSD（即与本问题无关）。</p>
+<div class="admonition note">
+<p class="admonition-title">Proxmox VE 使用 LVM</p>
+<p>Proxmox VE 在启动容器或虚拟机时会尝试占用相关的卷（设为 active），并在关闭容器或虚拟机时取消 active 状态，因此正常情况下不会出现跨主机占用的情况。</p>
+</div>
+<p><strong>坑点</strong>：出于不明原因，手动挂载 iSCSI 设备会导致上面所有的 LV 都变成 active。</p>
+<p>解决步骤：</p>
+<ul>
+<li>如果受影响的卷不多，可以手动 SSH 进入所有主机，全部来一遍 <code>lvchange -an &lt;vg/lv&gt;</code>，这样就在全部主机上把这个卷取消了 active 状态，然后其中一个主机就可以开始使用它（启动容器）了。</li>
+<li>如果受影响的卷很多（常见情况），较为简单的方法是把所有虚拟机容器都关掉，然后 <code>vgchange -an &lt;vg&gt;</code>，一次性把整个 VG 里的全部 LV 取消 active 状态（当然每个主机都要重复一遍），然后一切恢复正常。</li>
+</ul>
                 
                   
                 
