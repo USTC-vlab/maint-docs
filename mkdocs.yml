@@ -17,15 +17,18 @@ theme:
   palette:
     primary: 'blue'
     accent: 'blue'
-# feature:
-#   tabs: true
+# features:
+#   - tabs
+  icon:
+    logo: octicons/server
+    repo: octicons/mark-github
 
 # Customization
 extra:
   social:
-    - type: 'globe'
+    - icon: octicons/globe
       link: 'https://vlab.ustc.edu.cn/'
-    - type: 'github'
+    - icon: octicons/mark-github
       link: 'https://github.com/USTC-vlab'
 
 extra_javascript:
