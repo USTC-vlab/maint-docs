@@ -21,7 +21,7 @@ vncmux 的配置文件存储在 `/etc/vnc_multiplexer/config.json`，目前如�
     "enable_notification": true,
     "notification_file": "/etc/vnc_multiplexer/notification.png",
     "enable_admin": true,
-    "admin_port": 5557,
+    "admin_path": "",
     "enable_websocket": true,
     "websocket_port": 5801,
     "enable_tight_translation": true,
@@ -52,11 +52,11 @@ vncmux 的配置文件存储在 `/etc/vnc_multiplexer/config.json`，目前如�
 
 * `enable_notification`： 是否开启通知功能。若开启，每个用户连接后 vncmux 都将在画面上注入一个可关闭的对话框用以显示通知。
 
-* `notification_file`： 通知图片文件。必须为 PNG 格式。由于调色板原因，建议使用黑白图片。
+* `notification_file`： 通知图片文件。必须为 PNG 格式。
 
-* `enable_admin`： 是否开启管理端口。若开启， vncmux 将在一个 TCP 端口上接收管理命令，以此与 vncmux-cli 工具连接。
+* `enable_admin`： 是否开启管理端口。若开启， vncmux 将在一个 Unix domain socket 上接收管理命令，以此与 vncmux-cli 工具连接。
 
-* `admin_port`： 管理端口号
+* `admin_path`： 管理端口的路径，留空则为默认值 `/var/run/vncmux.sock`
 
 * `enable_websocket`： 是否开启 WebSocket 功能。noVNC 必须使用此功能，因此总是应该开启。这里的 WebSocket 连接是未加密的，需要使用 Nginx 反代。
 
@@ -73,7 +73,7 @@ vncmux 的配置文件存储在 `/etc/vnc_multiplexer/config.json`，目前如�
 vncmux-cli 工具用于管理运行中的 vncmux 服务器。连接到 vncmux 服务器的方法如下：
 
 ```shell
-vncmux-cli 127.0.0.1 5557
+vncmux-cli [path]
 ```
 
 连接后输入 `exit` 可以退出，输入 `help` 可以显示帮助，还可以进行以下操作：
@@ -81,6 +81,10 @@ vncmux-cli 127.0.0.1 5557
 ### 列出在线用户
 
 输入 `list` 即可列出在线用户的信息，包括连接 ID 、连接时间、用户名、主机 IP 、用户 IP 、客户端类型。
+
+### 断开用户连接
+
+输入 `disconnect <id>` 可以把 ID 对应的连接断开。
 
 ### 更换通知图片
 
