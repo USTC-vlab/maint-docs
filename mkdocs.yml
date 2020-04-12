@@ -63,6 +63,9 @@ nav:
   - 工作流程:
     - 配置新主机: workflow/new-host.md
     - 打包容器镜像: workflow/pack-image.md
+  - 服务主机:
+    - 网关 (CT100): servers/ct100.md
+    - Web 服务器 (CT101): servers/ct101.md
   - 远程桌面:
     - 配置与管理: vnc/config.md
   - 其他资料:
