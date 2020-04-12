@@ -499,20 +499,27 @@
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    更换通知图片
+    断开用户连接
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
-    发送图片
+    更换通知图片
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
+    发送图片
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     打开和关闭通知
   </a>
   
@@ -724,20 +731,27 @@
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    更换通知图片
+    断开用户连接
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
-    发送图片
+    更换通知图片
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
+    发送图片
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     打开和关闭通知
   </a>
   
@@ -800,7 +814,7 @@
     <span class="nt">&quot;enable_notification&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nt">&quot;notification_file&quot;</span><span class="p">:</span> <span class="s2">&quot;/etc/vnc_multiplexer/notification.png&quot;</span><span class="p">,</span>
     <span class="nt">&quot;enable_admin&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&quot;admin_port&quot;</span><span class="p">:</span> <span class="mi">5557</span><span class="p">,</span>
+    <span class="nt">&quot;admin_path&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="nt">&quot;enable_websocket&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nt">&quot;websocket_port&quot;</span><span class="p">:</span> <span class="mi">5801</span><span class="p">,</span>
     <span class="nt">&quot;enable_tight_translation&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -842,13 +856,13 @@
 <p><code>enable_notification</code>： 是否开启通知功能。若开启，每个用户连接后 vncmux 都将在画面上注入一个可关闭的对话框用以显示通知。</p>
 </li>
 <li>
-<p><code>notification_file</code>： 通知图片文件。必须为 PNG 格式。由于调色板原因，建议使用黑白图片。</p>
+<p><code>notification_file</code>： 通知图片文件。必须为 PNG 格式。</p>
 </li>
 <li>
-<p><code>enable_admin</code>： 是否开启管理端口。若开启， vncmux 将在一个 TCP 端口上接收管理命令，以此与 vncmux-cli 工具连接。</p>
+<p><code>enable_admin</code>： 是否开启管理端口。若开启， vncmux 将在一个 Unix domain socket 上接收管理命令，以此与 vncmux-cli 工具连接。</p>
 </li>
 <li>
-<p><code>admin_port</code>： 管理端口号</p>
+<p><code>admin_path</code>： 管理端口的路径，留空则为默认值 <code>/var/run/vncmux.sock</code></p>
 </li>
 <li>
 <p><code>enable_websocket</code>： 是否开启 WebSocket 功能。noVNC 必须使用此功能，因此总是应该开启。这里的 WebSocket 连接是未加密的，需要使用 Nginx 反代。</p>
@@ -868,17 +882,19 @@
 </ul>
 <h2 id="vncmux-cli">vncmux-cli 工具<a class="headerlink" href="#vncmux-cli" title="Permanent link">&para;</a></h2>
 <p>vncmux-cli 工具用于管理运行中的 vncmux 服务器。连接到 vncmux 服务器的方法如下：</p>
-<div class="highlight"><pre><span></span><code>vncmux-cli <span class="m">127</span>.0.0.1 <span class="m">5557</span>
+<div class="highlight"><pre><span></span><code>vncmux-cli <span class="o">[</span>path<span class="o">]</span>
 </code></pre></div>
 
 <p>连接后输入 <code>exit</code> 可以退出，输入 <code>help</code> 可以显示帮助，还可以进行以下操作：</p>
 <h3 id="_3">列出在线用户<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>输入 <code>list</code> 即可列出在线用户的信息，包括连接 ID 、连接时间、用户名、主机 IP 、用户 IP 、客户端类型。</p>
-<h3 id="_4">更换通知图片<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_4">断开用户连接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>输入 <code>disconnect &lt;id&gt;</code> 可以把 ID 对应的连接断开。</p>
+<h3 id="_5">更换通知图片<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>输入 <code>load-notification &lt;image file&gt;</code> 可以更换通知文件，通知文件最好是绝对路径。当前已在线的用户将不会看到新的通知。</p>
-<h3 id="_5">发送图片<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_6">发送图片<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>可以发送 PNG 格式的图片给一个或多个用户。命令格式为 <code>send-image &lt;image file&gt; &lt;id&gt; [id] ...</code> ，其中 id 可以从 <code>list</code> 的输出得知。</p>
-<h3 id="_6">打开和关闭通知<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="_7">打开和关闭通知<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>命令分别为 <code>enable-notification</code> 和 <code>disable-notification</code></p>
 <h3 id="realvnc">打开和关闭 RealVNC 有损压缩<a class="headerlink" href="#realvnc" title="Permanent link">&para;</a></h3>
 <p>命令分别为 <code>enable-realvnc-lossy</code> 和 <code>disable-realvnc-lossy</code></p>
