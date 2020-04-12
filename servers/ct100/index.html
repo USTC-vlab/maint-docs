@@ -11,7 +11,7 @@
         <meta name="description" content="Vlab 维护文档">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/networking/firewall/">
+        <link rel="canonical" href="https://vlab.ibugone.com/servers/ct100/">
       
       
         <meta name="author" content="iBug">
@@ -21,7 +21,7 @@
     
     
       
-        <title>防火墙与安全 - Vlab 维护文档</title>
+        <title>网关 (CT100) - Vlab 维护文档</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#ct-100" class="md-skip">
           跳转至
         </a>
       
@@ -92,7 +92,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              防火墙与安全
+              网关 (CT100)
             
           </span>
         </div>
@@ -226,12 +226,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
     
     <label class="md-nav__link" for="nav-4">
       网络配置
@@ -255,7 +253,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="网络界面" class="md-nav__link">
+    <a href="../../networking/" title="网络界面" class="md-nav__link">
       网络界面
     </a>
   </li>
@@ -267,7 +265,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../host/" title="主机网卡" class="md-nav__link">
+    <a href="../../networking/host/" title="主机网卡" class="md-nav__link">
       主机网卡
     </a>
   </li>
@@ -279,7 +277,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../intranet/" title="容器内网" class="md-nav__link">
+    <a href="../../networking/intranet/" title="容器内网" class="md-nav__link">
       容器内网
     </a>
   </li>
@@ -289,20 +287,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="防火墙与安全" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../networking/firewall/" title="防火墙与安全" class="md-nav__link">
       防火墙与安全
     </a>
-    
   </li>
 
         
@@ -369,10 +358,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     
     <label class="md-nav__link" for="nav-6">
       服务主机
@@ -394,11 +385,20 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../servers/ct100/" title="网关 (CT100)" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="网关 (CT100)" class="md-nav__link md-nav__link--active">
       网关 (CT100)
     </a>
+    
   </li>
 
         
@@ -408,7 +408,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../servers/ct101/" title="Web 服务器 (CT101)" class="md-nav__link">
+    <a href="../ct101/" title="Web 服务器 (CT101)" class="md-nav__link">
       Web 服务器 (CT101)
     </a>
   </li>
@@ -614,7 +614,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/iBug/vlab/edit/master/docs/networking/firewall.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/iBug/vlab/edit/master/docs/servers/ct100.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
                   </a>
                 
@@ -622,94 +622,7 @@
                   
                 
                 
-                <h1 id="_1">服务器防火墙配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>防火墙使用 Linux 自带的 iptables 管理，默认策略为 <code>INPUT DROP</code>, <code>FORWARD ACCEPT</code>, <code>OUTPUT ACCEPT</code>。方便起见使用 <code>iptables-persistent</code> 让防火墙规则开机自动加载。</p>
-<p>以下为 pv1 上的防火墙配置：</p>
-<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
-
-<span class="nb">set</span> +ex
-
-<span class="c1">##### IPv4 #####</span>
-iptables -F
-iptables -X
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> iptables -F VLAB
-
-<span class="c1">##### Rules #####</span>
-iptables -A VLAB -i lo -j ACCEPT
-iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A VLAB -p icmp -j ACCEPT
-iptables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
-iptables -A VLAB -j DROP
-iptables -Z VLAB
-iptables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i ens1f1 -j ACCEPT
-iptables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i ens1f0 -j ACCEPT
-iptables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i vmbr0 -j VLAB
-iptables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i vmbr1 -j VLAB
-
-iptables -F FORWARD
-iptables -A FORWARD -i vmbr0 -j DROP
-iptables -A FORWARD -i vmbr1 -j DROP
-
-iptables -t nat -F
-iptables -t nat -X
-iptables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
-iptables -t nat -A POSTROUTING -s <span class="m">10</span>.0.0.0/30 -o vmbr0 -j MASQUERADE
-iptables -t nat -Z
-iptables-save &gt; /etc/iptables/rules.v4
-
-<span class="c1">##### IPv6 #####</span>
-ip6tables -F
-ip6tables -X
-ip6tables -P INPUT ACCEPT
-ip6tables -P FORWARD ACCEPT
-ip6tables -P OUTPUT ACCEPT
-ip6tables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> ip6tables -F VLAB
-
-<span class="c1">##### Rules #####</span>
-ip6tables -A VLAB -i lo -j ACCEPT
-ip6tables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-ip6tables -A VLAB -p ipv6-icmp -j ACCEPT
-ip6tables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
-ip6tables -A VLAB -j DROP
-ip6tables -Z VLAB
-ip6tables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i ens1f1 -j ACCEPT
-ip6tables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i ens1f0 -j ACCEPT
-ip6tables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i vmbr0 -j VLAB
-ip6tables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i vmbr1 -j VLAB
-
-ip6tables -F FORWARD
-ip6tables -A FORWARD -i vmbr0 -j DROP
-ip6tables -A FORWARD -i vmbr1 -j DROP
-
-ip6tables -t nat -F
-ip6tables -t nat -X
-ip6tables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
-ip6tables -t nat -Z
-ip6tables-save &gt; /etc/iptables/rules.v6
-</code></pre></div>
-
-<p>几个小点解释：</p>
-<div class="highlight"><pre><span></span><code>iptables -A VLAB -i lo -j ACCEPT
-iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-</code></pre></div>
-
-<p>这两个放最前面，让本机流量 <code>-i lo</code> 和已经建立起来的 TCP / UDP 连接经过最少的链项，提高性能降低 CPU 使用量，这是因为 iptables 规则是按顺序逐条匹配的。</p>
-<div class="highlight"><pre><span></span><code>iptables -I INPUT -i ens1f1 -j ACCEPT
-iptables -I INPUT -i ens1f0 -j ACCEPT
-</code></pre></div>
-
-<p>光纤内网不设防。</p>
+                <h1 id="ct-100">网关机 (CT 100)<a class="headerlink" href="#ct-100" title="Permanent link">&para;</a></h1>
                 
               
               
@@ -728,7 +641,7 @@ iptables -I INPUT -i ens1f0 -j ACCEPT
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="">
         
-          <a href="../intranet/" title="容器内网" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../workflow/pack-image/" title="打包容器镜像" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
             </div>
@@ -737,19 +650,19 @@ iptables -I INPUT -i ens1f0 -j ACCEPT
                 <span class="md-footer-nav__direction">
                   上一页
                 </span>
-                容器内网
+                打包容器镜像
               </div>
             </div>
           </a>
         
         
-          <a href="../../workflow/new-host/" title="配置新主机" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../ct101/" title="Web 服务器 (CT101)" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   下一页
                 </span>
-                配置新主机
+                Web 服务器 (CT101)
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
