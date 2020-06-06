@@ -13,7 +13,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: env
-        key: linux-venv-mkdocs-material-20200407
+        key: linux-venv-mkdocs-material-20200606
     - name: Install dependencies
       if: steps.cache-pip.outputs.cache-hit != 'true'
       run: |
@@ -26,12 +26,27 @@ jobs:
         echo -n 'vlab.ibugone.com' > site/CNAME
         printf 'User-Agent: *\nDisallow: /\n' > site/robots.txt
     - name: Deploy to GitHub Pages
+      env:
+        DEPLOY_REPOSITORY: iBug/vlab-maint-docs
+        SSH_KEY_E: ${{ secrets.SSH_KEY_E }}
       run: |
+        # Prepare SSH Key
+        if [ -z "$SSH_KEY_E" ]; then
+          echo 'No $SSH_KEY_E given, cannot continue.' >&2
+          exit 1
+        fi
+        mkdir -p ~/.ssh || exit 2
+        base64 -d <<< "$SSH_KEY_E" | gunzip -c > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa'
+
+        # Clone and deploy
         git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
-          "https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" test
+          "git@github.com:${DEPLOY_REPOSITORY}.git" test
         mv test/.git site/.git && rmdir test/
         pushd site/ &>/dev/null
         git add -A
-        git -c user.name=GitHub -c user.email=noreply@github.com commit -m 'Auto deploy from GitHub Actions'
+        git -c user.name=GitHub -c user.email=noreply@github.com commit \
+          -m "Auto deploy from GitHub Actions build ${GITHUB_RUN_NUMBER}"
         git push
         popd &>/dev/null
