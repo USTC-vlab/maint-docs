@@ -8,20 +8,12 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: 3.8.x
-    - name: Cache setup
-      id: cache-pip
-      uses: actions/cache@v1
-      with:
-        path: env
-        key: linux-venv-mkdocs-material-20200606
     - name: Install dependencies
-      if: steps.cache-pip.outputs.cache-hit != 'true'
       run: |
-        python3 -m venv env
-        env/bin/pip3 install mkdocs mkdocs-material
+        pip3 install -U mkdocs mkdocs-material
     - name: Build site
       run: |
-        env/bin/mkdocs build
+        mkdocs build
         : > site/.nojekyll
         echo -n 'vlab.ibugone.com' > site/CNAME
         printf 'User-Agent: *\nDisallow: /\n' > site/robots.txt
