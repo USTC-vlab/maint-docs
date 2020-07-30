@@ -409,9 +409,70 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Web 服务器 (CT101)
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
     <a href="./" title="Web 服务器 (CT101)" class="md-nav__link md-nav__link--active">
       Web 服务器 (CT101)
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    未完待续
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    Django web 应用与 Nginx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vnc-unified-login" class="md-nav__link">
+    VNC 统一登录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-unified-login" class="md-nav__link">
+    SSH 统一登录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-docs" class="md-nav__link">
+    Webhook 与用户文档
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -606,6 +667,51 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    未完待续
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    Django web 应用与 Nginx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vnc-unified-login" class="md-nav__link">
+    VNC 统一登录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-unified-login" class="md-nav__link">
+    SSH 统一登录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-docs" class="md-nav__link">
+    Webhook 与用户文档
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -625,6 +731,13 @@
                 
                 
                 <h1 id="web-ct-101">Web 服务器 (CT 101)<a class="headerlink" href="#web-ct-101" title="Permanent link">&para;</a></h1>
+<p>这个容器是 vlab 对外服务的主要场所，上面运行了我们的各种程序。</p>
+<p>该容器接入校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.226/24</code>，且该 IP 是 <code>vlab.ustc.edu.cn</code> 域名指向的）和容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.2/16</code>），通过校园网对外提供 Web 服务、VNC 统一登录服务和 SSH 统一登录服务，通过容器内网连接其他虚拟机。尽管本容器接入了两个网络，但是<strong>不用作转发</strong>。</p>
+<h2 id="_1">未完待续<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="web">Django web 应用与 Nginx<a class="headerlink" href="#web" title="Permanent link">&para;</a></h2>
+<h2 id="vnc-unified-login">VNC 统一登录<a class="headerlink" href="#vnc-unified-login" title="Permanent link">&para;</a></h2>
+<h2 id="ssh-unified-login">SSH 统一登录<a class="headerlink" href="#ssh-unified-login" title="Permanent link">&para;</a></h2>
+<h2 id="user-docs">Webhook 与用户文档<a class="headerlink" href="#user-docs" title="Permanent link">&para;</a></h2>
                 
               
               
