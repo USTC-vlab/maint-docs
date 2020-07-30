@@ -79,7 +79,7 @@ ip6tables -t nat -Z
 ip6tables-save > /etc/iptables/rules.v6
 ```
 
-几个小点解释：
+## 部分防火墙规则解释 {#explanations}
 
 ```shell
 iptables -A VLAB -i lo -j ACCEPT

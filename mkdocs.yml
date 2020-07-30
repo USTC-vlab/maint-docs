@@ -20,15 +20,15 @@ theme:
 # features:
 #   - tabs
   icon:
-    logo: octicons/server
-    repo: octicons/mark-github
+    logo: octicons/server-16
+    repo: octicons/mark-github-16
 
 # Customization
 extra:
   social:
-    - icon: octicons/globe
+    - icon: octicons/globe-16
       link: 'https://vlab.ustc.edu.cn/'
-    - icon: octicons/mark-github
+    - icon: octicons/mark-github-16
       link: 'https://github.com/USTC-vlab'
 
 extra_javascript:
