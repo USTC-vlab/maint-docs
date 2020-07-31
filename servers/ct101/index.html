@@ -738,6 +738,39 @@
 <h2 id="vnc-unified-login">VNC 统一登录<a class="headerlink" href="#vnc-unified-login" title="Permanent link">&para;</a></h2>
 <h2 id="ssh-unified-login">SSH 统一登录<a class="headerlink" href="#ssh-unified-login" title="Permanent link">&para;</a></h2>
 <h2 id="user-docs">Webhook 与用户文档<a class="headerlink" href="#user-docs" title="Permanent link">&para;</a></h2>
+<p>容器里有一个 webhook 服务器，从 GitHub 接收用户文档仓库 <a href="https://github.com/USTC-vlab/docs">USTC-vlab/docs</a> 的更新通知并拉取更新。</p>
+<p>代码非常简单，就几行 <a href="https://sinatrarb.com/">Sinatra</a>，每次收到通知就去 <code>/srv/www/docs</code> 下面跑一下 git 命令。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+
+<span class="n">set</span> <span class="ss">:port</span><span class="p">,</span> <span class="mi">8001</span>
+
+<span class="n">post</span> <span class="s1">&#39;/webhook/github/docs&#39;</span> <span class="k">do</span>
+  <span class="k">begin</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span> <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">read</span>
+    <span class="k">if</span> <span class="n">payload</span><span class="o">[</span><span class="s1">&#39;ref&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;refs/heads/gh-pages&#39;</span>
+      <span class="nb">system</span> <span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="s1">&#39;-ec&#39;</span><span class="p">,</span> <span class="s1">&#39;cd /srv/www/docs; git fetch origin gh-pages; git reset --hard FETCH_HEAD&#39;</span>
+      <span class="k">next</span> <span class="s2">&quot;OK</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+      <span class="n">status</span> <span class="mi">204</span>
+      <span class="k">next</span>
+    <span class="k">end</span>
+  <span class="k">rescue</span> <span class="no">JSON</span><span class="o">::</span><span class="no">ParserError</span>
+    <span class="n">status</span> <span class="mi">400</span>
+    <span class="s2">&quot;Invalid JSON!</span><span class="se">\n</span><span class="s2">&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">not_found</span> <span class="k">do</span>
+  <span class="s2">&quot;TaoKY Strong</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>由于该 webhook 过于简单，它自己甚至没有一个 Git 仓库做版本管理（</p>
+<div class="admonition info">
+<p class="admonition-title">注意</p>
+<p>这个 webhook 前面还是套了一层 Nginx 的，不是直连的</p>
+</div>
                 
               
               
