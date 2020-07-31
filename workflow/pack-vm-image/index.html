@@ -11,7 +11,7 @@
         <meta name="description" content="Vlab 维护文档">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/workflow/pack-image/">
+        <link rel="canonical" href="https://vlab.ibugone.com/workflow/pack-vm-image/">
       
       
         <meta name="author" content="iBug">
@@ -21,7 +21,7 @@
     
     
       
-        <title>打包容器镜像 - Vlab 维护文档</title>
+        <title>打包虚拟机镜像 - Vlab 维护文档</title>
       
     
     
@@ -94,7 +94,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              打包容器镜像
+              打包虚拟机镜像
             
           </span>
         </div>
@@ -345,6 +345,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../pack-ct-image/" title="打包容器镜像" class="md-nav__link">
+      打包容器镜像
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -355,49 +367,9 @@
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        打包容器镜像
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
-      </label>
-    
-    <a href="./" title="打包容器镜像" class="md-nav__link md-nav__link--active">
-      打包容器镜像
+    <a href="./" title="打包虚拟机镜像" class="md-nav__link md-nav__link--active">
+      打包虚拟机镜像
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    负一、打包前的工作
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    一、基础工作
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
     
   </li>
 
@@ -646,30 +618,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    负一、打包前的工作
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    一、基础工作
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -680,7 +628,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/workflow/pack-image.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/workflow/pack-vm-image.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -688,26 +636,8 @@
                   
                 
                 
-                <h1 id="_1">打包容器镜像<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像不宜直接用于 Proxmox VE。基准镜像可以直接使用已有的 vlab 镜像（推荐），或者使用 <code>pveam</code> 命令从 Proxmox 官方下载。</p>
-<h2 id="_2">负一、打包前的工作<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：</p>
-<ul>
-<li><strong><code>/etc/ssh</code></strong>：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对</li>
-<li><strong><code>/run/</code>, <code>/tmp</code>, <code>/var/{backups,cache,crash,log,tmp}</code></strong>：全部清空，注意 <code>/tmp</code>, <code>/var/crash</code> 和 <code>/var/tmp</code> 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。</li>
-<li><strong><code>/root</code> 和 <code>/home/&lt;user&gt;</code></strong>：把 <code>.bash_history</code> 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 <code>.config</code>）。</li>
-</ul>
-<h2 id="_3">一、基础工作<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>本节工作只需要对从 Proxmox 直接下载的“最原始”的镜像处理。</p>
-<ul>
-<li><strong>换源</strong>：将 apt / yum 源换为 <code>mirrors.ustc.edu.cn</code> 或者 <code>mirrors.tuna.tsinghua.edu.cn</code></li>
-<li><strong>加入 SSH CA 公钥</strong>：这里请加入 Vlab User CA（<a href="../../ssh-ca/">SSH 证书认证</a>这一页下面那个）</li>
-</ul>
-<p>下面这些工作可以凭自己喜好选做：</p>
-<ul>
-<li><strong>更新 <code>/etc/skel</code></strong>：例如，在 <code>.bashrc</code> 里默认启用有颜色的 PS1（限 Ubuntu / Debian）</li>
-<li><strong>更新 <code>/etc/motd</code></strong>：也就 SSH 登录的时候显示一下，改不改没啥区别</li>
-</ul>
+                <h1 id="_1">打包虚拟机镜像<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>未完待续</p>
                 
               
               
@@ -726,7 +656,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../new-host/" title="配置新主机" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../pack-ct-image/" title="打包容器镜像" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -735,7 +665,7 @@
                 <span class="md-footer-nav__direction">
                   上一页
                 </span>
-                配置新主机
+                打包容器镜像
               </div>
             </div>
           </a>

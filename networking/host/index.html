@@ -356,8 +356,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../../workflow/pack-image/" title="打包容器镜像" class="md-nav__link">
+    <a href="../../workflow/pack-ct-image/" title="打包容器镜像" class="md-nav__link">
       打包容器镜像
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../workflow/pack-vm-image/" title="打包虚拟机镜像" class="md-nav__link">
+      打包虚拟机镜像
     </a>
   </li>
 
@@ -654,6 +666,7 @@ auto ens1f1
 iface ens1f1 inet static
     address 10.0.0.22
     netmask 255.255.255.0
+    mtu 1550
 
 auto bond0
 iface bond0 inet manual
@@ -690,6 +703,8 @@ iface vmbr1 inet static
     bridge_stp off
     bridge_fd 0
 </code></pre></div>
+
+<p>其中 ens1f1 的 mtu 设置见<a href="../../traps/#vxlan-mtu">踩坑记录</a>中的解释。</p>
                 
               
               

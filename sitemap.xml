@@ -32,7 +32,11 @@
      <lastmod>2020-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://vlab.ibugone.com/workflow/pack-image/</loc>
+     <loc>https://vlab.ibugone.com/workflow/pack-ct-image/</loc>
+     <lastmod>2020-07-31</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://vlab.ibugone.com/workflow/pack-vm-image/</loc>
      <lastmod>2020-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
