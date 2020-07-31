@@ -32,6 +32,7 @@ auto ens1f1
 iface ens1f1 inet static
     address 10.0.0.22
     netmask 255.255.255.0
+    mtu 1550
 
 auto bond0
 iface bond0 inet manual
@@ -68,3 +69,5 @@ iface vmbr1 inet static
     bridge_stp off
     bridge_fd 0
 ```
+
+其中 ens1f1 的 mtu 设置见[踩坑记录](../traps.md#vxlan-mtu)中的解释。
