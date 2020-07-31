@@ -737,8 +737,8 @@
 </ul>
 <p>更多信息参见 <a href="intranet/">容器内网</a> 一页。</p>
 <h2 id="container-network">学生机网络<a class="headerlink" href="#container-network" title="Permanent link">&para;</a></h2>
-<p>CT100 为网关，将所有学生机的上行流量 NAT 后连接到校园网；同时通过 iptables DNAT 分配入口端口（目前范围为 10001:29999）供学生连接 SSH 及其他服务。该容器上除 SSH 及系统组件外唯一运行的程序是 <a href="https://github.com/iBug/pfserver">iBug/pfserver</a>，将 iptables 端口转发包装成 HTTP API。</p>
-<p>CT101 为 web 服务器，提供 web 界面（Nginx, Django）和 VNC 统一接入（程序在 <a href="https://github.com/pdlan">pdlan</a> 的一个私有仓库中，由于潜在的版权问题不能公开）。</p>
+<p>CT100 为网关，将所有学生机的上行流量 NAT 后连接到校园网；同时通过 iptables DNAT 分配入口端口（目前范围为 10001:29999）供学生连接 SSH 及其他服务。该容器上除 SSH 及系统组件外唯一运行的程序是 <a href="https://github.com/iBug/pfserver">iBug/pfserver</a>，将 iptables 端口转发包装成 HTTP API。具体内容详见 <a href="../servers/ct100/">CT100 容器的文档</a>。</p>
+<p>CT101 为 web 服务器，提供 web 界面（Nginx, Django）和 VNC 统一接入（程序在 <a href="https://github.com/pdlan">pdlan</a> 的一个私有仓库中，由于潜在的版权问题不能公开）。具体内容详见 <a href="../servers/ct101/">CT101 容器的文档</a>。</p>
                 
               
               
