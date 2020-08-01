@@ -91,7 +91,7 @@ net.ipv4.conf.all.arp_announce=2
 
 ### VXLAN MTU
 
-!!! success "该坑点已于 2020 年 7 月 31 日修复"
+!!! success "该坑点已于 2020 年 8 月 1 日修复"
 
     在[此次维护工作](records/2020-08-01.md)中，下层承载网卡 ens1f1 的 MTU 已被调整为 1550 字节，从而此后的 VXLAN 网络都具有“正常”的 1500 字节的设置。
 
