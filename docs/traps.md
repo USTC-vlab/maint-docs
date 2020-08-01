@@ -70,13 +70,30 @@ LVM 卷不能多个主机同时使用（active 状态），如果出现这种情
 
 ## 网络 {#networking}
 
+### ARP 问题 {#linux-arp}
+
+!!! success "该问题已于 2020 年 7 月 31 日解决，见下"
+
+默认情况下 Linux 会对本机的所有 IP 地址在所有界面上响应 ARP 请求（当然 127.0.0.0/8 和 loopback 是除外的），例如一个主机拥有两个界面 ifA 和 ifB，它们分别具有 IP 地址 ipA 和 ipB，那么 Linux 会在 ifA 上响应 who-has ipB 的请求，反之亦然。
+
+这在 2020 年上半年研究 pv8 为什么连不上 VXLAN 的时候造成了很大的困惑，因为实际上 pv8 的 ens1f1 界面是坏的（可能是光纤没插好之类的），然后系统在 ens1f0 界面上响应了实际属于 ens1f1 的 IP 地址，在其他机器上看起来就像是 ens1f1 能连通但 vxlan0 连不通，而实际上是 10.0.0.28 被解析到了 pv8 的 ens1f0 上，没故障当然就能连通了。
+
+!!! note "iBug 备注"
+
+    这个地方我也没想到，其实只要在其他机器上看看 ARP 缓存表（`arp -a`）就能发现两个 IP 解析出来的 MAC 一样了
+
+解决办法就是设置 Linux 参数让其只在“正确的”界面上响应，详细解释参见 Server Fault 上的[这个回答](https://serverfault.com/a/834519/450575)。我们的做法是向 `/etc/sysctl.d/arp.conf` 里写入了如下内容：
+
+```ini
+net.ipv4.conf.all.arp_ignore=1
+net.ipv4.conf.all.arp_announce=2
+```
+
 ### VXLAN MTU
 
 !!! success "该坑点已修复"
 
-    在 2020 年 8 月 1 日下午由 iBug 等人进行的维护工作中，下层承载网卡 ens1f1 的 MTU 已被调整为 1550 字节，从而此后的 VXLAN 网络都具有“正常”的 1500 字节的设置。
-
-    具体的调整方法就是在 `/etc/network/interfaces` 中的 `iface ens1f1 inet static` 后面加入一行 `mtu 1550`，同样（保险起见）在 `iface vxlan0` 后面加入一行 `mtu 1500`。
+    在 2020 年 8 月 1 日下午由 iBug 等人进行的[维护工作](records/2020-08-01.md)中，下层承载网卡 ens1f1 的 MTU 已被调整为 1550 字节，从而此后的 VXLAN 网络都具有“正常”的 1500 字节的设置。
 
     注意以后若有新增的机器还是需要额外设置一遍的。
 
