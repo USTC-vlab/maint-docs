@@ -289,42 +289,9 @@
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        容器内网
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
-      </label>
-    
     <a href="./" title="容器内网" class="md-nav__link md-nav__link--active">
       容器内网
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#arp" class="md-nav__link">
-    ARP 问题
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
     
   </li>
 
@@ -594,6 +561,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../records/2020-08-01/" title="2020 年 8 月 1 日" class="md-nav__link">
+      2020 年 8 月 1 日
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -663,23 +642,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#arp" class="md-nav__link">
-    ARP 问题
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -704,20 +666,6 @@
 </code></pre></div>
 
 <p><a href="https://tools.ietf.org/html/rfc7348">RFC 7348</a> 指出 VXLAN 接收端口为 UDP 4789，因此该端口必须在 ens1f1 上开放。实际上由于 ens1f0 和 ens1f1 这两个界面没有外部接入，故不设防。</p>
-<h2 id="arp">ARP 问题<a class="headerlink" href="#arp" title="Permanent link">&para;</a></h2>
-<div class="admonition success">
-<p class="admonition-title">该问题已于 2020 年 7 月 31 日解决，见下</p>
-</div>
-<p>默认情况下 Linux 会对本机的所有 IP 地址在所有界面上响应 ARP 请求（当然 127.0.0.0/8 和 loopback 是除外的），例如一个主机拥有两个界面 ifA 和 ifB，它们分别具有 IP 地址 ipA 和 ipB，那么 Linux 会在 ifA 上响应 who-has ipB 的请求，反之亦然。</p>
-<p>这在 2020 年上半年研究 pv8 为什么连不上 VXLAN 的时候造成了很大的困惑，因为实际上 pv8 的 ens1f1 界面是坏的（可能是光纤没插好之类的），然后系统在 ens1f0 界面上响应了实际属于 ens1f1 的 IP 地址，在其他机器上看起来就像是 ens1f1 能连通但 vxlan0 连不通，而实际上是 10.0.0.28 被解析到了 pv8 的 ens1f0 上，没故障当然就能连通了。</p>
-<div class="admonition note">
-<p class="admonition-title">iBug 备注</p>
-<p>这个地方我也没想到，其实只要在其他机器上看看 ARP 缓存表（<code>arp -a</code>）就能发现两个 IP 解析出来的 MAC 一样了</p>
-</div>
-<p>解决办法就是设置 Linux 参数让其只在“正确的”界面上响应，详细参数解释参见 Server Fault 上的<a href="https://serverfault.com/a/834519/450575">这个回答</a>。我们的做法是向 <code>/etc/sysctl.d/arp.conf</code> 里写入了如下内容：</p>
-<div class="highlight"><pre><span></span><code><span class="na">net.ipv4.conf.all.arp_ignore</span><span class="o">=</span><span class="s">1</span>
-<span class="na">net.ipv4.conf.all.arp_announce</span><span class="o">=</span><span class="s">2</span>
-</code></pre></div>
                 
               
               
