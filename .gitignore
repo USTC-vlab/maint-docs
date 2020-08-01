@@ -1,14 +1,19 @@
-.svn
-.sass-cache
+# Editors
+*~
+*.bak
+*.swp
+*.sw_
 
-# Bundler
-Gemfile.lock
-/vendor
-.bundle/
+# Mkdocs
+site
 
-# Jekyll
-_site
+# Python & venv
+*.py[cod]
+__pycache__/
+env/
+venv/
 
-# Jekyll Plugins
-.git-metadata
-.jekyll-metadata
+# Project
+.project
+.idea/
+.vscode
