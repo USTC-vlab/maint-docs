@@ -947,8 +947,8 @@
 
 <h3 id="vxlan-mtu">VXLAN MTU<a class="headerlink" href="#vxlan-mtu" title="Permanent link">&para;</a></h3>
 <div class="admonition success">
-<p class="admonition-title">该坑点已修复</p>
-<p>在 2020 年 8 月 1 日下午由 iBug 等人进行的<a href="../records/2020-08-01/">维护工作</a>中，下层承载网卡 ens1f1 的 MTU 已被调整为 1550 字节，从而此后的 VXLAN 网络都具有“正常”的 1500 字节的设置。</p>
+<p class="admonition-title">该坑点已于 2020 年 7 月 31 日修复</p>
+<p>在<a href="../records/2020-08-01/">此次维护工作</a>中，下层承载网卡 ens1f1 的 MTU 已被调整为 1550 字节，从而此后的 VXLAN 网络都具有“正常”的 1500 字节的设置。</p>
 <p>注意以后若有新增的机器还是需要额外设置一遍的。</p>
 </div>
 <p>VXLAN 是一种 overlay 网络实现，将帧包装在 UDP 包中传输。由于一个 UDP 包对应一个帧，因此 VXLAN 网络的 MTU 为下层承载网的 MTU 减掉 50 字节（各种头之类的），所以在下层网络使用默认配置（MTU 1500）的情况下 VXLAN 网络的 MTU 为 1450，<strong>这是一个非标准的值</strong>，而从该 VXLAN 网络中桥接出来的界面并不知道其网络的真实 MTU 小于 1500，结果就是传输的内容稍微多一点（单个帧超过 1450 字节）的时候就会被整个丢掉，造成无法联网的情况。</p>
