@@ -62,6 +62,7 @@ nav:
     - 主机网卡: networking/host.md
     - 容器内网: networking/intranet.md
     - 防火墙与安全: networking/firewall.md
+    - IP 地址列表: networking/ips.md
   - 工作流程:
     - 配置新主机: workflow/new-host.md
     - 打包容器镜像: workflow/pack-ct-image.md
