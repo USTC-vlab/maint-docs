@@ -30,7 +30,7 @@ IP 分配情况：10.0.0.10 - 10.0.0.18 为各主机的 ens1f0 界面，10.0.0.2
 
 更多信息参见 [容器内网](intranet.md) 一页。
 
-## 学生机网络 {#container-network}
+## 学生机网络 {#vm-network}
 
 CT100 为网关，将所有学生机的上行流量 NAT 后连接到校园网；同时通过 iptables DNAT 分配入口端口（目前范围为 10001:29999）供学生连接 SSH 及其他服务。该容器上除 SSH 及系统组件外唯一运行的程序是 [iBug/pfserver](https://github.com/iBug/pfserver)，将 iptables 端口转发包装成 HTTP API。具体内容详见 [CT100 容器的文档](../servers/ct100.md)。
 
