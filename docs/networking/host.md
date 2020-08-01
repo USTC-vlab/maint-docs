@@ -62,6 +62,7 @@ iface vxlan0 inet manual
     up ip link set vxlan0 up
     down ip link set vxlan0 down
     post-down ip link delete vxlan0 || true
+    mtu 1500
 auto vmbr1
 iface vmbr1 inet static
     address 172.31.0.102/16
@@ -70,4 +71,4 @@ iface vmbr1 inet static
     bridge_fd 0
 ```
 
-其中 ens1f1 的 mtu 设置见[踩坑记录](../traps.md#vxlan-mtu)中的解释。
+其中 ens1f1 的 `mtu 1550` 和 vxlan0 的 `mtu 1500` 设置见[踩坑记录](../traps.md#vxlan-mtu)中的解释。
