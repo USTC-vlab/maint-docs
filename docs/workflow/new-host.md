@@ -6,7 +6,7 @@
 
 先配好 SSH 访问，对 SSH Host Key 签名，并加入 TrustedUserCAKeys。见 [SSH 证书认证](../ssh-ca.md) 一页。
 
-**在加入现有的 Proxmox VE 集群后**删除 root 密码（`passwd -d root`）。
+**在加入现有的 Proxmox VE 集群后**删除 root 密码（`passwd -d root`），方便以后维护。
 
 ## 软件源
 
