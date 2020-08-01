@@ -11,7 +11,7 @@
         <meta name="description" content="Vlab 维护文档">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/networking/host/">
+        <link rel="canonical" href="https://vlab.ibugone.com/networking/ips/">
       
       
         <meta name="author" content="iBug">
@@ -21,7 +21,7 @@
     
     
       
-        <title>主机网卡 - Vlab 维护文档</title>
+        <title>IP 地址列表 - Vlab 维护文档</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#ip" class="md-skip">
           跳转至
         </a>
       
@@ -94,7 +94,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              主机网卡
+              IP 地址列表
             
           </span>
         </div>
@@ -267,20 +267,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="主机网卡" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../host/" title="主机网卡" class="md-nav__link">
       主机网卡
     </a>
-    
   </li>
 
         
@@ -312,11 +303,60 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../ips/" title="IP 地址列表" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        IP 地址列表
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="IP 地址列表" class="md-nav__link md-nav__link--active">
       IP 地址列表
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ipv4" class="md-nav__link">
+    IPv4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipv6" class="md-nav__link">
+    IPv6
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -630,6 +670,30 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ipv4" class="md-nav__link">
+    IPv4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipv6" class="md-nav__link">
+    IPv6
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -640,7 +704,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/networking/host.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/networking/ips.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -648,75 +712,68 @@
                   
                 
                 
-                <h1 id="_1">主机网卡<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Proxmox VE 不支持 ifupdown 以外的网络管理系统（可以使用 ifupdown2，不过我们不需要），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 <code>/etc/network/interfaces</code> 文件。</p>
-<p>参考 pv2 上配置，复制时注意替换 IP 地址。</p>
-<div class="highlight"><pre><span></span><code>auto lo
-iface lo inet loopback
-
-auto eno1
-iface eno1 inet manual
-    bond-master bond0
-
-auto eno2
-iface eno2 inet manual
-    bond-master bond0
-
-auto eno3
-iface eno3 inet manual
-    bond-master bond0
-
-auto eno4
-iface eno4 inet manual
-    bond-master bond0
-
-auto ens1f0
-iface ens1f0 inet static
-    address 10.0.0.12
-    netmask 255.255.255.0
-auto ens1f1
-iface ens1f1 inet static
-    address 10.0.0.22
-    netmask 255.255.255.0
-    mtu 1550
-
-auto bond0
-iface bond0 inet manual
-    bond-mode balance-alb
-    bond-miimon 100
-    bond-downdelay 200
-    bond-updelay 200
-
-auto vmbr0
-iface vmbr0 inet static
-    address 202.38.75.97/24
-    gateway 202.38.75.254
-    dns-nameservers 202.38.64.1
-    bridge_ports bond0
-    bridge_stp off
-    bridge_fd 0
-iface vmbr0 inet6 static
-    address 2001:da8:d800:75::a2
-    netmask 64
-    gateway 2001:da8:d800:75::1
-    dns-nameservers 2001:da8:d800::1
-
-# Overlay network for VMs
-auto vxlan0
-iface vxlan0 inet manual
-    pre-up ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dstport 0 dev ens1f1 || true
-    up ip link set vxlan0 up
-    down ip link set vxlan0 down
-    post-down ip link delete vxlan0 || true
-auto vmbr1
-iface vmbr1 inet static
-    address 172.31.0.102/16
-    bridge_ports vxlan0
-    bridge_stp off
-    bridge_fd 0
-</code></pre></div>
-
-<p>其中 ens1f1 的 mtu 设置见<a href="../../traps/#vxlan-mtu">踩坑记录</a>中的解释。</p>
+                <h1 id="ip">IP 地址列表<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h1>
+<h2 id="ipv4">IPv4<a class="headerlink" href="#ipv4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th align="center">IP 地址</th>
+<th align="center">主机或用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">202.38.75.4</td>
+<td align="center">一个实验用的虚拟机</td>
+</tr>
+<tr>
+<td align="center">202.38.75.85</td>
+<td align="center">pv0 (第一代的唯一一台机器)</td>
+</tr>
+<tr>
+<td align="center">202.38.75.86</td>
+<td align="center">pv1</td>
+</tr>
+<tr>
+<td align="center">202.38.75.97</td>
+<td align="center">pv2</td>
+</tr>
+<tr>
+<td align="center">202.38.75.98</td>
+<td align="center">pv3</td>
+</tr>
+<tr>
+<td align="center">202.38.75.99</td>
+<td align="center">pv4</td>
+</tr>
+<tr>
+<td align="center">202.38.75.100</td>
+<td align="center">pv5</td>
+</tr>
+<tr>
+<td align="center">202.38.75.102</td>
+<td align="center">pv6</td>
+</tr>
+<tr>
+<td align="center">202.38.75.103</td>
+<td align="center">pv7</td>
+</tr>
+<tr>
+<td align="center">202.38.75.104</td>
+<td align="center">pv8</td>
+</tr>
+<tr>
+<td align="center">202.38.75.226</td>
+<td align="center"><a href="../../servers/ct101/">CT 101</a></td>
+</tr>
+<tr>
+<td align="center">202.38.75.252</td>
+<td align="center"><a href="../../servers/ct100/">CT 100</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="ipv6">IPv6<a class="headerlink" href="#ipv6" title="Permanent link">&para;</a></h2>
+<p>暂无</p>
                 
               
               
@@ -735,7 +792,7 @@ iface vmbr1 inet static
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../" title="网络界面" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../firewall/" title="防火墙与安全" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -744,19 +801,19 @@ iface vmbr1 inet static
                 <span class="md-footer-nav__direction">
                   上一页
                 </span>
-                网络界面
+                防火墙与安全
               </div>
             </div>
           </a>
         
         
-          <a href="../intranet/" title="容器内网" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../workflow/new-host/" title="配置新主机" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   下一页
                 </span>
-                容器内网
+                配置新主机
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
