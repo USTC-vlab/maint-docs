@@ -59,14 +59,28 @@ LVM 卷不能多个主机同时使用（active 状态），如果出现这种情
 
     Proxmox VE 在启动容器或虚拟机时会尝试占用相关的卷（设为 active），并在关闭容器或虚拟机时取消 active 状态，因此正常情况下不会出现跨主机占用的情况。
 
-!!! bug "坑点"
+!!! question "该坑点可能已修复，尚未测试"
 
     出于不明原因，手动挂载 iSCSI 设备会导致上面所有的 LV 都变成 active。
+
+    **解决方法**：根据 Server Fault 上的[这个回答](https://serverfault.com/a/678654/450575)，在 `/etc/lvm/lvm.conf` 中写入以下内容：
+
+    ```toml
+    auto_activation_volume_list = [ "pve", "data" ]
+    ```
+
+    保存后 LVM 就不会在检测到新 VG 时自动启用全部卷了。可能需要更新 initramfs 和/或重启。
 
 解决步骤：
 
 - 如果受影响的卷不多，可以手动 SSH 进入所有主机，全部来一遍 `lvchange -an <vg/lv>`，这样就在全部主机上把这个卷取消了 active 状态，然后其中一个主机就可以开始使用它（启动容器）了。
 - 如果受影响的卷很多（常见情况），较为简单的方法是把所有虚拟机容器都关掉，然后 `vgchange -an <vg>`，一次性把整个 VG 里的全部 LV 取消 active 状态（当然每个主机都要重复一遍），然后一切恢复正常。
+
+    - 另一种高级办法是使用文字处理技巧，解析 `lvs` 的输出并关闭全部 active 但不是 open 的卷（即 flags 为 `-wi-a-----` 的卷）。参考命令如下：
+
+        ```shell
+        lvs | awk '$2 == "user-data" && substr($3, 5, 1) == "a" { print $2 "/" $1 }' | xargs lvchange -an
+        ```
 
 ## 网络 {#networking}
 
