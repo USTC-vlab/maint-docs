@@ -65,7 +65,7 @@ iface vxlan0 inet manual
     mtu 1500
 auto vmbr1
 iface vmbr1 inet static
-    address 172.31.0.102/16
+    address 172.30.0.102/24
     bridge_ports vxlan0
     bridge_stp off
     bridge_fd 0
