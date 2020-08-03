@@ -920,14 +920,29 @@
 <p class="admonition-title">Proxmox VE 使用 LVM</p>
 <p>Proxmox VE 在启动容器或虚拟机时会尝试占用相关的卷（设为 active），并在关闭容器或虚拟机时取消 active 状态，因此正常情况下不会出现跨主机占用的情况。</p>
 </div>
-<div class="admonition bug">
-<p class="admonition-title">坑点</p>
+<div class="admonition question">
+<p class="admonition-title">该坑点可能已修复，尚未测试</p>
 <p>出于不明原因，手动挂载 iSCSI 设备会导致上面所有的 LV 都变成 active。</p>
+<p><strong>解决方法</strong>：根据 Server Fault 上的<a href="https://serverfault.com/a/678654/450575">这个回答</a>，在 <code>/etc/lvm/lvm.conf</code> 中写入以下内容：</p>
+<div class="highlight"><pre><span></span><code><span class="n">auto_activation_volume_list</span> <span class="o">=</span> <span class="k">[ &quot;pve&quot;, &quot;data&quot; ]</span>
+</code></pre></div>
+
+<p>保存后 LVM 就不会在检测到新 VG 时自动启用全部卷了。可能需要更新 initramfs 和/或重启。</p>
 </div>
 <p>解决步骤：</p>
 <ul>
 <li>如果受影响的卷不多，可以手动 SSH 进入所有主机，全部来一遍 <code>lvchange -an &lt;vg/lv&gt;</code>，这样就在全部主机上把这个卷取消了 active 状态，然后其中一个主机就可以开始使用它（启动容器）了。</li>
-<li>如果受影响的卷很多（常见情况），较为简单的方法是把所有虚拟机容器都关掉，然后 <code>vgchange -an &lt;vg&gt;</code>，一次性把整个 VG 里的全部 LV 取消 active 状态（当然每个主机都要重复一遍），然后一切恢复正常。</li>
+<li>
+<p>如果受影响的卷很多（常见情况），较为简单的方法是把所有虚拟机容器都关掉，然后 <code>vgchange -an &lt;vg&gt;</code>，一次性把整个 VG 里的全部 LV 取消 active 状态（当然每个主机都要重复一遍），然后一切恢复正常。</p>
+<ul>
+<li>
+<p>另一种高级办法是使用文字处理技巧，解析 <code>lvs</code> 的输出并关闭全部 active 但不是 open 的卷（即 flags 为 <code>-wi-a-----</code> 的卷）。参考命令如下：</p>
+<div class="highlight"><pre><span></span><code>lvs <span class="p">|</span> awk <span class="s1">&#39;$2 == &quot;user-data&quot; &amp;&amp; substr($3, 5, 1) == &quot;a&quot; { print $2 &quot;/&quot; $1 }&#39;</span> <span class="p">|</span> xargs lvchange -an
+</code></pre></div>
+
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="networking">网络<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
 <h3 id="linux-arp">ARP 问题<a class="headerlink" href="#linux-arp" title="Permanent link">&para;</a></h3>
