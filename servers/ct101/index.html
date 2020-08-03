@@ -754,7 +754,7 @@
                 
                 <h1 id="web-ct-101">Web 服务器 (CT 101)<a class="headerlink" href="#web-ct-101" title="Permanent link">&para;</a></h1>
 <p>这个容器是 vlab 对外服务的主要场所，上面运行了我们的各种程序。</p>
-<p>该容器接入校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.226/24</code>，且该 IP 是 <code>vlab.ustc.edu.cn</code> 域名指向的）和容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.2/16</code>），通过校园网对外提供 Web 服务、VNC 统一登录服务和 SSH 统一登录服务，通过容器内网连接其他虚拟机。尽管本容器接入了两个网络，但是<strong>不用作转发</strong>。</p>
+<p>该容器接入校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.226/24</code>，且该 IP 是 <code>vlab.ustc.edu.cn</code> 域名指向的）和容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.2/16</code>, <code>172.30.0.2/24</code>），通过校园网对外提供 Web 服务、VNC 统一登录服务和 SSH 统一登录服务，通过容器内网连接其他虚拟机。尽管本容器接入了两个网络，但是<strong>不用作转发</strong>。</p>
 <h2 id="web">Django web 应用与 Nginx<a class="headerlink" href="#web" title="Permanent link">&para;</a></h2>
 <p>未完待续</p>
 <h2 id="vnc-unified-login">VNC 统一登录<a class="headerlink" href="#vnc-unified-login" title="Permanent link">&para;</a></h2>

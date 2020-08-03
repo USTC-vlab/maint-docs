@@ -763,15 +763,7 @@
 <p>IP 分配情况：10.0.0.10 - 10.0.0.18 为各主机的 ens1f0 界面，10.0.0.20 - 10.0.0.28 为 ens1f1 界面，10.0.0.1 分配给 pv1 备用。与 IPMI 地址相似，地址的最后一位数字和主机名一致。</p>
 <p>运行在这个网络上的设施有 iSCSI 和 NFS（用于共享容器镜像，LVM 带锁不能直接多机同时挂载）。</p>
 <h2 id="overlay-intranet">容器内网<a class="headerlink" href="#overlay-intranet" title="Permanent link">&para;</a></h2>
-<p>容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，因此 MTU 为 1450（这个地方<a href="../traps/#vxlan-mtu">有坑</a>）。IP 地址段为 172.31.0.0/16，目前使用情况：</p>
-<ul>
-<li>172.31.0.1 为内网网关，运行在 CT100 上，该容器同时连接校园网，IP 为 202.38.75.252，提供所有学生机的校园网访问以及 SSH 接入（均为 NAT）</li>
-<li>172.31.0.2 为 web 服务器的内网 IP，web 容器为 CT101，校园网界面为 202.38.75.226，也是域名 <code>vlab.ustc.edu.cn</code> 指向的地址</li>
-<li>172.31.0.0/22 保留，用于实验以及主机接入</li>
-<li>172.31.0.0 和 172.31.255.255 不是单播地址，无法使用</li>
-<li>172.31.4.0 - 172.31.255.254 分配给学生机使用</li>
-</ul>
-<p>更多信息参见 <a href="intranet/">容器内网</a> 一页。</p>
+<p>容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，IP 地址段暂定为 172.31.0.0/16。更多信息参见 <a href="intranet/">容器内网</a> 一页。</p>
 <h2 id="vm-network">学生机网络<a class="headerlink" href="#vm-network" title="Permanent link">&para;</a></h2>
 <p>CT100 为网关，将所有学生机的上行流量 NAT 后连接到校园网；同时通过 iptables DNAT 分配入口端口（目前范围为 10001:29999）供学生连接 SSH 及其他服务。该容器上除 SSH 及系统组件外唯一运行的程序是 <a href="https://github.com/iBug/pfserver">iBug/pfserver</a>，将 iptables 端口转发包装成 HTTP API。具体内容详见 <a href="../servers/ct100/">CT100 容器的文档</a>。</p>
 <p>CT101 为 web 服务器，提供 web 界面（Nginx, Django）和 VNC 统一接入（程序在 <a href="https://github.com/pdlan">pdlan</a> 的一个私有仓库中，由于潜在的版权问题不能公开）。具体内容详见 <a href="../servers/ct101/">CT101 容器的文档</a>。</p>

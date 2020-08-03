@@ -779,10 +779,10 @@
                 
                 
                 <h1 id="ct-100">网关机 (CT 100)<a class="headerlink" href="#ct-100" title="Permanent link">&para;</a></h1>
-<p>网关机顾名思义就是（容器内网的）网关，同时接入了容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.1/16</code>）和校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.252/24</code>），通过 NAT 提供内网机器的对外访问以及将内网机器的 SSH 端口转发到公网上。</p>
+<p>网关机顾名思义就是（容器内网的）网关，同时接入了容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.1/16</code>, <code>172.30.0.1/24</code>）和校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.252/24</code>），通过 NAT 提供内网机器的对外访问以及将内网机器的 SSH 端口转发到公网上。</p>
 <p>该容器配置为四核 1G，除了基本系统组件（主要是 iptables）之外仅运行了 <a href="https://github.com/iBug/pfserver">iBug/pfserver</a>，该程序提供了增减端口转发的 HTTP API，与前端 Django 程序结合。</p>
 <h2 id="_1">内网上网转发<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>内网虚拟机（172.31.0.0/16）的所有到外网流量都通过本机转发，转发通过 iptables 设置，由内核完成，因此本容器中的 iptables 规则十分重要。下面解释设置文件 <code>iptables.sh</code>（位于 <code>/root</code> 下）。</p>
+<p>内网虚拟机（172.31.0.0/16，172.30.0.0/24）的所有到外网流量都通过本机转发，转发通过 iptables 设置，由内核完成，因此本容器中的 iptables 规则十分重要。下面解释设置文件 <code>iptables.sh</code>（位于 <code>/root</code> 下）。</p>
 <h3 id="_2">防火墙部分<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
@@ -860,7 +860,8 @@ iptables -Z
 36
 37
 38
-39</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>iptables -t nat -F PREROUTING
+39
+40</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>iptables -t nat -F PREROUTING
 iptables -t nat -F POSTROUTING
 <span class="c1">#iptables -t nat -X</span>
 iptables -t nat -N VLAB_STUDENT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
@@ -868,7 +869,8 @@ iptables -t nat -A PREROUTING -i eth1 -d <span class="m">202</span>.38.64.58/31 
 iptables -t nat -A PREROUTING -i eth1 -d <span class="m">202</span>.38.96.193/32 -j DNAT --to-destination <span class="m">202</span>.38.75.226
 iptables -t nat -A PREROUTING -i eth1 -d <span class="m">210</span>.45.224.65/32 -j DNAT --to-destination <span class="m">202</span>.38.75.226
 iptables -t nat -A PREROUTING -i eth0 -p tcp -m tcp --dport <span class="m">10001</span>:29999 -j VLAB_STUDENT
-iptables -t nat -A POSTROUTING -s <span class="m">172</span>.31.0.0/16 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s <span class="m">172</span>.30.0.0/15 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s <span class="m">10</span>.38.79.0/24 -j MASQUERADE
 <span class="c1">#iptables -t nat -Z</span>
 iptables-save -f /etc/iptables/rules.v4
 </code></pre></div>
@@ -878,7 +880,7 @@ iptables-save -f /etc/iptables/rules.v4
 <p>32 行创建 <code>VLAB_STUDENT</code> 链给 pfserver 程序用。</p>
 <p>33-35 行把尝试访问网络通的流量都劫持到 web 容器中，这样就能显示“网络通被屏蔽”的消息了。</p>
 <p>36 行提供 <code>VLAB_STUDENT</code> 链的入口，该入口限制了只有 10001:29999 之间（inclusive）的端口能够被转发。</p>
-<p>37 是出口 NAT，对于转发出去的流量，根据源地址进行 NAT。（POSTROUTING 链中没有 <code>-i</code> 可用）</p>
+<p>37 是出口 NAT，对于转发出去的流量，根据源地址进行 NAT。（POSTROUTING 链中没有 <code>-i</code> 可用），38 行类似（此处忽略）</p>
 <h2 id="pfserver">pfserver（未完待续）<a class="headerlink" href="#pfserver" title="Permanent link">&para;</a></h2>
 <div class="footnote">
 <hr />

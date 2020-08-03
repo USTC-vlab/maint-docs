@@ -289,9 +289,42 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        容器内网
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
     <a href="./" title="容器内网" class="md-nav__link md-nav__link--active">
       容器内网
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    IP 地址分配
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -642,6 +675,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    IP 地址分配
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -666,6 +716,22 @@
 </code></pre></div>
 
 <p><a href="https://tools.ietf.org/html/rfc7348">RFC 7348</a> 指出 VXLAN 接收端口为 UDP 4789，因此该端口必须在 ens1f1 上开放。实际上由于 ens1f0 和 ens1f1 这两个界面没有外部接入，故不设防。</p>
+<h2 id="ip">IP 地址分配<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<p>容器内网 IP 段为 172.31.0.0/16，目前使用情况：</p>
+<ul>
+<li>172.31.0.1 为内网网关，运行在 CT 100 上，该容器同时连接校园网，对外 IP 为 202.38.75.252，提供所有学生机的校园网访问以及 SSH 接入（均为 NAT）</li>
+<li>172.31.0.2 为 web 服务器，即 CT 101，对外 IP 为 202.38.75.226，也是域名 <code>vlab.ustc.edu.cn</code> 指向的地址</li>
+<li>172.31.0.0/22 保留，用于实验等内部用途</li>
+<li>172.31.0.0 和 172.31.255.255 不是单播地址，无法使用</li>
+<li>172.31.4.0 - 172.31.255.254 分配给学生机使用</li>
+</ul>
+<p>另外还有一段 172.30.0.0/24 用于主机接入等内部用途，目前分配情况如下：</p>
+<ul>
+<li>172.30.0.1 = CT 100</li>
+<li>172.30.0.2 = CT 101</li>
+<li>172.30.0.3 = CT 102</li>
+<li>172.30.0.101 - 172.30.0.108 为主机接入</li>
+</ul>
                 
               
               
