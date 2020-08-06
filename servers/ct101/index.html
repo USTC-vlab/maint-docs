@@ -17,7 +17,7 @@
         <meta name="author" content="iBug">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.3">
     
     
       
@@ -25,9 +25,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.5d00201e.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.947af8d5.min.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.816e8abc.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.7f672a1f.min.css">
       
       
         
@@ -487,6 +487,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#grafana" class="md-nav__link">
+    Grafana 与监控、统计
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -732,6 +739,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#grafana" class="md-nav__link">
+    Grafana 与监控、统计
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -763,38 +777,14 @@
 <p>未完待续</p>
 <h2 id="user-docs">Webhook 与用户文档<a class="headerlink" href="#user-docs" title="Permanent link">&para;</a></h2>
 <p>容器里有一个 webhook 服务器，从 GitHub 接收用户文档仓库 <a href="https://github.com/USTC-vlab/docs">USTC-vlab/docs</a> 的更新通知并拉取更新。</p>
-<p>代码非常简单，就几行 <a href="https://sinatrarb.com/">Sinatra</a>，每次收到通知就去 <code>/srv/www/docs</code> 下面跑一下 git 命令。</p>
-<div class="highlight"><pre><span></span><code><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
-<span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
-
-<span class="n">set</span> <span class="ss">:port</span><span class="p">,</span> <span class="mi">8001</span>
-
-<span class="n">post</span> <span class="s1">&#39;/webhook/github/docs&#39;</span> <span class="k">do</span>
-  <span class="k">begin</span>
-    <span class="n">payload</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span> <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">read</span>
-    <span class="k">if</span> <span class="n">payload</span><span class="o">[</span><span class="s1">&#39;ref&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;refs/heads/gh-pages&#39;</span>
-      <span class="nb">system</span> <span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="s1">&#39;-ec&#39;</span><span class="p">,</span> <span class="s1">&#39;cd /srv/www/docs; git fetch origin gh-pages; git reset --hard FETCH_HEAD&#39;</span>
-      <span class="k">next</span> <span class="s2">&quot;OK</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">else</span>
-      <span class="n">status</span> <span class="mi">204</span>
-      <span class="k">next</span>
-    <span class="k">end</span>
-  <span class="k">rescue</span> <span class="no">JSON</span><span class="o">::</span><span class="no">ParserError</span>
-    <span class="n">status</span> <span class="mi">400</span>
-    <span class="s2">&quot;Invalid JSON!</span><span class="se">\n</span><span class="s2">&quot;</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="n">not_found</span> <span class="k">do</span>
-  <span class="s2">&quot;TaoKY Strong</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="k">end</span>
-</code></pre></div>
-
+<p>代码曾经是用 <a href="https://sinatrarb.com/">Ruby Sinatra</a> 写的，后来换成了 Go，参见 <code>/root/webhook/main.go</code>（或<a href="https://gist.github.com/iBug/34caff517617bfd0de2205d2466a3b78">这个 Gist</a>）</p>
 <p>由于该 webhook 过于简单，它自己甚至没有一个 Git 仓库做版本管理（</p>
 <div class="admonition info">
 <p class="admonition-title">注意</p>
 <p>这个 webhook 前面还是套了一层 Nginx 的，不是直连的</p>
 </div>
+<h2 id="grafana">Grafana 与监控、统计<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h2>
+<p>未完待续</p>
                 
               
               
@@ -887,15 +877,15 @@
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.592d4e23.min.js"></script>
-      <script src="../../assets/javascripts/bundle.073197b2.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      <script src="../../assets/javascripts/vendor.c3dc8c49.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f9edbbd5.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.01088dc6.min.js"
+            worker: "../../assets/javascripts/worker/search.8e2cddea.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
