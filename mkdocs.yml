@@ -73,11 +73,13 @@ nav:
     - Web 服务器 (CT101): servers/ct101.md
   - 远程桌面:
     - 配置与管理: vnc/config.md
+  - 参考资料:
+    - "desktop 桌面图标文件": references/desktop.md
   - 其他资料:
     - 踩坑记录: traps.md
+    - 更新历史: changelog.md
     - 工作总结:
       - '2020 年 3 月 31 日': records/2020-03-31.md
       - '2020 年 8 月 1 日': records/2020-08-01.md
-
-  - 历史版本:
-    - 第一代: history/gen1.md
+    - 历史版本:
+      - 第一代: history/gen1.md
