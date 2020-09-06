@@ -15,3 +15,17 @@
 8 月 4 日
 
 :   基于 Grafana + InfluxDB / MySQL 的用量数据统计页面
+
+8 月 1 日
+
+:   光纤网络（ens1f0、ens1f1）的 MTU 现在是 1550 字节了
+
+    修复了 pv8 的光纤网络
+
+    [工作记录](references/2020-08-01.md)
+
+3 月 31 日
+
+:   向 pv0 加装了 32 GB 内存，向 pv2~pv8 加装了 64 GB 内存，向 pv2~pv5 加装了 Netronome Agilio 系列网卡
+
+    [工作记录](references/2020-03-31.md)
