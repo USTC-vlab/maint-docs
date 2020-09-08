@@ -8,6 +8,17 @@
 
     Linux 入门可以参考校 Linux 用户协会的 [Linux 101 课程讲义](https://101.lug.ustc.edu.cn/)或其他[在线教程](https://www.runoob.com/linux/linux-tutorial.html)。
 
+!!! warning "重要事项"
+
+    以下内容缺乏对应的维护文档：
+
+    - Django 前端
+    - VNC 网关
+    - SSH 网关
+    - noVNC 网页
+    - Grafana 面板及其后端
+    - Vlab Software（通过 bind mount 从 SSD 提供的 vlab 软件组合）
+
 ## 资源 {#resources}
 
 - [<i class="fab fa-github"></i> GitHub 讨论列表](https://github.com/USTC-vlab/discussions/issues)
