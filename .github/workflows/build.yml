@@ -10,7 +10,7 @@ jobs:
         python-version: 3.8.x
     - name: Install dependencies
       run: |
-        pip3 install -U mkdocs mkdocs-material
+        pip3 install -U -r requirements.txt
     - name: Build site
       run: |
         mkdocs build
