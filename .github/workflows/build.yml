@@ -4,7 +4,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 5
     - uses: actions/setup-python@v1
       with:
         python-version: 3.8.x
@@ -36,6 +38,7 @@ jobs:
         git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
           "git@github.com:${DEPLOY_REPOSITORY}.git" test
         mv test/.git site/.git && rmdir test/
+        git push "git@github.com:${DEPLOY_REPOSITORY}.git" +HEAD:master
         pushd site/ &>/dev/null
         git add -A
         git -c user.name=GitHub -c user.email=noreply@github.com commit \
