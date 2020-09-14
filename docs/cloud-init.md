@@ -48,14 +48,18 @@ promox 会对创建的新虚拟机自动分配不同的 MAC 地址.
 
 解决此问题的方法是文件 /etc/machine-id 删除, 重新创建一个同名空白文件
 
-> sudo rm /etc/machine-id
-> sudo touch /etc/machine-id
+```shell
+sudo rm /etc/machine-id
+sudo touch /etc/machine-id
+```
 
 之后, 转到文件/var/lib/dbus/machine-id,此文件会在每次虚拟机重启之后将 machine-id 复制到 /etc/machine-id 中. 
 所以将此文件删除, 创建一个 /etc/machine-id 的符号链接到此处. 
 
-> sudo rm /var/lib/dbus/machine-id
-> sudo ln -s /etc/machine-id /var/lib/dbus/machine-id
+```shell
+sudo rm /var/lib/dbus/machine-id
+sudo ln -s /etc/machine-id /var/lib/dbus/machine-id
+```
 
 然后将此虚拟机关机(不是重启, 否则会生成新的 machine-id ), 制作为模板. 
 
@@ -95,8 +99,10 @@ cloud-init.cfg 文件中有五个 stage, cloud-init 分为五个阶段进行, �
 ### User-Data
 cloud-init 通过命令行 --cicustom 将用户自定义的 config 文件进行配置 
 
-> qm set \<vid\> --cicustom "user=\<volume\>, network=\<volume\>, meta=\<volume\>" 
-> e.g. qm set 9000 --cicustom "user=local:snippets/userconfig.yaml" 
+```
+qm set \<vid\> --cicustom "user=\<volume\>, network=\<volume\>, meta=\<volume\>" 
+e.g. qm set 9000 --cicustom "user=local:snippets/userconfig.yaml" 
+```
 
 cicustom 文件需要在支持 snippets 并且所有的 VM 都能 access 的节点上. 
 
@@ -116,6 +122,7 @@ cloudinit 日志文件在 /var/log/cloud-init-ouput.log 中
 格式: 以 `#!` 开始或者当使用MIME归档时以 `Content-Type:text/x-shellscript` 开始
 
 example:
+
 ```shell
 #!/bin/sh
 echo "Hello World.  The time is now $(date -R)!" | tee /root/output.txt
@@ -153,7 +160,9 @@ bootcmd:
 
 ci 有一个脚本 make-mime.py 可以将不同类型的用户数据综合在一起, 例如将 cloud-config 类型的 config.yaml 和 x-shellscript 类型的 script.sh 组合在一起形成 user-data 数据:
 
-> ./tools/make-mime.py -a config.yaml:cloud-config -a script.sh:x-shellscript > user-data
+```shell
+./tools/make-mime.py -a config.yaml:cloud-config -a script.sh:x-shellscript > user-data
+```
 
 ### 部署
 #### 部署文件形式
@@ -162,7 +171,7 @@ ci 有一个脚本 make-mime.py 可以将不同类型的用户数据综合在一
    在虚拟机 /etc/cloud/cloud.cfg.d/ 下有多个 `.cfg` 结尾的文件, 这些ci配置文件将按照字母顺序执行, 后面的 cfg 文件会覆盖前面的 cfg 文件中相同的配置.
    
    通过测试, 新建一个 cfg 文件, 使用模块 bootcmd, 在此模块下编写的脚本程序将会被执行, 例如新建文件 /etc/cloud/cloud.cfg.d/test.cfg, 写入内容
-   ```script
+   ```shell
    bootcmd:
       - [sh, -xc, "echo 'hello world' >> testfile"]
    ```
@@ -182,10 +191,11 @@ ci 有一个脚本 make-mime.py 可以将不同类型的用户数据综合在一
 
 2. qm 命令从数据中心的命令行(未实现)
    从数据中心的终端上执行命令进行部署
-   > 格式: qm set \<vimd\> --cicustom "user=\<volume\>"
+   ```shell
+   qm set \<vimd\> --cicustom "user=\<volume\>" # 格式
 
-   > 示例: qm set 101 --cicustom "user=local:snippets/userconfig.yaml" 
-
+   qm set 101 --cicustom "user=local:snippets/userconfig.yaml"   # 示例
+   ```
 
 #### 其他问题
 修复报错:
@@ -201,4 +211,5 @@ perl: warning: Please check that your locale settings:
    are supported and installed on your system.
 perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
 ```
+
 将 ~/.bashrc 文件末尾添加 `export LC_ALL=C` 后执行 source ~/.bashrc
