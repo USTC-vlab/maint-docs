@@ -37,31 +37,31 @@ cloud_final_modules:
 - rightscale_userdata
 ```
 
-cloud-init 的`数据文件`放在 /var/lib/cloud/data 中.
-`日志文件`放在 /var/log/cloud-init-output.log (每阶段输出),
-/var/log/cloud-init.log (每一个操作更详细的调试日志),
+cloud-init 的`数据文件`放在 /var/lib/cloud/data 中. 
+`日志文件`放在 /var/log/cloud-init-output.log (每阶段输出), 
+/var/log/cloud-init.log (每一个操作更详细的调试日志), 
 /run/cloud-init: 决定开启和关闭自身的某些功能
 ### 解决从同一模板中创建的虚拟机有相同的 machine-id 问题
-promox 会对创建的新虚拟机自动分配不同的 MAC 地址.
+promox 会对创建的新虚拟机自动分配不同的 MAC 地址. 
 但是对于 ubuntu, 从统一模板中创建的虚拟机有和模板相同的 machine-id, 虚拟机使用此 machine-id 来获取 DHCP 的 lease, 从导致多个虚拟机竞争同一个IP地址.
 解决此问题的方法是文件 /etc/machine-id 删除, 重新创建一个同名空白文件
 > sudo rm /etc/machine-id
 > sudo touch /etc/machine-id
-之后, 转到文件/var/lib/dbus/machine-id,此文件会在每次虚拟机重启之后将 machine-id 复制到 /etc/machine-id 中.
-所以将此文件删除, 创建一个 /etc/machine-id 的符号链接到此处.
+之后, 转到文件/var/lib/dbus/machine-id,此文件会在每次虚拟机重启之后将 machine-id 复制到 /etc/machine-id 中. 
+所以将此文件删除, 创建一个 /etc/machine-id 的符号链接到此处. 
 > sudo rm /var/lib/dbus/machine-id
 > sudo ln -s /etc/machine-id /var/lib/dbus/machine-id
-然后将此虚拟机关机(不是重启, 否则会生成新的 machine-id), 制作为模板.
+然后将此虚拟机关机(不是重启, 否则会生成新的 machine-id), 制作为模板. 
 
 方法2: 
-修改 DHCP 的 identifier, /etc/netplan/ 下文件,在 network 下的 ethernets 下的条目增加 dhcp-identifier:mac, 即可使用 MAC 作为 DHCP 分配 IP 的唯一标志.
+修改 DHCP 的 identifier, /etc/netplan/ 下文件, 在 network 下的 ethernets 下的条目增加 dhcp-identifier:mac, 即可使用 MAC 作为 DHCP 分配 IP 的唯一标志.
 但 SSH 也使用 machine-id, 所以此方法只解决了 ip 的问题
 
 ### 安装必要软件包
 安装 net-tools, openssh-server 等工具
 
 ### 设置 user name 和 password (失败,无法使用在 promox web 页面上设置的 username 和 passwd 登录虚拟机)
-完成上面的工作后将虚拟机关机, 在 promox web 界面 hardware 栏中 add cloudinit Drive, 然后在 Cloud-init 栏中设置用户名和密码(必须设置, 否则无法进入由此模板创建的虚拟机).
+完成上面的工作后将虚拟机关机, 在 promox web 界面 hardware 栏中 add cloudinit Drive, 然后在 Cloud-init 栏中设置用户名和密码(必须设置, 否则无法进入由此模板创建的虚拟机). 
 
 ## cloud-init 简介和配置解释
 ### 阶段
@@ -81,24 +81,24 @@ cloud-init.cfg 文件中有五个 stage, cloud-init 分为五个阶段进行, �
    此阶段仅运行 config moudle, 其他阶段不起作用的模块都在这个阶段运行
 
 5. final:cloud-final.service
-   此阶段运行用户自定义的需要在登录系统后执行的脚本在此处运行.
+   此阶段运行用户自定义的需要在登录系统后执行的脚本在此处运行. 
 
 每个阶段中执行的任务以模块的形式定义, 模块执行的具体任务由 metadata 决定
 
 ### User-Data
-cloud-init 通过命令行 --cicustom 将用户自定义的 config 文件进行配置
-> qm set \<vid\> --cicustom "user=\<volume\>, network=\<volume\>, meta=\<volume\>"
-> e.g. qm set 9000 --cicustom "user=local:snippets/userconfig.yaml"
-cicustom 文件需要在支持 snippets 并且所有的 VM 都能 access 的节点上.
-创建一个 snippets: 在proxmox的 web 界面上的 datacenter 中点击存储 -add-directory, 设置 id, 选择目录 content 选择 snippets, node 选 ALL(No restrictions).
-关于 volumes:
-local 默认位置为 /var/lib/vz (定义在配置文件 /etc/pve/storage.cfg )
-cloudinit 日志文件在 /var/log/cloud-init-ouput.log 中
+cloud-init 通过命令行 --cicustom 将用户自定义的 config 文件进行配置 
+> qm set \<vid\> --cicustom "user=\<volume\>, network=\<volume\>, meta=\<volume\>" 
+> e.g. qm set 9000 --cicustom "user=local:snippets/userconfig.yaml" 
+cicustom 文件需要在支持 snippets 并且所有的 VM 都能 access 的节点上. 
+创建一个 snippets: 在proxmox的 web 界面上的 datacenter 中点击存储 -add-directory, 设置 id, 选择目录 content 选择 snippets, node 选 ALL(No restrictions). 
+关于 volumes: 
+local 默认位置为 /var/lib/vz (定义在配置文件 /etc/pve/storage.cfg ) 
+cloudinit 日志文件在 /var/log/cloud-init-ouput.log 中 
 
 #### UserData格式
 * User-Data Script
 
-通常用于仅仅需要执行一个 shell 脚本的时候
+通常用于仅仅需要执行一个 shell 脚本的时候 
 格式: 以 `#!` 开始或者当使用MIME归档时以 `Content-Type:text/x-shellscript` 开始
 example:
 ```shell
