@@ -88,26 +88,27 @@ cloud-init.cfg 文件中有五个 stage，cloud-init 分为五个阶段进行，
 
 1. generator
 
-   此阶段检测 ci 是否被禁用
+    此阶段检测 ci 是否被禁用
 
 2. local:cloud-init-local.service 
 
-   当/挂载时执行，此阶段的任务主要是定位本地数据，将网络配置应用到本地。
+    当/挂载时执行，此阶段的任务主要是定位本地数据，将网络配置应用到本地。
 
-   需要将网络 block
+    需要将网络 block
 
-   此阶段没有用到的模块
+    此阶段没有用到的模块
 
 3. network:cloud-init.service
 
-   处理所有的 user-data, 包括任何 `#include` or `#include-once`, 解压缩所有压缩文件, 运行所有的 `part-handler`
+    处理所有的 user-data, 包括任何 `#include` or `#include-once`, 解压缩所有压缩文件, 运行所有的 `part-handler`
 
 4. config:cloud.config.service
 
-   此阶段仅运行 config moudle, 其他阶段不起作用的模块都在这个阶段运行
+    此阶段仅运行 config module, 其他阶段不起作用的模块都在这个阶段运行
 
 5. final:cloud-final.service
-   此阶段运行用户自定义的需要在登录系统后执行的脚本在此处运行。
+
+    此阶段运行用户自定义的需要在登录系统后执行的脚本在此处运行。
 
 每个阶段中执行的任务以模块的形式定义, 模块执行的具体任务由 metadata 决定
 
