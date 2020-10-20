@@ -1,6 +1,7 @@
 
 
 
+
 <!doctype html>
 <html lang="zh" class="no-js">
   <head>
@@ -17,7 +18,7 @@
         <meta name="author" content="iBug">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
     
     
       
@@ -25,9 +26,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d3202873.min.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.6a5ad368.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ff0a5ce4.min.css">
       
       
         
@@ -787,17 +788,14 @@ iface vxlan0 inet manual
     post-down ip link delete vxlan0 || true
     mtu 1500
 </code></pre></div>
-
 <p>对于运行了容器的主机，直接重启更加方便（当然 iSCSI 的自动挂载又出问题了，见<a href="../../traps/">踩坑记录</a>的 LVM 一节）。对于没有运行容器的主机，可以直接把依赖的网卡一个个 down 掉再 up 回来：</p>
 <div class="highlight"><pre><span></span><code>ifdown vmbr1 vxlan0 ens1f1
 ifup ens1f1 vxlan0 vmbr1
 </code></pre></div>
-
 <p>接下来由于现有容器已经设置了 MTU = 1450，要把设置删掉，做法简单粗暴：</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc/pve/nodes
 grep -lwirF <span class="nv">mtu</span><span class="o">=</span><span class="m">1450</span> <span class="p">|</span> xargs sed -Ei <span class="s1">&#39;s/,mtu=1450//&#39;</span>
 </code></pre></div>
-
 <p>Proxmox 会自动将修改过的配置文件同步至集群中的其他主机（注意需要全部保持在线，否则同步会挂，踩坑记录有写）。</p>
 <p>最后把 Django 前端的 <code>config.py</code> 改一下，让新创建的容器使用默认的 MTU 就行了。</p>
 <h2 id="pv8">pv8 光纤网络问题<a class="headerlink" href="#pv8" title="Permanent link">&para;</a></h2>
@@ -898,8 +896,8 @@ grep -lwirF <span class="nv">mtu</span><span class="o">=</span><span class="m">1
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      <script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
       
       <script>
         app = initialize({

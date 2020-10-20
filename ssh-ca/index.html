@@ -1,6 +1,7 @@
 
 
 
+
 <!doctype html>
 <html lang="zh" class="no-js">
   <head>
@@ -17,7 +18,7 @@
         <meta name="author" content="iBug">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
     
     
       
@@ -25,9 +26,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.d3202873.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.6a5ad368.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ff0a5ce4.min.css">
       
       
         
@@ -742,7 +743,6 @@
 <p>CA 公钥：</p>
 <div class="highlight"><pre><span></span><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6KdAJzKLswXyjf4SipNL1dlK1Vq0KNOit/MTDLiamkqvHJDiKceLYmN97y3Chdx8ofXwW6sRUBJRrjmYq6M0JZSGc8roUtUnSai1P5q1kZQ59x1IhsduTg4WENSteSB6vIvpyoSmcIhi3v9UHgUsl4MsnHxffxx5BiyW7UHPY3MzzkRZL96A4QXUOFd9P+NED3zHmEZ9B2Q66+s2ep2FmNralK4XwRaVxBO2r9san8vYU5pH2TzYZLYxNZ/AFX3bLV5M+AmZytaSNLcuIzZHyqbYawvD+Lee00VB9A3JcaqsjDUCtHZ5gQsZMmqw2r7gj9lDqM6Fw6A8y5rWNJP3Q+FOEEYvzGnQ/SnzU0MpMvGpYWrm/uCJ8pFdbYTYkxAJ+VO0lJ5mAIN664cX0DQ3OyGH/xmCNWGGCfGfmvWqwMwD6Kzo06xcqzsoqaMxwgBuVyICE+VvVCf3pcX4HERDrZY0TMjZxaTc8Ws2xQHJbqekv6nIjQWUgH7LIjkYvycQkxXE2dWfDy/c2SRiKWuxW9n8Hymmfp3lbBHzlCa/LtHeuPIzmBUHUoGya0feWFjrbGnKcPs3etNqpvyIGngMaecTAsbrf5v+J1M0VLCfwzwLt13/G1BCb+BK22vYzMTusrR+6A68Fm6OWSFlBYp31uVLxPg0nqtiW8bi1FbD0hQ==
 </code></pre></div>
-
 <p><code>sshd_config</code> 相关配置：</p>
 <div class="highlight"><pre><span></span><code>HostKey /etc/ssh/ssh_host_rsa_key
 HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
@@ -753,7 +753,6 @@ PermitRootLogin prohibit-password
 
 PasswordAuthentication no
 </code></pre></div>
-
 <h2 id="ca">用户 CA<a class="headerlink" href="#ca" title="Permanent link">&para;</a></h2>
 <p>由于 Proxmox VE 没有提供直接在容器内执行命令的 API，因此我们通过内嵌 SSH CA 的方式自己造个轮子。</p>
 <p>出于管理的考虑，用户 CA 和主机 CA 独立。公钥：</p>
@@ -851,8 +850,8 @@ PasswordAuthentication no
       
     </div>
     
-      <script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      <script src="../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
       
       <script>
         app = initialize({

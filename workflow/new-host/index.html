@@ -1,6 +1,7 @@
 
 
 
+
 <!doctype html>
 <html lang="zh" class="no-js">
   <head>
@@ -17,7 +18,7 @@
         <meta name="author" content="iBug">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
     
     
       
@@ -25,9 +26,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d3202873.min.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.6a5ad368.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ff0a5ce4.min.css">
       
       
         
@@ -833,11 +834,9 @@
 deb https://mirrors6.tuna.tsinghua.edu.cn/debian buster-updates main contrib
 deb https://mirrors6.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib
 </code></pre></div>
-
 <p>删除 <code>/etc/apt/sources.list.d/pve-enterprise.list</code>，新建 <code>/etc/apt/sources.list.d/pve.list</code>，写入以下内容：</p>
 <div class="highlight"><pre><span></span><code>deb https://mirrors6.tuna.tsinghua.edu.cn/proxmox/debian buster pve-no-subscription
 </code></pre></div>
-
 <p>刷新软件源并安装更新。</p>
 <h2 id="_4">安装软件（可选）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>从 APT 安装一些软件以便管理和调试。请尽可能保持主机系统简洁。</p>
@@ -856,13 +855,11 @@ deb https://mirrors6.tuna.tsinghua.edu.cn/debian-security buster/updates main co
 <div class="highlight"><pre><span></span><code>iscsiadm -m discover
 iscsiadm -d2 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span class="m">10</span>.0.0.200 --login
 </code></pre></div>
-
 <p>存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。</p>
 <h2 id="nfs">挂载 NFS 镜像共享<a class="headerlink" href="#nfs" title="Permanent link">&para;</a></h2>
 <p>挂载 NFS 共享所用的 <code>/etc/fstab</code> 条目：</p>
 <div class="highlight"><pre><span></span><code>10.0.0.1:/var/lib/vz /mnt/container-template nfs rw,async,hard,intr,noexec 0 0
 </code></pre></div>
-
 <p>注意先在 pv1 上编辑 <code>/etc/exports</code> 并运行 <code>exportfs -a</code> 刷新挂载权限。</p>
                 
               
@@ -956,8 +953,8 @@ iscsiadm -d2 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span 
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      <script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
       
       <script>
         app = initialize({

@@ -1,6 +1,7 @@
 
 
 
+
 <!doctype html>
 <html lang="zh" class="no-js">
   <head>
@@ -17,7 +18,7 @@
         <meta name="author" content="iBug">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
     
     
       
@@ -25,9 +26,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.d3202873.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.6a5ad368.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ff0a5ce4.min.css">
       
       
         
@@ -1107,7 +1108,6 @@
 <div class="highlight"><pre><span></span><code>sudo apt install cloud-init  <span class="c1"># Ubuntu</span>
 sudo yum install cloud-init  <span class="c1"># CentOS</span>
 </code></pre></div>
-
 <p>cloud-init 的配置信息在文件 <code>/etc/cloud/cloud.cfg.d/*.cfg</code> 和 <code>/etc/cloud/cloud.cfg</code> 中。cloud-init 以字母顺序读取所有的 <code>*.cfg</code> 文件，相同参数后面的文件会覆盖前面的文件。</p>
 <p>在 cloud.cfg 文件中，任务以 module 形式组织. 例如指定 <code>set_hostname</code> 的 moudle 时，cloud-init 会执行 hostname 任务，具体的配置参数由 metadata 指定。</p>
 <p>我们需要在此文件中删除不需要的模块, 例如 <code>disable-ec2-metadata</code> 和 <code>byobu</code> 等。 </p>
@@ -1129,7 +1129,6 @@ sudo yum install cloud-init  <span class="c1"># CentOS</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">salt-minion</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rightscale_userdata</span>
 </code></pre></div>
-
 <p>cloud-init 的数据文件放在 <code>/var/lib/cloud/data</code> 中，
 日志文件放在 <code>/var/log/cloud-init-output.log</code> (每阶段输出)，
 <code>/var/log/cloud-init.log</code> (每一个操作更详细的调试日志)，
@@ -1142,13 +1141,11 @@ sudo yum install cloud-init  <span class="c1"># CentOS</span>
 <div class="highlight"><pre><span></span><code>sudo rm /etc/machine-id
 sudo touch /etc/machine-id
 </code></pre></div>
-
 <p>之后，转到文件 <code>/var/lib/dbus/machine-id</code>，此文件会在每次虚拟机重启之后将 machine-id 复制到 <code>/etc/machine-id</code> 中。
 所以将此文件删除，创建一个 <code>/etc/machine-id</code> 的符号链接到此处。</p>
 <div class="highlight"><pre><span></span><code>sudo rm /var/lib/dbus/machine-id
 sudo ln -s /etc/machine-id /var/lib/dbus/machine-id
 </code></pre></div>
-
 <p>然后将此虚拟机关机（不是重启，否则会生成新的 machine-id），制作为模板。</p>
 <h4 id="2">方法 2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
 <p>修改 DHCP 的 identifier，<code>/etc/netplan/</code> 下文件，在 network 下的 ethernets 下的条目增加 <code>dhcp-identifier: mac</code>，即可使用 MAC 作为 DHCP 分配 IP 的唯一标志。
@@ -1193,7 +1190,6 @@ qm <span class="nb">set</span> &lt;vid&gt; --cicustom <span class="s2">&quot;use
 <span class="c1"># Example</span>
 qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span class="s2">&quot;user=local:snippets/userconfig.yaml&quot;</span> 
 </code></pre></div>
-
 <p>cicustom 文件需要在支持 snippets 并且所有的 VM 都能 access 的节点上。</p>
 <p>创建一个 snippets: 在 proxmox 的 web 界面上的 datacenter 中点击存储 - add-directory, 设置 id, 选择目录 content 选择 snippets, node 选 ALL (No restrictions)。</p>
 <h4 id="volumes">关于 volumes<a class="headerlink" href="#volumes" title="Permanent link">&para;</a></h4>
@@ -1208,7 +1204,6 @@ qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span clas
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 <span class="nb">echo</span> <span class="s2">&quot;Hello World. The time is now </span><span class="k">$(</span>date -R<span class="k">)</span><span class="s2">!&quot;</span> <span class="p">|</span> tee /root/output.txt
 </code></pre></div>
-
 </div>
 <p>在虚拟机的 <code>/var/lib/cloud/scripts</code> 目录下存放要执行的脚本文件。</p>
 <h5 id="cloud-config-data">Cloud Config Data<a class="headerlink" href="#cloud-config-data" title="Permanent link">&para;</a></h5>
@@ -1222,7 +1217,6 @@ qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span clas
    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo 192.168.1.130 us.archive.com &gt; /etc/hosts</span>
    <span class="p p-Indicator">-</span> <span class="p p-Indicator">[</span> <span class="nv">cloud-init-per</span><span class="p p-Indicator">,</span> <span class="nv">one</span><span class="p p-Indicator">,</span> <span class="nv">mymkfs</span><span class="p p-Indicator">,</span> <span class="nv">mkfs</span><span class="p p-Indicator">,</span> <span class="nv">/dev/vdb</span> <span class="p p-Indicator">]</span>
 </code></pre></div>
-
 </div>
 <h4 id="config">config 示例:<a class="headerlink" href="#config" title="Permanent link">&para;</a></h4>
 <p>配置实例的 SSH key：<a href="https://cloudinit.readthedocs.io/en/latest/topics/modules.html#ssh">https://cloudinit.readthedocs.io/en/latest/topics/modules.html#ssh</a></p>
@@ -1234,7 +1228,6 @@ qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span clas
 <p>ci 有一个脚本 <code>make-mime.py</code> 可以将不同类型的用户数据综合在一起，例如将 cloud-config 类型的 config.yaml 和 x-shellscript 类型的 script.sh 组合在一起形成 user-data 数据:</p>
 <div class="highlight"><pre><span></span><code>./tools/make-mime.py -a config.yaml:cloud-config -a script.sh:x-shellscript &gt; user-data
 </code></pre></div>
-
 <h3 id="_4">部署<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <h4 id="_5">部署文件形式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <ul>
@@ -1256,16 +1249,17 @@ qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span clas
 <ol>
 <li>虚拟机本地</li>
 </ol>
-<p>将 .cfg 和 script 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程</p>
+<p>将 <code>.cfg</code> 和 <code>script</code> 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程</p>
 <ol>
 <li>qm 命令从数据中心的命令行（未实现）</li>
 </ol>
 <p>从数据中心的终端上执行命令进行部署</p>
-<div class="highlight"><pre><span></span><code>qm <span class="nb">set</span> &lt;vimd&gt; --cicustom <span class="s2">&quot;user=&lt;volume&gt;&quot;</span> <span class="c1"># 格式</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 格式</span>
+qm <span class="nb">set</span> &lt;vmid&gt; --cicustom <span class="s2">&quot;user=&lt;volume&gt;&quot;</span>
 
-qm <span class="nb">set</span> <span class="m">101</span> --cicustom <span class="s2">&quot;user=local:snippets/userconfig.yaml&quot;</span> <span class="c1"># 示例</span>
+<span class="c1"># 示例</span>
+qm <span class="nb">set</span> <span class="m">101</span> --cicustom <span class="s2">&quot;user=local:snippets/userconfig.yaml&quot;</span>
 </code></pre></div>
-
 <h4 id="_7">其他问题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>修复报错:</p>
 <ol>
@@ -1280,8 +1274,7 @@ perl: warning: Please check that your locale settings:
    are supported and installed on your system.
 perl: warning: Falling back to a fallback locale <span class="o">(</span><span class="s2">&quot;en_US.UTF-8&quot;</span><span class="o">)</span>.
 </code></pre></div>
-
-<p>解决方法：在 <code>~/.bashrc</code> 文件末尾添加 <code>export LC_ALL=C</code> 后执行 <code>source ~/.bashrc</code></p>
+<p>解决方法：设置环境变量 <code>LC_ALL=C</code></p>
 </li>
 </ol>
                 
@@ -1376,8 +1369,8 @@ perl: warning: Falling back to a fallback locale <span class="o">(</span><span c
       
     </div>
     
-      <script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      <script src="../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
       
       <script>
         app = initialize({
