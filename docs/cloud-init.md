@@ -217,16 +217,18 @@ ci 有一个脚本 `make-mime.py` 可以将不同类型的用户数据综合在�
 
 1. 虚拟机本地
 
-   将 .cfg 和 script 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程
+   将 `.cfg` 和 `script` 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程
 
 2. qm 命令从数据中心的命令行（未实现）
 
    从数据中心的终端上执行命令进行部署
 
    ```shell
-   qm set <vimd> --cicustom "user=<volume>" # 格式
+   # 格式
+   qm set <vmid> --cicustom "user=<volume>"
 
-   qm set 101 --cicustom "user=local:snippets/userconfig.yaml" # 示例
+   # 示例
+   qm set 101 --cicustom "user=local:snippets/userconfig.yaml"
    ```
 
 #### 其他问题
@@ -246,4 +248,4 @@ ci 有一个脚本 `make-mime.py` 可以将不同类型的用户数据综合在�
     perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
     ```
 
-    解决方法：在 `~/.bashrc` 文件末尾添加 `export LC_ALL=C` 后执行 `source ~/.bashrc`
+    解决方法：设置环境变量 `LC_ALL=C` 或 `LC_ALL=C.UTF-8`
