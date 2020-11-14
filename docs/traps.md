@@ -118,3 +118,19 @@ VXLAN 是一种 overlay 网络实现，将帧包装在 UDP 包中传输。由于
 所以我们计划在 2020 年暑假把这个问题彻底解决，办法是把下层承载网的 MTU 调大 50 字节（变成 1550 字节，修改 pv1 到 pv8 的 ens1f1 界面），这样 VXLAN 就能拥有“正常”的 1500 字节的 MTU 了，能为以后减少不少麻烦。
 
   [windows-mtu]: http://networking.nitecruzr.net/2007/11/setting-mtu-in-windows-vista.html
+
+## 虚拟机 {#vm}
+
+### user@1000.service 启动失败
+
+检查环境变量 `XDG_RUNTIME_DIR` 是否设置正确，应为 `/run/user/<uid>`。
+
+另外在未知情况下该目录有可能不存在，需要先创建一个（保险起见，同时 chown 一下）：
+
+```shell
+UID="$(id -u)"
+mkdir -p "/run/user/$UID"
+chown "$UID.$UID" "/run/user/$UID"
+```
+
+Ref: <https://github.com/systemd/systemd/issues/9461#issuecomment-409929860>
