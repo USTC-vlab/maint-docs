@@ -625,6 +625,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rootfs-lvs" class="md-nav__link">
+    容器仍在（部分）运行，但是 rootfs 未在 lvs 中显示
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -867,6 +874,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rootfs-lvs" class="md-nav__link">
+    容器仍在（部分）运行，但是 rootfs 未在 lvs 中显示
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1011,6 +1025,15 @@
 </ul>
 </li>
 </ul>
+<h3 id="rootfs-lvs">容器仍在（部分）运行，但是 rootfs 未在 <code>lvs</code> 中显示<a class="headerlink" href="#rootfs-lvs" title="Permanent link">&para;</a></h3>
+<p>症状：</p>
+<ul>
+<li>容器的 rootfs 神秘消失。</li>
+<li><code>journalctl</code> 的错误日志提示 ext4（或者其他文件系统）读写容器 rootfs 时出现错误。</li>
+<li>容器无法正常操作。</li>
+</ul>
+<p>这个问题当时在 CT100 上出现，原因为在同学操作测试节点时，使用了和正式环境相同的 LVM 存储，但是未加入集群，导致锁失效。<strong>这种情况是极其危险的，最坏的情况下，可能会破坏 LVM 的分区表。</strong></p>
+<p>目前，测试节点已加入集群，并且对重要容器的备份正在操作中。</p>
 <h2 id="networking">网络<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
 <h3 id="linux-arp">ARP 问题<a class="headerlink" href="#linux-arp" title="Permanent link">&para;</a></h3>
 <div class="admonition success">

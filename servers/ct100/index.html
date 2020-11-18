@@ -974,6 +974,7 @@ iptables-save -f /etc/iptables/rules.v4
 <h2 id="pfserver">pfserver（已移除）<a class="headerlink" href="#pfserver" title="Permanent link">&para;</a></h2>
 <h2 id="_4">故障<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>2020 年 11 月 16 日发现该容器无法登录，进一步检查发现其 rootfs 已完全损坏无法恢复。由于 iptables 规则是运行在内核中的，其期望功能（作为网关）没有受到影响。考虑到失控的危害（该容器不能重启，否则就再也开不起来了），已从还在运行的 namespace 中提取出 iptables 规则，并重建作为替代。新的 CT 100 将 rootfs 缩小到了 2 GB，配置好了 iptables-persistent 和 radvd。</p>
+<p>事后查明故障原因为，PVE 测试节点未加入集群，但是使用了相同的 LVM 存储，导致在创建/删除 LVM 卷时，LVM 没有正确被锁定。在测试节点删除其上的 CT 100 时，出现混乱。</p>
 <div class="footnote">
 <hr />
 <ol>
