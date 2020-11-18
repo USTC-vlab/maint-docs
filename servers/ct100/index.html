@@ -479,6 +479,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mtu" class="md-nav__link">
+    MTU 设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#radvd" class="md-nav__link">
     radvd
   </a>
@@ -795,6 +802,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mtu" class="md-nav__link">
+    MTU 设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#radvd" class="md-nav__link">
     radvd
   </a>
@@ -935,6 +949,8 @@ iptables-save -f /etc/iptables/rules.v4
 <p>33-35 行把尝试访问网络通的流量都劫持到 web 容器中，这样就能显示“网络通被屏蔽”的消息了。</p>
 <p>36 行提供 <code>VLAB_STUDENT</code> 链的入口，该入口限制了只有 10001:29999 之间（inclusive）的端口能够被转发。</p>
 <p>37 是出口 NAT，对于转发出去的流量，根据源地址进行 NAT。（POSTROUTING 链中没有 <code>-i</code> 可用），38 行类似（此处忽略）</p>
+<h2 id="mtu">MTU 设置<a class="headerlink" href="#mtu" title="Permanent link">&para;</a></h2>
+<p><code>ip link set dev eth0 mtu 1500</code>（新建时可能会是 1450，配置错误会导致学生容器看起来网络正常，但是网络会常常卡住）</p>
 <h2 id="radvd">radvd<a class="headerlink" href="#radvd" title="Permanent link">&para;</a></h2>
 <p>radvd 是 IPv6 的 Router Advertisement Daemon，用于向虚拟机提供 IPv6 RA 使得虚拟机可以使用 SLAAC 自动配置 IPv6 网络。</p>
 <p><code>/etc/radvd.conf</code> 配置如下：</p>
