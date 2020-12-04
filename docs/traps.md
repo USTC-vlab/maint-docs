@@ -146,3 +146,35 @@ chown "$UID.$UID" "/run/user/$UID"
 ```
 
 Ref: <https://github.com/systemd/systemd/issues/9461#issuecomment-409929860>
+
+### Docker in LXC 启动失败
+
+症状：
+
+运行 Docker 容器出现类似于 `docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"join session keyring: create session key: disk quota exceeded\"": unknown.` 的错误。
+
+解决方法：
+
+参考 <https://github.com/docker/compose/issues/7295#issuecomment-657475590>。
+
+Docker 需要获取到 kernel session key 才能正常运行。首先查看 `/proc/key-users` 文件，分析限额卡在了哪里。文件内容类似于：
+
+```
+    0:   336 335/335 238/1000000 4597/25000000
+  100:     1 1/1 1/50000 9/20000
+  998:     1 1/1 1/50000 9/20000
+100000:  1198 1198/1198 1198/50000 19871/20000
+100101:     2 2/2 2/50000 18/20000
+```
+
+其中：
+
+- 第一列：UID。
+- 第二列：目前对应 UID 的 key 数量。
+- 第三列：实例化的 key 数量和总 key 数量。（应该可以忽略）
+- 第四列：key 数量与总 key 数量限额。（关注）
+- 第五列：key 大小与总 key 大小限额。（关注）
+
+注意最后两列。如果出现很贴近限额的情况，需要调整 `/proc/sys/kernel/keys/maxbytes` 和 `/proc/sys/kernel/keys/maxkeys` 的值。root 下 echo 一个更大的数进去即可。
+
+`root_maxbytes` 和 `root_maxkeys` 一般都非常大（见 `key-users` 的第一行），可以不用管。
