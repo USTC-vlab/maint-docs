@@ -679,6 +679,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#docker-in-lxc" class="md-nav__link">
+    Docker in LXC 启动失败
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -928,6 +935,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#docker-in-lxc" class="md-nav__link">
+    Docker in LXC 启动失败
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1067,6 +1081,28 @@ mkdir -p <span class="s2">&quot;/run/user/</span><span class="nv">$UID</span><sp
 chown <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2">.</span><span class="nv">$UID</span><span class="s2">&quot;</span> <span class="s2">&quot;/run/user/</span><span class="nv">$UID</span><span class="s2">&quot;</span>
 </code></pre></div>
 <p>Ref: <a href="https://github.com/systemd/systemd/issues/9461#issuecomment-409929860">https://github.com/systemd/systemd/issues/9461#issuecomment-409929860</a></p>
+<h3 id="docker-in-lxc">Docker in LXC 启动失败<a class="headerlink" href="#docker-in-lxc" title="Permanent link">&para;</a></h3>
+<p>症状：</p>
+<p>运行 Docker 容器出现类似于 <code>docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"join session keyring: create session key: disk quota exceeded\"": unknown.</code> 的错误。</p>
+<p>解决方法：</p>
+<p>参考 <a href="https://github.com/docker/compose/issues/7295#issuecomment-657475590">https://github.com/docker/compose/issues/7295#issuecomment-657475590</a>。</p>
+<p>Docker 需要获取到 kernel session key 才能正常运行。首先查看 <code>/proc/key-users</code> 文件，分析限额卡在了哪里。文件内容类似于：</p>
+<div class="highlight"><pre><span></span><code>    0:   336 335/335 238/1000000 4597/25000000
+  100:     1 1/1 1/50000 9/20000
+  998:     1 1/1 1/50000 9/20000
+100000:  1198 1198/1198 1198/50000 19871/20000
+100101:     2 2/2 2/50000 18/20000
+</code></pre></div>
+<p>其中：</p>
+<ul>
+<li>第一列：UID。</li>
+<li>第二列：目前对应 UID 的 key 数量。</li>
+<li>第三列：实例化的 key 数量和总 key 数量。（应该可以忽略）</li>
+<li>第四列：key 数量与总 key 数量限额。（关注）</li>
+<li>第五列：key 大小与总 key 大小限额。（关注）</li>
+</ul>
+<p>注意最后两列。如果出现很贴近限额的情况，需要调整 <code>/proc/sys/kernel/keys/maxbytes</code> 和 <code>/proc/sys/kernel/keys/maxkeys</code> 的值。root 下 echo 一个更大的数进去即可。</p>
+<p><code>root_maxbytes</code> 和 <code>root_maxkeys</code> 一般都非常大（见 <code>key-users</code> 的第一行），可以不用管。</p>
                 
               
               
