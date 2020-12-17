@@ -178,3 +178,12 @@ Docker 需要获取到 kernel session key 才能正常运行。首先查看 `/pr
 注意最后两列。如果出现很贴近限额的情况，需要调整 `/proc/sys/kernel/keys/maxbytes` 和 `/proc/sys/kernel/keys/maxkeys` 的值。root 下 echo 一个更大的数进去即可。
 
 `root_maxbytes` 和 `root_maxkeys` 一般都非常大（见 `key-users` 的第一行），可以不用管。
+
+如果需要持久化配置，需要编辑 `/etc/sysctl.conf`，添加：
+
+```
+kernel.keys.maxbytes=500000
+kernel.keys.maxkeys=5000
+```
+
+然后 `sysctl --system`。
