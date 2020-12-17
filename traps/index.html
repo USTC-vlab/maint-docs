@@ -1103,6 +1103,11 @@ chown <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2"
 </ul>
 <p>注意最后两列。如果出现很贴近限额的情况，需要调整 <code>/proc/sys/kernel/keys/maxbytes</code> 和 <code>/proc/sys/kernel/keys/maxkeys</code> 的值。root 下 echo 一个更大的数进去即可。</p>
 <p><code>root_maxbytes</code> 和 <code>root_maxkeys</code> 一般都非常大（见 <code>key-users</code> 的第一行），可以不用管。</p>
+<p>如果需要持久化配置，需要编辑 <code>/etc/sysctl.conf</code>，添加：</p>
+<div class="highlight"><pre><span></span><code>kernel.keys.maxbytes=500000
+kernel.keys.maxkeys=5000
+</code></pre></div>
+<p>然后 <code>sysctl --system</code>。</p>
                 
               
               
