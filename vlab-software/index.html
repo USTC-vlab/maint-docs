@@ -13,21 +13,21 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/networking/host/">
+        <link rel="canonical" href="https://vlab.ibugone.com/vlab-software/">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.0">
     
     
       
-        <title>主机网卡 - Vlab 维护文档</title>
+        <title>Vlab 软件组合 - Vlab 维护文档</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.33e2939f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.33e2939f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
         
           
           
@@ -63,7 +63,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="blue">
   
     
-    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#vlab" class="md-skip">
           跳转至
         </a>
       
@@ -82,7 +82,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href=".." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              主机网卡
+              Vlab 软件组合
             
           </span>
         </div>
@@ -175,7 +175,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href=".." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -207,7 +207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         首页
       </a>
     </li>
@@ -222,7 +222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         概览
       </a>
     </li>
@@ -237,7 +237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ssh-ca/" class="md-nav__link">
+      <a href="../ssh-ca/" class="md-nav__link">
         SSH 证书认证
       </a>
     </li>
@@ -250,14 +250,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       <label class="md-nav__link" for="__nav_4">
         网络配置
@@ -275,7 +273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../networking/" class="md-nav__link">
         网络界面
       </a>
     </li>
@@ -285,20 +283,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../networking/host/" class="md-nav__link">
         主机网卡
       </a>
-      
     </li>
   
 
@@ -308,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intranet/" class="md-nav__link">
+      <a href="../networking/intranet/" class="md-nav__link">
         容器内网
       </a>
     </li>
@@ -320,7 +309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../firewall/" class="md-nav__link">
+      <a href="../networking/firewall/" class="md-nav__link">
         防火墙与安全
       </a>
     </li>
@@ -332,7 +321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ips/" class="md-nav__link">
+      <a href="../networking/ips/" class="md-nav__link">
         IP 地址列表
       </a>
     </li>
@@ -374,7 +363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../servers/ct100/" class="md-nav__link">
+      <a href="../servers/ct100/" class="md-nav__link">
         网关 (CT100)
       </a>
     </li>
@@ -386,7 +375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../servers/ct101/" class="md-nav__link">
+      <a href="../servers/ct101/" class="md-nav__link">
         Web 服务器 (CT101)
       </a>
     </li>
@@ -428,7 +417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../vnc/config/" class="md-nav__link">
+      <a href="../vnc/config/" class="md-nav__link">
         配置与管理
       </a>
     </li>
@@ -447,11 +436,20 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../vlab-software/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Vlab 软件组合
       </a>
+      
     </li>
   
 
@@ -464,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-init/" class="md-nav__link">
+      <a href="../cloud-init/" class="md-nav__link">
         cloud-init 配置
       </a>
     </li>
@@ -500,7 +498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/new-host/" class="md-nav__link">
+      <a href="../workflow/new-host/" class="md-nav__link">
         配置新主机
       </a>
     </li>
@@ -512,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/pack-ct-image/" class="md-nav__link">
+      <a href="../workflow/pack-ct-image/" class="md-nav__link">
         打包容器镜像
       </a>
     </li>
@@ -524,7 +522,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/pack-vm-image/" class="md-nav__link">
+      <a href="../workflow/pack-vm-image/" class="md-nav__link">
         打包虚拟机镜像
       </a>
     </li>
@@ -566,7 +564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../references/desktop/" class="md-nav__link">
+      <a href="../references/desktop/" class="md-nav__link">
         desktop 桌面图标文件
       </a>
     </li>
@@ -608,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../traps/" class="md-nav__link">
+      <a href="../traps/" class="md-nav__link">
         踩坑记录
       </a>
     </li>
@@ -620,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         更新历史
       </a>
     </li>
@@ -653,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2020-03-31/" class="md-nav__link">
+      <a href="../records/2020-03-31/" class="md-nav__link">
         2020 年 3 月 31 日
       </a>
     </li>
@@ -665,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2020-08-01/" class="md-nav__link">
+      <a href="../records/2020-08-01/" class="md-nav__link">
         2020 年 8 月 1 日
       </a>
     </li>
@@ -677,7 +675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-03-18/" class="md-nav__link">
+      <a href="../records/2021-03-18/" class="md-nav__link">
         2021 年 3 月 18 日
       </a>
     </li>
@@ -716,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../history/gen1/" class="md-nav__link">
+      <a href="../history/gen1/" class="md-nav__link">
         第一代
       </a>
     </li>
@@ -763,81 +761,13 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/networking/host.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/vlab-software.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="_1">主机网卡<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Proxmox VE 不支持 ifupdown 以外的网络管理系统（可以使用 ifupdown2，不过我们不需要），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 <code>/etc/network/interfaces</code> 文件。</p>
-<p>参考 pv2 上配置，复制时注意替换 IP 地址。</p>
-<div class="highlight"><pre><span></span><code>auto lo
-iface lo inet loopback
-
-auto eno1
-iface eno1 inet manual
-    bond-master bond0
-
-auto eno2
-iface eno2 inet manual
-    bond-master bond0
-
-auto eno3
-iface eno3 inet manual
-    bond-master bond0
-
-auto eno4
-iface eno4 inet manual
-    bond-master bond0
-
-auto ens1f0
-iface ens1f0 inet static
-    address 10.0.0.12
-    netmask 255.255.255.0
-    mtu 1550
-auto ens1f1
-iface ens1f1 inet static
-    address 10.0.0.22
-    netmask 255.255.255.0
-    mtu 1550
-
-auto bond0
-iface bond0 inet manual
-    bond-mode balance-alb
-    bond-miimon 100
-    bond-downdelay 200
-    bond-updelay 200
-
-auto vmbr0
-iface vmbr0 inet static
-    address 202.38.75.97/24
-    gateway 202.38.75.254
-    dns-nameservers 202.38.64.1
-    bridge_ports bond0
-    bridge_stp off
-    bridge_fd 0
-iface vmbr0 inet6 static
-    address 2001:da8:d800:75::a2
-    netmask 64
-    gateway 2001:da8:d800:75::1
-    dns-nameservers 2001:da8:d800::1
-
-# Overlay network for VMs
-auto vxlan0
-iface vxlan0 inet manual
-    pre-up ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dstport 0 dev ens1f1 || true
-    up ip link set vxlan0 up
-    down ip link set vxlan0 down
-    post-down ip link delete vxlan0 || true
-    mtu 1500
-auto vmbr1
-iface vmbr1 inet static
-    address 172.30.0.102/24
-    bridge_ports vxlan0
-    bridge_stp off
-    bridge_fd 0
-</code></pre></div>
-<p>其中 ens1f1 的 <code>mtu 1550</code> 和 vxlan0 的 <code>mtu 1500</code> 设置见<a href="../../traps/#vxlan-mtu">踩坑记录</a>中的解释。</p>
+                <h1 id="vlab">Vlab 软件组合<a class="headerlink" href="#vlab" title="Permanent link">&para;</a></h1>
+<p>Vlab Software 是存放于各个主机上的 <code>/opt/vlab</code> 的软件组合，通过 bind mount 挂载进虚拟机的 <code>/opt/vlab</code> 目录，为用户提供预装的软件。因此我们也经常称为 /opt/vlab。</p>
                 
               
               
@@ -856,7 +786,7 @@ iface vmbr1 inet static
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../" class="md-footer__link md-footer__link--prev" rel="prev">
+        <a href="../vnc/config/" class="md-footer__link md-footer__link--prev" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -865,19 +795,19 @@ iface vmbr1 inet static
               <span class="md-footer__direction">
                 上一页
               </span>
-              网络界面
+              配置与管理
             </div>
           </div>
         </a>
       
       
-        <a href="../intranet/" class="md-footer__link md-footer__link--next" rel="next">
+        <a href="../cloud-init/" class="md-footer__link md-footer__link--next" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              容器内网
+              cloud-init 配置
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -932,12 +862,12 @@ iface vmbr1 inet static
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d892486b.min.js"></script>
+      <script src="../assets/javascripts/bundle.d892486b.min.js"></script>
       
-        <script src="../../assets/js/extra.js"></script>
+        <script src="../assets/js/extra.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/js/all.min.js"></script>
       

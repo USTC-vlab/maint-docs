@@ -32,22 +32,6 @@
      <lastmod>2021-03-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://vlab.ibugone.com/workflow/new-host/</loc>
-     <lastmod>2021-03-30</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://vlab.ibugone.com/workflow/pack-ct-image/</loc>
-     <lastmod>2021-03-30</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://vlab.ibugone.com/workflow/pack-vm-image/</loc>
-     <lastmod>2021-03-30</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://vlab.ibugone.com/cloud-init/</loc>
-     <lastmod>2021-03-30</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
      <loc>https://vlab.ibugone.com/servers/ct100/</loc>
      <lastmod>2021-03-30</lastmod>
      <changefreq>daily</changefreq>
@@ -57,6 +41,26 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://vlab.ibugone.com/vnc/config/</loc>
+     <lastmod>2021-03-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://vlab.ibugone.com/vlab-software/</loc>
+     <lastmod>2021-03-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://vlab.ibugone.com/cloud-init/</loc>
+     <lastmod>2021-03-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://vlab.ibugone.com/workflow/new-host/</loc>
+     <lastmod>2021-03-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://vlab.ibugone.com/workflow/pack-ct-image/</loc>
+     <lastmod>2021-03-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://vlab.ibugone.com/workflow/pack-vm-image/</loc>
      <lastmod>2021-03-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
