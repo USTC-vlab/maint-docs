@@ -12,6 +12,10 @@
 
 ### 2021 年
 
+4 月 11 日
+
+:   通过 Vlab Software 提供了 RISC-V 的 GCC 工具链，以及 RARS 模拟器（已编写 `.desktop` 文件使用 Vlab Software 提供的 JDK 14 运行）
+
 3 月 30 日
 
 :   通过 Vlab Software 提供了 Xilinx Vivado 2016.3 版本，为 2019.1 版本的兼容性问题提供一个备选项。
