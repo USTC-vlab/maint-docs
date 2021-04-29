@@ -187,3 +187,15 @@ kernel.keys.maxkeys=5000
 ```
 
 然后 `sysctl --system`。
+
+### Systemd 服务因「空间不足」启动失败。
+
+症状：重要服务无法启动，提示 `Failed to add /run/systemd/ask-password to directory watch: No space left on device`，但是 `df` 显示剩余空间还有很多。
+
+可能的解决方法：设置 sysctl:
+
+```
+fs.inotify.max_user_watches = 1048576
+```
+
+因为出问题的容器被同学删掉了，所以未验证是否能够解决问题。
