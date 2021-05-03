@@ -754,6 +754,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#4915" class="md-nav__link">
+    图形界面中运行的进程数最多只能跑 4915 个
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1035,6 +1042,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#4915" class="md-nav__link">
+    图形界面中运行的进程数最多只能跑 4915 个
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1204,6 +1218,9 @@ kernel.keys.maxkeys=5000
 <div class="highlight"><pre><span></span><code>fs.inotify.max_user_watches = 1048576
 </code></pre></div>
 <p>因为出问题的容器被同学删掉了，所以未验证是否能够解决问题。</p>
+<h3 id="4915">图形界面中运行的进程数最多只能跑 4915 个<a class="headerlink" href="#4915" title="Permanent link">&para;</a></h3>
+<p>所有图形界面进程 cgroup 都挂在 lightdm.service 的限制下面，而 systemd 默认配置限额为 4915.</p>
+<p>修改：<a href="https://www.suse.com/support/kb/doc/?id=000015901">https://www.suse.com/support/kb/doc/?id=000015901</a></p>
                 
               
               
