@@ -199,3 +199,9 @@ fs.inotify.max_user_watches = 1048576
 ```
 
 因为出问题的容器被同学删掉了，所以未验证是否能够解决问题。
+
+### 图形界面中运行的进程数最多只能跑 4915 个
+
+所有图形界面进程 cgroup 都挂在 lightdm.service 的限制下面，而 systemd 默认配置限额为 4915.
+
+修改：<https://www.suse.com/support/kb/doc/?id=000015901>
