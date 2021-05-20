@@ -6,7 +6,7 @@
 ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dstport 0 dev ens1f1
 ```
 
-[RFC 7348](https://tools.ietf.org/html/rfc7348) 指出 VXLAN 接收端口为 UDP 4789，因此该端口必须在 ens1f1 上开放。实际上由于 ens1f0 和 ens1f1 这两个界面没有外部接入，故不设防。
+<s>[RFC 7348](https://tools.ietf.org/html/rfc7348) 指出 VXLAN 接收端口为 UDP 4789</s>,但由于历史原因包括 Linux 在内的一众厂商都在使用 UDP 8472，因此该端口必须在 ens1f1 上开放。实际上由于 ens1f0 和 ens1f1 这两个界面没有外部接入，故不设防。
 
 ## IP 地址分配
 
