@@ -8,13 +8,13 @@ Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像�
 
 ## 一、准备新的容器环境
 
-登录集群新建一个容器，挑一个负载较低的节点，**把 Unprivileged container 取消勾选**（默认是选中的，不取消的话后面打包会遇到 UID/GID 的问题），模板选一个基础镜像，硬盘根据要装的东西估计，典型的 Ubuntu 18.04 / 20.04 镜像只要 4 GB 就够，这里可以选择存储为 local-lvm 以获得更好的硬盘性能（主机的 SSD）。CPU 和内存可以随意，反正这个容器是临时使用的。网络随便取一个没用过的 IPv4 地址（建议 172.31.0.210 - 172.31.0.255 之间，掩码是 /16），网关为 172.31.0.1，然后就可以直接下一步创建了。
+登录集群新建一个容器，挑一个负载较低的节点，**把 Unprivileged container 取消勾选**（默认是选中的，不取消的话后面打包会遇到 UID/GID 的问题），模板选一个基础镜像，硬盘根据要装的东西估计，典型的 Ubuntu 18.04 / 20.04 镜像只要 4 GB 就够，这里可以选择存储为 local-lvm 以获得更好的硬盘性能（主机的 SSD）。CPU 和内存可以随意，反正这个容器是临时使用的。[容器网络](../networking/index.md)连接到 vmbr1，随便取一个没用过的 IPv4 地址（建议 172.31.0.240 - 172.31.0.255 之间），掩码是 /16，网关为 172.31.0.1，然后就可以直接下一步创建了。
 
 ## 二、基础工作
 
 本节工作只需要对从 Proxmox 直接下载的“最原始”的镜像处理。
 
-- **换源**：将 apt / yum 源换为 `mirrors.ustc.edu.cn` 或者 `mirrors.tuna.tsinghua.edu.cn`
+- **换源**：将 apt / yum 源换为 `mirrors.ustc.edu.cn`
 - **加入 SSH CA 公钥**：这里请加入 Vlab User CA（[SSH 证书认证](../ssh-ca.md)这一页下面那个）
 
     对于 Ubuntu 20.04 系统，其默认的 `sshd_config` 里有一行 Include，所以可以很方便地在 `/etc/ssh/sshd_config.d` 下新建一个文件用来写 `TrustedUserCAKeys`。对于其他系统，还是将配置直接追加至系统的 `sshd_config`。
@@ -46,13 +46,41 @@ Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像�
 
 由于桌面环境经常附带一堆用不上的东西，所以打包前多花点时间清理。
 
-最后，记得替换上 Vlab 的 <big>专属</big> 桌面：<https://vlab.ustc.edu.cn/downloads/background.jpg>
+### 配置 Vlab Software
+
+主文章：[Vlab Software](../vlab-software.md)
+
+取决于所安装的桌面环境，在 `/etc/xdg/menus` 下的某个 `.menu` 文件最后的关闭标签**前**插入如下内容：
+
+```xml
+<!-- Vlab -->
+<Menu>
+  <Name>Vlab</Name>
+  <Directory>Vlab.directory</Directory>
+  <AppDir>/opt/vlab/applications</AppDir>
+  <Include><And><Category>Vlab</Category></And></Include>
+</Menu>
+```
+
+即将以上内容添加为最外层的 `<Menu>` 的一个子键。
+
+创建 `/etc/profile.d/vlab.sh`，填入如下内容：
+
+```shell
+if [ -e /opt/vlab/path.sh ]; then
+  source /opt/vlab/path.sh
+fi
+```
+
+如果没有 `/etc/profile.d` 目录，就将这几行代码加在 `/etc/profile` 的末尾。
+
+最后，记得替换上 Vlab 的**专属**桌面：<https://vlab.ustc.edu.cn/downloads/background.jpg>
 
 ### 测试桌面环境
 
 只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 `ssh -L` 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。
 
-测试的时候 LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logout 能用就基本 OK 了。
+LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logout 能用就基本 OK 了。
 
   [vlab-vnc]: https://github.com/iBug/vlab-deb/tree/master/vlab-vnc
 
