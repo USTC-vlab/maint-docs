@@ -965,7 +965,7 @@
   <span class="nb">source</span> /opt/vlab/path.sh
 <span class="k">fi</span>
 </code></pre></div>
-<p>如果没有 <code>/etc/profile.d</code> 目录，就将这几行代码加在 <code>/etc/profile</code> 的末尾</p>
+<p>如果没有 <code>/etc/profile.d</code> 目录，就将这几行代码加在 <code>/etc/profile</code> 的末尾。</p>
 <p>最后，记得替换上 Vlab 的<strong>专属</strong>桌面：<a href="https://vlab.ustc.edu.cn/downloads/background.jpg">https://vlab.ustc.edu.cn/downloads/background.jpg</a></p>
 <h3 id="_5">测试桌面环境<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 <code>ssh -L</code> 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。</p>
