@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/vlab-software/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.6">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.bde7dde4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.875de78c.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
         
           
           
@@ -447,9 +447,39 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Vlab 软件组合
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Vlab 软件组合
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vlab-software" class="md-nav__link">
+    为虚拟机配置 Vlab Software
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -753,6 +783,21 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vlab-software" class="md-nav__link">
+    为虚拟机配置 Vlab Software
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -770,6 +815,24 @@
                 
                 <h1 id="vlab">Vlab 软件组合<a class="headerlink" href="#vlab" title="Permanent link">&para;</a></h1>
 <p>Vlab Software 是存放于各个主机上的 <code>/opt/vlab</code> 的软件组合，通过 bind mount 挂载进虚拟机的 <code>/opt/vlab</code> 目录，为用户提供预装的软件。因此我们也经常称为 /opt/vlab。</p>
+<h2 id="vlab-software">为虚拟机配置 Vlab Software<a class="headerlink" href="#vlab-software" title="Permanent link">&para;</a></h2>
+<p>取决于所安装的桌面环境，在 <code>/etc/xdg/menus</code> 下的某个 <code>.menu</code> 文件最后的关闭标签<strong>前</strong>插入如下内容，也就是在最外层的 <code>&lt;Menu&gt;</code> 下添加一个子键。</p>
+<div class="highlight"><pre><span></span><code><span class="c">&lt;!-- Vlab --&gt;</span>
+<span class="nt">&lt;Menu&gt;</span>
+  <span class="nt">&lt;Name&gt;</span>Vlab<span class="nt">&lt;/Name&gt;</span>
+  <span class="nt">&lt;Directory&gt;</span>Vlab.directory<span class="nt">&lt;/Directory&gt;</span>
+  <span class="nt">&lt;AppDir&gt;</span>/opt/vlab/applications<span class="nt">&lt;/AppDir&gt;</span>
+  <span class="nt">&lt;Include&gt;&lt;And&gt;&lt;Category&gt;</span>Vlab<span class="nt">&lt;/Category&gt;&lt;/And&gt;&lt;/Include&gt;</span>
+<span class="nt">&lt;/Menu&gt;</span>
+</code></pre></div>
+<p>例如，对于 MATE 桌面环境，文件是 <code>/etc/xdg/menus/mate-applications.menu</code>；对于 Xfce 文件名是 <code>xfce-applications.menu</code>。</p>
+<p>同时为了使命令行环境能够正确加载 PATH，需要在 <code>/etc/profile.d</code> 下创建一个文件 <code>vlab.sh</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">[</span> -e /opt/vlab/path.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">source</span> /opt/vlab/path.sh
+<span class="k">fi</span>
+</code></pre></div>
+<p>如果没有 <code>/etc/profile.d</code> 目录，就将这几行代码加在 <code>/etc/profile</code> 的末尾</p>
+<p>最后，记得替换上 Vlab 的<strong>专属</strong>桌面：<a href="https://vlab.ustc.edu.cn/downloads/background.jpg">https://vlab.ustc.edu.cn/downloads/background.jpg</a>（wget 下来放在合适的位置配置好桌面设置）</p>
                 
               
               
@@ -867,7 +930,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.a1609d9a.min.js"></script>
+      <script src="../assets/javascripts/bundle.34eae1b6.min.js"></script>
       
         <script src="../assets/js/extra.js"></script>
       
