@@ -871,11 +871,13 @@
 <p>代码部分见 <a href="https://github.com/USTC-vlab/cslab/pull/1">Pull Request #1</a></p>
 <h2 id="_1">其他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
-<li>将 <code>/mnt/container-template</code> 重命名为了更简洁的 <code>/mnt/vz</code>。由于 PVE 的一些设定，操作顺序如下：</li>
+<li>
+<p>将 <code>/mnt/container-template</code> 重命名为了更简洁的 <code>/mnt/vz</code>。由于 PVE 的一些设定，操作顺序如下：</p>
+<ul>
 <li>在所有机器上 <code>mkdir /mnt/vz</code>，更新 <code>/etc/fstab</code> 然后挂载新路径</li>
 <li>编辑 <code>/etc/pve/storage.cfg</code> 使用新路径</li>
-<li>
-<p>在所有机器上 <code>umount /mnt/container-template</code> 卸载旧路径并 <code>rmdir -p</code></p>
+<li>在所有机器上 <code>umount /mnt/container-template</code> 卸载旧路径并 <code>rmdir -p</code></li>
+</ul>
 </li>
 <li>
 <p>进行了系统更新，并在 pv1, pv7, pv8 上安装了 <code>apt-listbugs</code>（安装时使用 <code>--no-install-recommends</code> 减少附带的垃圾）</p>
