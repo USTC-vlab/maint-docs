@@ -26,9 +26,9 @@
 
 这一步比较麻烦，主要是因为 IPMI 提供的那个远程终端经常卡。
 
-原因是系统中有 `/dev/sda` 和 `/dev/sdb` 两个设备，其中一个是 SSD，另一个不知道是哪来的（可能是 IPMI 的虚拟设备），为了不让 LVM 每次运行时都吐槽一遍 `open /dev/sdX failed: no medium found`，将报错的那个设备屏蔽，方法是在 `/etc/lvm/lvm.conf` 中的 `global_filters` 中加入一个 `"r|/dev/sdX|"`，使 LVM 扫描 PV 时忽略这个设备。
+原因是系统中有 `/dev/sda` 和 `/dev/sdb` 两个设备，其中一个是 SSD，另一个不知道是哪来的（可能是 IPMI 的虚拟设备，通过 USB 总线接入），为了不让 LVM 每次运行时都吐槽一遍 `open /dev/sdX failed: no medium found`，将报错的那个设备屏蔽，方法是在 `/etc/lvm/lvm.conf` 中的 `global_filters` 中加入 `"r|/dev/disk/by-id/usb.*"`，使 LVM 扫描 PV 时忽略这个设备及其他经过 USB 总线连接的设备。
 
-!!! bug "坑点"
+!!! bug "坑点 1（已解决）"
 
     在不明情况下这两个设备会互换，导致原先的过滤规则把真正的系统盘给过滤掉了，留下一个空设备，无法开机启动（rootfs 在 LV 卷 pve/root 上）
 
@@ -38,7 +38,7 @@
 
     LVM 是开机启动必须的功能，因此 LVM 相关的工具（`lvm` 命令）和配置文件（即 `/etc/lvm/lvm.conf`）会打包进 initramfs 里，这时候这个配置文件在系统里和 initramfs 里就有独立的两份了，要修改得把两份都修改掉。
 
-#### 解决步骤
+#### 解决步骤（已过时）
 
 1. 开机失败，进入 initramfs，这里有个 busybox 和 `lvm` 工具
 2. 编辑 `/etc/lvm/lvm.conf`，找到 `global_filters`，把其中的 `r|/dev/sda|` 换成 `r|/dev/sdb|`（或者反过来改，取决于原先内容是什么以及前面报 no medium found 的是哪个设备）
