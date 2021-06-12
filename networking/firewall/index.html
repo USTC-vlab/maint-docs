@@ -831,87 +831,40 @@
                 
                 <h1 id="_1">服务器防火墙配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>防火墙使用 Linux 自带的 iptables 管理，默认策略为 <code>INPUT DROP</code>, <code>FORWARD ACCEPT</code>, <code>OUTPUT ACCEPT</code>。方便起见使用 <code>iptables-persistent</code> 让防火墙规则开机自动加载。</p>
-<p>以下为 pv1 上的防火墙配置：</p>
-<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<p>以下为 pv1 上的防火墙配置（<code>/etc/iptables/rules.v4</code> 和 <code>rules.v6</code> 文件内容一样）：</p>
+<div class="highlight"><pre><span></span><code>*filter
+:INPUT ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:FORWARD ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:OUTPUT ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:VLAB - <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i vmbr+ -j VLAB
+-A INPUT -i ens1f0 -j ACCEPT
+-A INPUT -i ens1f1 -j ACCEPT
+-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -i vmbr+ -j DROP
+-A VLAB -p tcp -m state --state NEW -m tcp --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
+-A VLAB -j DROP
+COMMIT
 
-<span class="nb">set</span> +ex
 
-<span class="c1">##### IPv4 #####</span>
-iptables -F
-iptables -X
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> iptables -F VLAB
-
-<span class="c1">##### Rules #####</span>
-iptables -A VLAB -i lo -j ACCEPT
-iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A VLAB -p icmp -j ACCEPT
-iptables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
-iptables -A VLAB -j DROP
-iptables -Z VLAB
-iptables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i ens1f1 -j ACCEPT
-iptables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i ens1f0 -j ACCEPT
-iptables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i vmbr0 -j VLAB
-iptables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-iptables -I INPUT -i vmbr1 -j VLAB
-
-iptables -F FORWARD
-iptables -A FORWARD -i vmbr0 -j DROP
-iptables -A FORWARD -i vmbr1 -j DROP
-
-iptables -t nat -F
-iptables -t nat -X
-iptables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
-iptables -t nat -A POSTROUTING -s <span class="m">10</span>.0.0.0/30 -o vmbr0 -j MASQUERADE
-iptables -t nat -Z
-iptables-save &gt; /etc/iptables/rules.v4
-
-<span class="c1">##### IPv6 #####</span>
-ip6tables -F
-ip6tables -X
-ip6tables -P INPUT ACCEPT
-ip6tables -P FORWARD ACCEPT
-ip6tables -P OUTPUT ACCEPT
-ip6tables -N VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> ip6tables -F VLAB
-
-<span class="c1">##### Rules #####</span>
-ip6tables -A VLAB -i lo -j ACCEPT
-ip6tables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-ip6tables -A VLAB -p ipv6-icmp -j ACCEPT
-ip6tables -A VLAB -p tcp -m state --state NEW --sport <span class="m">1024</span>:65535 -m multiport --dports <span class="m">22</span>,80,443,8006 -j ACCEPT
-ip6tables -A VLAB -j DROP
-ip6tables -Z VLAB
-ip6tables -D INPUT -i ens1f1 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i ens1f1 -j ACCEPT
-ip6tables -D INPUT -i ens1f0 -j ACCEPT &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i ens1f0 -j ACCEPT
-ip6tables -D INPUT -i vmbr0 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i vmbr0 -j VLAB
-ip6tables -D INPUT -i vmbr1 -j VLAB &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-ip6tables -I INPUT -i vmbr1 -j VLAB
-
-ip6tables -F FORWARD
-ip6tables -A FORWARD -i vmbr0 -j DROP
-ip6tables -A FORWARD -i vmbr1 -j DROP
-
-ip6tables -t nat -F
-ip6tables -t nat -X
-ip6tables -t nat -A PREROUTING -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">8006</span>
-ip6tables -t nat -Z
-ip6tables-save &gt; /etc/iptables/rules.v6
+*nat
+:PREROUTING ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:INPUT ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:OUTPUT ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:POSTROUTING ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+-A PREROUTING -m addrtype --dst-type LOCAL -p tcp --dport <span class="m">443</span> -j REDIRECT --to-ports <span class="m">8006</span>
+COMMIT
 </code></pre></div>
 <h2 id="explanations">部分防火墙规则解释<a class="headerlink" href="#explanations" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>iptables -A VLAB -i lo -j ACCEPT
-iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+<div class="highlight"><pre><span></span><code>-A INPUT -i lo -j ACCEPT
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 </code></pre></div>
 <p>这两个放最前面，让本机流量 <code>-i lo</code> 和已经建立起来的 TCP / UDP 连接经过最少的链项，提高性能降低 CPU 使用量，这是因为 iptables 规则是按顺序逐条匹配的。</p>
-<div class="highlight"><pre><span></span><code>iptables -I INPUT -i ens1f1 -j ACCEPT
-iptables -I INPUT -i ens1f0 -j ACCEPT
+<div class="highlight"><pre><span></span><code>-I INPUT -i ens1f0 -j ACCEPT
+-I INPUT -i ens1f1 -j ACCEPT
 </code></pre></div>
 <p>光纤内网不设防。</p>
                 
