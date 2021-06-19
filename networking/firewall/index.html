@@ -832,6 +832,10 @@
                 <h1 id="_1">服务器防火墙配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>防火墙使用 Linux 自带的 iptables 管理，默认策略为 <code>INPUT DROP</code>, <code>FORWARD ACCEPT</code>, <code>OUTPUT ACCEPT</code>。方便起见使用 <code>iptables-persistent</code> 让防火墙规则开机自动加载。</p>
 <p>以下为 pv1 上的防火墙配置（<code>/etc/iptables/rules.v4</code> 和 <code>rules.v6</code> 文件内容一样）：</p>
+<div class="admonition todo">
+<p class="admonition-title">pv1 的额外配置</p>
+<p>pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时初始化。</p>
+</div>
 <div class="highlight"><pre><span></span><code>*filter
 :INPUT ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
 :FORWARD ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
