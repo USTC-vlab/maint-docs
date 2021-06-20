@@ -834,7 +834,7 @@
 <p>以下为 pv1 上的防火墙配置（<code>/etc/iptables/rules.v4</code> 和 <code>rules.v6</code> 文件内容一样）：</p>
 <div class="admonition todo">
 <p class="admonition-title">pv1 的额外配置</p>
-<p>pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时初始化。</p>
+<p>pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时的额外初始化（post-creation-agent）。</p>
 </div>
 <div class="highlight"><pre><span></span><code>*filter
 :INPUT ACCEPT <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>

@@ -1106,10 +1106,10 @@
 <h2 id="lvm">LVM<a class="headerlink" href="#lvm" title="Permanent link">&para;</a></h2>
 <h3 id="cannot-process-volume-group-pve">开机显示 Cannot process volume group pve 等错误信息<a class="headerlink" href="#cannot-process-volume-group-pve" title="Permanent link">&para;</a></h3>
 <p>这一步比较麻烦，主要是因为 IPMI 提供的那个远程终端经常卡。</p>
-<p>原因是系统中有 <code>/dev/sda</code> 和 <code>/dev/sdb</code> 两个设备，其中一个是 SSD，另一个不知道是哪来的（可能是 IPMI 的虚拟设备，通过 USB 总线接入），为了不让 LVM 每次运行时都吐槽一遍 <code>open /dev/sdX failed: no medium found</code>，将报错的那个设备屏蔽，方法是在 <code>/etc/lvm/lvm.conf</code> 中的 <code>global_filters</code> 中加入 <code>"r|/dev/disk/by-id/usb.*"</code>，使 LVM 扫描 PV 时忽略这个设备及其他经过 USB 总线连接的设备。</p>
+<p>原因是系统中有 <code>/dev/sda</code> 和 <code>/dev/sdb</code> 两个设备，其中一个是 SSD，另一个不知道是哪来的（可能是 IPMI 的虚拟设备，通过 USB 总线接入），为了不让 LVM 每次运行时都吐槽一遍 <code>open /dev/sdX failed: no medium found</code>，将报错的那个设备屏蔽，方法是在 <code>/etc/lvm/lvm.conf</code> 中的 <code>global_filters</code> 中加入 <code>"r|/dev/disk/by-id/usb.*|"</code>，使 LVM 扫描 PV 时忽略这个设备及其他经过 USB 总线连接的设备。</p>
 <div class="admonition bug">
 <p class="admonition-title">坑点 1（已解决）</p>
-<p>在不明情况下这两个设备会互换，导致原先的过滤规则把真正的系统盘给过滤掉了，留下一个空设备，无法开机启动（rootfs 在 LV 卷 pve/root 上）</p>
+<p>曾经的过滤规则是 <code>r|/dev/sdb|</code>，这样就把任何映射到 sdb 的设备都忽略了，但是在不明情况下这两个设备会互换，导致原先的过滤规则把真正的系统盘给过滤掉了，留下一个空设备，无法开机启动（rootfs 在 LV 卷 pve/root 上）</p>
 <p>好在目前没有发现空设备从 sdb 变成 sda 的情况，因此每个主机最多只需要处理一次就行（其实到现在一共就发生过一次）。</p>
 </div>
 <div class="admonition bug">
@@ -1233,8 +1233,9 @@ kernel.keys.maxkeys=5000
 </code></pre></div>
 <p>因为出问题的容器被同学删掉了，所以未验证是否能够解决问题。</p>
 <h3 id="4915">图形界面中运行的进程数最多只能跑 4915 个<a class="headerlink" href="#4915" title="Permanent link">&para;</a></h3>
-<p>所有图形界面进程 cgroup 都挂在 lightdm.service 的限制下面，而 systemd 默认配置限额为 4915.</p>
-<p>修改：<a href="https://www.suse.com/support/kb/doc/?id=000015901">https://www.suse.com/support/kb/doc/?id=000015901</a></p>
+<p>所有图形界面进程 cgroup 都挂在 lightdm.service 的限制下面，而 systemd 默认配置限额为 4915。</p>
+<p>简单快速的修改命令：<code>systemctl set-property lightdm.service TasksMax=18000</code></p>
+<p>更详细的指导参见 <a href="https://www.suse.com/support/kb/doc/?id=000015901">https://www.suse.com/support/kb/doc/?id=000015901</a></p>
                 
               
               
