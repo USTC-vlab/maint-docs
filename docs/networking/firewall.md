@@ -5,7 +5,7 @@
 以下为 pv1 上的防火墙配置（`/etc/iptables/rules.v4` 和 `rules.v6` 文件内容一样）：
 
 !!! todo "pv1 的额外配置"
-    pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时初始化。
+    pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时的额外初始化（post-creation-agent）。
 
 ```shell
 *filter

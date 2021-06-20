@@ -26,11 +26,11 @@
 
 这一步比较麻烦，主要是因为 IPMI 提供的那个远程终端经常卡。
 
-原因是系统中有 `/dev/sda` 和 `/dev/sdb` 两个设备，其中一个是 SSD，另一个不知道是哪来的（可能是 IPMI 的虚拟设备，通过 USB 总线接入），为了不让 LVM 每次运行时都吐槽一遍 `open /dev/sdX failed: no medium found`，将报错的那个设备屏蔽，方法是在 `/etc/lvm/lvm.conf` 中的 `global_filters` 中加入 `"r|/dev/disk/by-id/usb.*"`，使 LVM 扫描 PV 时忽略这个设备及其他经过 USB 总线连接的设备。
+原因是系统中有 `/dev/sda` 和 `/dev/sdb` 两个设备，其中一个是 SSD，另一个不知道是哪来的（可能是 IPMI 的虚拟设备，通过 USB 总线接入），为了不让 LVM 每次运行时都吐槽一遍 `open /dev/sdX failed: no medium found`，将报错的那个设备屏蔽，方法是在 `/etc/lvm/lvm.conf` 中的 `global_filters` 中加入 `"r|/dev/disk/by-id/usb.*|"`，使 LVM 扫描 PV 时忽略这个设备及其他经过 USB 总线连接的设备。
 
 !!! bug "坑点 1（已解决）"
 
-    在不明情况下这两个设备会互换，导致原先的过滤规则把真正的系统盘给过滤掉了，留下一个空设备，无法开机启动（rootfs 在 LV 卷 pve/root 上）
+    曾经的过滤规则是 `r|/dev/sdb|`，这样就把任何映射到 sdb 的设备都忽略了，但是在不明情况下这两个设备会互换，导致原先的过滤规则把真正的系统盘给过滤掉了，留下一个空设备，无法开机启动（rootfs 在 LV 卷 pve/root 上）
 
     好在目前没有发现空设备从 sdb 变成 sda 的情况，因此每个主机最多只需要处理一次就行（其实到现在一共就发生过一次）。
 
@@ -202,6 +202,8 @@ fs.inotify.max_user_watches = 1048576
 
 ### 图形界面中运行的进程数最多只能跑 4915 个
 
-所有图形界面进程 cgroup 都挂在 lightdm.service 的限制下面，而 systemd 默认配置限额为 4915.
+所有图形界面进程 cgroup 都挂在 lightdm.service 的限制下面，而 systemd 默认配置限额为 4915。
 
-修改：<https://www.suse.com/support/kb/doc/?id=000015901>
+简单快速的修改命令：`systemctl set-property lightdm.service TasksMax=18000`
+
+更详细的指导参见 <https://www.suse.com/support/kb/doc/?id=000015901>
