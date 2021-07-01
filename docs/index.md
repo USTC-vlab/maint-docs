@@ -17,7 +17,6 @@
     - SSH 网关
     - noVNC 网页
     - Grafana 面板及其后端
-    - Vlab Software（通过 bind mount 从 SSD 提供的 vlab 软件组合）
 
 ## 资源 {#resources}
 
