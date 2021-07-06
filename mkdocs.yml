@@ -76,6 +76,7 @@ nav:
     - 打包虚拟机镜像: workflow/pack-vm-image.md
   - 参考资料:
     - "desktop 桌面图标文件": references/desktop.md
+    - "统一身份认证": references/ustccas.md
   - 其他资料:
     - 踩坑记录: traps.md
     - 更新历史: changelog.md
