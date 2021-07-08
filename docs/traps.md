@@ -96,6 +96,53 @@ LVM 卷不能多个主机同时使用（active 状态），如果出现这种情
 
 ## 网络 {#networking}
 
+### Proxmox VE 7 网络配置 {#pve-7-ifupdown2}
+
+PVE 7 默认使用 ifupdown2，是 ifupdown 的一个 Python 替代品，配置文件 `/etc/network/interfaces` **几乎**兼容。
+
+ifupdown2 的 bond 语法有一点不一样（并且会炸），就是 bond 的 slave 是写在 bond 设备下的，而不是像 ifupdown 一样在 slave 设备下写 `bond-master`，所以从 ifupdown 换到 ifupdown2 后**重启前务必修改配置**。建议不要着急删掉 `bond-master`，因为尽管两种写法互不兼容，但是它们也互不冲突（ifupdown / ifupdown2 会互相无视另一种写法）。
+
+ifupdown 的语法：
+
+```
+auto eno1
+iface eno1 inet manual
+    bond-master bond0
+
+auto eno2
+iface eno2 inet manual
+    bond-master bond0
+
+auto bond0
+iface bond0 inet manual
+    bond-mode balance-alb
+    bond-miimon 100
+    bond-downdelay 200
+    bond-updelay 200
+```
+
+ifupdown2 的语法：
+
+```
+auto eno1
+iface eno1 inet manual
+
+auto eno2
+iface eno2 inet manual
+
+auto bond0
+iface bond0 inet manual
+    bond-slaves eno1 eno2
+    bond-mode balance-alb
+    bond-miimon 100
+    bond-downdelay 200
+    bond-updelay 200
+```
+
+关于 ifupdown2 的 interfaces 文件，尤其是和 ifupdown 的区别，可以看[这个页面][ifupdown2]。
+
+  [ifupdown2]: https://support.cumulusnetworks.com/hc/en-us/articles/202933638-Comparing-ifupdown2-Commands-with-ifupdown-Commands
+
 ### ARP 问题 {#linux-arp}
 
 !!! success "该问题已于 2020 年 7 月 31 日解决，见下"
