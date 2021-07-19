@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/traps/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.11">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ca7ac06f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.3754935a.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
@@ -1196,6 +1196,10 @@
 <h3 id="pve-7-ifupdown2">Proxmox VE 7 网络配置<a class="headerlink" href="#pve-7-ifupdown2" title="Permanent link">&para;</a></h3>
 <p>PVE 7 默认使用 ifupdown2，是 ifupdown 的一个 Python 替代品，配置文件 <code>/etc/network/interfaces</code> <strong>几乎</strong>兼容。</p>
 <p>ifupdown2 的 bond 语法有一点不一样（并且会炸），就是 bond 的 slave 是写在 bond 设备下的，而不是像 ifupdown 一样在 slave 设备下写 <code>bond-master</code>，所以从 ifupdown 换到 ifupdown2 后<strong>重启前务必修改配置</strong>。建议不要着急删掉 <code>bond-master</code>，因为尽管两种写法互不兼容，但是它们也互不冲突（ifupdown / ifupdown2 会互相无视另一种写法）。</p>
+<div class="admonition warning">
+<p class="admonition-title">升级 PVE 7 不一定会自动替换软件</p>
+<p>如果更新到 PVE 7 的时候没有自动将 ifupdown 替换为 ifupdown2，请手动替换并更新配置文件。</p>
+</div>
 <p>ifupdown 的语法：</p>
 <div class="highlight"><pre><span></span><code>auto eno1
 iface eno1 inet manual
@@ -1396,7 +1400,7 @@ kernel.keys.maxkeys=5000
     <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      <script src="../assets/javascripts/bundle.ddd52ceb.min.js"></script>
       
         <script src="../assets/js/extra.js"></script>
       
