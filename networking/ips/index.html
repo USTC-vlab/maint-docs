@@ -376,26 +376,6 @@
     内网 IPv4
   </a>
   
-    <nav class="md-nav" aria-label="内网 IPv4">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    光纤内网（主机）
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vxlan" class="md-nav__link">
-    VXLAN 虚拟机内网
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -897,26 +877,6 @@
     内网 IPv4
   </a>
   
-    <nav class="md-nav" aria-label="内网 IPv4">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    光纤内网（主机）
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vxlan" class="md-nav__link">
-    VXLAN 虚拟机内网
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -948,7 +908,7 @@
 <tbody>
 <tr>
 <td align="center">10.38.79.98<br>10.38.79.99</td>
-<td align="center">存储服务器的设置</td>
+<td align="center">存储服务器的管理端口</td>
 </tr>
 <tr>
 <td align="center">10.38.79.100</td>
@@ -985,6 +945,14 @@
 <tr>
 <td align="center">10.38.79.108</td>
 <td align="center">pv8 IPMI</td>
+</tr>
+<tr>
+<td align="center">10.38.79.181</td>
+<td align="center">pvg1 IPMI</td>
+</tr>
+<tr>
+<td align="center">10.38.79.182</td>
+<td align="center">pvg2 IPMI</td>
 </tr>
 <tr>
 <td align="center">202.38.75.2<br>202.38.75.4</td>
@@ -1027,22 +995,194 @@
 <td align="center">pv8</td>
 </tr>
 <tr>
+<td align="center">202.38.75.105</td>
+<td align="center">pvg1</td>
+</tr>
+<tr>
+<td align="center">202.38.75.108</td>
+<td align="center">pvg2</td>
+</tr>
+<tr>
 <td align="center">202.38.75.226</td>
 <td align="center"><a href="../../servers/ct101/">CT 101</a>（Web 服务器）</td>
 </tr>
 <tr>
+<td align="center">202.38.75.250</td>
+<td align="center"><a href="../../servers/vm104/">VM 104</a>（备份服务器）</td>
+</tr>
+<tr>
 <td align="center">202.38.75.252</td>
-<td align="center"><a href="../../servers/ct100/">CT 100</a>（学生内网网关出口）</td>
+<td align="center"><a href="../../servers/ct100/">CT 100</a>（内网网关出口）</td>
 </tr>
 </tbody>
 </table>
 <h2 id="ipv6">校园网 IPv6<a class="headerlink" href="#ipv6" title="Permanent link">&para;</a></h2>
-<p>暂无</p>
+<p>未完待续</p>
 <h2 id="ipv4_1">内网 IPv4<a class="headerlink" href="#ipv4_1" title="Permanent link">&para;</a></h2>
-<h3 id="_1">光纤内网（主机）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>见<a href="../#fibre-intranet">光纤内网</a></p>
-<h3 id="vxlan">VXLAN 虚拟机内网<a class="headerlink" href="#vxlan" title="Permanent link">&para;</a></h3>
-<p>见<a href="../#vm-network">学生机网络</a></p>
+<table>
+<thead>
+<tr>
+<th align="center">CIDR 地址段</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">10.0.0.0/24</td>
+<td align="center">主机间光纤通信<br>（包括存储设施的 iSCSI）</td>
+</tr>
+<tr>
+<td align="center">172.30.0.0/<strong>24</strong></td>
+<td align="center">内部设施间的通信，包括虚拟机和主机<br>（不包含 iSCSI，安全起见需要隔离）</td>
+</tr>
+<tr>
+<td align="center">172.31.0.0/<strong>16</strong></td>
+<td align="center">用户网络</td>
+</tr>
+<tr>
+<td align="center">192.168.252.0/24</td>
+<td align="center">Wireguard 外部接入<br>（经过 CT 100 网关）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">IP 地址</th>
+<th align="center">主机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">10.0.0.1<br>10.0.0.11</td>
+<td align="center">pv1</td>
+</tr>
+<tr>
+<td align="center">10.0.0.12</td>
+<td align="center">pv2</td>
+</tr>
+<tr>
+<td align="center">10.0.0.13</td>
+<td align="center">pv3</td>
+</tr>
+<tr>
+<td align="center">10.0.0.14</td>
+<td align="center">pv4</td>
+</tr>
+<tr>
+<td align="center">10.0.0.15</td>
+<td align="center">pv5</td>
+</tr>
+<tr>
+<td align="center">10.0.0.16</td>
+<td align="center">pv6</td>
+</tr>
+<tr>
+<td align="center">10.0.0.17</td>
+<td align="center">pv7</td>
+</tr>
+<tr>
+<td align="center">10.0.0.18</td>
+<td align="center">pv8</td>
+</tr>
+<tr>
+<td align="center">10.0.0.81</td>
+<td align="center">pvg1</td>
+</tr>
+<tr>
+<td align="center">10.0.0.82</td>
+<td align="center">pvg2</td>
+</tr>
+<tr>
+<td align="center">172.30.0.1<br>172.31.0.1</td>
+<td align="center">CT 100 网关</td>
+</tr>
+<tr>
+<td align="center">172.30.0.2<br>172.31.0.2</td>
+<td align="center">CT 101 服务器</td>
+</tr>
+<tr>
+<td align="center">172.30.0.3</td>
+<td align="center">CT 102 (monitor, InfluxDB)</td>
+</tr>
+<tr>
+<td align="center">172.30.0.4<br>172.31.0.7</td>
+<td align="center">VM 103 Wireguard</td>
+</tr>
+<tr>
+<td align="center">172.30.0.101</td>
+<td align="center">pv1</td>
+</tr>
+<tr>
+<td align="center">172.30.0.102</td>
+<td align="center">pv2</td>
+</tr>
+<tr>
+<td align="center">172.30.0.103</td>
+<td align="center">pv3</td>
+</tr>
+<tr>
+<td align="center">172.30.0.104</td>
+<td align="center">pv4</td>
+</tr>
+<tr>
+<td align="center">172.30.0.105</td>
+<td align="center">pv5</td>
+</tr>
+<tr>
+<td align="center">172.30.0.106</td>
+<td align="center">pv6</td>
+</tr>
+<tr>
+<td align="center">172.30.0.107</td>
+<td align="center">pv7</td>
+</tr>
+<tr>
+<td align="center">172.30.0.108</td>
+<td align="center">pv8</td>
+</tr>
+<tr>
+<td align="center">172.30.0.181</td>
+<td align="center">pvg1</td>
+</tr>
+<tr>
+<td align="center">172.30.0.182</td>
+<td align="center">pvg2</td>
+</tr>
+<tr>
+<td align="center">172.31.0.3</td>
+<td align="center"><s>CT 802 Foresyn (iGEM 2019)</s><br><strong>???</strong></td>
+</tr>
+<tr>
+<td align="center">172.31.0.4</td>
+<td align="center"><strong>???</strong></td>
+</tr>
+<tr>
+<td align="center">172.31.0.5</td>
+<td align="center"><strong>???</strong></td>
+</tr>
+<tr>
+<td align="center">172.31.0.6</td>
+<td align="center"><strong>???</strong></td>
+</tr>
+<tr>
+<td align="center">172.31.0.221</td>
+<td align="center">VM 805 (iBug 的虚拟机)</td>
+</tr>
+<tr>
+<td align="center">172.31.0.222</td>
+<td align="center">VM 999 (iBug 的虚拟机)</td>
+</tr>
+<tr>
+<td align="center">172.31.0.223</td>
+<td align="center">VM 998 (iBug 的虚拟机)</td>
+</tr>
+<tr>
+<td align="center">172.31.1.4</td>
+<td align="center">VM 804 (FPGAOL Compile)</td>
+</tr>
+</tbody>
+</table>
                 
               
               
