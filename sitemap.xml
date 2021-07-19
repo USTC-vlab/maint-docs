@@ -36,6 +36,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://vlab.ibugone.com/backup/</loc>
+         <lastmod>2021-07-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://vlab.ibugone.com/history/gen1/</loc>
          <lastmod>2021-07-19</lastmod>
          <changefreq>daily</changefreq>
@@ -102,6 +107,11 @@
     </url>
     <url>
          <loc>https://vlab.ibugone.com/servers/ct101/</loc>
+         <lastmod>2021-07-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://vlab.ibugone.com/servers/vm104/</loc>
          <lastmod>2021-07-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
