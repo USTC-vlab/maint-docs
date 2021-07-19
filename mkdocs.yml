@@ -64,12 +64,14 @@ nav:
     - 防火墙与安全: networking/firewall.md
     - IP 地址列表: networking/ips.md
   - 服务主机:
-    - 网关 (CT100): servers/ct100.md
-    - Web 服务器 (CT101): servers/ct101.md
+    - 网关 (CT 100): servers/ct100.md
+    - Web 服务器 (CT 101): servers/ct101.md
+    - 备份服务器 (VM 104): servers/vm104.md
   - 远程桌面:
     - 配置与管理: vnc/config.md
   - Vlab 软件组合: vlab-software.md
   - cloud-init 配置: cloud-init.md
+  - 备份: backup/index.md
   - 工作流程:
     - 配置新主机: workflow/new-host.md
     - 打包容器镜像: workflow/pack-ct-image.md

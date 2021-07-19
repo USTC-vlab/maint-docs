@@ -232,7 +232,7 @@ Docker 需要获取到 kernel session key 才能正常运行。首先查看 `/pr
 
 如果需要持久化配置，需要编辑 `/etc/sysctl.conf`，添加：
 
-```
+```ini
 kernel.keys.maxbytes=500000
 kernel.keys.maxkeys=5000
 ```
@@ -245,7 +245,7 @@ kernel.keys.maxkeys=5000
 
 可能的解决方法：设置 sysctl:
 
-```
+```ini
 fs.inotify.max_user_watches = 1048576
 ```
 
