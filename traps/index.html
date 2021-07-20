@@ -1259,6 +1259,10 @@ iface bond0 inet manual
     bond-updelay 200
 </code></pre></div>
 <p>关于 ifupdown2 的 interfaces 文件，尤其是和 ifupdown 的区别，可以看<a href="https://support.cumulusnetworks.com/hc/en-us/articles/202933638-Comparing-ifupdown2-Commands-with-ifupdown-Commands">这个页面</a>。</p>
+<div class="admonition bug">
+<p class="admonition-title">注意下划线</p>
+<p>ifupdown2 里不再使用下划线作为 key，所有 ifupdown 里使用下划线的 key 都被换成了减号，例如 <code>bridge_ports</code> 已经换成了 <code>bridge-ports</code>。   </p>
+</div>
 <h3 id="linux-arp">ARP 问题<a class="headerlink" href="#linux-arp" title="Permanent link">&para;</a></h3>
 <div class="admonition success">
 <p class="admonition-title">该问题已于 2020 年 7 月 31 日解决，见下</p>
