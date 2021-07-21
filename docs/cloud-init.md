@@ -217,19 +217,19 @@ ci 有一个脚本 `make-mime.py` 可以将不同类型的用户数据综合在�
 
 1. 虚拟机本地
 
-   将 `.cfg` 和 `script` 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程
+    将 `.cfg` 和 `script` 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程
 
 2. qm 命令从数据中心的命令行（未实现）
 
-   从数据中心的终端上执行命令进行部署
+    从数据中心的终端上执行命令进行部署
 
-   ```shell
-   # 格式
-   qm set <vmid> --cicustom "user=<volume>"
+    ```shell
+    # 格式
+    qm set <vmid> --cicustom "user=<volume>"
 
-   # 示例
-   qm set 101 --cicustom "user=local:snippets/userconfig.yaml"
-   ```
+    # 示例
+    qm set 101 --cicustom "user=local:snippets/userconfig.yaml"
+    ```
 
 #### 其他问题
 
