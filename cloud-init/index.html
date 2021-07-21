@@ -1376,12 +1376,12 @@ qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span clas
 <p>此外，也可以直接将配置过程以脚本的形式呈现，将其存储在 <code>/var/lib/cloud/scripts/</code> 下，虚拟机每次启动都会执行此脚本中的命令。</p>
 <h4 id="_6">部署方式<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <ol>
-<li>虚拟机本地</li>
-</ol>
+<li>
+<p>虚拟机本地</p>
 <p>将 <code>.cfg</code> 和 <code>script</code> 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程</p>
-<ol>
-<li>qm 命令从数据中心的命令行（未实现）</li>
-</ol>
+</li>
+<li>
+<p>qm 命令从数据中心的命令行（未实现）</p>
 <p>从数据中心的终端上执行命令进行部署</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 格式</span>
 qm <span class="nb">set</span> &lt;vmid&gt; --cicustom <span class="s2">&quot;user=&lt;volume&gt;&quot;</span>
@@ -1389,6 +1389,8 @@ qm <span class="nb">set</span> &lt;vmid&gt; --cicustom <span class="s2">&quot;us
 <span class="c1"># 示例</span>
 qm <span class="nb">set</span> <span class="m">101</span> --cicustom <span class="s2">&quot;user=local:snippets/userconfig.yaml&quot;</span>
 </code></pre></div>
+</li>
+</ol>
 <h4 id="_7">其他问题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>修复报错:</p>
 <ol>
