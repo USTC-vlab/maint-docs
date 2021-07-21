@@ -241,6 +241,14 @@ kernel.keys.maxkeys=5000
 
 然后 `sysctl --system`。
 
+### Docker in LXC 启动失败 (Proxmox VE 7)
+
+从 Proxmox VE 6 升级到 Proxmox VE 7 后配置了 `keyctl=1,nesting=1` 的容器无法启动 `docker.service`，journalctl 输出有 `Devices cgroup isn't mounted`。
+
+**原因：**Proxmox VE 7 默认开启了 unified cgroup hierarchy（即 cgroup v2），而旧版本的 Docker 需要原来的 cgroup v1 结构。
+
+**解决方法：**在内核参数中加上 `systemd.unified_cgroup_hierarchy=0`，然后重启主机。具体操作是在 `/etc/default/grub` 的 `GRUB_CMDLINE_LINUX_DEFAULT` 后面补上 `systemd.unified_cgroup_hierarchy=0`，然后执行 `update-grub` 并重启。
+
 ### Systemd 服务因「空间不足」启动失败。
 
 症状：重要服务无法启动，提示 `Failed to add /run/systemd/ask-password to directory watch: No space left on device`，但是 `df` 显示剩余空间还有很多。
