@@ -957,18 +957,18 @@
                 
                 
                 <h1 id="_1">配置新主机并加入集群<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>使用 U 盘安装好 Proxmox VE，主机名为 <code>pv#.vlab.ustc.edu.cn</code>（Proxmox 安装程序要求，装好后可以改），其中 <code>#</code> 为数字，手动递增。</p>
+<p>使用 U 盘安装好 Proxmox VE，主机名为 <code>pv#.vlab.ustc.edu.cn</code>（Proxmox 安装程序要求，装好后可以改），其中 <code>#</code> 为数字或其他标记，手动递增。</p>
 <h2 id="_2">远程访问<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>先配好 SSH 访问，对 SSH Host Key 签名，并加入 TrustedUserCAKeys。见 <a href="../../ssh-ca/">SSH 证书认证</a> 一页。</p>
 <p><strong>在加入现有的 Proxmox VE 集群后</strong>删除 root 密码（<code>passwd -d root</code>），方便以后维护。</p>
 <h2 id="_3">软件源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>修改 <code>/etc/apt/sources.list</code>，将软件源替换为 TUNA：</p>
-<div class="highlight"><pre><span></span><code>deb https://mirrors6.tuna.tsinghua.edu.cn/debian buster main contrib
-deb https://mirrors6.tuna.tsinghua.edu.cn/debian buster-updates main contrib
-deb https://mirrors6.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib
+<div class="highlight"><pre><span></span><code>deb https://mirrors.ustc.edu.cn/debian bullseye main contrib
+deb https://mirrors.ustc.edu.cn/debian bullseye-updates main contrib
+deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 </code></pre></div>
 <p>删除 <code>/etc/apt/sources.list.d/pve-enterprise.list</code>，新建 <code>/etc/apt/sources.list.d/pve.list</code>，写入以下内容：</p>
-<div class="highlight"><pre><span></span><code>deb https://mirrors6.tuna.tsinghua.edu.cn/proxmox/debian buster pve-no-subscription
+<div class="highlight"><pre><span></span><code>deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 </code></pre></div>
 <p>刷新软件源并安装更新。</p>
 <h2 id="_4">安装软件（可选）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
@@ -977,7 +977,7 @@ deb https://mirrors6.tuna.tsinghua.edu.cn/debian-security buster/updates main co
 <li>Vim 宇宙第一文本编辑器</li>
 <li>Htop 任务管理器</li>
 <li>iptables-persistent 用于保存 iptables 配置</li>
-<li>ipmitool 用于维护 IPMI，<strong>使用最简安装（即 <code>--no-install-recommendeds</code>）</strong></li>
+<li>ipmitool 用于维护 IPMI，<strong>使用最简安装（即 <code>--no-install-recommends</code>）</strong></li>
 </ul>
 <h2 id="_5">配置网卡<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>参见<a href="../../networking/host/">主机网卡</a>一页。</p>
@@ -991,7 +991,7 @@ iscsiadm -d2 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span 
 <p>存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。</p>
 <h2 id="nfs">挂载 NFS 镜像共享<a class="headerlink" href="#nfs" title="Permanent link">&para;</a></h2>
 <p>挂载 NFS 共享所用的 <code>/etc/fstab</code> 条目：</p>
-<div class="highlight"><pre><span></span><code>10.0.0.1:/var/lib/vz /mnt/container-template nfs rw,async,hard,intr,noexec 0 0
+<div class="highlight"><pre><span></span><code>10.0.0.1:/var/lib/vz /mnt/vz nfs rw,async,hard,intr,noexec 0 0
 </code></pre></div>
 <p>注意先在 pv1 上编辑 <code>/etc/exports</code> 并运行 <code>exportfs -a</code> 刷新挂载权限。</p>
                 

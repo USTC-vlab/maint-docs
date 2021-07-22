@@ -1044,7 +1044,7 @@ mount /dev/<span class="o">{</span>vg<span class="o">}</span>/vm-<span class="o"
 </code></pre></div>
 <p>然后就可以进入 tmp 进行清理工作了。</p>
 <p>最后打包要在 tmp 目录下（即容器的根目录）进行，因为（显然）tar 压缩包中的路径是有影响的。</p>
-<div class="highlight"><pre><span></span><code>tar zcvf /mnt/container-template/template/cache/vlab99-example.tar.gz .
+<div class="highlight"><pre><span></span><code>tar zcvf /mnt/vz/template/cache/vlab99-example.tar.gz .
 </code></pre></div>
 <p>打包完成后要把 django 前端 reload 一下才能在“新建虚拟机”的页面看到新镜像。</p>
                 
