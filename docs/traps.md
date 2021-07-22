@@ -129,13 +129,13 @@ ifupdown2 的语法：
 
 ```
 auto eno1
-iface eno1 inet manual
+iface eno1
 
 auto eno2
-iface eno2 inet manual
+iface eno2
 
 auto bond0
-iface bond0 inet manual
+iface bond0
     bond-slaves eno1 eno2
     bond-mode balance-alb
     bond-miimon 100
