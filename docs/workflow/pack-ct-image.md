@@ -111,7 +111,7 @@ mount /dev/{vg}/vm-{id}-disk-0 tmp
 最后打包要在 tmp 目录下（即容器的根目录）进行，因为（显然）tar 压缩包中的路径是有影响的。
 
 ```shell
-tar zcvf /mnt/container-template/template/cache/vlab99-example.tar.gz .
+tar zcvf /mnt/vz/template/cache/vlab99-example.tar.gz .
 ```
 
 打包完成后要把 django 前端 reload 一下才能在“新建虚拟机”的页面看到新镜像。

@@ -1,6 +1,6 @@
 # 配置新主机并加入集群
 
-使用 U 盘安装好 Proxmox VE，主机名为 `pv#.vlab.ustc.edu.cn`（Proxmox 安装程序要求，装好后可以改），其中 `#` 为数字，手动递增。
+使用 U 盘安装好 Proxmox VE，主机名为 `pv#.vlab.ustc.edu.cn`（Proxmox 安装程序要求，装好后可以改），其中 `#` 为数字或其他标记，手动递增。
 
 ## 远程访问
 
@@ -13,15 +13,15 @@
 修改 `/etc/apt/sources.list`，将软件源替换为 TUNA：
 
 ```
-deb https://mirrors6.tuna.tsinghua.edu.cn/debian buster main contrib
-deb https://mirrors6.tuna.tsinghua.edu.cn/debian buster-updates main contrib
-deb https://mirrors6.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib
+deb https://mirrors.ustc.edu.cn/debian bullseye main contrib
+deb https://mirrors.ustc.edu.cn/debian bullseye-updates main contrib
+deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 ```
 
 删除 `/etc/apt/sources.list.d/pve-enterprise.list`，新建 `/etc/apt/sources.list.d/pve.list`，写入以下内容：
 
 ```
-deb https://mirrors6.tuna.tsinghua.edu.cn/proxmox/debian buster pve-no-subscription
+deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 ```
 
 刷新软件源并安装更新。
@@ -33,7 +33,7 @@ deb https://mirrors6.tuna.tsinghua.edu.cn/proxmox/debian buster pve-no-subscript
 - Vim 宇宙第一文本编辑器
 - Htop 任务管理器
 - iptables-persistent 用于保存 iptables 配置
-- ipmitool 用于维护 IPMI，**使用最简安装（即 `--no-install-recommendeds`）**
+- ipmitool 用于维护 IPMI，**使用最简安装（即 `--no-install-recommends`）**
 
 ## 配置网卡
 
@@ -59,7 +59,7 @@ iscsiadm -d2 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0
 挂载 NFS 共享所用的 `/etc/fstab` 条目：
 
 ```
-10.0.0.1:/var/lib/vz /mnt/container-template nfs rw,async,hard,intr,noexec 0 0
+10.0.0.1:/var/lib/vz /mnt/vz nfs rw,async,hard,intr,noexec 0 0
 ```
 
 注意先在 pv1 上编辑 `/etc/exports` 并运行 `exportfs -a` 刷新挂载权限。
