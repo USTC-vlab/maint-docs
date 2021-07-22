@@ -934,7 +934,7 @@
 <p>pv8 的 eno4 接在光交换机的管理端口上，因此 pv8 只有三个网口做 bond。</p>
 <h2 id="fibre-intranet">光纤内网<a class="headerlink" href="#fibre-intranet" title="Permanent link">&para;</a></h2>
 <p>光纤界面为 <code>ens1f0</code> 和 <code>ens1f1</code>，通过一个华为光交换机互联，因此只有服务器集群内部连通，由于每台计算服务器各自接入校园网，所以光纤内网只用于互联（包括连接 iSCSI），不用于转发。</p>
-<p>IP 分配情况：10.0.0.10 - 10.0.0.18 为各主机的 ens1f0 界面，10.0.0.20 - 10.0.0.28 为 ens1f1 界面，10.0.0.1 分配给 pv1 备用。与 IPMI 地址相似，地址的最后一位数字和主机名一致。</p>
+<p>IP 分配情况见 <a href="ips/">IP 地址列表</a>。</p>
 <p>运行在这个网络上的设施有 iSCSI 和 NFS（用于共享容器镜像，LVM 带锁不能直接多机同时挂载）。</p>
 <h2 id="overlay-intranet">容器内网<a class="headerlink" href="#overlay-intranet" title="Permanent link">&para;</a></h2>
 <p>容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，IP 地址段暂定为 172.31.0.0/16，在主机上的接口为 vmbr1。更多信息参见 <a href="intranet/">容器内网</a> 一页。</p>
