@@ -830,21 +830,19 @@
                 <h1 id="_1">主机网卡<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认使用 ifupdown2），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 <code>/etc/network/interfaces</code> 文件。</p>
 <p>参考 pv2 上配置，复制时注意替换 IP 地址。</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ifupdown</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>auto lo
 iface lo inet loopback
 
 auto eno1
 iface eno1 inet manual
     bond-master bond0
-
 auto eno2
 iface eno2 inet manual
     bond-master bond0
-
 auto eno3
 iface eno3 inet manual
     bond-master bond0
-
 auto eno4
 iface eno4 inet manual
     bond-master bond0
@@ -866,7 +864,7 @@ iface bond0 inet manual
     bond-updelay 200
 
 auto bond1
-iface bond1 inet manual
+iface bond1 inet static
     address 10.0.0.12/24
     bond-mode 802.3ad
     bond-miimon 100
@@ -882,10 +880,8 @@ iface vmbr0 inet static
     bridge_stp off
     bridge_fd 0
 iface vmbr0 inet6 static
-    address 2001:da8:d800:75::a2
-    netmask 64
+    address 2001:da8:d800:75::a2/64
     gateway 2001:da8:d800:75::1
-    dns-nameservers 2001:da8:d800::1
 
 # Overlay network for VMs
 auto vxlan0
@@ -902,6 +898,71 @@ iface vmbr1 inet static
     bridge_stp off
     bridge_fd 0
 </code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ifupdown2</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>auto lo
+iface lo inet loopback
+
+auto eno1
+iface eno1
+auto eno2
+iface eno2
+auto eno3
+iface eno3
+auto eno4
+iface eno4
+
+auto ens1f0
+iface ens1f0
+    mtu 1550
+auto ens1f1
+iface ens1f1
+    mtu 1550
+
+auto bond0
+iface bond0
+    bond-slaves eno1 eno2 eno3 eno4
+    bond-mode 802.3ad
+    bond-miimon 100
+    bond-downdelay 200
+    bond-updelay 200
+
+auto bond1
+iface bond1
+    address 10.0.0.12/24
+    bond-slaves ens1f0 ens1f1
+    bond-mode 802.3ad
+    bond-miimon 100
+    bond-downdelay 200
+    bond-updelay 200
+
+auto vmbr0
+iface vmbr0
+    address 202.38.75.97/24
+    gateway 202.38.75.254
+    dns-nameservers 202.38.64.1
+    bridge-ports bond0
+    bridge-stp off
+    bridge-fd 0
+iface vmbr0 inet6 static
+    address 2001:da8:d800:75::a2/64
+    gateway 2001:da8:d800:75::1
+
+# Overlay network for VMs
+auto vxlan0
+iface vxlan0
+    pre-up ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dstport 0 dev bond1 || true
+    post-down ip link delete vxlan0 || true
+    mtu 1500
+auto vmbr1
+iface vmbr1
+    address 172.30.0.102/24
+    bridge-ports vxlan0
+    bridge-stp off
+    bridge-fd 0
+</code></pre></div>
+</div>
+</div>
 <p>其中 ens1f1 的 <code>mtu 1550</code> 和 vxlan0 的 <code>mtu 1500</code> 设置见<a href="../../traps/#vxlan-mtu">踩坑记录</a>中的解释。</p>
                 
               

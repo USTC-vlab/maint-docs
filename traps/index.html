@@ -1263,13 +1263,13 @@ iface bond0 inet manual
 </code></pre></div>
 <p>ifupdown2 的语法：</p>
 <div class="highlight"><pre><span></span><code>auto eno1
-iface eno1 inet manual
+iface eno1
 
 auto eno2
-iface eno2 inet manual
+iface eno2
 
 auto bond0
-iface bond0 inet manual
+iface bond0
     bond-slaves eno1 eno2
     bond-mode balance-alb
     bond-miimon 100
