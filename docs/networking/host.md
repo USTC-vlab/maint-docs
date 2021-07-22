@@ -1,6 +1,6 @@
 # 主机网卡
 
-Proxmox VE 不支持 ifupdown 以外的网络管理系统（可以使用 ifupdown2，不过我们不需要），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 `/etc/network/interfaces` 文件。
+Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认使用 ifupdown2），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 `/etc/network/interfaces` 文件。
 
 参考 pv2 上配置，复制时注意替换 IP 地址。
 
@@ -25,19 +25,25 @@ iface eno4 inet manual
     bond-master bond0
 
 auto ens1f0
-iface ens1f0 inet static
-    address 10.0.0.12
-    netmask 255.255.255.0
+iface ens1f0 inet manual
+    bond-master bond1
     mtu 1550
 auto ens1f1
-iface ens1f1 inet static
-    address 10.0.0.22
-    netmask 255.255.255.0
+iface ens1f1 inet manual
+    bond-master bond1
     mtu 1550
 
 auto bond0
 iface bond0 inet manual
-    bond-mode balance-alb
+    bond-mode 802.3ad
+    bond-miimon 100
+    bond-downdelay 200
+    bond-updelay 200
+
+auto bond1
+iface bond1 inet manual
+    address 10.0.0.12/24
+    bond-mode 802.3ad
     bond-miimon 100
     bond-downdelay 200
     bond-updelay 200
@@ -59,7 +65,7 @@ iface vmbr0 inet6 static
 # Overlay network for VMs
 auto vxlan0
 iface vxlan0 inet manual
-    pre-up ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dstport 0 dev ens1f1 || true
+    pre-up ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dstport 0 dev bond1 || true
     up ip link set vxlan0 up
     down ip link set vxlan0 down
     post-down ip link delete vxlan0 || true
