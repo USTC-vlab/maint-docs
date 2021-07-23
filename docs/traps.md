@@ -24,6 +24,10 @@
 
 需要先 disable：`ha-manager set ct:100 --state disabled`（`ct:100` 替换为报错提示中对应的名字）
 
+### Migrate 提示 `ERROR: migration aborted (duration 00:00:00): CT is locked (migrate)`
+
+`pct unlock <ID 号>`
+
 ## LVM
 
 ### 开机显示 Cannot process volume group pve 等错误信息
