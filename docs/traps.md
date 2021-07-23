@@ -20,6 +20,10 @@
 4. `killall pmxcfs`
 5. 重启 `pve-cluster.service` 和 `corosync.service`
 
+### HA 提示 `service 'ct:100' in error state, must be disabled and fixed first`
+
+需要先 disable：`ha-manager set ct:100 --state disabled`（`ct:100` 替换为报错提示中对应的名字）
+
 ## LVM
 
 ### 开机显示 Cannot process volume group pve 等错误信息
