@@ -2,7 +2,7 @@
 
 Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认使用 ifupdown2），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 `/etc/network/interfaces` 文件。
 
-参考 pv2 上配置，复制时注意替换 IP 地址。
+参考 pv2 上配置，复制时注意替换 IP 地址，以及 **pvg1 和 pvg2 的光纤端口为 ens4f0/ens4f1**。
 
 === "ifupdown"
 
