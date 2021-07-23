@@ -26,7 +26,13 @@
 
 ### Migrate 提示 `ERROR: migration aborted (duration 00:00:00): CT is locked (migrate)`
 
-`pct unlock <ID 号>`
+容器：`pct unlock <ID 号>`
+
+虚拟机：`qm unlock <ID 号>`
+
+### HA 注意事项
+
+请勿 bind mount、挂载 ISO，否则节点下线时无法进行 migrate。
 
 ## LVM
 
