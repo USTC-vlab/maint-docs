@@ -698,6 +698,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#migrate-error-migration-aborted-duration-000000-ct-is-locked-migrate" class="md-nav__link">
+    Migrate 提示 ERROR: migration aborted (duration 00:00:00): CT is locked (migrate)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1019,6 +1026,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#migrate-error-migration-aborted-duration-000000-ct-is-locked-migrate" class="md-nav__link">
+    Migrate 提示 ERROR: migration aborted (duration 00:00:00): CT is locked (migrate)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1190,6 +1204,8 @@
 </ol>
 <h3 id="ha-service-ct100-in-error-state-must-be-disabled-and-fixed-first">HA 提示 <code>service 'ct:100' in error state, must be disabled and fixed first</code><a class="headerlink" href="#ha-service-ct100-in-error-state-must-be-disabled-and-fixed-first" title="Permanent link">&para;</a></h3>
 <p>需要先 disable：<code>ha-manager set ct:100 --state disabled</code>（<code>ct:100</code> 替换为报错提示中对应的名字）</p>
+<h3 id="migrate-error-migration-aborted-duration-000000-ct-is-locked-migrate">Migrate 提示 <code>ERROR: migration aborted (duration 00:00:00): CT is locked (migrate)</code><a class="headerlink" href="#migrate-error-migration-aborted-duration-000000-ct-is-locked-migrate" title="Permanent link">&para;</a></h3>
+<p><code>pct unlock &lt;ID 号&gt;</code></p>
 <h2 id="lvm">LVM<a class="headerlink" href="#lvm" title="Permanent link">&para;</a></h2>
 <h3 id="cannot-process-volume-group-pve">开机显示 Cannot process volume group pve 等错误信息<a class="headerlink" href="#cannot-process-volume-group-pve" title="Permanent link">&para;</a></h3>
 <p>这一步比较麻烦，主要是因为 IPMI 提供的那个远程终端经常卡。</p>
