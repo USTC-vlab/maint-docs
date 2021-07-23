@@ -829,7 +829,7 @@
                 
                 <h1 id="_1">主机网卡<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认使用 ifupdown2），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 <code>/etc/network/interfaces</code> 文件。</p>
-<p>参考 pv2 上配置，复制时注意替换 IP 地址。</p>
+<p>参考 pv2 上配置，复制时注意替换 IP 地址，以及 <strong>pvg1 和 pvg2 的光纤端口为 ens4f0/ens4f1</strong>。</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ifupdown</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>auto lo
 iface lo inet loopback
