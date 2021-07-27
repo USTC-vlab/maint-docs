@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/workflow/pack-ct-image/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.0">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.fe914879.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1118c9be.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
@@ -1019,10 +1019,14 @@
 <p>即将以上内容添加为最外层的 <code>&lt;Menu&gt;</code> 的一个子键。</p>
 <p>创建 <code>/etc/profile.d/vlab.sh</code>，填入如下内容：</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">[</span> -e /opt/vlab/path.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-  <span class="nb">source</span> /opt/vlab/path.sh
+  . /opt/vlab/path.sh
 <span class="k">fi</span>
 </code></pre></div>
 <p>如果没有 <code>/etc/profile.d</code> 目录，就将这几行代码加在 <code>/etc/profile</code> 的末尾。</p>
+<p>非 Ubuntu 虚拟机的 lightdm 可能不会加载 profile，所以需要：</p>
+<div class="highlight"><pre><span></span><code>ln -s /etc/profile.d/vlab.sh /etc/X11/Xsession.d/99vlab
+</code></pre></div>
+<p>让 lightdm 启动时更新 vlab 信息。</p>
 <p>最后，记得替换上 Vlab 的<strong>专属</strong>桌面：<a href="https://vlab.ustc.edu.cn/downloads/background.jpg">https://vlab.ustc.edu.cn/downloads/background.jpg</a></p>
 <h3 id="_5">测试桌面环境<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 <code>ssh -L</code> 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。</p>
