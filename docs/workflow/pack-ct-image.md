@@ -68,11 +68,19 @@ Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像�
 
 ```shell
 if [ -e /opt/vlab/path.sh ]; then
-  source /opt/vlab/path.sh
+  . /opt/vlab/path.sh
 fi
 ```
 
 如果没有 `/etc/profile.d` 目录，就将这几行代码加在 `/etc/profile` 的末尾。
+
+非 Ubuntu 虚拟机的 lightdm 可能不会加载 profile，所以需要：
+
+```
+ln -s /etc/profile.d/vlab.sh /etc/X11/Xsession.d/99vlab
+```
+
+让 lightdm 启动时更新 vlab 信息。
 
 最后，记得替换上 Vlab 的**专属**桌面：<https://vlab.ustc.edu.cn/downloads/background.jpg>
 
