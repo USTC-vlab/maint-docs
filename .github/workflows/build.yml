@@ -18,7 +18,6 @@ jobs:
         mkdocs build
         : > site/.nojekyll
         echo -n 'vlab.ibugone.com' > site/CNAME
-        printf 'User-Agent: *\nDisallow: /\n' > site/robots.txt
     - name: Deploy to GitHub Pages
       env:
         DEPLOY_REPOSITORY: iBug/vlab-maint-docs
