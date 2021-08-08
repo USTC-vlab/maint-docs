@@ -765,7 +765,7 @@
         
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    解决步骤（已过时）
+    解决步骤
   </a>
   
 </li>
@@ -1100,7 +1100,7 @@
         
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    解决步骤（已过时）
+    解决步骤
   </a>
   
 </li>
@@ -1275,7 +1275,7 @@
 <p class="admonition-title">坑点 2</p>
 <p>LVM 是开机启动必须的功能，因此 LVM 相关的工具（<code>lvm</code> 命令）和配置文件（即 <code>/etc/lvm/lvm.conf</code>）会打包进 initramfs 里，这时候这个配置文件在系统里和 initramfs 里就有独立的两份了，要修改得把两份都修改掉。</p>
 </div>
-<h4 id="_3">解决步骤（已过时）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<h4 id="_3">解决步骤<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
 <ol>
 <li>开机失败，进入 initramfs，这里有个 busybox 和 <code>lvm</code> 工具</li>
 <li>编辑 <code>/etc/lvm/lvm.conf</code>，找到 <code>global_filters</code>，把其中的 <code>r|/dev/sda|</code> 换成 <code>r|/dev/sdb|</code>（或者反过来改，取决于原先内容是什么以及前面报 no medium found 的是哪个设备）</li>
