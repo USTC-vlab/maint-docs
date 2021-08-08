@@ -52,7 +52,7 @@
 
     LVM 是开机启动必须的功能，因此 LVM 相关的工具（`lvm` 命令）和配置文件（即 `/etc/lvm/lvm.conf`）会打包进 initramfs 里，这时候这个配置文件在系统里和 initramfs 里就有独立的两份了，要修改得把两份都修改掉。
 
-#### 解决步骤（已过时）
+#### 解决步骤
 
 1. 开机失败，进入 initramfs，这里有个 busybox 和 `lvm` 工具
 2. 编辑 `/etc/lvm/lvm.conf`，找到 `global_filters`，把其中的 `r|/dev/sda|` 换成 `r|/dev/sdb|`（或者反过来改，取决于原先内容是什么以及前面报 no medium found 的是哪个设备）
