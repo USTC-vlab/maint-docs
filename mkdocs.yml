@@ -15,7 +15,6 @@ theme:
   name: 'material'
   language: 'zh'
   palette:
-  palette:
     - scheme: default
       media: "(prefers-color-scheme: light)"
       primary: blue
@@ -88,6 +87,7 @@ nav:
   - Vlab 软件组合: vlab-software.md
   - cloud-init 配置: cloud-init.md
   - 备份: backup/index.md
+  - 测试环境: testbed/index.md
   - 工作流程:
     - 配置新主机: workflow/new-host.md
     - 打包容器镜像: workflow/pack-ct-image.md
