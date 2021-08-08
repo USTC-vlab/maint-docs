@@ -46,7 +46,6 @@ extra:
 
 extra_javascript:
   - assets/js/extra.js
-  - 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/js/all.min.js'
 
 extra_css:
   # Borrow CSS from Linux 101
@@ -58,6 +57,9 @@ markdown_extensions:
   - codehilite
   - footnotes
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.mark
   - pymdownx.tabbed
   - pymdownx.tasklist:
