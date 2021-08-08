@@ -30,9 +30,9 @@
 
 虚拟机：`qm unlock <ID 号>`
 
-### HA 注意事项
+!!! warning "HA 注意事项"
 
-请勿 bind mount、挂载 ISO，否则节点下线时无法进行 migrate。
+    请勿 bind mount 或挂载 ISO，否则节点下线时无法进行 migrate。
 
 ## LVM
 
@@ -200,6 +200,28 @@ VXLAN 是一种 overlay 网络实现，将帧包装在 UDP 包中传输。由于
 
 ## 虚拟机 {#vm}
 
+### systemd-logind 启动失败
+
+尤其是在容器从 Debian buster 升级到 bullseye 后容易出现。
+
+**症状：**
+
+SSH 登录已连接，但长时间不弹出 shell，`/var/log/auth.log` 显示 `pam_systemd(sshd:session): Failed to create session: Failed to activate service 'org.freedesktop.login1': timed out`，`systemctl status systemd-logind` 显示 `failed` / `code=226/NAMESPACE`。
+
+**原因：**
+
+Systemd 从版本 242 开始采用更多技术来限制运行服务的权限，而默认没开 nesting 的容器缺少必要权限，导致 systemd-logind 无法启动。
+
+**解决方法：**
+
+为容器开启 nesting（和 keyctl，如果你想的话）。我们已经默认为用户容器开启了这两项权限，所以为我们自己的服务容器开启它们不会有额外的问题。
+
+```shell
+pvesh set /nodes/<node_name>/lxc/<vmid>/config -mp0 "/opt/vlab,mp=/opt/vlab,ro=1" -features keyctl=1,nesting=1
+```
+
+参考资料：<https://discuss.linuxcontainers.org/t/apparmor-blocks-systemd-services-in-container/9812>
+
 ### user@1000.service 启动失败
 
 检查环境变量 `XDG_RUNTIME_DIR` 是否设置正确，应为 `/run/user/<uid>`。
@@ -216,11 +238,11 @@ Ref: <https://github.com/systemd/systemd/issues/9461#issuecomment-409929860>
 
 ### Docker in LXC 启动失败
 
-症状：
+**症状：**
 
 运行 Docker 容器出现类似于 `docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"join session keyring: create session key: disk quota exceeded\"": unknown.` 的错误。
 
-解决方法：
+**解决方法：**
 
 参考 <https://github.com/docker/compose/issues/7295#issuecomment-657475590>。
 
@@ -249,8 +271,8 @@ Docker 需要获取到 kernel session key 才能正常运行。首先查看 `/pr
 如果需要持久化配置，需要编辑 `/etc/sysctl.conf`，添加：
 
 ```ini
-kernel.keys.maxbytes=500000
-kernel.keys.maxkeys=5000
+kernel.keys.maxbytes = 500000
+kernel.keys.maxkeys = 5000
 ```
 
 然后 `sysctl --system`。
@@ -262,6 +284,10 @@ kernel.keys.maxkeys=5000
 **原因：**Proxmox VE 7 默认开启了 unified cgroup hierarchy（即 cgroup v2），而旧版本的 Docker 需要原来的 cgroup v1 结构。
 
 **解决方法：**在内核参数中加上 `systemd.unified_cgroup_hierarchy=0`，然后重启主机。具体操作是在 `/etc/default/grub` 的 `GRUB_CMDLINE_LINUX_DEFAULT` 后面补上 `systemd.unified_cgroup_hierarchy=0`，然后执行 `update-grub` 并重启。
+
+!!! note
+
+    Docker Engine 20.10 开始支持 cgroup v2，但是到全面应用还有点早，所以这个兼容设置先开着。
 
 ### Systemd 服务因「空间不足」启动失败。
 
