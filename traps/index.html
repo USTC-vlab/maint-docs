@@ -1386,7 +1386,7 @@ iface bond0
 <p>Systemd 从版本 242 开始采用更多技术来限制运行服务的权限，而默认没开 nesting 的容器缺少必要权限，导致 systemd-logind 无法启动。</p>
 <p><strong>解决方法：</strong></p>
 <p>为容器开启 nesting（和 keyctl，如果你想的话）。我们已经默认为用户容器开启了这两项权限，所以为我们自己的服务容器开启它们不会有额外的问题。</p>
-<div class="highlight"><pre><span></span><code>pvesh <span class="nb">set</span> /nodes/&lt;node_name&gt;/lxc/&lt;vmid&gt;/config -mp0 <span class="s2">&quot;/opt/vlab,mp=/opt/vlab,ro=1&quot;</span> -features <span class="nv">keyctl</span><span class="o">=</span><span class="m">1</span>,nesting<span class="o">=</span><span class="m">1</span>
+<div class="highlight"><pre><span></span><code>pvesh <span class="nb">set</span> /nodes/&lt;node_name&gt;/lxc/&lt;vmid&gt;/config -features <span class="nv">keyctl</span><span class="o">=</span><span class="m">1</span>,nesting<span class="o">=</span><span class="m">1</span>
 </code></pre></div>
 <p>参考资料：<a href="https://discuss.linuxcontainers.org/t/apparmor-blocks-systemd-services-in-container/9812">https://discuss.linuxcontainers.org/t/apparmor-blocks-systemd-services-in-container/9812</a></p>
 <h3 id="user1000service">user@1000.service 启动失败<a class="headerlink" href="#user1000service" title="Permanent link">&para;</a></h3>
