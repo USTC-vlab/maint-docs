@@ -217,7 +217,7 @@ Systemd 从版本 242 开始采用更多技术来限制运行服务的权限，�
 为容器开启 nesting（和 keyctl，如果你想的话）。我们已经默认为用户容器开启了这两项权限，所以为我们自己的服务容器开启它们不会有额外的问题。
 
 ```shell
-pvesh set /nodes/<node_name>/lxc/<vmid>/config -mp0 "/opt/vlab,mp=/opt/vlab,ro=1" -features keyctl=1,nesting=1
+pvesh set /nodes/<node_name>/lxc/<vmid>/config -features keyctl=1,nesting=1
 ```
 
 参考资料：<https://discuss.linuxcontainers.org/t/apparmor-blocks-systemd-services-in-container/9812>
