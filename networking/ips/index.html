@@ -382,6 +382,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ipv6_1" class="md-nav__link">
+    内网 IPv6
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -883,6 +890,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ipv6_1" class="md-nav__link">
+    内网 IPv6
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1074,7 +1088,7 @@
 </tr>
 <tr>
 <td align="center">172.31.0.0/<strong>16</strong></td>
-<td align="center">用户网络</td>
+<td align="center">用户网络（vmbr1）</td>
 </tr>
 <tr>
 <td align="center">192.168.252.0/24</td>
@@ -1209,6 +1223,26 @@
 <tr>
 <td align="center">172.31.1.4</td>
 <td align="center">VM 804 (FPGAOL Compile)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ipv6_1">内网 IPv6<a class="headerlink" href="#ipv6_1" title="Permanent link">&para;</a></h2>
+<p>我们没有内网服务运行在 IPv6 上。</p>
+<table>
+<thead>
+<tr>
+<th align="center">IP 地址段</th>
+<th align="center">分配用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">2001:da8:d800:4bfc::/64</td>
+<td align="center">通过 SLAAC 供用户虚拟机访问 IPv6</td>
+</tr>
+<tr>
+<td align="center">2001:da8:d800:4b18::/64</td>
+<td align="center">同上，但是是测试环境</td>
 </tr>
 </tbody>
 </table>
