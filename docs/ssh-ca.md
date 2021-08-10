@@ -32,3 +32,12 @@ PasswordAuthentication no
 ```text
 ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3ZHisQY0iMpUNDQNaxcnRSqDbauE8ih6/MrEENJZa7FHKINOPi+bunK1wEXPqlKfu8INEBWCf95+t86z+jXVxmQE176xenS92wiLvR4MZyCBfD5DXAB0mK5iV1eQug5P/cD8Pohr/3wywFbKgKzsix9unky9sJGr86RunSwJbAkMGlw==
 ```
+
+将 CA 添加至容器或虚拟机的操作与上面类似，但是不需要对主机公钥进行签名，因此只需要
+
+- 将以上公钥保存至某个文件，如 `/etc/ssh/ssh_user_ca`
+- 在 `sshd_config` 中追加，或者创建 `/etc/ssh/sshd_config.d/vlab.conf` 并写入
+
+    ```
+    TrustedUserCAKeys /etc/ssh/ssh_user_ca
+    ```

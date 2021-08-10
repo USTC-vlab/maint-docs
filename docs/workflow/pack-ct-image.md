@@ -8,14 +8,14 @@ Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像�
 
 ## 一、准备新的容器环境
 
-登录集群新建一个容器，挑一个负载较低的节点，**把 Unprivileged container 取消勾选**（默认是选中的，不取消的话后面打包会遇到 UID/GID 的问题），模板选一个基础镜像，硬盘根据要装的东西估计，典型的 Ubuntu 18.04 / 20.04 镜像只要 4 GB 就够，这里可以选择存储为 local-lvm 以获得更好的硬盘性能（主机的 SSD）。CPU 和内存可以随意，反正这个容器是临时使用的。[容器网络](../networking/index.md)连接到 vmbr1，随便取一个没用过的 IPv4 地址（建议 172.31.0.240 - 172.31.0.255 之间），掩码是 /16，网关为 172.31.0.1，然后就可以直接下一步创建了。
+登录集群新建一个容器，挑一个负载较低的节点（例如 pv8），把 Unprivileged container 取消勾选（默认是选中的，不取消的话后面打包时[要额外处理一下](#process-uid-for-unprivileged-containers)），模板选一个基础镜像，硬盘大小根据要装的东西估计，典型的 Ubuntu 20.04 镜像只要 4 GB 就够，这里可以选择存储为 local-lvm 以获得更好的硬盘性能（主机的 SSD）。CPU 和内存可以随意，反正这个容器是临时使用的。[容器网络](../networking/index.md)连接到 vmbr1，随便取一个没用过的 IPv4 地址（建议 172.31.0.240 - 172.31.0.255 之间），掩码是 /16，网关为 172.31.0.1，然后就可以直接下一步创建了。
 
-## 二、基础工作
+## 二、基础工作 {#base-works}
 
 本节工作只需要对从 Proxmox 直接下载的“最原始”的镜像处理。
 
 - **换源**：将 apt / yum 源换为 `mirrors.ustc.edu.cn`
-- **加入 SSH CA 公钥**：这里请加入 Vlab User CA（[SSH 证书认证](../ssh-ca.md)这一页下面那个）
+- **加入 SSH CA 公钥**：这里请加入 Vlab **User** CA（[SSH 证书认证](../ssh-ca.md)这一页下面那个）
 
     对于 Ubuntu 20.04 系统，其默认的 `sshd_config` 里有一行 Include，所以可以很方便地在 `/etc/ssh/sshd_config.d` 下新建一个文件用来写 `TrustedUserCAKeys`。对于其他系统，还是将配置直接追加至系统的 `sshd_config`。
 
@@ -92,21 +92,23 @@ LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logou
 
   [vlab-vnc]: https://github.com/iBug/vlab-deb/tree/master/vlab-vnc
 
-## 四、打包前的工作
+## 四、打包前的工作 {#pre-packaging}
 
 其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：
 
 - **`/etc/ssh`**：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对
-- **`/run/`, `/tmp`, `/var/{backups,cache,crash,log,tmp}`**：全部清空，注意 `/tmp`, `/var/crash` 和 `/var/tmp` 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。
+- **`/run`, `/tmp`, `/var/{backups,cache,crash,log,tmp}`**：全部清空，注意 `/tmp`, `/var/crash` 和 `/var/tmp` 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。
 - **`/root` 和 `/home/<user>`**：把 `.bash_history` 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 `.config`）。
+
+对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 `apt-get clean`，也可以手动清空 `/var/lib/apt/lists` 目录。
 
 当然清理之前要把容器关机了，不然 tmp 和 cache 之类的东西还会源源不断地冒出来。
 
-## 五、打包
+## 五、打包 {#packaging}
 
 根据第一步创建容器时选择的存储，这里涉及到的 VG 可能是 `user-data` 或 `pve`。
 
-SSH 进入主机，首先激活容器的文件系统：
+通过命令行登录主机，首先激活容器的文件系统：
 
 ```shell
 lvchange -a y {vg}/vm-{id}-disk-0
@@ -121,6 +123,8 @@ mount /dev/{vg}/vm-{id}-disk-0 tmp
 ```shell
 tar zcvf /mnt/vz/template/cache/vlab99-example.tar.gz .
 ```
+
+### Unprivileged container 打包后的 UID/GID 处理 {#process-uid-for-unprivileged-containers}
 
 如果容器创建时设置为了 unprivileged，则其存在文件系统中的 UID/GID 等都被 LXC 映射到了 +100000（10 万）的数值，打包后需要将这增加的数值修改回来。参考[这个 Stack Overflow 主题][tar-uid]，使用这个 Go 程序可以改写 tar 中的文件信息：
 
