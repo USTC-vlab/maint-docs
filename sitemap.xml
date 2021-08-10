@@ -96,6 +96,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://vlab.ibugone.com/references/pve-ids/</loc>
+         <lastmod>2021-08-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://vlab.ibugone.com/references/ustccas/</loc>
          <lastmod>2021-08-10</lastmod>
          <changefreq>daily</changefreq>

@@ -13,21 +13,21 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/networking/">
+        <link rel="canonical" href="https://vlab.ibugone.com/references/pve-ids/">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.3">
     
     
       
-        <title>网络界面 - Vlab 维护文档</title>
+        <title>Proxmox ID 分配表 - Vlab 维护文档</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.f7f47774.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -63,7 +63,7 @@
     <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
   
     
-    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
       <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#proxmox-id" class="md-skip">
           跳转至
         </a>
       
@@ -84,7 +84,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href="../.." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              网络界面
+              Proxmox ID 分配表
             
           </span>
         </div>
@@ -203,7 +203,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href="../.." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -235,7 +235,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         首页
       </a>
     </li>
@@ -250,7 +250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         概览
       </a>
     </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ssh-ca/" class="md-nav__link">
+      <a href="../../ssh-ca/" class="md-nav__link">
         SSH 证书认证
       </a>
     </li>
@@ -278,14 +278,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       <label class="md-nav__link" for="__nav_4">
         网络配置
@@ -301,78 +299,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          网络界面
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../networking/" class="md-nav__link">
         网络界面
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#ustcnet" class="md-nav__link">
-    校园网
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fibre-intranet" class="md-nav__link">
-    光纤内网
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-intranet" class="md-nav__link">
-    容器内网
-  </a>
-  
-    <nav class="md-nav" aria-label="容器内网">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#vm-network" class="md-nav__link">
-    学生机网络
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -382,7 +313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="host/" class="md-nav__link">
+      <a href="../../networking/host/" class="md-nav__link">
         主机网卡
       </a>
     </li>
@@ -394,7 +325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="intranet/" class="md-nav__link">
+      <a href="../../networking/intranet/" class="md-nav__link">
         容器内网
       </a>
     </li>
@@ -406,7 +337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firewall/" class="md-nav__link">
+      <a href="../../networking/firewall/" class="md-nav__link">
         防火墙与安全
       </a>
     </li>
@@ -418,7 +349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ips/" class="md-nav__link">
+      <a href="../../networking/ips/" class="md-nav__link">
         IP 地址列表
       </a>
     </li>
@@ -460,7 +391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servers/ct100/" class="md-nav__link">
+      <a href="../../servers/ct100/" class="md-nav__link">
         网关 (CT 100)
       </a>
     </li>
@@ -472,7 +403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servers/ct101/" class="md-nav__link">
+      <a href="../../servers/ct101/" class="md-nav__link">
         Web 服务器 (CT 101)
       </a>
     </li>
@@ -484,7 +415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servers/vm104/" class="md-nav__link">
+      <a href="../../servers/vm104/" class="md-nav__link">
         备份服务器 (VM 104)
       </a>
     </li>
@@ -526,7 +457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vnc/config/" class="md-nav__link">
+      <a href="../../vnc/config/" class="md-nav__link">
         配置与管理
       </a>
     </li>
@@ -547,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vlab-software/" class="md-nav__link">
+      <a href="../../vlab-software/" class="md-nav__link">
         Vlab 软件组合
       </a>
     </li>
@@ -562,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cloud-init/" class="md-nav__link">
+      <a href="../../cloud-init/" class="md-nav__link">
         cloud-init 配置
       </a>
     </li>
@@ -577,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../backup/" class="md-nav__link">
+      <a href="../../backup/" class="md-nav__link">
         备份
       </a>
     </li>
@@ -592,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testbed/" class="md-nav__link">
+      <a href="../../testbed/" class="md-nav__link">
         测试环境
       </a>
     </li>
@@ -628,7 +559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/new-host/" class="md-nav__link">
+      <a href="../../workflow/new-host/" class="md-nav__link">
         配置新主机
       </a>
     </li>
@@ -640,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/pack-ct-image/" class="md-nav__link">
+      <a href="../../workflow/pack-ct-image/" class="md-nav__link">
         打包容器镜像
       </a>
     </li>
@@ -652,7 +583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/pack-vm-image/" class="md-nav__link">
+      <a href="../../workflow/pack-vm-image/" class="md-nav__link">
         打包虚拟机镜像
       </a>
     </li>
@@ -671,12 +602,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" checked>
       
       <label class="md-nav__link" for="__nav_12">
         参考资料
@@ -694,7 +627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../references/desktop/" class="md-nav__link">
+      <a href="../desktop/" class="md-nav__link">
         desktop 桌面图标文件
       </a>
     </li>
@@ -706,7 +639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../references/ustccas/" class="md-nav__link">
+      <a href="../ustccas/" class="md-nav__link">
         统一身份认证
       </a>
     </li>
@@ -716,11 +649,21 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../references/pve-ids/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Proxmox ID 分配表
       </a>
+      
     </li>
   
 
@@ -760,7 +703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../traps/" class="md-nav__link">
+      <a href="../../traps/" class="md-nav__link">
         踩坑记录
       </a>
     </li>
@@ -772,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../changelog/" class="md-nav__link">
+      <a href="../../changelog/" class="md-nav__link">
         更新历史
       </a>
     </li>
@@ -805,7 +748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2020-03-31/" class="md-nav__link">
+      <a href="../../records/2020-03-31/" class="md-nav__link">
         2020 年 3 月 31 日
       </a>
     </li>
@@ -817,7 +760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2020-08-01/" class="md-nav__link">
+      <a href="../../records/2020-08-01/" class="md-nav__link">
         2020 年 8 月 1 日
       </a>
     </li>
@@ -829,7 +772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-03-18/" class="md-nav__link">
+      <a href="../../records/2021-03-18/" class="md-nav__link">
         2021 年 3 月 18 日
       </a>
     </li>
@@ -841,7 +784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-06-13/" class="md-nav__link">
+      <a href="../../records/2021-06-13/" class="md-nav__link">
         2021 年 6 月 13 日
       </a>
     </li>
@@ -880,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../history/gen1/" class="md-nav__link">
+      <a href="../../history/gen1/" class="md-nav__link">
         第一代
       </a>
     </li>
@@ -918,48 +861,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#ustcnet" class="md-nav__link">
-    校园网
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fibre-intranet" class="md-nav__link">
-    光纤内网
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-intranet" class="md-nav__link">
-    容器内网
-  </a>
-  
-    <nav class="md-nav" aria-label="容器内网">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#vm-network" class="md-nav__link">
-    学生机网络
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -970,26 +871,42 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/networking/index.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/references/pve-ids.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="_1">网络配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>与本代 Vlab 集群相关的网络有三个，下面分别介绍。</p>
-<h2 id="ustcnet">校园网<a class="headerlink" href="#ustcnet" title="Permanent link">&para;</a></h2>
-<p>所有机器都在电三楼 524 机房，通过铜线直接接入电三楼的 VLAN，该 VLAN 有三个公网 IP 地址段 202.38.75.254/24, 202.38.79.254/24, 202.38.86.254/24，另有一个仅校园网的地址段 10.38.79.254/24，目前部署了所有主机的 IPMI 界面。</p>
-<p>除 pv8 外所有机器的四个网口做一个 bond，然后将这个 bond 桥接，系统中显示的界面名称为 <code>vmbr0</code>。方便起见所有主机的校园网 IP 都从 202.38.75.0/24 网段中取，记录在域名 <code>pv#.vlab.ibugone.net</code> 中。</p>
-<p>pv8 的 eno4 接在光交换机的管理端口上，因此 pv8 只有三个网口做 bond。</p>
-<h2 id="fibre-intranet">光纤内网<a class="headerlink" href="#fibre-intranet" title="Permanent link">&para;</a></h2>
-<p>光纤界面为 <code>ens1f0</code> 和 <code>ens1f1</code>，通过一个华为光交换机互联，因此只有服务器集群内部连通，由于每台计算服务器各自接入校园网，所以光纤内网只用于互联（包括连接 iSCSI），不用于转发。</p>
-<p>IP 分配情况见 <a href="ips/">IP 地址列表</a>。</p>
-<p>运行在这个网络上的设施有 iSCSI 和 NFS（用于共享容器镜像，LVM 带锁不能直接多机同时挂载）。</p>
-<h2 id="overlay-intranet">容器内网<a class="headerlink" href="#overlay-intranet" title="Permanent link">&para;</a></h2>
-<p>容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，IP 地址段暂定为 172.31.0.0/16，在主机上的接口为 vmbr1。更多信息参见 <a href="intranet/">容器内网</a> 一页。</p>
-<h3 id="vm-network">学生机网络<a class="headerlink" href="#vm-network" title="Permanent link">&para;</a></h3>
-<p>CT100 为网关，将所有学生机的上行流量 NAT 后连接到校园网，详见 <a href="../servers/ct100/">CT100 容器的文档</a>。</p>
-<p>CT101 为 web 服务器，提供 web 界面（Nginx, Django）和 VNC 统一接入（程序在 <a href="https://github.com/pdlan">pdlan</a> 的一个私有仓库中，由于潜在的版权问题不能公开）。具体内容详见 <a href="../servers/ct101/">CT101 容器的文档</a>。</p>
+                <h1 id="proxmox-id">Proxmox 虚拟机 ID 分配<a class="headerlink" href="#proxmox-id" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th align="center">ID 或 ID 段</th>
+<th align="center">分配情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">100-199</td>
+<td align="center">vlab 服务<br>如 gateway, web 等</td>
+</tr>
+<tr>
+<td align="center">200-799</td>
+<td align="center">未分配</td>
+</tr>
+<tr>
+<td align="center">800-899</td>
+<td align="center">托管在 vlab 上的其他服务<br>如 USTC OJ, Verilog OJ 等</td>
+</tr>
+<tr>
+<td align="center">900-999</td>
+<td align="center">vlab 维护小组自己使用的虚拟机</td>
+</tr>
+<tr>
+<td align="center">1000-?</td>
+<td align="center">用户创建的虚拟机</td>
+</tr>
+</tbody>
+</table>
                 
               
               
@@ -1014,7 +931,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../ssh-ca/" class="md-footer__link md-footer__link--prev" aria-label="上一页: SSH 证书认证" rel="prev">
+        <a href="../ustccas/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 统一身份认证" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1023,20 +940,20 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              SSH 证书认证
+              统一身份认证
             </div>
           </div>
         </a>
       
       
         
-        <a href="host/" class="md-footer__link md-footer__link--next" aria-label="下一页: 主机网卡" rel="next">
+        <a href="../../traps/" class="md-footer__link md-footer__link--next" aria-label="下一页: 踩坑记录" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              主机网卡
+              踩坑记录
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1091,12 +1008,12 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.29db7785.min.js"></script>
+      <script src="../../assets/javascripts/bundle.29db7785.min.js"></script>
       
-        <script src="../assets/js/extra.js"></script>
+        <script src="../../assets/js/extra.js"></script>
       
     
   </body>
