@@ -966,7 +966,7 @@
                 <h1 id="_1">打包虚拟机镜像<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="ubuntu-cloud-images">从 Ubuntu cloud images 开始准备虚拟机<a class="headerlink" href="#ubuntu-cloud-images" title="Permanent link">&para;</a></h2>
 <p>由于虚拟机使用 cloud-init 进行定制，我们推荐以发行版官方的 cloud image 为基础进行额外配置。</p>
-<p>以 Ubuntu 20.04 LTS 为例，首先下载 <code>https://mirrors.ustc.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.img</code> 到本地。</p>
+<p>以 Ubuntu 20.04 LTS 为例，首先下载 <a href="https://mirrors.ustc.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.img">https://mirrors.ustc.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.img</a> 到本地。</p>
 <p>首先创建一个临时虚拟机（注意将 ID 910 换成一个合适的空闲 <a href="../../references/pve-ids/">ID</a>）</p>
 <div class="highlight"><pre><span></span><code>qm create <span class="m">910</span> --memory <span class="m">2048</span> --net0 virtio,bridge<span class="o">=</span>vmbr1
 </code></pre></div>
