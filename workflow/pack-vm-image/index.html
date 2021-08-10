@@ -619,27 +619,54 @@
       
         <li class="md-nav__item">
   <a href="#ubuntu-cloud-images" class="md-nav__link">
-    从 Ubuntu cloud images 开始准备虚拟机
+    一、从 Ubuntu cloud images 开始准备虚拟机
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#cloud-init" class="md-nav__link">
-    配置 Cloud-init
+    二、配置 Cloud-init
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    后续工作
+    三、镜像的处理
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#pre-packaging" class="md-nav__link">
+    四、打包前的工作
+  </a>
+  
+    <nav class="md-nav" aria-label="四、打包前的工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
+    挂载虚拟机磁盘
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging" class="md-nav__link">
+    五、打包
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
     参考资料
   </a>
   
@@ -920,27 +947,54 @@
       
         <li class="md-nav__item">
   <a href="#ubuntu-cloud-images" class="md-nav__link">
-    从 Ubuntu cloud images 开始准备虚拟机
+    一、从 Ubuntu cloud images 开始准备虚拟机
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#cloud-init" class="md-nav__link">
-    配置 Cloud-init
+    二、配置 Cloud-init
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    后续工作
+    三、镜像的处理
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#pre-packaging" class="md-nav__link">
+    四、打包前的工作
+  </a>
+  
+    <nav class="md-nav" aria-label="四、打包前的工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
+    挂载虚拟机磁盘
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging" class="md-nav__link">
+    五、打包
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
     参考资料
   </a>
   
@@ -964,8 +1018,8 @@
                 
                 
                 <h1 id="_1">打包虚拟机镜像<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="ubuntu-cloud-images">从 Ubuntu cloud images 开始准备虚拟机<a class="headerlink" href="#ubuntu-cloud-images" title="Permanent link">&para;</a></h2>
-<p>由于虚拟机使用 cloud-init 进行定制，我们推荐以发行版官方的 cloud image 为基础进行额外配置。</p>
+<p>由于 Proxmox VE 上的虚拟机使用 cloud-init 进行定制，我们推荐以发行版官方的 cloud image 为基础进行额外配置。</p>
+<h2 id="ubuntu-cloud-images">一、从 Ubuntu cloud images 开始准备虚拟机<a class="headerlink" href="#ubuntu-cloud-images" title="Permanent link">&para;</a></h2>
 <p>以 Ubuntu 20.04 LTS 为例，首先下载 <a href="https://mirrors.ustc.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.img">https://mirrors.ustc.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.img</a> 到本地。</p>
 <p>首先创建一个临时虚拟机（注意将 ID 910 换成一个合适的空闲 <a href="../../references/pve-ids/">ID</a>）</p>
 <div class="highlight"><pre><span></span><code>qm create <span class="m">910</span> --memory <span class="m">2048</span> --net0 virtio,bridge<span class="o">=</span>vmbr1
@@ -975,7 +1029,7 @@
 qm <span class="nb">set</span> <span class="m">910</span> --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-910-disk-1
 qm <span class="nb">set</span> <span class="m">910</span> --boot c --bootdisk scsi0
 </code></pre></div>
-<h2 id="cloud-init">配置 Cloud-init<a class="headerlink" href="#cloud-init" title="Permanent link">&para;</a></h2>
+<h2 id="cloud-init">二、配置 Cloud-init<a class="headerlink" href="#cloud-init" title="Permanent link">&para;</a></h2>
 <p>这一步可以完全在 Proxmox VE web 界面上操作，下面还是给出命令行指导。</p>
 <p>添加 Cloud-init 配置盘（官方文档里是添加为 IDE 盘，实际加成 SCSI 的也没问题，这里跟随官方）</p>
 <div class="highlight"><pre><span></span><code>qm <span class="nb">set</span> <span class="m">910</span> --ide2 local-lvm:cloudinit
@@ -990,10 +1044,30 @@ qm <span class="nb">set</span> <span class="m">910</span> --boot c --bootdisk sc
 <div class="highlight"><pre><span></span><code>qm <span class="nb">set</span> <span class="m">910</span> --serial0 socket --vga serial0
 </code></pre></div>
 </details>
+<div class="admonition note">
+<p class="admonition-title">可选项目：开机</p>
 <p>现在我们可以通过 <code>qm start 910</code> 启动虚拟机进行高级配置了。</p>
-<h2 id="_2">后续工作<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>看完第三章和第四章之后你就知道为什么将虚拟机开机是可选的了。</p>
+</div>
+<h2 id="_2">三、镜像的处理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>我们认为 KVM 虚拟机的受众是不需要桌面环境和 Vlab Software 进行较为“通用”的实验和计算的用户，因此我们在 KVM 镜像中不提供桌面环境和 <a href="../../vlab-software/"><code>/opt/vlab</code></a>（其实要弄还有点麻烦），所以对于下载下来的官方镜像，我们只需要进行<a href="../pack-ct-image/#base-works">最基本的修改</a>即可。</p>
+<h2 id="pre-packaging">四、打包前的工作<a class="headerlink" href="#pre-packaging" title="Permanent link">&para;</a></h2>
+<p>与<a href="../pack-ct-image/#pre-packaging">打包容器镜像前的清理工作</a>一样。</p>
+<h3 id="_3">挂载虚拟机磁盘<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>注意 KVM 的“卷”是一个完整的磁盘，而容器的“卷”只包含 rootfs 所在的文件系统，因此要挂载 KVM 的 rootfs 需要先处理磁盘分区的问题。我们推荐使用 kpartx 工具。</p>
+<div class="highlight"><pre><span></span><code>kpartx -av /dev/pve/vm-910-disk-0
+</code></pre></div>
+<p>你会看到类似这样的输出：</p>
+<div class="highlight"><pre><span></span><code>add map pve-vm--910--disk--0p1 (253:19): 0 4384735 linear 253:14 227328
+add map pve-vm--910--disk--0p14 (253:23): 0 8192 linear 253:14 2048
+add map pve-vm--910--disk--0p15 (253:24): 0 217088 linear 253:14 10240
+</code></pre></div>
+<p>根据容量判断，p1 就是虚拟机的 rootfs，此时就可以挂载 <code>/dev/mapper/pve-vm--910--disk--0p1</code> 进行清理工作了。</p>
+<p>清理完成并 umount 后，可以使用 <code>kpartx -d /dev/pve/vm-910-disk-0</code> 删除分区映射。</p>
+<p>同样的，取决于虚拟磁盘的位置，PVE 有可能会在关机后将虚拟磁盘的 LVM 卷设置为 inactive，需要使用 <code>lvchange</code> 先激活，参见打包容器镜像的<a href="../pack-ct-image/#packaging">章节</a>。</p>
+<h2 id="packaging">五、打包<a class="headerlink" href="#packaging" title="Permanent link">&para;</a></h2>
 <p>如果打包好的镜像要作为 VM 模板使用，需要迁移至各 pve 主机间的共享存储上，如 user-data。</p>
-<h2 id="_3">参考资料<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="references">参考资料<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Proxmox VE 关于 Cloud-init 的文档：<a href="https://pve.proxmox.com/wiki/Cloud-Init_Support">https://pve.proxmox.com/wiki/Cloud-Init_Support</a></li>
 </ul>

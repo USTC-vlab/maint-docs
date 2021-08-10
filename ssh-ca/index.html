@@ -940,6 +940,15 @@ PasswordAuthentication no
 <p>出于管理的考虑，用户 CA 和主机 CA 独立。公钥：</p>
 <div class="highlight"><pre><span></span><code>ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3ZHisQY0iMpUNDQNaxcnRSqDbauE8ih6/MrEENJZa7FHKINOPi+bunK1wEXPqlKfu8INEBWCf95+t86z+jXVxmQE176xenS92wiLvR4MZyCBfD5DXAB0mK5iV1eQug5P/cD8Pohr/3wywFbKgKzsix9unky9sJGr86RunSwJbAkMGlw==
 </code></pre></div>
+<p>将 CA 添加至容器或虚拟机的操作与上面类似，但是不需要对主机公钥进行签名，因此只需要</p>
+<ul>
+<li>将以上公钥保存至某个文件，如 <code>/etc/ssh/ssh_user_ca</code></li>
+<li>
+<p>在 <code>sshd_config</code> 中追加，或者创建 <code>/etc/ssh/sshd_config.d/vlab.conf</code> 并写入</p>
+<div class="highlight"><pre><span></span><code>TrustedUserCAKeys /etc/ssh/ssh_user_ca
+</code></pre></div>
+</li>
+</ul>
                 
               
               

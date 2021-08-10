@@ -613,14 +613,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#base-works" class="md-nav__link">
     二、基础工作
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     三、安装与测试桌面环境
   </a>
   
@@ -635,7 +635,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     测试桌面环境
   </a>
   
@@ -647,16 +647,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#pre-packaging" class="md-nav__link">
     四、打包前的工作
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#packaging" class="md-nav__link">
     五、打包
   </a>
+  
+    <nav class="md-nav" aria-label="五、打包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process-uid-for-unprivileged-containers" class="md-nav__link">
+    Unprivileged container 打包后的 UID/GID 处理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -953,14 +966,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#base-works" class="md-nav__link">
     二、基础工作
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     三、安装与测试桌面环境
   </a>
   
@@ -975,7 +988,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     测试桌面环境
   </a>
   
@@ -987,16 +1000,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#pre-packaging" class="md-nav__link">
     四、打包前的工作
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#packaging" class="md-nav__link">
     五、打包
   </a>
+  
+    <nav class="md-nav" aria-label="五、打包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process-uid-for-unprivileged-containers" class="md-nav__link">
+    Unprivileged container 打包后的 UID/GID 处理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1022,13 +1048,13 @@
 <p>同样由于镜像内容的不一致以及下面提到的一些与网络相关的设置，尝试在自己的 LXC / LXD 环境中进行镜像的配置工作可能会遇到各种各样的困难，例如权限问题、网络问题等，因此我们直接在现有的 Proxmox 集群中操作就行了。</p>
 <p>打包的容器镜像应当在功能完整、追求开箱即用的情况下<strong>尽可能保持精简</strong>，例如 build-essential 可以安装，但是 Clang / LLVM 最好不要（</p>
 <h2 id="_2">一、准备新的容器环境<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>登录集群新建一个容器，挑一个负载较低的节点，<strong>把 Unprivileged container 取消勾选</strong>（默认是选中的，不取消的话后面打包会遇到 UID/GID 的问题），模板选一个基础镜像，硬盘根据要装的东西估计，典型的 Ubuntu 18.04 / 20.04 镜像只要 4 GB 就够，这里可以选择存储为 local-lvm 以获得更好的硬盘性能（主机的 SSD）。CPU 和内存可以随意，反正这个容器是临时使用的。<a href="../../networking/">容器网络</a>连接到 vmbr1，随便取一个没用过的 IPv4 地址（建议 172.31.0.240 - 172.31.0.255 之间），掩码是 /16，网关为 172.31.0.1，然后就可以直接下一步创建了。</p>
-<h2 id="_3">二、基础工作<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>登录集群新建一个容器，挑一个负载较低的节点（例如 pv8），把 Unprivileged container 取消勾选（默认是选中的，不取消的话后面打包时<a href="#process-uid-for-unprivileged-containers">要额外处理一下</a>），模板选一个基础镜像，硬盘大小根据要装的东西估计，典型的 Ubuntu 20.04 镜像只要 4 GB 就够，这里可以选择存储为 local-lvm 以获得更好的硬盘性能（主机的 SSD）。CPU 和内存可以随意，反正这个容器是临时使用的。<a href="../../networking/">容器网络</a>连接到 vmbr1，随便取一个没用过的 IPv4 地址（建议 172.31.0.240 - 172.31.0.255 之间），掩码是 /16，网关为 172.31.0.1，然后就可以直接下一步创建了。</p>
+<h2 id="base-works">二、基础工作<a class="headerlink" href="#base-works" title="Permanent link">&para;</a></h2>
 <p>本节工作只需要对从 Proxmox 直接下载的“最原始”的镜像处理。</p>
 <ul>
 <li><strong>换源</strong>：将 apt / yum 源换为 <code>mirrors.ustc.edu.cn</code></li>
 <li>
-<p><strong>加入 SSH CA 公钥</strong>：这里请加入 Vlab User CA（<a href="../../ssh-ca/">SSH 证书认证</a>这一页下面那个）</p>
+<p><strong>加入 SSH CA 公钥</strong>：这里请加入 Vlab <strong>User</strong> CA（<a href="../../ssh-ca/">SSH 证书认证</a>这一页下面那个）</p>
 <p>对于 Ubuntu 20.04 系统，其默认的 <code>sshd_config</code> 里有一行 Include，所以可以很方便地在 <code>/etc/ssh/sshd_config.d</code> 下新建一个文件用来写 <code>TrustedUserCAKeys</code>。对于其他系统，还是将配置直接追加至系统的 <code>sshd_config</code>。</p>
 </li>
 <li>
@@ -1042,7 +1068,7 @@
 <li><strong>更新 <code>/etc/motd</code></strong>：也就 SSH 登录的时候显示一下，改不改没啥区别</li>
 </ul>
 <p>如果打包的目标不是带桌面环境的镜像的话，第三步就可以跳过了。</p>
-<h2 id="_4">三、安装与测试桌面环境<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_3">三、安装与测试桌面环境<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>桌面环境的配置较为复杂，因为要运行 VNC server 并将其作为桌面管理器的主显示输出。经过 pdlan 的调试，采用 LightDM + TigerVNC server 的组合，使用一个自己编写的启动脚本可以正常运行。这部分配置工作我们已经打包成了一个 Debian package，放在 <a href="https://vlab.ustc.edu.cn/repo/vlab-vnc.deb">https://vlab.ustc.edu.cn/repo/vlab-vnc.deb</a>，可以直接安装，<strong>注意使用 <code>--no-install-recommends</code></strong>。</p>
 <p>由于后台 VNC server 采用了无密码的认证方式，因此额外使用 iptables 防火墙来限制只能从 web 服务器的地址连接 VNC server，该部分处理放在了 deb 的 postinst 操作中，会加上一条 IPv4 规则限制来源和一条 IPv6 规则拒绝所有连接。</p>
 <p>桌面环境我们一般选用轻量的 Xfce（安装 <code>xfce4</code>，也要使用 <code>--no-install-recommends</code>），装好之后启动 <code>lightdm.service</code> 就可以测试了。</p>
@@ -1077,20 +1103,21 @@
 </code></pre></div>
 <p>让 lightdm 启动时更新 vlab 信息。</p>
 <p>最后，记得替换上 Vlab 的<strong>专属</strong>桌面：<a href="https://vlab.ustc.edu.cn/downloads/background.jpg">https://vlab.ustc.edu.cn/downloads/background.jpg</a></p>
-<h3 id="_5">测试桌面环境<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_4">测试桌面环境<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 <code>ssh -L</code> 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。</p>
 <p>LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logout 能用就基本 OK 了。</p>
-<h2 id="_6">四、打包前的工作<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="pre-packaging">四、打包前的工作<a class="headerlink" href="#pre-packaging" title="Permanent link">&para;</a></h2>
 <p>其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：</p>
 <ul>
 <li><strong><code>/etc/ssh</code></strong>：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对</li>
-<li><strong><code>/run/</code>, <code>/tmp</code>, <code>/var/{backups,cache,crash,log,tmp}</code></strong>：全部清空，注意 <code>/tmp</code>, <code>/var/crash</code> 和 <code>/var/tmp</code> 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。</li>
+<li><strong><code>/run</code>, <code>/tmp</code>, <code>/var/{backups,cache,crash,log,tmp}</code></strong>：全部清空，注意 <code>/tmp</code>, <code>/var/crash</code> 和 <code>/var/tmp</code> 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。</li>
 <li><strong><code>/root</code> 和 <code>/home/&lt;user&gt;</code></strong>：把 <code>.bash_history</code> 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 <code>.config</code>）。</li>
 </ul>
+<p>对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 <code>apt-get clean</code>，也可以手动清空 <code>/var/lib/apt/lists</code> 目录。</p>
 <p>当然清理之前要把容器关机了，不然 tmp 和 cache 之类的东西还会源源不断地冒出来。</p>
-<h2 id="_7">五、打包<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="packaging">五、打包<a class="headerlink" href="#packaging" title="Permanent link">&para;</a></h2>
 <p>根据第一步创建容器时选择的存储，这里涉及到的 VG 可能是 <code>user-data</code> 或 <code>pve</code>。</p>
-<p>SSH 进入主机，首先激活容器的文件系统：</p>
+<p>通过命令行登录主机，首先激活容器的文件系统：</p>
 <div class="highlight"><pre><span></span><code>lvchange -a y <span class="o">{</span>vg<span class="o">}</span>/vm-<span class="o">{</span>id<span class="o">}</span>-disk-0
 mkdir tmp
 mount /dev/<span class="o">{</span>vg<span class="o">}</span>/vm-<span class="o">{</span>id<span class="o">}</span>-disk-0 tmp
@@ -1099,6 +1126,7 @@ mount /dev/<span class="o">{</span>vg<span class="o">}</span>/vm-<span class="o"
 <p>最后打包要在 tmp 目录下（即容器的根目录）进行，因为（显然）tar 压缩包中的路径是有影响的。</p>
 <div class="highlight"><pre><span></span><code>tar zcvf /mnt/vz/template/cache/vlab99-example.tar.gz .
 </code></pre></div>
+<h3 id="process-uid-for-unprivileged-containers">Unprivileged container 打包后的 UID/GID 处理<a class="headerlink" href="#process-uid-for-unprivileged-containers" title="Permanent link">&para;</a></h3>
 <p>如果容器创建时设置为了 unprivileged，则其存在文件系统中的 UID/GID 等都被 LXC 映射到了 +100000（10 万）的数值，打包后需要将这增加的数值修改回来。参考<a href="https://stackoverflow.com/q/39153605/5958455">这个 Stack Overflow 主题</a>，使用这个 Go 程序可以改写 tar 中的文件信息：</p>
 <details class="abstract"><summary>Go 代码</summary><div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nx">main</span>    
 
