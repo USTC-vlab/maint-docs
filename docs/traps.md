@@ -61,7 +61,9 @@
 5. chroot 进去，把 `/etc/lvm/lvm.conf` **再改一遍**（和第 2 步相同）
 6. `update-initramfs -u -k all` 更新 initramfs，重启
 
-    <small>\* 其实第 5 步不一定需要 chroot，但是这一步是需要的</small>
+    !!! note ""
+    
+        \* 其实第 5 步不一定需要 chroot，但是这一步是需要的
 
 ### CT 100 和 CT 101 无法启动
 
