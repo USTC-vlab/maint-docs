@@ -34,6 +34,7 @@ theme:
     repo: octicons/mark-github-16
   features:
     - navigation.top
+    - navigation.sections
 
 # Customization
 extra:
@@ -42,9 +43,6 @@ extra:
       link: 'https://vlab.ustc.edu.cn/'
     - icon: octicons/mark-github-16
       link: 'https://github.com/USTC-vlab'
-
-extra_javascript:
-  - assets/js/extra.js
 
 extra_css:
   # Borrow CSS from Linux 101
@@ -71,6 +69,7 @@ markdown_extensions:
 nav:
   - 首页: index.md
   - 概览: overview.md
+  - 备份: backup/index.md
   - SSH 证书认证: ssh-ca.md
   - 网络配置:
     - 网络界面: networking/index.md
@@ -82,14 +81,15 @@ nav:
     - 网关 (CT 100): servers/ct100.md
     - Web 服务器 (CT 101): servers/ct101.md
     - 备份服务器 (VM 104): servers/vm104.md
-  - 远程桌面:
-    - 配置与管理: vnc/config.md
+  - 用户界面:
+    - VNC 统一登录: ui/vncmux.md
   - Vlab 软件组合:
     - 配置: vlab-software/index.md
     - 软件安装: vlab-software/installation.md
-  - cloud-init 配置: cloud-init.md
-  - 备份: backup/index.md
-  - 测试环境: testbed/index.md
+  - KVM 虚拟机:
+    - cloud-init 配置: kvm/cloud-init.md
+  - 测试环境:
+    - 简介: testbed/index.md
   - 工作流程:
     - 配置新主机: workflow/new-host.md
     - 打包容器镜像: workflow/pack-ct-image.md
