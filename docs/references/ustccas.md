@@ -1,5 +1,26 @@
 # 统一身份认证资料
 
+## 响应样例
+
+注：非原始响应，已解析为 Python `dict`：
+
+```python
+{
+    'xbm': '1',
+    'logintime': '2020-02-30 12:34:56',
+    'gid': '2201234567',
+    'ryzxztdm': '10',
+    'ryfldm': '201030000',
+    'loginip': '192.0.2.0',
+    'name': '张三',
+    'login': 'PB17000001',
+    'zjhm': 'PB17000001',
+    'glzjh': 'SA21011000\tPB17000001',
+    'deptCode': '011',
+    'email': 'noreply@mail.ustc.edu.cn'
+}
+```
+
 ## 人员在校状态码
 
 ```csv
