@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/references/ustccas/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.3">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -673,13 +673,20 @@
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    人员在校状态码
+    响应样例
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
+    人员在校状态码
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     人员分类码
   </a>
   
@@ -894,13 +901,20 @@
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    人员在校状态码
+    响应样例
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
+    人员在校状态码
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     人员分类码
   </a>
   
@@ -924,7 +938,24 @@
                 
                 
                 <h1 id="_1">统一身份认证资料<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="_2">人员在校状态码<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">响应样例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>注：非原始响应，已解析为 Python <code>dict</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="s1">&#39;xbm&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;logintime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-30 12:34:56&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gid&#39;</span><span class="p">:</span> <span class="s1">&#39;2201234567&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ryzxztdm&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ryfldm&#39;</span><span class="p">:</span> <span class="s1">&#39;201030000&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;loginip&#39;</span><span class="p">:</span> <span class="s1">&#39;192.0.2.0&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;张三&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;login&#39;</span><span class="p">:</span> <span class="s1">&#39;PB17000001&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;zjhm&#39;</span><span class="p">:</span> <span class="s1">&#39;PB17000001&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;glzjh&#39;</span><span class="p">:</span> <span class="s1">&#39;SA21011000</span><span class="se">\t</span><span class="s1">PB17000001&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;deptCode&#39;</span><span class="p">:</span> <span class="s1">&#39;011&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="s1">&#39;noreply@mail.ustc.edu.cn&#39;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_3">人员在校状态码<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>id,sfztm,sfzt
 1,10,在校
 2,20,离校（含校内身份结束）
@@ -934,7 +965,7 @@
 7,99,其他
 8,91,证件停用或注销
 </code></pre></div>
-<h2 id="_3">人员分类码<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_4">人员分类码<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>id,ryflm,ryfl
 1,101010000,教工-正式编制教学岗
 2,101020000,教工-正式编制科研岗
@@ -1075,7 +1106,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.2b46852b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.29db7785.min.js"></script>
       
         <script src="../../assets/js/extra.js"></script>
       
