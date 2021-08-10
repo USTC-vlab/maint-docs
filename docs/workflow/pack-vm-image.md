@@ -54,7 +54,7 @@ qm set 910 --ipconfig0 ip=172.31.0.256/16,gw=172.31.0.1,ip6=auto
 
 ## 三、镜像的处理
 
-我们认为 KVM 虚拟机的受众是不需要桌面环境和 Vlab Software 进行较为“通用”的实验和计算的用户，因此我们在 KVM 镜像中不提供桌面环境和 [`/opt/vlab`](../vlab-software.md)（其实要弄还有点麻烦），所以对于下载下来的官方镜像，我们只需要进行[最基本的修改](pack-ct-image.md#base-works)即可。
+我们认为 KVM 虚拟机的受众是不需要桌面环境和 Vlab Software 进行较为“通用”的实验和计算的用户，因此我们在 KVM 镜像中不提供桌面环境和 [`/opt/vlab`](../vlab-software/index.md)（其实要弄还有点麻烦），所以对于下载下来的官方镜像，我们只需要进行[最基本的修改](pack-ct-image.md#base-works)即可。
 
 ## 四、打包前的工作 {#pre-packaging}
 

@@ -48,7 +48,7 @@ Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像�
 
 ### 配置 Vlab Software
 
-主文章：[Vlab Software](../vlab-software.md)
+主文章：[Vlab Software](../vlab-software/index.md)
 
 取决于所安装的桌面环境，在 `/etc/xdg/menus` 下的某个 `.menu` 文件最后的关闭标签**前**插入如下内容：
 
