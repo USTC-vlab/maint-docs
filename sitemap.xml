@@ -2,152 +2,152 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://vlab.ibugone.com/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/changelog/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/overview/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/ssh-ca/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/traps/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/backup/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/history/gen1/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/kvm/cloud-init/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/networking/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/networking/firewall/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/networking/host/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/networking/intranet/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/networking/ips/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/records/2020-03-31/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/records/2020-08-01/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/records/2021-03-18/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/records/2021-06-13/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/references/desktop/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/references/pve-ids/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/references/ustccas/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/servers/ct100/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/servers/ct101/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/servers/vm104/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/testbed/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/ui/vncmux/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/vlab-software/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/vlab-software/installation/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/workflow/new-host/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/workflow/pack-ct-image/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://vlab.ibugone.com/workflow/pack-vm-image/</loc>
-         <lastmod>2021-08-10</lastmod>
+         <lastmod>2021-08-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
