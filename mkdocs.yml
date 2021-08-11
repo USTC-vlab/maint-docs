@@ -33,6 +33,7 @@ theme:
     logo: octicons/server-16
     repo: octicons/mark-github-16
   features:
+    - navigation.instant
     - navigation.top
     - navigation.sections
 
