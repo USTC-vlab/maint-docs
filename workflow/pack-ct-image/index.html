@@ -713,7 +713,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#prepare-ct" class="md-nav__link">
     一、准备新的容器环境
   </a>
   
@@ -727,7 +727,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     三、安装与测试桌面环境
   </a>
   
@@ -742,7 +742,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     测试桌面环境
   </a>
   
@@ -1082,7 +1082,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#prepare-ct" class="md-nav__link">
     一、准备新的容器环境
   </a>
   
@@ -1096,7 +1096,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     三、安装与测试桌面环境
   </a>
   
@@ -1111,7 +1111,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     测试桌面环境
   </a>
   
@@ -1170,7 +1170,7 @@
 <p>Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像不宜直接用于 Proxmox VE。基准镜像可以直接使用已有的 vlab 镜像（推荐），或者使用 <code>pveam</code> 命令从 Proxmox 官方下载。</p>
 <p>同样由于镜像内容的不一致以及下面提到的一些与网络相关的设置，尝试在自己的 LXC / LXD 环境中进行镜像的配置工作可能会遇到各种各样的困难，例如权限问题、网络问题等，因此我们直接在现有的 Proxmox 集群中操作就行了。</p>
 <p>打包的容器镜像应当在功能完整、追求开箱即用的情况下<strong>尽可能保持精简</strong>，例如 build-essential 可以安装，但是 Clang / LLVM 最好不要（</p>
-<h2 id="_2">一、准备新的容器环境<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="prepare-ct">一、准备新的容器环境<a class="headerlink" href="#prepare-ct" title="Permanent link">&para;</a></h2>
 <p>登录集群新建一个容器，挑一个负载较低的节点（例如 pv8），把 Unprivileged container 取消勾选（默认是选中的，不取消的话后面打包时<a href="#process-uid-for-unprivileged-containers">要额外处理一下</a>），模板选一个基础镜像，硬盘大小根据要装的东西估计，典型的 Ubuntu 20.04 镜像只要 4 GB 就够，这里可以选择存储为 local-lvm 以获得更好的硬盘性能（主机的 SSD）。CPU 和内存可以随意，反正这个容器是临时使用的。<a href="../../networking/">容器网络</a>连接到 vmbr1，随便取一个没用过的 IPv4 地址（建议 172.31.0.240 - 172.31.0.255 之间），掩码是 /16，网关为 172.31.0.1，然后就可以直接下一步创建了。</p>
 <h2 id="base-works">二、基础工作<a class="headerlink" href="#base-works" title="Permanent link">&para;</a></h2>
 <p>本节工作只需要对从 Proxmox 直接下载的“最原始”的镜像处理。</p>
@@ -1191,7 +1191,7 @@
 <li><strong>更新 <code>/etc/motd</code></strong>：也就 SSH 登录的时候显示一下，改不改没啥区别</li>
 </ul>
 <p>如果打包的目标不是带桌面环境的镜像的话，第三步就可以跳过了。</p>
-<h2 id="_3">三、安装与测试桌面环境<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_2">三、安装与测试桌面环境<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>桌面环境的配置较为复杂，因为要运行 VNC server 并将其作为桌面管理器的主显示输出。经过 pdlan 的调试，采用 LightDM + TigerVNC server 的组合，使用一个自己编写的启动脚本可以正常运行。这部分配置工作我们已经打包成了一个 Debian package，放在 <a href="https://vlab.ustc.edu.cn/repo/vlab-vnc.deb">https://vlab.ustc.edu.cn/repo/vlab-vnc.deb</a>，可以直接安装，<strong>注意使用 <code>--no-install-recommends</code></strong>。</p>
 <p>由于后台 VNC server 采用了无密码的认证方式，因此额外使用 iptables 防火墙来限制只能从 web 服务器的地址连接 VNC server，该部分处理放在了 deb 的 postinst 操作中，会加上一条 IPv4 规则限制来源和一条 IPv6 规则拒绝所有连接。</p>
 <p>桌面环境我们一般选用轻量的 Xfce（安装 <code>xfce4</code>，也要使用 <code>--no-install-recommends</code>），装好之后启动 <code>lightdm.service</code> 就可以测试了。</p>
@@ -1226,7 +1226,7 @@
 </code></pre></div>
 <p>让 lightdm 启动时更新 vlab 信息。</p>
 <p>最后，记得替换上 Vlab 的<strong>专属</strong>桌面：<a href="https://vlab.ustc.edu.cn/downloads/background.jpg">https://vlab.ustc.edu.cn/downloads/background.jpg</a></p>
-<h3 id="_4">测试桌面环境<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_3">测试桌面环境<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 <code>ssh -L</code> 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。</p>
 <p>LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logout 能用就基本 OK 了。</p>
 <h2 id="pre-packaging">四、打包前的工作<a class="headerlink" href="#pre-packaging" title="Permanent link">&para;</a></h2>
