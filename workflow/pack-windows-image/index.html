@@ -1241,15 +1241,13 @@
 <p>现在可以进设置应用里查看激活状态了。如果还没激活的话，点疑难解答，等它跑完就会告诉你已激活。</p>
 <h3 id="virtio">安装 VirtIO 驱动<a class="headerlink" href="#virtio" title="Permanent link">&para;</a></h3>
 <p>打开光驱运行 <code>virtio-win-guest-tools.exe</code>，一路下一步安装即可。</p>
-<p>这里唯一的坑点是，如果你在创建虚拟机时没有多一步添加一个串口设备的话，那么 VirtIO 串口驱动就不会安装，需要关机加好设备后再重新安装。
-QEMU Guest Agent (Qemu GA) 以后会很有用，我们也把它装上吧。</p>
+<p>这里唯一的坑点是，如果你在创建虚拟机时没有多一步添加一个串口设备的话，那么 VirtIO 串口驱动就不会安装，需要关机加好设备后再重新安装。</p>
+<p>QEMU Guest Agent (Qemu GA) 以后会很有用，我们也把它装上吧。</p>
 <h3 id="_5">其他自定义设置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>任务栏里那块巨大的胶布（搜索框）可以隐藏起来，Cortana 图标隐藏起来，Task View 的图标也可以隐藏起来，这几个都是右键任务栏就可以勾选的选项。</p>
 <p>“任务栏设置”里的“使用‘速览’预览桌面”出于性能考虑建议不要开，其他随意，例如“合并任务栏按钮”可以改成“任务栏已满时”等等，其他的桌面背景、颜色、开始菜单等都随意。</p>
 <p>Windows 检测网络连接的功能经常坏，原因其实很简单，msftconnecttest.com 服务器在国外，很慢而且不稳定，可以修改注册表将这个功能替换成使用校内的服务。</p>
-<div class="admonition abstract">
-<p class="admonition-title">注册表文件</p>
-<div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
+<details class="abstract"><summary>注册表文件</summary><div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
 
 <span class="k">[</span><span class="nb">HKEY_LOCAL_MACHINE</span><span class="k">\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]</span>
 <span class="na">&quot;ActiveDnsProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;202.38.64.1&quot;</span>
@@ -1264,7 +1262,7 @@ QEMU Guest Agent (Qemu GA) 以后会很有用，我们也把它装上吧。</p>
 <span class="na">&quot;ActiveWebProbePathV6&quot;</span><span class="o">=</span><span class="s">&quot;connecttest.txt&quot;</span>
 <span class="na">&quot;EnableActiveProbing&quot;</span><span class="o">=</span><span class="nv">dword</span><span class="p">:</span><span class="m">00000001</span>
 </code></pre></div>
-</div>
+</details>
 <h2 id="cloudbase-init">三、安装 Cloudbase-init<a class="headerlink" href="#cloudbase-init" title="Permanent link">&para;</a></h2>
                 
               
