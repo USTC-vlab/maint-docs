@@ -83,11 +83,11 @@ QEMU Guest Agent (Qemu GA) 以后会很有用，我们也把它装上吧。
 配置 Windows 防火墙仅运行来自 web 服务器的连接：
 
 - 打开 Windows Defender 防火墙设置（开始菜单 → Windows 管理工具，或者直接运行 `wf.msc`）
-- 入站规则，找到==远程桌面 - 用户模式(TCP-In)==启用，打开属性，切换到“作用域”选项卡，设置远程 IP 仅限 `172.31.0.2`，如图：
+- 入站规则，找到 **远程桌面 - 用户模式 (TCP-In)** 启用，打开属性，切换到“作用域”选项卡，设置远程 IP 仅限 `172.31.0.2`，如图：
 
     ![Windows Defender Firewall dialog](../images/windows-wf-rdp.png)
 
-- （可选，推荐）入站规则里“核心网络诊断 - ICMP 回显请求”四个都打开（Windows 默认~~近平~~禁 ping，打开会方便以后调试网络和监测状态）
+- （可选，推荐）入站规则里“核心网络诊断 - ICMP 回显请求”四个都打开（Windows 默认<del>近平</del>禁 ping，打开会方便以后调试网络和监测状态）
 
 ### 其他自定义设置 {#extra-customizations}
 

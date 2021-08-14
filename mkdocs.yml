@@ -62,7 +62,8 @@ markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.tilde
+  - pymdownx.tilde:
+      subscript: false
   - pymdownx.superfences
   - markdown.extensions.def_list
   - toc:
@@ -85,6 +86,7 @@ nav:
     - 备份服务器 (VM 104): servers/vm104.md
   - 用户界面:
     - VNC 统一登录: ui/vncmux.md
+    - RDP 统一登录: ui/rdpproxy.md
   - Vlab 软件组合:
     - 配置: vlab-software/index.md
     - 软件安装: vlab-software/installation.md
