@@ -101,21 +101,10 @@ Windows 检测网络连接的功能经常坏，原因是 msftconnecttest.com 服
 
 ??? abstract "注册表文件"
 
-    ```registry
-    Windows Registry Editor Version 5.00
+    [下载直链](../assets/WindowsInternet.reg)
 
-    [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]
-    "ActiveDnsProbeContent"="202.38.64.1"
-    "ActiveDnsProbeContentV6"="2001:da8:d800::1"
-    "ActiveDnsProbeHost"="ns.ustc.edu.cn"
-    "ActiveDnsProbeHostV6"="ns.ustc.edu.cn"
-    "ActiveWebProbeContent"="USTC Mirrors Connect Test"
-    "ActiveWebProbeContentV6"="USTC Mirrors Connect Test"
-    "ActiveWebProbeHost"="mirrors.ustc.edu.cn"
-    "ActiveWebProbeHostV6"="ipv6.mirrors.ustc.edu.cn"
-    "ActiveWebProbePath"="connecttest.txt"
-    "ActiveWebProbePathV6"="connecttest.txt"
-    "EnableActiveProbing"=dword:00000001
+    ```registry
+    --8<-- "WindowsInternet.reg"
     ```
 
 ## 三、安装 Cloudbase-init {#cloudbase-init}
