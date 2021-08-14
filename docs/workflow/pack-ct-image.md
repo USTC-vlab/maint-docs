@@ -133,44 +133,7 @@ tar zcvf /mnt/vz/template/cache/vlab99-example.tar.gz .
 ??? abstract "Go 代码"
 
     ```go
-    package main    
-
-    import (
-        "archive/tar"
-        "io"
-        "log"
-        "os"
-    )
-
-    func main() {
-        tr := tar.NewReader(os.Stdin)
-        tw := tar.NewWriter(os.Stdout)
-
-        for {
-            hdr, err := tr.Next()
-            if err == io.EOF {
-                break
-            } else if err != nil {
-                log.Fatal(err)
-            }
-
-            hdr.Uid -= 100000
-            hdr.Gid -= 100000
-            if err := tw.WriteHeader(hdr); err != nil {
-                log.Fatal(err)
-            }
-
-            if hdr.Typeflag == tar.TypeReg {
-                if _, err := io.Copy(tw, tr); err != nil {
-                    log.Fatal(err)
-                }
-            }
-        }
-
-        if err := tw.Close(); err != nil {
-            log.Fatal(err)
-        }
-    }
+    --8<-- "uidfix.go"
     ```
 
 !!! info "使用 Go 程序改写 tar 包"
@@ -178,7 +141,7 @@ tar zcvf /mnt/vz/template/cache/vlab99-example.tar.gz .
     上面的 Go 示例程序只能处理未压缩的 tar 包，如果你在打包时加入了 `z` 或其他压缩参数，需要先解压再输入程序，例如：
 
     ```shell
-    gunzip -c original.tar.gz | go run script.go | gzip -c9 > processed.tar.gz
+    gunzip -c original.tar.gz | go run uidfix.go | gzip -c9 > processed.tar.gz
     ```
 
-打包完成后要把 django 前端 reload 一下才能在“新建虚拟机”的页面看到新镜像。
+打包完成后要把 Django 前端 reload 一下才能在“新建虚拟机”的页面看到新镜像。
