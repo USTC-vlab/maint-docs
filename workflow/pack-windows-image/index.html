@@ -42,7 +42,7 @@
     
     
     
-      <link rel="stylesheet" href="https://101.ustclug.org/css/extra.css">
+      <link rel="stylesheet" href="https://vlab.ustc.edu.cn/docs/assets/css/extra.css">
     
     
       
@@ -838,7 +838,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#cleanup" class="md-nav__link">
     四、打包前的清理工作
   </a>
   
@@ -1218,7 +1218,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#cleanup" class="md-nav__link">
     四、打包前的清理工作
   </a>
   
@@ -1313,6 +1313,7 @@
 <h3 id="extra-customizations">其他自定义设置<a class="headerlink" href="#extra-customizations" title="Permanent link">&para;</a></h3>
 <p>任务栏里那块巨大的胶布（搜索框）可以隐藏起来，Cortana 图标隐藏起来，Task View 的图标也可以隐藏起来，这几个都是右键任务栏就可以勾选的选项。</p>
 <p>任务栏设置里的“使用‘速览’预览桌面”出于性能考虑建议不要开，其他随意，例如“合并任务栏按钮”可以改成“任务栏已满时”等等，其他的桌面背景、颜色、开始菜单等都随意。</p>
+<p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg></span> 开始菜单里预装的 UWP 应用现在<strong>不要动</strong>，否则后面 Sysprep 的时候会出错。（如果你特别想删掉其中的一个或多个时，<a href="#cleanup">第四节清理</a>有详细说明。）</p>
 <p>Windows 检测网络连接的功能经常坏，原因是 msftconnecttest.com 服务器在国外，很慢而且不稳定，可以修改注册表将这个功能替换成使用校内的服务。</p>
 <details class="abstract"><summary>注册表文件</summary><div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
 
@@ -1370,8 +1371,48 @@
 <span class="na">stop_service_on_exit</span><span class="o">=</span><span class="s">false</span>
 </code></pre></div>
 </details>
-<h2 id="_1">四、打包前的清理工作<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="cleanup">四、打包前的清理工作<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg></span> <strong>启用 Windows Update</strong></p>
+</li>
+<li>
+<p><strong>清理 Windows 资源管理器的历史记录</strong></p>
+<p>按 <kbd><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="m0 93.7 183.6-25.3v177.4H0V93.7zm0 324.6 183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg></span> Windows</kbd> + <kbd>E</kbd> 打开 Windows 资源管理器，删掉所有“最近文件”。注意不是将文件从磁盘上删除，而是右键“从快速访问中删除”。</p>
+</li>
+<li>
+<p><strong>清理“运行……”的历史记录</strong></p>
+<p>清空（不是删除）注册表项 <code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</code> 中的所有内容。</p>
+</li>
+<li>
+<p><strong>清理浏览器记录</strong></p>
+<p>对于 Internet Explorer：请参考 Microsoft Docs（<a href="https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-internet-explorer-%E4%B8%AD%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4%E6%B5%8F%E8%A7%88%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95-098ffe52-5ac9-a449-c296-c735c32c8678">中文</a> / <a href="https://support.microsoft.com/en-us/windows/view-and-delete-your-browsing-history-in-internet-explorer-098ffe52-5ac9-a449-c296-c735c32c8678">English</a>)</p>
+<p>对于 Microsoft Edge：清空目录 <code>C:\Users\Vlab\AppData\Local\Microsoft\Edge</code></p>
+</li>
+<li>
+<p><strong>进行磁盘清理</strong></p>
+<p>打开“此电脑”，右键点击 C 盘选择“属性”，然后在对话框中找到“磁盘清理”选项。先点击左下角“清理系统文件”，然后勾选全部内容确认清理。</p>
+</li>
+<li>
+<p><strong>关闭休眠和快速启动</strong>（推荐）</p>
+<p>以管理员打开 PowerShell，运行 <code>powercfg /h off</code>。</p>
+</li>
+<li>
+<p>（可选）<strong>删除预装的 UWP 应用</strong></p>
+<div class="admonition info">
+<p class="admonition-title">这是高级操作，建议仅当你熟悉 Windows 10 时进行</p>
+</div>
+<p>以管理员打开 PowerShell，运行 <code class="highlight"><span class="nb">Get-AppxProvisionedPackage</span> <span class="n">-Online</span></code> 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。</p>
+<p>继续在 PowerShell 中，运行 <code class="highlight"><span class="nb">Remove-AppxProvisionedPackage</span> <span class="n">-Online</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code>，其中 <code>$PackageName</code> 替换成刚才记录下来的 PackageName。删除预装后，也要<strong>同时删除当前用户已安装的这一份相同应用</strong>。你可以使用 <code class="highlight"><span class="nb">Remove-AppxPackage</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code> 命令，也可以直接在开始菜单中找到它选择“卸载”（如果你找得到的话）。</p>
+<p>作为练习，你可以选择删除 Microsoft Solitaire Collection 和 Skype 这两个应用，或者选择跳过这一步。</p>
+</li>
+</ul>
 <h2 id="sysprep">五、Sysprep 和打包<a class="headerlink" href="#sysprep" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">先关机打一个快照</p>
+<p>Sysprep 后的镜像无法恢复，因此我们推荐在这一步之前将虚拟机关机，在 Proxmox 的界面中打一个快照，方便以后以当前状态为基础进一步定制镜像。</p>
+</div>
+<!-- Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image. -->
                 
               
               
