@@ -95,6 +95,8 @@ QEMU Guest Agent (Qemu GA) 以后会很有用，我们也把它装上吧。
 
 任务栏设置里的“使用‘速览’预览桌面”出于性能考虑建议不要开，其他随意，例如“合并任务栏按钮”可以改成“任务栏已满时”等等，其他的桌面背景、颜色、开始菜单等都随意。
 
+:material-alert:{: .orangered } 开始菜单里预装的 UWP 应用现在**不要动**，否则后面 Sysprep 的时候会出错。（如果你特别想删掉其中的一个或多个时，[第四节清理](#cleanup)有详细说明。）
+
 Windows 检测网络连接的功能经常坏，原因是 msftconnecttest.com 服务器在国外，很慢而且不稳定，可以修改注册表将这个功能替换成使用校内的服务。
 
 ??? abstract "注册表文件"
@@ -116,7 +118,7 @@ Windows 检测网络连接的功能经常坏，原因是 msftconnecttest.com 服
     "EnableActiveProbing"=dword:00000001
     ```
 
-## 三、安装 Cloudbase-init
+## 三、安装 Cloudbase-init {#cloudbase-init}
 
 !!! danger "警告：前方雷区"
 
@@ -163,6 +165,46 @@ Invoke-WebRequest -Uri https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_
     stop_service_on_exit=false
     ```
 
-## 四、打包前的清理工作
+## 四、打包前的清理工作 {#cleanup}
+
+- :material-alert:{: .orangered } **启用 Windows Update**
+
+- **清理 Windows 资源管理器的历史记录**
+
+    按 <kbd>:fontawesome-brands-windows: Windows</kbd> + <kbd>E</kbd> 打开 Windows 资源管理器，删掉所有“最近文件”。注意不是将文件从磁盘上删除，而是右键“从快速访问中删除”。
+
+- **清理“运行……”的历史记录**
+
+    清空（不是删除）注册表项 `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU` 中的所有内容。
+
+- **清理浏览器记录**
+
+    对于 Internet Explorer：请参考 Microsoft Docs（[中文](https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-internet-explorer-%E4%B8%AD%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4%E6%B5%8F%E8%A7%88%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95-098ffe52-5ac9-a449-c296-c735c32c8678) / [English](https://support.microsoft.com/en-us/windows/view-and-delete-your-browsing-history-in-internet-explorer-098ffe52-5ac9-a449-c296-c735c32c8678))
+
+    对于 Microsoft Edge：清空目录 `C:\Users\Vlab\AppData\Local\Microsoft\Edge`
+
+- **进行磁盘清理**
+
+    打开“此电脑”，右键点击 C 盘选择“属性”，然后在对话框中找到“磁盘清理”选项。先点击左下角“清理系统文件”，然后勾选全部内容确认清理。
+
+- **关闭休眠和快速启动**（推荐）
+
+    以管理员打开 PowerShell，运行 `powercfg /h off`。
+
+- （可选）**删除预装的 UWP 应用**
+
+    !!! info "这是高级操作，建议仅当你熟悉 Windows 10 时进行"
+
+    以管理员打开 PowerShell，运行 `:::powershell Get-AppxProvisionedPackage -Online` 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。
+
+    继续在 PowerShell 中，运行 `:::powershell Remove-AppxProvisionedPackage -Online -PackageName $PackageName`，其中 `$PackageName` 替换成刚才记录下来的 PackageName。删除预装后，也要**同时删除当前用户已安装的这一份相同应用**。你可以使用 `:::powershell Remove-AppxPackage -PackageName $PackageName` 命令，也可以直接在开始菜单中找到它选择“卸载”（如果你找得到的话）。
+
+    作为练习，你可以选择删除 Microsoft Solitaire Collection 和 Skype 这两个应用，或者选择跳过这一步。
 
 ## 五、Sysprep 和打包
+
+!!! tip "先关机打一个快照"
+
+    Sysprep 后的镜像无法恢复，因此我们推荐在这一步之前将虚拟机关机，在 Proxmox 的界面中打一个快照，方便以后以当前状态为基础进一步定制镜像。
+
+<!-- Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image. -->

@@ -46,26 +46,29 @@ extra:
       link: 'https://github.com/USTC-vlab'
 
 extra_css:
-  # Borrow CSS from Linux 101
-  - 'https://101.ustclug.org/css/extra.css'
+  # Borrow CSS from user docs
+  - 'https://vlab.ustc.edu.cn/docs/assets/css/extra.css'
 
 markdown_extensions:
   - admonition
   - attr_list
   - codehilite
   - footnotes
+  - markdown.extensions.def_list
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite
   - pymdownx.mark
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: docs/assets/
   - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde:
       subscript: false
-  - pymdownx.superfences
-  - markdown.extensions.def_list
   - toc:
       permalink: true
 

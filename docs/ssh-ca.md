@@ -7,7 +7,13 @@
 CA 公钥：
 
 ```text
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6KdAJzKLswXyjf4SipNL1dlK1Vq0KNOit/MTDLiamkqvHJDiKceLYmN97y3Chdx8ofXwW6sRUBJRrjmYq6M0JZSGc8roUtUnSai1P5q1kZQ59x1IhsduTg4WENSteSB6vIvpyoSmcIhi3v9UHgUsl4MsnHxffxx5BiyW7UHPY3MzzkRZL96A4QXUOFd9P+NED3zHmEZ9B2Q66+s2ep2FmNralK4XwRaVxBO2r9san8vYU5pH2TzYZLYxNZ/AFX3bLV5M+AmZytaSNLcuIzZHyqbYawvD+Lee00VB9A3JcaqsjDUCtHZ5gQsZMmqw2r7gj9lDqM6Fw6A8y5rWNJP3Q+FOEEYvzGnQ/SnzU0MpMvGpYWrm/uCJ8pFdbYTYkxAJ+VO0lJ5mAIN664cX0DQ3OyGH/xmCNWGGCfGfmvWqwMwD6Kzo06xcqzsoqaMxwgBuVyICE+VvVCf3pcX4HERDrZY0TMjZxaTc8Ws2xQHJbqekv6nIjQWUgH7LIjkYvycQkxXE2dWfDy/c2SRiKWuxW9n8Hymmfp3lbBHzlCa/LtHeuPIzmBUHUoGya0feWFjrbGnKcPs3etNqpvyIGngMaecTAsbrf5v+J1M0VLCfwzwLt13/G1BCb+BK22vYzMTusrR+6A68Fm6OWSFlBYp31uVLxPg0nqtiW8bi1FbD0hQ==
+--8<-- "vlab_ca.pub"
+```
+
+可以在服务器上直接使用 Wget 或 cURL 获取：
+
+```shell
+wget -O /etc/ssh/ssh_user_ca https://vlab.pages.dev/assets/vlab_ca.pub
 ```
 
 `sshd_config` 相关配置：
@@ -15,6 +21,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6KdAJzKLswXyjf4SipNL1dlK1Vq0KNOit/MTDLiam
 ```conf
 HostKey /etc/ssh/ssh_host_rsa_key
 HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
+TrustedUserCAKeys /etc/ssh/ssh_user_ca
 
 AuthorizedKeysFile /dev/null  # 屏蔽不带证书的公钥认证
 
@@ -30,7 +37,13 @@ PasswordAuthentication no
 出于管理的考虑，用户 CA 和主机 CA 独立。公钥：
 
 ```text
-ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3ZHisQY0iMpUNDQNaxcnRSqDbauE8ih6/MrEENJZa7FHKINOPi+bunK1wEXPqlKfu8INEBWCf95+t86z+jXVxmQE176xenS92wiLvR4MZyCBfD5DXAB0mK5iV1eQug5P/cD8Pohr/3wywFbKgKzsix9unky9sJGr86RunSwJbAkMGlw==
+--8<-- "vlab_user_ca.pub"
+```
+
+可以在虚拟机中直接使用 Wget 或 cURL 获取：
+
+```shell
+wget -O /etc/ssh/ssh_user_ca https://vlab.pages.dev/assets/vlab_user_ca.pub
 ```
 
 将 CA 添加至容器或虚拟机的操作与上面类似，但是不需要对主机公钥进行签名，因此只需要
