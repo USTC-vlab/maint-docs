@@ -29,7 +29,7 @@ Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像�
 
 如果打包的目标不是带桌面环境的镜像的话，第三步就可以跳过了。
 
-## 三、安装与测试桌面环境
+## 三、安装与测试桌面环境 {#install-desktop-environment}
 
 桌面环境的配置较为复杂，因为要运行 VNC server 并将其作为桌面管理器的主显示输出。经过 pdlan 的调试，采用 LightDM + TigerVNC server 的组合，使用一个自己编写的启动脚本可以正常运行。这部分配置工作我们已经打包成了一个 Debian package，放在 <https://vlab.ustc.edu.cn/repo/vlab-vnc.deb>，可以直接安装，**注意使用 `--no-install-recommends`**。
 
@@ -84,7 +84,7 @@ ln -s /etc/profile.d/vlab.sh /etc/X11/Xsession.d/99vlab
 
 最后，记得替换上 Vlab 的**专属**桌面：<https://vlab.ustc.edu.cn/downloads/background.jpg>
 
-### 测试桌面环境
+### 测试桌面环境 {#test-desktop-environment}
 
 只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 `ssh -L` 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。
 

@@ -169,6 +169,8 @@ Invoke-WebRequest -Uri https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_
 
 - :material-alert:{: .orangered } **启用 Windows Update**
 
+    !!! tip "可以放在最后一步关机前再启用，避免后面清理时间太长导致 WU 开始运行，或者直接断网也行。"
+
 - **清理 Windows 资源管理器的历史记录**
 
     按 <kbd>:fontawesome-brands-windows: Windows</kbd> + <kbd>E</kbd> 打开 Windows 资源管理器，删掉所有“最近文件”。注意不是将文件从磁盘上删除，而是右键“从快速访问中删除”。
@@ -193,18 +195,90 @@ Invoke-WebRequest -Uri https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_
 
 - （可选）**删除预装的 UWP 应用**
 
-    !!! info "这是高级操作，建议仅当你熟悉 Windows 10 时进行"
+    ??? info "这是高级操作，建议仅当你熟悉 Windows 10 时进行"
 
-    以管理员打开 PowerShell，运行 `:::powershell Get-AppxProvisionedPackage -Online` 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。
+        以管理员打开 PowerShell，运行 `:::powershell Get-AppxProvisionedPackage -Online` 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。
 
-    继续在 PowerShell 中，运行 `:::powershell Remove-AppxProvisionedPackage -Online -PackageName $PackageName`，其中 `$PackageName` 替换成刚才记录下来的 PackageName。删除预装后，也要**同时删除当前用户已安装的这一份相同应用**。你可以使用 `:::powershell Remove-AppxPackage -PackageName $PackageName` 命令，也可以直接在开始菜单中找到它选择“卸载”（如果你找得到的话）。
+        继续在 PowerShell 中，运行 `:::powershell Remove-AppxProvisionedPackage -Online -PackageName $PackageName`，其中 `$PackageName` 替换成刚才记录下来的 PackageName。删除预装后，也要**同时删除当前用户已安装的这一份相同应用**。你可以使用 `:::powershell Remove-AppxPackage -PackageName $PackageName` 命令，也可以直接在开始菜单中找到它选择“卸载”（如果你找得到的话）。
 
-    作为练习，你可以选择删除 Microsoft Solitaire Collection 和 Skype 这两个应用，或者选择跳过这一步。
+        作为练习，你可以选择删除 Microsoft Solitaire Collection 和 Skype 这两个应用，或者选择跳过这一步。
 
-## 五、Sysprep 和打包
+## 五、Sysprep 和打包 {#sysprep}
 
 !!! tip "先关机打一个快照"
 
     Sysprep 后的镜像无法恢复，因此我们推荐在这一步之前将虚拟机关机，在 Proxmox 的界面中打一个快照，方便以后以当前状态为基础进一步定制镜像。
 
-<!-- Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image. -->
+还是以管理员打开 PowerShell，定位到 `C:\Program Files\Cloudbase Solutions\Cloudbase-init\conf`，运行 Sysprep：
+
+```cmd
+C:\Windows\System32\Sysprep\sysprep.exe /generalize /oobe /unattend:Unattend.xml
+```
+
+这个 `Unattend.xml` 由 Cloudbase-init 提供，所以需要先 `cd` 到上述目录。
+
+如果 Sysprep 出现错误，请检查 `C:\Windows\System32\Sysprep\Panther\setupact.log` 并利用 Google 排查。
+
+??? danger "不正确地卸载预装的 UWP 应用会导致 Sysprep 失败"
+
+    `setupact.log` 中能看到以下错误信息，以 Microsoft Solitaire Collection 为例：
+
+    ```text
+    Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image.
+    ```
+
+    请回到第四节正确卸载错误信息给出的软件包。
+
+Sysprep 运行完成后 Windows 会自动关机，**此时就不要再开机了**，把当前版本的虚拟机镜像提取出来，就算打包完成了。你也可以选择直接将这个虚拟机转换为 Template，就可以直接从它创建出新虚拟机了。
+
+### 提取虚拟机镜像 {#packaging}
+
+首先请参考[打包容器镜像](pack-ct-image.md#packaging)对应的一节激活虚拟机对应的 LVM 卷。
+
+??? tip "提取虚拟机的快照"
+
+    如果你想提取虚拟机的某个快照，而不是其当前状态，需要在 `lvchange` 命令中额外添加 `-Ky` 参数。
+
+    ```shell
+    lvchange -ay -Ky /dev/{vg}/{lv}
+    ```
+
+然后，使用 QEMU 的磁盘工具将存储在 LVM 中的原始（raw）磁盘镜像提取出来：
+
+```shell
+qemu-img convert -p -f raw -O qcow2 /dev/{vg}/{lv} win10.qcow2
+```
+
+此时 `win10.qcow2` 就可以使用了。它的容量通常在 20 GB 以上，可能还不够方便移动，下面提供一种简单的优化方法。
+
+### 优化虚拟机镜像 {#optimize-image}
+
+Linux 下对 NTFS 文件系统写入没有很好的优化，容易损坏文件系统，因此请将上一步提取得到的 qcow2 文件作为另一个虚拟磁盘挂载进 Windows 虚拟机，从 Windows 中操作。
+
+- **删除页面文件和交换文件**
+
+    打开刚挂载的磁盘中的系统分区（它的盘符现在应该不是 C 了，注意辨别），删除 `pagefile.sys` 和 `swapfile.sys`。
+
+    你也可以同时清空 `C:\Windows\Logs` 和一些其他文件夹，但这通常是不必要的，它们不会清理出几十 MB 的容量。
+
+- **对文件系统执行 Trim**
+
+    再次以管理员身份打开 PowerShell，执行以下命令：
+
+    ```powershell
+    Optimize-Volume -DriveLetter X -ReTrim -Defrag -SlabConsolidate -Verbose
+    ```
+
+    （如果命令运行得太慢了，你可以去掉 `-SlabConsolidate` 参数。）
+
+以上任务完成后，关闭 Windows 虚拟机并解除挂载硬盘，然后再次转换并压缩镜像：
+
+```shell
+qemu-img convert -p -c -f qcow2 -O qcow2 win10.qcow2 win10-new.qcow2
+```
+
+此时的 `win10-new.qcow2` 容量应该能缩减至 10-12 GB，可以保存作为正式镜像了，刚才的 `win10.qcow2` 也可以删除或覆盖掉了。
+
+## 参考资料 {#references}
+
+- [[TUTORIAL] - windows cloud init working | Proxmox Support Forum](https://forum.proxmox.com/threads/windows-cloud-init-working.83511/)
