@@ -519,13 +519,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
       
       <label class="md-nav__link" for="__nav_8">
-        Vlab 软件组合
+        Vlab 实验软件
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Vlab 软件组合" data-md-level="1">
+      <nav class="md-nav" aria-label="Vlab 实验软件" data-md-level="1">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
-          Vlab 软件组合
+          Vlab 实验软件
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -847,6 +847,33 @@
         <li class="md-nav__item">
   <a href="#sysprep" class="md-nav__link">
     五、Sysprep 和打包
+  </a>
+  
+    <nav class="md-nav" aria-label="五、Sysprep 和打包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging" class="md-nav__link">
+    提取虚拟机镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimize-image" class="md-nav__link">
+    优化虚拟机镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    参考资料
   </a>
   
 </li>
@@ -1229,6 +1256,33 @@
     五、Sysprep 和打包
   </a>
   
+    <nav class="md-nav" aria-label="五、Sysprep 和打包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging" class="md-nav__link">
+    提取虚拟机镜像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimize-image" class="md-nav__link">
+    优化虚拟机镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    参考资料
+  </a>
+  
 </li>
       
     </ul>
@@ -1375,6 +1429,9 @@
 <ul>
 <li>
 <p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg></span> <strong>启用 Windows Update</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">可以放在最后一步关机前再启用，避免后面清理时间太长导致 WU 开始运行，或者直接断网也行。</p>
+</div>
 </li>
 <li>
 <p><strong>清理 Windows 资源管理器的历史记录</strong></p>
@@ -1399,12 +1456,10 @@
 </li>
 <li>
 <p>（可选）<strong>删除预装的 UWP 应用</strong></p>
-<div class="admonition info">
-<p class="admonition-title">这是高级操作，建议仅当你熟悉 Windows 10 时进行</p>
-</div>
-<p>以管理员打开 PowerShell，运行 <code class="highlight"><span class="nb">Get-AppxProvisionedPackage</span> <span class="n">-Online</span></code> 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。</p>
+<details class="info"><summary>这是高级操作，建议仅当你熟悉 Windows 10 时进行</summary><p>以管理员打开 PowerShell，运行 <code class="highlight"><span class="nb">Get-AppxProvisionedPackage</span> <span class="n">-Online</span></code> 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。</p>
 <p>继续在 PowerShell 中，运行 <code class="highlight"><span class="nb">Remove-AppxProvisionedPackage</span> <span class="n">-Online</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code>，其中 <code>$PackageName</code> 替换成刚才记录下来的 PackageName。删除预装后，也要<strong>同时删除当前用户已安装的这一份相同应用</strong>。你可以使用 <code class="highlight"><span class="nb">Remove-AppxPackage</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code> 命令，也可以直接在开始菜单中找到它选择“卸载”（如果你找得到的话）。</p>
 <p>作为练习，你可以选择删除 Microsoft Solitaire Collection 和 Skype 这两个应用，或者选择跳过这一步。</p>
+</details>
 </li>
 </ul>
 <h2 id="sysprep">五、Sysprep 和打包<a class="headerlink" href="#sysprep" title="Permanent link">&para;</a></h2>
@@ -1412,7 +1467,51 @@
 <p class="admonition-title">先关机打一个快照</p>
 <p>Sysprep 后的镜像无法恢复，因此我们推荐在这一步之前将虚拟机关机，在 Proxmox 的界面中打一个快照，方便以后以当前状态为基础进一步定制镜像。</p>
 </div>
-<!-- Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image. -->
+<p>还是以管理员打开 PowerShell，定位到 <code>C:\Program Files\Cloudbase Solutions\Cloudbase-init\conf</code>，运行 Sysprep：</p>
+<div class="highlight"><pre><span></span><code>C:\Windows\System32\Sysprep\sysprep.exe /generalize /oobe /unattend:Unattend.xml
+</code></pre></div>
+<p>这个 <code>Unattend.xml</code> 由 Cloudbase-init 提供，所以需要先 <code>cd</code> 到上述目录。</p>
+<p>如果 Sysprep 出现错误，请检查 <code>C:\Windows\System32\Sysprep\Panther\setupact.log</code> 并利用 Google 排查。</p>
+<details class="danger"><summary>不正确地卸载预装的 UWP 应用会导致 Sysprep 失败</summary><p><code>setupact.log</code> 中能看到以下错误信息，以 Microsoft Solitaire Collection 为例：</p>
+<div class="highlight"><pre><span></span><code>Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image.
+</code></pre></div>
+<p>请回到第四节正确卸载错误信息给出的软件包。</p>
+</details>
+<p>Sysprep 运行完成后 Windows 会自动关机，<strong>此时就不要再开机了</strong>，把当前版本的虚拟机镜像提取出来，就算打包完成了。你也可以选择直接将这个虚拟机转换为 Template，就可以直接从它创建出新虚拟机了。</p>
+<h3 id="packaging">提取虚拟机镜像<a class="headerlink" href="#packaging" title="Permanent link">&para;</a></h3>
+<p>首先请参考<a href="../pack-ct-image/#packaging">打包容器镜像</a>对应的一节激活虚拟机对应的 LVM 卷。</p>
+<details class="tip"><summary>提取虚拟机的快照</summary><p>如果你想提取虚拟机的某个快照，而不是其当前状态，需要在 <code>lvchange</code> 命令中额外添加 <code>-Ky</code> 参数。</p>
+<div class="highlight"><pre><span></span><code>lvchange -ay -Ky /dev/<span class="o">{</span>vg<span class="o">}</span>/<span class="o">{</span>lv<span class="o">}</span>
+</code></pre></div>
+</details>
+<p>然后，使用 QEMU 的磁盘工具将存储在 LVM 中的原始（raw）磁盘镜像提取出来：</p>
+<div class="highlight"><pre><span></span><code>qemu-img convert -p -f raw -O qcow2 /dev/<span class="o">{</span>vg<span class="o">}</span>/<span class="o">{</span>lv<span class="o">}</span> win10.qcow2
+</code></pre></div>
+<p>此时 <code>win10.qcow2</code> 就可以使用了。它的容量通常在 20 GB 以上，可能还不够方便移动，下面提供一种简单的优化方法。</p>
+<h3 id="optimize-image">优化虚拟机镜像<a class="headerlink" href="#optimize-image" title="Permanent link">&para;</a></h3>
+<p>Linux 下对 NTFS 文件系统写入没有很好的优化，容易损坏文件系统，因此请将上一步提取得到的 qcow2 文件作为另一个虚拟磁盘挂载进 Windows 虚拟机，从 Windows 中操作。</p>
+<ul>
+<li>
+<p><strong>删除页面文件和交换文件</strong></p>
+<p>打开刚挂载的磁盘中的系统分区（它的盘符现在应该不是 C 了，注意辨别），删除 <code>pagefile.sys</code> 和 <code>swapfile.sys</code>。</p>
+<p>你也可以同时清空 <code>C:\Windows\Logs</code> 和一些其他文件夹，但这通常是不必要的，它们不会清理出几十 MB 的容量。</p>
+</li>
+<li>
+<p><strong>对文件系统执行 Trim</strong></p>
+<p>再次以管理员身份打开 PowerShell，执行以下命令：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">X</span> <span class="n">-ReTrim</span> <span class="n">-Defrag</span> <span class="n">-SlabConsolidate</span> <span class="n">-Verbose</span>
+</code></pre></div>
+<p>（如果命令运行得太慢了，你可以去掉 <code>-SlabConsolidate</code> 参数。）</p>
+</li>
+</ul>
+<p>以上任务完成后，关闭 Windows 虚拟机并解除挂载硬盘，然后再次转换并压缩镜像：</p>
+<div class="highlight"><pre><span></span><code>qemu-img convert -p -c -f qcow2 -O qcow2 win10.qcow2 win10-new.qcow2
+</code></pre></div>
+<p>此时的 <code>win10-new.qcow2</code> 容量应该能缩减至 10-12 GB，可以保存作为正式镜像了，刚才的 <code>win10.qcow2</code> 也可以删除或覆盖掉了。</p>
+<h2 id="references">参考资料<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://forum.proxmox.com/threads/windows-cloud-init-working.83511/">[TUTORIAL] - windows cloud init working | Proxmox Support Forum</a></li>
+</ul>
                 
               
               

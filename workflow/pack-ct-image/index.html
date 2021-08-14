@@ -519,13 +519,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
       
       <label class="md-nav__link" for="__nav_8">
-        Vlab 软件组合
+        Vlab 实验软件
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Vlab 软件组合" data-md-level="1">
+      <nav class="md-nav" aria-label="Vlab 实验软件" data-md-level="1">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
-          Vlab 软件组合
+          Vlab 实验软件
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -739,7 +739,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#install-desktop-environment" class="md-nav__link">
     三、安装与测试桌面环境
   </a>
   
@@ -754,7 +754,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#test-desktop-environment" class="md-nav__link">
     测试桌面环境
   </a>
   
@@ -1108,7 +1108,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#install-desktop-environment" class="md-nav__link">
     三、安装与测试桌面环境
   </a>
   
@@ -1123,7 +1123,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#test-desktop-environment" class="md-nav__link">
     测试桌面环境
   </a>
   
@@ -1203,7 +1203,7 @@
 <li><strong>更新 <code>/etc/motd</code></strong>：也就 SSH 登录的时候显示一下，改不改没啥区别</li>
 </ul>
 <p>如果打包的目标不是带桌面环境的镜像的话，第三步就可以跳过了。</p>
-<h2 id="_2">三、安装与测试桌面环境<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="install-desktop-environment">三、安装与测试桌面环境<a class="headerlink" href="#install-desktop-environment" title="Permanent link">&para;</a></h2>
 <p>桌面环境的配置较为复杂，因为要运行 VNC server 并将其作为桌面管理器的主显示输出。经过 pdlan 的调试，采用 LightDM + TigerVNC server 的组合，使用一个自己编写的启动脚本可以正常运行。这部分配置工作我们已经打包成了一个 Debian package，放在 <a href="https://vlab.ustc.edu.cn/repo/vlab-vnc.deb">https://vlab.ustc.edu.cn/repo/vlab-vnc.deb</a>，可以直接安装，<strong>注意使用 <code>--no-install-recommends</code></strong>。</p>
 <p>由于后台 VNC server 采用了无密码的认证方式，因此额外使用 iptables 防火墙来限制只能从 web 服务器的地址连接 VNC server，该部分处理放在了 deb 的 postinst 操作中，会加上一条 IPv4 规则限制来源和一条 IPv6 规则拒绝所有连接。</p>
 <p>桌面环境我们一般选用轻量的 Xfce（安装 <code>xfce4</code>，也要使用 <code>--no-install-recommends</code>），装好之后启动 <code>lightdm.service</code> 就可以测试了。</p>
@@ -1238,7 +1238,7 @@
 </code></pre></div>
 <p>让 lightdm 启动时更新 vlab 信息。</p>
 <p>最后，记得替换上 Vlab 的<strong>专属</strong>桌面：<a href="https://vlab.ustc.edu.cn/downloads/background.jpg">https://vlab.ustc.edu.cn/downloads/background.jpg</a></p>
-<h3 id="_3">测试桌面环境<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="test-desktop-environment">测试桌面环境<a class="headerlink" href="#test-desktop-environment" title="Permanent link">&para;</a></h3>
 <p>只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 <code>ssh -L</code> 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。</p>
 <p>LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logout 能用就基本 OK 了。</p>
 <h2 id="pre-packaging">四、打包前的工作<a class="headerlink" href="#pre-packaging" title="Permanent link">&para;</a></h2>
