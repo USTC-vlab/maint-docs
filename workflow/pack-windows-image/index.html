@@ -1369,7 +1369,8 @@
 <p>任务栏设置里的“使用‘速览’预览桌面”出于性能考虑建议不要开，其他随意，例如“合并任务栏按钮”可以改成“任务栏已满时”等等，其他的桌面背景、颜色、开始菜单等都随意。</p>
 <p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg></span> 开始菜单里预装的 UWP 应用现在<strong>不要动</strong>，否则后面 Sysprep 的时候会出错。（如果你特别想删掉其中的一个或多个时，<a href="#cleanup">第四节清理</a>有详细说明。）</p>
 <p>Windows 检测网络连接的功能经常坏，原因是 msftconnecttest.com 服务器在国外，很慢而且不稳定，可以修改注册表将这个功能替换成使用校内的服务。</p>
-<details class="abstract"><summary>注册表文件</summary><div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
+<details class="abstract"><summary>注册表文件</summary><p><a href="../../assets/WindowsInternet.reg">下载直链</a></p>
+<div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
 
 <span class="k">[</span><span class="nb">HKEY_LOCAL_MACHINE</span><span class="k">\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]</span>
 <span class="na">&quot;ActiveDnsProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;202.38.64.1&quot;</span>
