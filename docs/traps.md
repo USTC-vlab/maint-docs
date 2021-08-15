@@ -100,7 +100,27 @@ LVM 卷不能多个主机同时使用（active 状态），如果出现这种情
 
 ### 将 pve/root 改为 LVM mirror 卷后开机卡在 Loading initial ramdisk
 
-解决方法：重启进 Debian，编辑 `/etc/initramfs-tools/modules`，添加两行 `dm_raid` 和 `raid1`，运行 `update-initramfs -u -k all` 再重启即可。
+重启进 Live CD，挂载一堆东西，然后 chroot 进原系统的 rootfs。
+
+```shell
+vgscan
+vgchange -ay pve/root
+mount /dev/pve/root /mnt
+mount -o rbind /run /mnt/run  # For systemd-udevd
+mount -o bind /tmp /mnt/tmp   # For systemd-udevd
+chroot /mnt
+mount -t devtmpfs devtmpfs dev
+mount -t proc proc proc
+mount -t sysfs sysfs sys
+mount /dev/sda1 /boot/efi
+```
+
+然后在以下方法中二选一（两个都做也没问题）：
+
+1. 编辑 `/etc/initramfs-tools/modules`，添加两行 `dm_raid` 和 `raid1`，运行 `update-initramfs -u -k all`
+2. 直接安装 `mdadm` 软件包
+
+以上操作完成后重启即可。
 
 参考：<https://askubuntu.com/q/292092/612877>
 
