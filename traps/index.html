@@ -930,6 +930,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pveroot-lvm-mirror-loading-initial-ramdisk" class="md-nav__link">
+    将 pve/root 改为 LVM mirror 卷后开机卡在 Loading initial ramdisk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rootfs-lvs" class="md-nav__link">
     容器仍在（部分）运行，但是 rootfs 未在 lvs 中显示
   </a>
@@ -1030,6 +1037,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#hpe-ipmihpe-ilo" class="md-nav__link">
+    HPE 服务器 IPMI（HPE iLO）
+  </a>
+  
+    <nav class="md-nav" aria-label="HPE 服务器 IPMI（HPE iLO）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ilo-the-file-signature-is-invalid" class="md-nav__link">
+    更新 iLO 固件报错 The file signature is invalid.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1114,6 +1141,18 @@
     <li class="md-nav__item">
       <a href="../records/2021-06-13/" class="md-nav__link">
         2021 年 6 月 13 日
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../records/2021-08-21.md" class="md-nav__link">
+        2021 年 8 月 21 日
       </a>
     </li>
   
@@ -1265,6 +1304,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pveroot-lvm-mirror-loading-initial-ramdisk" class="md-nav__link">
+    将 pve/root 改为 LVM mirror 卷后开机卡在 Loading initial ramdisk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rootfs-lvs" class="md-nav__link">
     容器仍在（部分）运行，但是 rootfs 未在 lvs 中显示
   </a>
@@ -1356,6 +1402,26 @@
           <li class="md-nav__item">
   <a href="#4915" class="md-nav__link">
     图形界面中运行的进程数最多只能跑 4915 个
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hpe-ipmihpe-ilo" class="md-nav__link">
+    HPE 服务器 IPMI（HPE iLO）
+  </a>
+  
+    <nav class="md-nav" aria-label="HPE 服务器 IPMI（HPE iLO）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ilo-the-file-signature-is-invalid" class="md-nav__link">
+    更新 iLO 固件报错 The file signature is invalid.
   </a>
   
 </li>
@@ -1465,14 +1531,17 @@
 </ul>
 </li>
 </ul>
+<h3 id="pveroot-lvm-mirror-loading-initial-ramdisk">将 pve/root 改为 LVM mirror 卷后开机卡在 Loading initial ramdisk<a class="headerlink" href="#pveroot-lvm-mirror-loading-initial-ramdisk" title="Permanent link">&para;</a></h3>
+<p>解决方法：重启进 Debian，编辑 <code>/etc/initramfs-tools/modules</code>，添加两行 <code>dm_raid</code> 和 <code>raid1</code>，运行 <code>update-initramfs -u -k all</code> 再重启即可。</p>
+<p>参考：<a href="https://askubuntu.com/q/292092/612877">https://askubuntu.com/q/292092/612877</a></p>
 <h3 id="rootfs-lvs">容器仍在（部分）运行，但是 rootfs 未在 <code>lvs</code> 中显示<a class="headerlink" href="#rootfs-lvs" title="Permanent link">&para;</a></h3>
 <p>症状：</p>
 <ul>
-<li>容器的 rootfs 神秘消失。</li>
-<li><code>journalctl</code> 的错误日志提示 ext4（或者其他文件系统）读写容器 rootfs 时出现错误。</li>
-<li>容器无法正常操作。</li>
+<li>容器的 rootfs 神秘消失</li>
+<li><code>journalctl</code> 的错误日志提示 ext4（或者其他文件系统）读写容器 rootfs 时出现错误</li>
+<li>容器无法正常操作</li>
 </ul>
-<p>这个问题当时在 CT100 上出现，原因为在同学操作测试节点时，使用了和正式环境相同的 LVM 存储，但是未加入集群，导致锁失效。<strong>这种情况是极其危险的，最坏的情况下，可能会破坏 LVM 的分区表。</strong></p>
+<p>这个问题当时在 CT 100 上出现，原因为在同学操作测试节点时，使用了和正式环境相同的 LVM 存储，但是未加入集群，导致锁失效。<strong>这种情况是极其危险的，最坏的情况下，可能会破坏 LVM 的分区表。</strong></p>
 <p>目前，测试节点已加入集群，并且对重要容器的备份正在操作中。</p>
 <h2 id="networking">网络<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
 <h3 id="pve-7-ifupdown2">Proxmox VE 7 网络配置<a class="headerlink" href="#pve-7-ifupdown2" title="Permanent link">&para;</a></h3>
@@ -1606,6 +1675,13 @@ chown <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2"
 <p>所有图形界面进程 cgroup 都挂在 lightdm.service 的限制下面，而 systemd 默认配置限额为 4915。</p>
 <p>简单快速的修改命令：<code>systemctl set-property lightdm.service TasksMax=18000</code></p>
 <p>更详细的指导参见 <a href="https://www.suse.com/support/kb/doc/?id=000015901">https://www.suse.com/support/kb/doc/?id=000015901</a></p>
+<h2 id="hpe-ipmihpe-ilo">HPE 服务器 IPMI（HPE iLO）<a class="headerlink" href="#hpe-ipmihpe-ilo" title="Permanent link">&para;</a></h2>
+<p>HPE iLO 固件下载（官方链接，免登录）：<a href="https://pingtool.org/latest-hp-ilo-firmwares/">https://pingtool.org/latest-hp-ilo-firmwares/</a></p>
+<p>P.S. 如果链接挂了，请善用各种 Internet Archive 以及 Google Web Cache。</p>
+<h3 id="ilo-the-file-signature-is-invalid">更新 iLO 固件报错 The file signature is invalid.<a class="headerlink" href="#ilo-the-file-signature-is-invalid" title="Permanent link">&para;</a></h3>
+<p>更新 iLO 固件时报错 <em>The file signature is invalid. Make sure you are using a valid, signed flash file and try again.</em></p>
+<p>原因：跨版本的 iLO 固件有时候需要先更新到某个“中间版本”，例如 iLO 5 1.40 以前的版本不能直接更新到 2.10 以后，需要先更新到 1.40 才能再更新到 2.10。</p>
+<p>参考资料：<a href="https://community.hpe.com/t5/ProLiant-Servers-ML-DL-SL/ILO5-firware-update-fails-quot-the-file-siganture-is-invalid/td-p/7085862">https://community.hpe.com/t5/ProLiant-Servers-ML-DL-SL/ILO5-firware-update-fails-quot-the-file-siganture-is-invalid/td-p/7085862</a></p>
                 
               
               
