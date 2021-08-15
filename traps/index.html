@@ -1513,7 +1513,7 @@
 <p class="admonition-title">该坑点可能已修复，尚未测试</p>
 <p>出于不明原因，手动挂载 iSCSI 设备会导致上面所有的 LV 都变成 active。</p>
 <p><strong>解决方法</strong>：根据 Server Fault 上的<a href="https://serverfault.com/a/678654/450575">这个回答</a>，在 <code>/etc/lvm/lvm.conf</code> 中写入以下内容：</p>
-<div class="highlight"><pre><span></span><code><span class="n">auto_activation_volume_list</span> <span class="o">=</span> <span class="k">[ &quot;pve&quot;, &quot;data&quot; ]</span>
+<div class="highlight"><pre><span></span><code><span class="n">auto_activation_volume_list</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;pve&quot;</span><span class="p">,</span> <span class="s">&quot;data&quot;</span> <span class="p">]</span>
 </code></pre></div>
 <p>保存后 LVM 就不会在检测到新 VG 时自动启用全部卷了。可能需要更新 initramfs 和/或重启。</p>
 </div>
