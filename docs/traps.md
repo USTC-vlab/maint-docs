@@ -98,15 +98,21 @@ LVM 卷不能多个主机同时使用（active 状态），如果出现这种情
         lvs | awk '$2 == "user-data" && substr($3, 5, 1) == "a" { print $2 "/" $1 }' | xargs lvchange -an
         ```
 
+### 将 pve/root 改为 LVM mirror 卷后开机卡在 Loading initial ramdisk
+
+解决方法：重启进 Debian，编辑 `/etc/initramfs-tools/modules`，添加两行 `dm_raid` 和 `raid1`，运行 `update-initramfs -u -k all` 再重启即可。
+
+参考：<https://askubuntu.com/q/292092/612877>
+
 ### 容器仍在（部分）运行，但是 rootfs 未在 `lvs` 中显示
 
 症状：
 
-- 容器的 rootfs 神秘消失。
-- `journalctl` 的错误日志提示 ext4（或者其他文件系统）读写容器 rootfs 时出现错误。
-- 容器无法正常操作。
+- 容器的 rootfs 神秘消失
+- `journalctl` 的错误日志提示 ext4（或者其他文件系统）读写容器 rootfs 时出现错误
+- 容器无法正常操作
 
-这个问题当时在 CT100 上出现，原因为在同学操作测试节点时，使用了和正式环境相同的 LVM 存储，但是未加入集群，导致锁失效。**这种情况是极其危险的，最坏的情况下，可能会破坏 LVM 的分区表。**
+这个问题当时在 CT 100 上出现，原因为在同学操作测试节点时，使用了和正式环境相同的 LVM 存储，但是未加入集群，导致锁失效。**这种情况是极其危险的，最坏的情况下，可能会破坏 LVM 的分区表。**
 
 目前，测试节点已加入集群，并且对重要容器的备份正在操作中。
 
@@ -310,3 +316,17 @@ fs.inotify.max_user_watches = 1048576
 简单快速的修改命令：`systemctl set-property lightdm.service TasksMax=18000`
 
 更详细的指导参见 <https://www.suse.com/support/kb/doc/?id=000015901>
+
+## HPE 服务器 IPMI（HPE iLO）
+
+HPE iLO 固件下载（官方链接，免登录）：<https://pingtool.org/latest-hp-ilo-firmwares/>
+
+P.S. 如果链接挂了，请善用各种 Internet Archive 以及 Google Web Cache。
+
+### 更新 iLO 固件报错 The file signature is invalid.
+
+更新 iLO 固件时报错 *The file signature is invalid. Make sure you are using a valid, signed flash file and try again.*
+
+原因：跨版本的 iLO 固件有时候需要先更新到某个“中间版本”，例如 iLO 5 1.40 以前的版本不能直接更新到 2.10 以后，需要先更新到 1.40 才能再更新到 2.10。
+
+参考资料：<https://community.hpe.com/t5/ProLiant-Servers-ML-DL-SL/ILO5-firware-update-fails-quot-the-file-siganture-is-invalid/td-p/7085862>
