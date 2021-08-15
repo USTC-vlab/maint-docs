@@ -1532,7 +1532,24 @@
 </li>
 </ul>
 <h3 id="pveroot-lvm-mirror-loading-initial-ramdisk">将 pve/root 改为 LVM mirror 卷后开机卡在 Loading initial ramdisk<a class="headerlink" href="#pveroot-lvm-mirror-loading-initial-ramdisk" title="Permanent link">&para;</a></h3>
-<p>解决方法：重启进 Debian，编辑 <code>/etc/initramfs-tools/modules</code>，添加两行 <code>dm_raid</code> 和 <code>raid1</code>，运行 <code>update-initramfs -u -k all</code> 再重启即可。</p>
+<p>重启进 Live CD，挂载一堆东西，然后 chroot 进原系统的 rootfs。</p>
+<div class="highlight"><pre><span></span><code>vgscan
+vgchange -ay pve/root
+mount /dev/pve/root /mnt
+mount -o rbind /run /mnt/run  <span class="c1"># For systemd-udevd</span>
+mount -o <span class="nb">bind</span> /tmp /mnt/tmp   <span class="c1"># For systemd-udevd</span>
+chroot /mnt
+mount -t devtmpfs devtmpfs dev
+mount -t proc proc proc
+mount -t sysfs sysfs sys
+mount /dev/sda1 /boot/efi
+</code></pre></div>
+<p>然后在以下方法中二选一（两个都做也没问题）：</p>
+<ol>
+<li>编辑 <code>/etc/initramfs-tools/modules</code>，添加两行 <code>dm_raid</code> 和 <code>raid1</code>，运行 <code>update-initramfs -u -k all</code></li>
+<li>直接安装 <code>mdadm</code> 软件包</li>
+</ol>
+<p>以上操作完成后重启即可。</p>
 <p>参考：<a href="https://askubuntu.com/q/292092/612877">https://askubuntu.com/q/292092/612877</a></p>
 <h3 id="rootfs-lvs">容器仍在（部分）运行，但是 rootfs 未在 <code>lvs</code> 中显示<a class="headerlink" href="#rootfs-lvs" title="Permanent link">&para;</a></h3>
 <p>症状：</p>
