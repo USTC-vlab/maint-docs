@@ -889,6 +889,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ha" class="md-nav__link">
+    手动迁移启用了 HA 的虚拟机或容器又被自动迁移回来了
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1263,6 +1270,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ha" class="md-nav__link">
+    手动迁移启用了 HA 的虚拟机或容器又被自动迁移回来了
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1473,8 +1487,11 @@
 <p>虚拟机：<code>qm unlock &lt;ID 号&gt;</code></p>
 <div class="admonition warning">
 <p class="admonition-title">HA 注意事项</p>
-<p>请勿 bind mount 或挂载 ISO，否则节点下线时无法进行 migrate。</p>
+<p>请勿 bind mount 或挂载 ISO，否则节点下线时无法进行自动 migrate。</p>
 </div>
+<h3 id="ha">手动迁移启用了 HA 的虚拟机或容器又被自动迁移回来了<a class="headerlink" href="#ha" title="Permanent link">&para;</a></h3>
+<p>PVE 的 HA 太敬业了，运行虚拟机时会严格按照 HA 配置好的节点优先级来运行虚拟机。所以要想 HA “听话”，办法就是直接改各节点的优先级，让听话的 HA 帮你迁移。</p>
+<p>维护节点前请将其优先级调低或删掉（默认为零，数值越高越优先），以免重启过程中 HA 将虚拟机频繁迁移。</p>
 <h2 id="lvm">LVM<a class="headerlink" href="#lvm" title="Permanent link">&para;</a></h2>
 <h3 id="cannot-process-volume-group-pve">开机显示 Cannot process volume group pve 等错误信息<a class="headerlink" href="#cannot-process-volume-group-pve" title="Permanent link">&para;</a></h3>
 <p>这一步比较麻烦，主要是因为 IPMI 提供的那个远程终端经常卡。</p>
@@ -1568,7 +1585,8 @@ mount /dev/sda1 /boot/efi
 <p class="admonition-title">升级 PVE 7 不一定会自动替换软件</p>
 <p>如果更新到 PVE 7 的时候没有自动将 ifupdown 替换为 ifupdown2，请手动替换并更新配置文件。</p>
 </div>
-<p>ifupdown 的语法：</p>
+<p>语法比较：</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ifupdown</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>auto eno1
 iface eno1 inet manual
     bond-master bond0
@@ -1584,7 +1602,8 @@ iface bond0 inet manual
     bond-downdelay 200
     bond-updelay 200
 </code></pre></div>
-<p>ifupdown2 的语法：</p>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ifupdown2</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>auto eno1
 iface eno1
 
@@ -1599,6 +1618,8 @@ iface bond0
     bond-downdelay 200
     bond-updelay 200
 </code></pre></div>
+</div>
+</div>
 <p>关于 ifupdown2 的 interfaces 文件，尤其是和 ifupdown 的区别，可以看<a href="https://support.cumulusnetworks.com/hc/en-us/articles/202933638-Comparing-ifupdown2-Commands-with-ifupdown-Commands">这个页面</a>。</p>
 <div class="admonition bug">
 <p class="admonition-title">注意下划线</p>
@@ -1608,7 +1629,7 @@ iface bond0
 <div class="admonition success">
 <p class="admonition-title">该问题已于 2020 年 7 月 31 日解决，见下</p>
 </div>
-<p>默认情况下 Linux 会对本机的所有 IP 地址在所有界面上响应 ARP 请求（当然 127.0.0.0/8 和 loopback 是除外的），例如一个主机拥有两个界面 ifA 和 ifB，它们分别具有 IP 地址 ipA 和 ipB，那么 Linux 会在 ifA 上响应 who-has ipB 的请求，反之亦然。</p>
+<p>默认情况下 Linux 会对本机的所有 IP 地址在所有界面上响应 ARP 请求（当然 127.0.0.0/8 是除外的），例如一个主机拥有两个界面 ifA 和 ifB，它们分别具有 IP 地址 ipA 和 ipB，那么 Linux 会在 ifA 上响应 who-has ipB 的请求，反之亦然。</p>
 <p>这在 2020 年上半年研究 pv8 为什么连不上 VXLAN 的时候造成了很大的困惑，因为实际上 pv8 的 ens1f1 界面是坏的（可能是光纤没插好之类的），然后系统在 ens1f0 界面上响应了实际属于 ens1f1 的 IP 地址，在其他机器上看起来就像是 ens1f1 能连通但 vxlan0 连不通，而实际上是 10.0.0.28 被解析到了 pv8 的 ens1f0 上，没故障当然就能连通了。</p>
 <div class="admonition note">
 <p class="admonition-title">iBug 备注</p>
@@ -1649,13 +1670,16 @@ chown <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2"
 <p>Ref: <a href="https://github.com/systemd/systemd/issues/9461#issuecomment-409929860">https://github.com/systemd/systemd/issues/9461#issuecomment-409929860</a></p>
 <h3 id="docker-in-lxc">Docker in LXC 启动失败<a class="headerlink" href="#docker-in-lxc" title="Permanent link">&para;</a></h3>
 <p><strong>症状：</strong></p>
-<p>运行 Docker 容器出现类似于 <code>docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"join session keyring: create session key: disk quota exceeded\"": unknown.</code> 的错误。</p>
+<p>尝试运行 Docker 容器时出现如下错误：</p>
+<blockquote>
+<p>docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"join session keyring: create session key: disk quota exceeded\"": unknown.</p>
+</blockquote>
 <p><strong>解决方法：</strong></p>
 <p>参考 <a href="https://github.com/docker/compose/issues/7295#issuecomment-657475590">https://github.com/docker/compose/issues/7295#issuecomment-657475590</a>。</p>
 <p>Docker 需要获取到 kernel session key 才能正常运行。首先查看 <code>/proc/key-users</code> 文件，分析限额卡在了哪里。文件内容类似于：</p>
-<div class="highlight"><pre><span></span><code>    0:   336 335/335 238/1000000 4597/25000000
-  100:     1 1/1 1/50000 9/20000
-  998:     1 1/1 1/50000 9/20000
+<div class="highlight"><pre><span></span><code>     0:   336 335/335 238/1000000 4597/25000000
+   100:     1 1/1 1/50000 9/20000
+   998:     1 1/1 1/50000 9/20000
 100000:  1198 1198/1198 1198/50000 19871/20000
 100101:     2 2/2 2/50000 18/20000
 </code></pre></div>
