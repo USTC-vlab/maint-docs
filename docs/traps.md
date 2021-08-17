@@ -32,7 +32,13 @@
 
 !!! warning "HA 注意事项"
 
-    请勿 bind mount 或挂载 ISO，否则节点下线时无法进行 migrate。
+    请勿 bind mount 或挂载 ISO，否则节点下线时无法进行自动 migrate。
+
+### 手动迁移启用了 HA 的虚拟机或容器又被自动迁移回来了
+
+PVE 的 HA 太敬业了，运行虚拟机时会严格按照 HA 配置好的节点优先级来运行虚拟机。所以要想 HA “听话”，办法就是直接改各节点的优先级，让听话的 HA 帮你迁移。
+
+维护节点前请将其优先级调低或删掉（默认为零，数值越高越优先），以免重启过程中 HA 将虚拟机频繁迁移。
 
 ## LVM
 
@@ -148,42 +154,44 @@ ifupdown2 的 bond 语法有一点不一样（并且会炸），就是 bond 的 
 
     如果更新到 PVE 7 的时候没有自动将 ifupdown 替换为 ifupdown2，请手动替换并更新配置文件。
 
-ifupdown 的语法：
+语法比较：
 
-```
-auto eno1
-iface eno1 inet manual
-    bond-master bond0
+=== "ifupdown"
 
-auto eno2
-iface eno2 inet manual
-    bond-master bond0
+    ```
+    auto eno1
+    iface eno1 inet manual
+        bond-master bond0
 
-auto bond0
-iface bond0 inet manual
-    bond-mode balance-alb
-    bond-miimon 100
-    bond-downdelay 200
-    bond-updelay 200
-```
+    auto eno2
+    iface eno2 inet manual
+        bond-master bond0
 
-ifupdown2 的语法：
+    auto bond0
+    iface bond0 inet manual
+        bond-mode balance-alb
+        bond-miimon 100
+        bond-downdelay 200
+        bond-updelay 200
+    ```
 
-```
-auto eno1
-iface eno1
+=== "ifupdown2"
 
-auto eno2
-iface eno2
+    ```
+    auto eno1
+    iface eno1
 
-auto bond0
-iface bond0
-    bond-slaves eno1 eno2
-    bond-mode balance-alb
-    bond-miimon 100
-    bond-downdelay 200
-    bond-updelay 200
-```
+    auto eno2
+    iface eno2
+
+    auto bond0
+    iface bond0
+        bond-slaves eno1 eno2
+        bond-mode balance-alb
+        bond-miimon 100
+        bond-downdelay 200
+        bond-updelay 200
+    ```
 
 关于 ifupdown2 的 interfaces 文件，尤其是和 ifupdown 的区别，可以看[这个页面](https://support.cumulusnetworks.com/hc/en-us/articles/202933638-Comparing-ifupdown2-Commands-with-ifupdown-Commands)。
 
@@ -195,7 +203,7 @@ iface bond0
 
 !!! success "该问题已于 2020 年 7 月 31 日解决，见下"
 
-默认情况下 Linux 会对本机的所有 IP 地址在所有界面上响应 ARP 请求（当然 127.0.0.0/8 和 loopback 是除外的），例如一个主机拥有两个界面 ifA 和 ifB，它们分别具有 IP 地址 ipA 和 ipB，那么 Linux 会在 ifA 上响应 who-has ipB 的请求，反之亦然。
+默认情况下 Linux 会对本机的所有 IP 地址在所有界面上响应 ARP 请求（当然 127.0.0.0/8 是除外的），例如一个主机拥有两个界面 ifA 和 ifB，它们分别具有 IP 地址 ipA 和 ipB，那么 Linux 会在 ifA 上响应 who-has ipB 的请求，反之亦然。
 
 这在 2020 年上半年研究 pv8 为什么连不上 VXLAN 的时候造成了很大的困惑，因为实际上 pv8 的 ens1f1 界面是坏的（可能是光纤没插好之类的），然后系统在 ens1f0 界面上响应了实际属于 ens1f1 的 IP 地址，在其他机器上看起来就像是 ens1f1 能连通但 vxlan0 连不通，而实际上是 10.0.0.28 被解析到了 pv8 的 ens1f0 上，没故障当然就能连通了。
 
@@ -268,7 +276,9 @@ Ref: <https://github.com/systemd/systemd/issues/9461#issuecomment-409929860>
 
 **症状：**
 
-运行 Docker 容器出现类似于 `docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"join session keyring: create session key: disk quota exceeded\"": unknown.` 的错误。
+尝试运行 Docker 容器时出现如下错误：
+
+> docker: Error response from daemon: OCI runtime create failed: container\_linux.go:349: starting container process caused "process\_linux.go:449: container init caused \\"join session keyring: create session key: disk quota exceeded\\"": unknown.
 
 **解决方法：**
 
@@ -276,10 +286,10 @@ Ref: <https://github.com/systemd/systemd/issues/9461#issuecomment-409929860>
 
 Docker 需要获取到 kernel session key 才能正常运行。首先查看 `/proc/key-users` 文件，分析限额卡在了哪里。文件内容类似于：
 
-```
-    0:   336 335/335 238/1000000 4597/25000000
-  100:     1 1/1 1/50000 9/20000
-  998:     1 1/1 1/50000 9/20000
+```text
+     0:   336 335/335 238/1000000 4597/25000000
+   100:     1 1/1 1/50000 9/20000
+   998:     1 1/1 1/50000 9/20000
 100000:  1198 1198/1198 1198/50000 19871/20000
 100101:     2 2/2 2/50000 18/20000
 ```
