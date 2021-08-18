@@ -2,7 +2,7 @@
 
 Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认使用 ifupdown2），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 `/etc/network/interfaces` 文件。
 
-参考 pv2 上配置，复制时注意替换 IP 地址，以及 **pvg1 和 pvg2 的光纤端口为 ens4f0/ens4f1**。
+以下是 pv2 的配置供参考，批量修改请见[这个 Gist](https://gist.github.com/iBug/988806dea74b79408062db2325b972be)。
 
 === "ifupdown"
 
@@ -62,7 +62,7 @@ Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认�
     # Overlay network for VMs
     auto vxlan0
     iface vxlan0 inet manual
-        pre-up ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dstport 0 dev bond1 || true
+        pre-up ip link add vxlan0 type vxlan id 10 group 239.1.1.1 dev bond1 || true
         up ip link set vxlan0 up
         down ip link set vxlan0 down
         post-down ip link delete vxlan0 || true
@@ -129,7 +129,7 @@ Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认�
     # Overlay network for VMs
     auto vxlan0
     iface vxlan0
-        pre-up ip link add $IFACE type vxlan id 10 group 239.1.1.1 dstport 0 dev bond1 || true
+        pre-up ip link add $IFACE type vxlan id 10 group 239.1.1.1 dev bond1 || true
         post-down ip link delete $IFACE || true
         mtu 1500
     auto vmbr1
