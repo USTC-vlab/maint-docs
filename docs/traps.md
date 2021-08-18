@@ -199,7 +199,7 @@ ifupdown2 的 bond 语法有一点不一样（并且会炸），就是 bond 的 
         bond-updelay 200
     ```
 
-关于 ifupdown2 的 interfaces 文件，尤其是和 ifupdown 的区别，可以看[这个页面](https://support.cumulusnetworks.com/hc/en-us/articles/202933638-Comparing-ifupdown2-Commands-with-ifupdown-Commands)。
+更多信息请见[主机网卡](networking/host.md)。
 
 !!! bug "注意下划线"
 
