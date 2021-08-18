@@ -1025,7 +1025,7 @@
                 
                 <h1 id="_1">主机网卡<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认使用 ifupdown2），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 <code>/etc/network/interfaces</code> 文件。</p>
-<p>以下是 pv2 的配置供参考，批量修改请见<a href="https://gist.github.com/iBug/988806dea74b79408062db2325b972be">这个 Gist</a>。</p>
+<p>以下是 pv2 的配置供参考，批量修改请见<a href="https://gist.github.com/iBug/988806dea74b79408062db2325b972be">这个 Gist</a>。关于 ifupdown 和 ifupdown2 的区别见<a href="https://support.cumulusnetworks.com/hc/en-us/articles/202933638-Comparing-ifupdown2-Commands-with-ifupdown-Commands">这个页面</a>，以及 ifupdown2 的文档<a href="https://cumulusnetworks.github.io/ifupdown2/ifupdown2/index.html">在这</a>。</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ifupdown</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code>auto lo
 iface lo inet loopback
