@@ -13,14 +13,14 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/workflow/pack-windows-image/">
+        <link rel="canonical" href="https://vlab.ibugone.com/workflow/miscellaneous/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
-        <title>打包 Windows 镜像 - Vlab 维护文档</title>
+        <title>杂项 - Vlab 维护文档</title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#windows" class="md-skip">
+        <a href="#_1" class="md-skip">
           跳转至
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              打包 Windows 镜像
+              杂项
             
           </span>
         </div>
@@ -714,6 +714,18 @@
             
   
   
+  
+    <li class="md-nav__item">
+      <a href="../pack-windows-image/" class="md-nav__link">
+        打包 Windows 镜像
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
   
   
@@ -726,12 +738,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          打包 Windows 镜像
+          杂项
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        打包 Windows 镜像
+        杂项
       </a>
       
         
@@ -749,131 +761,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#setup-vm" class="md-nav__link">
-    一、准备虚拟机
-  </a>
-  
-    <nav class="md-nav" aria-label="一、准备虚拟机">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-vm" class="md-nav__link">
-    安装虚拟机
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows-oobe" class="md-nav__link">
-    Windows OOBE
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-vm" class="md-nav__link">
-    二、配置虚拟机
-  </a>
-  
-    <nav class="md-nav" aria-label="二、配置虚拟机">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pause-windows-update" class="md-nav__link">
-    暂停 Windows 更新
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configure-networking" class="md-nav__link">
-    设置网络
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activate-windows" class="md-nav__link">
-    激活 Windows
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-virtio-drivers" class="md-nav__link">
-    安装 VirtIO 驱动
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enable-rdp" class="md-nav__link">
-    设置 RDP
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extra-customizations" class="md-nav__link">
-    其他自定义设置
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cloudbase-init" class="md-nav__link">
-    三、安装 Cloudbase-init
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cleanup" class="md-nav__link">
-    四、打包前的清理工作
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sysprep" class="md-nav__link">
-    五、Sysprep 和打包
-  </a>
-  
-    <nav class="md-nav" aria-label="五、Sysprep 和打包">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging" class="md-nav__link">
-    提取虚拟机镜像
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimize-image" class="md-nav__link">
-    优化虚拟机镜像
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    参考资料
+  <a href="#list-all-vms" class="md-nav__link">
+    列出集群中所有容器
   </a>
   
 </li>
@@ -882,18 +771,6 @@
   
 </nav>
       
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../miscellaneous/" class="md-nav__link">
-        杂项
-      </a>
     </li>
   
 
@@ -1180,131 +1057,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#setup-vm" class="md-nav__link">
-    一、准备虚拟机
-  </a>
-  
-    <nav class="md-nav" aria-label="一、准备虚拟机">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-vm" class="md-nav__link">
-    安装虚拟机
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows-oobe" class="md-nav__link">
-    Windows OOBE
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-vm" class="md-nav__link">
-    二、配置虚拟机
-  </a>
-  
-    <nav class="md-nav" aria-label="二、配置虚拟机">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pause-windows-update" class="md-nav__link">
-    暂停 Windows 更新
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configure-networking" class="md-nav__link">
-    设置网络
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activate-windows" class="md-nav__link">
-    激活 Windows
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-virtio-drivers" class="md-nav__link">
-    安装 VirtIO 驱动
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enable-rdp" class="md-nav__link">
-    设置 RDP
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#extra-customizations" class="md-nav__link">
-    其他自定义设置
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cloudbase-init" class="md-nav__link">
-    三、安装 Cloudbase-init
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cleanup" class="md-nav__link">
-    四、打包前的清理工作
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sysprep" class="md-nav__link">
-    五、Sysprep 和打包
-  </a>
-  
-    <nav class="md-nav" aria-label="五、Sysprep 和打包">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging" class="md-nav__link">
-    提取虚拟机镜像
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimize-image" class="md-nav__link">
-    优化虚拟机镜像
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    参考资料
+  <a href="#list-all-vms" class="md-nav__link">
+    列出集群中所有容器
   </a>
   
 </li>
@@ -1321,221 +1075,20 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/workflow/pack-windows-image.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/workflow/miscellaneous.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="windows">打包 Windows 镜像<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h1>
-<div class="admonition danger">
-<p class="admonition-title">警告</p>
-<p>打包和维护 Windows 镜像非常麻烦并且很难 debug，<big><b>快跑！！！</b></big></p>
-<p><big><b>You have been warned. Run!!!</b></big></p>
-</div>
-<p>由于 Proxmox VE 上的虚拟机使用 cloud-init 进行定制，并且 Windows 和 Unix 一套体系完全不在一个频道上，所以制作可以用 cloud-init 即使只是简单定制的 Windows 镜像也非常折腾。<del>下面让我们一起来受罪吧！</del></p>
-<h2 id="setup-vm">一、准备虚拟机<a class="headerlink" href="#setup-vm" title="Permanent link">&para;</a></h2>
-<h3 id="install-vm">安装虚拟机<a class="headerlink" href="#install-vm" title="Permanent link">&para;</a></h3>
-<p>学校买了正版的 Windows 10，可以在<a href="https://zbh.ustc.edu.cn/">软件正版化</a>网站上下载，建议选中文版（因为是面向用户的）。旁边的 KMS 注册文件不用下载，实际只需要一行命令就能解决，后面会提到。</p>
-<p>同时也要下载 <a href="https://github.com/virtio-win/virtio-win-pkg-scripts#downloads">VirtIO Windows 驱动</a>，选 Stable ISO。</p>
+                <h1 id="_1">杂项<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="list-all-vms">列出集群中所有容器<a class="headerlink" href="#list-all-vms" title="Permanent link">&para;</a></h2>
+<p>首先 <code>apt install jq</code>（这个工具很小，不用担心弄乱系统环境），然后</p>
+<div class="highlight"><pre><span></span><code>jq -r <span class="s1">&#39;.ids | to_entries[] | select(.value.type == &quot;lxc&quot;) | .key&#39;</span> /etc/pve/.vmlist
+</code></pre></div>
+<p>如果要列出虚拟机的话，将 select type 换成 qemu 即可；如果两者都要列出的话，直接去掉 select 这个 filter。</p>
+<p>参考资料：</p>
 <ul>
-<li>创建一个虚拟机，选择一个 ID 和名称</li>
-<li>OS 页面注意在右边的 Guest OS 正确选择 Windows 10</li>
-<li>System 页面勾上 Qemu Agent，将 SCSI Controller 改为 Default</li>
-<li><strong>硬盘总线选 SATA</strong>，存储和容量自定，推荐 32 GB 就够，除非你还要额外安装软件（建议别自找麻烦）</li>
-<li>CPU 内存按需分配，4 核 8 GB 算高配了</li>
-<li>网卡接在 vmbr1 上（也就是用户内网），不然后面还有麻烦 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5z"/><path fill-rule="evenodd" d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752L9.836 3.244zm3.03.751a1 1 0 0 0-1.732 0L2.168 19.499A1 1 0 0 0 3.034 21h17.932a1 1 0 0 0 .866-1.5L12.866 3.994z"/></svg></span></li>
-<li>最后的确认页面先<strong>不要</strong>勾选 Start after created，创建完成后去添加一个串口设备（Serial 0），后面会用到</li>
-</ul>
-<p>和一般的虚拟机安装过程一样，将 ISO 添加为 CD/DVD Drive，跟着安装程序走完流程即可，版本请选择<strong>教育版</strong>。</p>
-<p>第一次重启后进入 Windows 的 OOBE，现在可以在后台把光驱换成 VirtIO 的驱动盘了。</p>
-<h3 id="windows-oobe">Windows OOBE<a class="headerlink" href="#windows-oobe" title="Permanent link">&para;</a></h3>
-<p>OOBE 阶段可以自行配置，不过既然是要用作面向用户的模板，选择一些设置时稍微考虑一下。</p>
-<p>地区语言当然是中文了，键盘微软拼音（这是默认，下一步），然后一路到创建账户这里会有个错误提示码 OOBEAADV10，忽略掉它创建一个本地账户，命名为 Vlab，密码留空（不然后面要你填三个安全问题，WTF?）。</p>
-<details class="note"><summary>错误码 OOBEAADV10</summary><p>这是 Windows 在尝试连接到 Azure Active Directory 时报的错，因为这个时候只有 IPv6 网络是通的（有 SLAAC），用户内网没有 DHCP。</p>
-</details>
-<p>位置服务、广告标识符这个页面全部关掉，Cortana 也别开，都是些浪费时间和资源的东西。</p>
-<p>到这里就差不多进入桌面了，目前为止没有太多坑，除了密码必须留空之外（嗯，这种地方要求填安全问题是个奇怪的设定）。</p>
-<h2 id="configure-vm">二、配置虚拟机<a class="headerlink" href="#configure-vm" title="Permanent link">&para;</a></h2>
-<h3 id="pause-windows-update">暂停 Windows 更新<a class="headerlink" href="#pause-windows-update" title="Permanent link">&para;</a></h3>
-<div class="admonition danger">
-<p class="admonition-title">不然网络通畅后开始自动更新了，后面你就麻烦了</p>
-</div>
-<h3 id="configure-networking">设置网络<a class="headerlink" href="#configure-networking" title="Permanent link">&para;</a></h3>
-<p>右键点击右下角的网络图标，打开“网络和 Internet”设置，在下面选择“更改适配器选项”，打开“以太网实例 0”的属性，再选中 Internet 协议版本 4，在这里指定一个临时的 IPv4 地址（参考<a href="../pack-ct-image/#prepare-ct">打包容器的流程</a>），掩码是 <code>255.255.0.0</code>，网关是 <code>172.31.0.1</code>，DNS 服务器和网关一样，确定完成后就能上网了。</p>
-<div class="admonition danger">
-<p class="admonition-title">不要直接在“设置”应用里改</p>
-<p>“设置”里直接改的时候，指定静态 IPv4 的时候就没有 IPv6 自动配置了。</p>
-</div>
-<h3 id="activate-windows">激活 Windows<a class="headerlink" href="#activate-windows" title="Permanent link">&para;</a></h3>
-<p>右键点击左下角的 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="m0 93.7 183.6-25.3v177.4H0V93.7zm0 324.6 183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg></span> Windows，打开一个有管理员权限的 PowerShell 窗口，配置学校的 KMS 激活：</p>
-<div class="highlight"><pre><span></span><code>slmgr.vbs /skms kms.ustc.edu.cn
-</code></pre></div>
-<p>现在可以进设置应用里查看激活状态了。如果还没激活的话，点疑难解答，等它跑完就会告诉你已激活。</p>
-<h3 id="install-virtio-drivers">安装 VirtIO 驱动<a class="headerlink" href="#install-virtio-drivers" title="Permanent link">&para;</a></h3>
-<p>打开光驱运行 <code>virtio-win-guest-tools.exe</code>，一路下一步安装即可。</p>
-<p>这里唯一的坑点是，如果你在创建虚拟机时没有多一步添加一个串口设备的话，那么 VirtIO 串口驱动就不会安装，需要关机加好设备后再重新安装。</p>
-<p>QEMU Guest Agent (Qemu GA) 以后会很有用，我们也把它装上吧。</p>
-<h3 id="enable-rdp">设置 RDP<a class="headerlink" href="#enable-rdp" title="Permanent link">&para;</a></h3>
-<p>设置 → 系统 → 远程桌面，启用远程桌面。</p>
-<p>配置 Windows 防火墙仅运行来自 web 服务器的连接：</p>
-<ul>
-<li>打开 Windows Defender 防火墙设置（开始菜单 → Windows 管理工具，或者直接运行 <code>wf.msc</code>）</li>
-<li>
-<p>入站规则，找到 <strong>远程桌面 - 用户模式 (TCP-In)</strong> 启用，打开属性，切换到“作用域”选项卡，设置远程 IP 仅限 <code>172.31.0.2</code>，如图：</p>
-<p><img alt="Windows Defender Firewall dialog" src="../../images/windows-wf-rdp.png" /></p>
-</li>
-<li>
-<p>（可选，推荐）入站规则里“核心网络诊断 - ICMP 回显请求”四个都打开（Windows 默认<del>近平</del>禁 ping，打开会方便以后调试网络和监测状态）</p>
-</li>
-</ul>
-<h3 id="extra-customizations">其他自定义设置<a class="headerlink" href="#extra-customizations" title="Permanent link">&para;</a></h3>
-<p>任务栏里那块巨大的胶布（搜索框）可以隐藏起来，Cortana 图标隐藏起来，Task View 的图标也可以隐藏起来，这几个都是右键任务栏就可以勾选的选项。</p>
-<p>任务栏设置里的“使用‘速览’预览桌面”出于性能考虑建议不要开，其他随意，例如“合并任务栏按钮”可以改成“任务栏已满时”等等，其他的桌面背景、颜色、开始菜单等都随意。</p>
-<p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg></span> 开始菜单里预装的 UWP 应用现在<strong>不要动</strong>，否则后面 Sysprep 的时候会出错。（如果你特别想删掉其中的一个或多个时，<a href="#cleanup">第四节清理</a>有详细说明。）</p>
-<p>Windows 检测网络连接的功能经常坏，原因是 msftconnecttest.com 服务器在国外，很慢而且不稳定，可以修改注册表将这个功能替换成使用校内的服务。</p>
-<details class="abstract"><summary>注册表文件</summary><p><a href="../../assets/WindowsInternet.reg">下载直链</a></p>
-<div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
-
-<span class="k">[</span><span class="nb">HKEY_LOCAL_MACHINE</span><span class="k">\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]</span>
-<span class="na">&quot;ActiveDnsProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;202.38.64.1&quot;</span>
-<span class="na">&quot;ActiveDnsProbeContentV6&quot;</span><span class="o">=</span><span class="s">&quot;2001:da8:d800::1&quot;</span>
-<span class="na">&quot;ActiveDnsProbeHost&quot;</span><span class="o">=</span><span class="s">&quot;ns.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveDnsProbeHostV6&quot;</span><span class="o">=</span><span class="s">&quot;ns.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveWebProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;USTC Mirrors Connect Test&quot;</span>
-<span class="na">&quot;ActiveWebProbeContentV6&quot;</span><span class="o">=</span><span class="s">&quot;USTC Mirrors Connect Test&quot;</span>
-<span class="na">&quot;ActiveWebProbeHost&quot;</span><span class="o">=</span><span class="s">&quot;mirrors.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveWebProbeHostV6&quot;</span><span class="o">=</span><span class="s">&quot;ipv6.mirrors.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveWebProbePath&quot;</span><span class="o">=</span><span class="s">&quot;connecttest.txt&quot;</span>
-<span class="na">&quot;ActiveWebProbePathV6&quot;</span><span class="o">=</span><span class="s">&quot;connecttest.txt&quot;</span>
-<span class="na">&quot;EnableActiveProbing&quot;</span><span class="o">=</span><span class="nv">dword</span><span class="p">:</span><span class="m">00000001</span>
-</code></pre></div>
-</details>
-<h2 id="cloudbase-init">三、安装 Cloudbase-init<a class="headerlink" href="#cloudbase-init" title="Permanent link">&para;</a></h2>
-<div class="admonition danger">
-<p class="admonition-title">警告：前方雷区</p>
-</div>
-<p>下载地址 <a href="https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi">https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi</a>，可以浏览器下载，也可以 PowerShell 命令行：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="p">://</span><span class="n">cloudbase</span><span class="p">.</span><span class="n">it</span><span class="p">/</span><span class="n">downloads</span><span class="p">/</span><span class="n">CloudbaseInitSetup_Stable_x64</span><span class="p">.</span><span class="n">msi</span> <span class="n">-OutFile</span> <span class="n">C</span><span class="p">:\</span><span class="n">cloudbase-init</span><span class="p">.</span><span class="n">msi</span>
-</code></pre></div>
-<p>顺着 Cloudbase-init 的流程安装就行，在选择用户名的那个界面填 Administrator，下面串口设备选择 COM1，继续安装完成。最后一个界面<strong>不要</strong>选 Sysprep，直接关闭退出，等改完设置后手动处理。</p>
-<p>安装完成后打开 <code>C:\Program Files\Cloudbase Solutions\Cloudbase-init\conf</code>，编辑 <code>cloudbase-init-unattend.conf</code>，修改以下几处：</p>
-<ul>
-<li>确保 username=Administrator 和 groups=Administrators</li>
-<li>添加一行 <code>first_logon_behaviour=no</code></li>
-<li>删除 <code>config_drive_raw_hhd</code> 和 <code>config_drive_vfat</code>（或者改成 false 也行）</li>
-<li>从 <code>metadata_services</code> 里删掉其他配置，只保留一个 <code>ConfigDriveService</code>。注意这是一个逗号分隔的列表，不要看错了</li>
-<li>将 <code>check_latest_version</code> 改成 false</li>
-</ul>
-<details class="abstract"><summary>参考：修改后的文件内容</summary><div class="highlight"><pre><span></span><code><span class="k">[DEFAULT]</span>
-<span class="na">username</span><span class="o">=</span><span class="s">Administrator</span>
-<span class="na">groups</span><span class="o">=</span><span class="s">Administrators</span>
-<span class="na">inject_user_password</span><span class="o">=</span><span class="s">true</span>
-<span class="na">first_logon_behaviour</span><span class="o">=</span><span class="s">no</span>
-<span class="na">config_drive_cdrom</span><span class="o">=</span><span class="s">true</span>
-<span class="na">bsdtar_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\bin\bsdtar.exe</span>
-<span class="na">mtools_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\bin\</span>
-<span class="na">verbose</span><span class="o">=</span><span class="s">true</span>
-<span class="na">debug</span><span class="o">=</span><span class="s">true</span>
-<span class="na">logdir</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\log\</span>
-<span class="na">logfile</span><span class="o">=</span><span class="s">cloudbase-init-unattend.log</span>
-<span class="na">default_log_levels</span><span class="o">=</span><span class="s">comtypes=INFO,suds=INFO,iso8601=WARN,requests=WARN</span>
-<span class="na">logging_serial_port_settings</span><span class="o">=</span><span class="s">COM1,115200,N,8</span>
-<span class="na">mtu_use_dhcp_config</span><span class="o">=</span><span class="s">true</span>
-<span class="na">ntp_use_dhcp_config</span><span class="o">=</span><span class="s">true</span>
-<span class="na">local_scripts_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\LocalScripts\</span>
-<span class="na">check_latest_version</span><span class="o">=</span><span class="s">false</span>
-<span class="na">metadata_services</span><span class="o">=</span><span class="s">cloudbaseinit.metadata.services.configdrive.ConfigDriveService</span>
-<span class="na">plugins</span><span class="o">=</span><span class="s">cloudbaseinit.plugins.common.mtu.MTUPlugin,cloudbaseinit.plugins.common.sethostname.SetHostNamePlugin,cloudbaseinit.plugins.windows.extendvolumes.ExtendVolumesPlugin</span>
-<span class="na">allow_reboot</span><span class="o">=</span><span class="s">false</span>
-<span class="na">stop_service_on_exit</span><span class="o">=</span><span class="s">false</span>
-</code></pre></div>
-</details>
-<h2 id="cleanup">四、打包前的清理工作<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg></span> <strong>启用 Windows Update</strong></p>
-<div class="admonition tip">
-<p class="admonition-title">可以放在最后一步关机前再启用，避免后面清理时间太长导致 WU 开始运行，或者直接断网也行。</p>
-</div>
-</li>
-<li>
-<p><strong>清理 Windows 资源管理器的历史记录</strong></p>
-<p>按 <kbd><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="m0 93.7 183.6-25.3v177.4H0V93.7zm0 324.6 183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg></span> Windows</kbd> + <kbd>E</kbd> 打开 Windows 资源管理器，删掉所有“最近文件”。注意不是将文件从磁盘上删除，而是右键“从快速访问中删除”。</p>
-</li>
-<li>
-<p><strong>清理“运行……”的历史记录</strong></p>
-<p>清空（不是删除）注册表项 <code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</code> 中的所有内容。</p>
-</li>
-<li>
-<p><strong>清理浏览器记录</strong></p>
-<p>对于 Internet Explorer：请参考 Microsoft Docs（<a href="https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-internet-explorer-%E4%B8%AD%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4%E6%B5%8F%E8%A7%88%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95-098ffe52-5ac9-a449-c296-c735c32c8678">中文</a> / <a href="https://support.microsoft.com/en-us/windows/view-and-delete-your-browsing-history-in-internet-explorer-098ffe52-5ac9-a449-c296-c735c32c8678">English</a>)</p>
-<p>对于 Microsoft Edge：清空目录 <code>C:\Users\Vlab\AppData\Local\Microsoft\Edge</code></p>
-</li>
-<li>
-<p><strong>进行磁盘清理</strong></p>
-<p>打开“此电脑”，右键点击 C 盘选择“属性”，然后在对话框中找到“磁盘清理”选项。先点击左下角“清理系统文件”，然后勾选全部内容确认清理。</p>
-</li>
-<li>
-<p><strong>关闭休眠和快速启动</strong>（推荐）</p>
-<p>以管理员打开 PowerShell，运行 <code>powercfg /h off</code>。</p>
-</li>
-<li>
-<p>（可选）<strong>删除预装的 UWP 应用</strong></p>
-<details class="info"><summary>这是高级操作，建议仅当你熟悉 Windows 10 时进行</summary><p>以管理员打开 PowerShell，运行 <code class="highlight"><span class="nb">Get-AppxProvisionedPackage</span> <span class="n">-Online</span></code> 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。</p>
-<p>继续在 PowerShell 中，运行 <code class="highlight"><span class="nb">Remove-AppxProvisionedPackage</span> <span class="n">-Online</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code>，其中 <code>$PackageName</code> 替换成刚才记录下来的 PackageName。删除预装后，也要<strong>同时删除当前用户已安装的这一份相同应用</strong>。你可以使用 <code class="highlight"><span class="nb">Remove-AppxPackage</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code> 命令，也可以直接在开始菜单中找到它选择“卸载”（如果你找得到的话）。</p>
-<p>作为练习，你可以选择删除 Microsoft Solitaire Collection 和 Skype 这两个应用，或者选择跳过这一步。</p>
-</details>
-</li>
-</ul>
-<h2 id="sysprep">五、Sysprep 和打包<a class="headerlink" href="#sysprep" title="Permanent link">&para;</a></h2>
-<div class="admonition tip">
-<p class="admonition-title">先关机打一个快照</p>
-<p>Sysprep 后的镜像无法恢复，因此我们推荐在这一步之前将虚拟机关机，在 Proxmox 的界面中打一个快照，方便以后以当前状态为基础进一步定制镜像。</p>
-</div>
-<p>还是以管理员打开 PowerShell，定位到 <code>C:\Program Files\Cloudbase Solutions\Cloudbase-init\conf</code>，运行 Sysprep：</p>
-<div class="highlight"><pre><span></span><code>C:\Windows\System32\Sysprep\sysprep.exe /generalize /oobe /unattend:Unattend.xml
-</code></pre></div>
-<p>这个 <code>Unattend.xml</code> 由 Cloudbase-init 提供，所以需要先 <code>cd</code> 到上述目录。</p>
-<p>如果 Sysprep 出现错误，请检查 <code>C:\Windows\System32\Sysprep\Panther\setupact.log</code> 并利用 Google 排查。</p>
-<details class="danger"><summary>不正确地卸载预装的 UWP 应用会导致 Sysprep 失败</summary><p><code>setupact.log</code> 中能看到以下错误信息，以 Microsoft Solitaire Collection 为例：</p>
-<div class="highlight"><pre><span></span><code>Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image.
-</code></pre></div>
-<p>请回到第四节正确卸载错误信息给出的软件包。</p>
-</details>
-<p>Sysprep 运行完成后 Windows 会自动关机，<strong>此时就不要再开机了</strong>，把当前版本的虚拟机镜像提取出来，就算打包完成了。你也可以选择直接将这个虚拟机转换为 Template，就可以直接从它创建出新虚拟机了。</p>
-<h3 id="packaging">提取虚拟机镜像<a class="headerlink" href="#packaging" title="Permanent link">&para;</a></h3>
-<p>首先请参考<a href="../pack-ct-image/#packaging">打包容器镜像</a>对应的一节激活虚拟机对应的 LVM 卷。</p>
-<details class="tip"><summary>提取虚拟机的快照</summary><p>如果你想提取虚拟机的某个快照，而不是其当前状态，需要在 <code>lvchange</code> 命令中额外添加 <code>-Ky</code> 参数。</p>
-<div class="highlight"><pre><span></span><code>lvchange -ay -Ky /dev/<span class="o">{</span>vg<span class="o">}</span>/<span class="o">{</span>lv<span class="o">}</span>
-</code></pre></div>
-</details>
-<p>然后，使用 QEMU 的磁盘工具将存储在 LVM 中的原始（raw）磁盘镜像提取出来：</p>
-<div class="highlight"><pre><span></span><code>qemu-img convert -p -f raw -O qcow2 /dev/<span class="o">{</span>vg<span class="o">}</span>/<span class="o">{</span>lv<span class="o">}</span> win10.qcow2
-</code></pre></div>
-<p>此时 <code>win10.qcow2</code> 就可以使用了。它的容量通常在 20 GB 以上，可能还不够方便移动，下面提供一种简单的优化方法。</p>
-<h3 id="optimize-image">优化虚拟机镜像<a class="headerlink" href="#optimize-image" title="Permanent link">&para;</a></h3>
-<p>Linux 下对 NTFS 文件系统写入没有很好的优化，容易损坏文件系统，因此请将上一步提取得到的 qcow2 文件作为另一个虚拟磁盘挂载进 Windows 虚拟机，从 Windows 中操作。</p>
-<ul>
-<li>
-<p><strong>删除页面文件和交换文件</strong></p>
-<p>打开刚挂载的磁盘中的系统分区（它的盘符现在应该不是 C 了，注意辨别），删除 <code>pagefile.sys</code> 和 <code>swapfile.sys</code>。</p>
-<p>你也可以同时清空 <code>C:\Windows\Logs</code> 和一些其他文件夹，但这通常是不必要的，它们不会清理出几十 MB 的容量。</p>
-</li>
-<li>
-<p><strong>对文件系统执行 Trim</strong></p>
-<p>再次以管理员身份打开 PowerShell，执行以下命令：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">X</span> <span class="n">-ReTrim</span> <span class="n">-Defrag</span> <span class="n">-SlabConsolidate</span> <span class="n">-Verbose</span>
-</code></pre></div>
-<p>（如果命令运行得太慢了，你可以去掉 <code>-SlabConsolidate</code> 参数。）</p>
-</li>
-</ul>
-<p>以上任务完成后，关闭 Windows 虚拟机并解除挂载硬盘，然后再次转换并压缩镜像：</p>
-<div class="highlight"><pre><span></span><code>qemu-img convert -p -c -f qcow2 -O qcow2 win10.qcow2 win10-new.qcow2
-</code></pre></div>
-<p>此时的 <code>win10-new.qcow2</code> 容量应该能缩减至 10-12 GB，可以保存作为正式镜像了，刚才的 <code>win10.qcow2</code> 也可以删除或覆盖掉了。</p>
-<h2 id="references">参考资料<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://forum.proxmox.com/threads/windows-cloud-init-working.83511/">[TUTORIAL] - windows cloud init working | Proxmox Support Forum</a></li>
+<li><a href="https://forum.proxmox.com/threads/list-all-vmids-from-command-line.10964/">List all VMID's from command line? | Proxmox Support Forum</a></li>
 </ul>
                 
               
@@ -1561,7 +1114,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../pack-vm-image/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 打包虚拟机镜像" rel="prev">
+        <a href="../pack-windows-image/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 打包 Windows 镜像" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1570,20 +1123,20 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              打包虚拟机镜像
+              打包 Windows 镜像
             </div>
           </div>
         </a>
       
       
         
-        <a href="../miscellaneous/" class="md-footer__link md-footer__link--next" aria-label="下一页: 杂项" rel="next">
+        <a href="../../references/desktop/" class="md-footer__link md-footer__link--next" aria-label="下一页: desktop 桌面图标文件" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              杂项
+              desktop 桌面图标文件
             </div>
           </div>
           <div class="md-footer__button md-icon">
