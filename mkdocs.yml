@@ -102,6 +102,7 @@ nav:
     - 打包容器镜像: workflow/pack-ct-image.md
     - 打包虚拟机镜像: workflow/pack-vm-image.md
     - 打包 Windows 镜像: workflow/pack-windows-image.md
+    - 杂项: workflow/miscellaneous.md
   - 参考资料:
     - desktop 桌面图标文件: references/desktop.md
     - 统一身份认证: references/ustccas.md

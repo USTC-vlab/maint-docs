@@ -6,7 +6,7 @@
 
 ### 普通计算服务器 {#compute-server-cpu}
 
-8 台普通计算服务器分别命名为 pv1 到 pv8，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），预装内存 32 GB（2 x 16 GB DDR4 2400 ECC），硬盘配置为两块 HPE SSD 480GB（RAID 1，系统盘，swap，缓存和少量固定存储，如容器镜像）和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）
+8 台普通计算服务器分别命名为 pv1 到 pv8，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），预装内存 32 GB（2 x 16 GB DDR4 2400 ECC），硬盘配置为两块 HPE SSD 480GB 和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）
 
 所有服务器的内存在购入时均升级至 160 GB（2 x 16 GB + 4 x 32 GB），其中 pv2 ~ pv8 的内存在 2020 年 3 月底再次升级至 224 GB（2 x 16 GB + 6 x 32 GB）。
 
@@ -18,7 +18,7 @@
 
 ### GPU 计算服务器 {#compute-server-gpu}
 
-2 台 GPU 服务器，命名为 pvg1 和 pvg2，每台服务器包含双路 Intel Xeon Scalable Gold 5218 处理器（共 32 核心、64 线程），内存容量为 192 GB（组合及 NUMA 情况未知）。硬盘配置为一块 HPE SSD 480GB，网卡配置与 CPU 计算服务器一致。
+2 台 GPU 服务器，命名为 pvg1 和 pvg2，每台服务器包含双路 Intel Xeon Scalable Gold 5218 处理器（共 32 核心、64 线程），内存容量为 192 GB（组合及 NUMA 情况未知）。硬盘配置为两块 HPE SSD 480GB（pvg1 另有四块 Intel DC4500 480GB），网卡配置与 CPU 计算服务器一致。
 
 其中 pvg1 安装有两块 RTX 2070 Super GPU（可能为技嘉），pvg2 安装有一块 RTX 2070 Super GPU（型号未知）和一块 Quadro RTX 6000 GPU。
 
@@ -26,7 +26,7 @@
 
 ## 操作系统 {#operating-system}
 
-这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 6.x 的系统，基于 Debian 10。本平台使用 Proxmox VE 管理容器，仅在 GPU 实例使用 KVM 虚拟机。
+这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 7.x 的系统，基于 Debian 11。本平台使用 Proxmox VE 管理容器，仅在 GPU 实例使用 KVM 虚拟机。
 
 ## 存储服务器 {#storage-server}
 
