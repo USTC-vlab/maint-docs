@@ -1141,7 +1141,7 @@
 <p>除 pv8 外所有机器的四个网口做一个 bond，然后将这个 bond 桥接，系统中显示的界面名称为 <code>vmbr0</code>。方便起见所有主机的校园网 IP 都从 202.38.75.0/24 网段中取，记录在域名 <code>pv#.vlab.ibugone.net</code> 中。</p>
 <p>pv8 的 eno4 接在光交换机的管理端口上，因此 pv8 只有三个网口做 bond。</p>
 <h2 id="fibre-intranet">光纤内网<a class="headerlink" href="#fibre-intranet" title="Permanent link">&para;</a></h2>
-<p>光纤界面为 <code>ens1f0</code> 和 <code>ens1f1</code>，通过一个华为光交换机互联，因此只有服务器集群内部连通，由于每台计算服务器各自接入校园网，所以光纤内网只用于互联（包括连接 iSCSI），不用于转发。</p>
+<p>光纤界面为 <code>ens1f0</code> 和 <code>ens1f1</code>（两台 GPU 服务器为 <code>ens4f0</code> 和 <code>ens4f1</code>），通过一个华为光交换机互联，因此只有服务器集群内部连通，由于每台计算服务器各自接入校园网，所以光纤内网只用于互联（包括连接 iSCSI），不用于转发。</p>
 <p>IP 分配情况见 <a href="ips/">IP 地址列表</a>。</p>
 <p>运行在这个网络上的设施有 iSCSI 和 NFS（用于共享容器镜像，LVM 带锁不能直接多机同时挂载）。</p>
 <h2 id="overlay-intranet">容器内网<a class="headerlink" href="#overlay-intranet" title="Permanent link">&para;</a></h2>

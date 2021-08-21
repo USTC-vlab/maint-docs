@@ -1177,10 +1177,10 @@
                 
                 
                 <h1 id="ct-100">网关机 (CT 100)<a class="headerlink" href="#ct-100" title="Permanent link">&para;</a></h1>
-<p>网关机顾名思义就是（容器内网的）网关，同时接入了容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.1/16</code>, <code>172.30.0.1/24</code>）和校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.252/24</code>），通过 NAT 提供内网机器的对外访问以及将内网机器的 SSH 端口转发到公网上。</p>
-<p>该容器配置为四核 8G，仅运行了基本系统组件（主要是 iptables 和 radvd）。</p>
+<p>网关机顾名思义就是（容器内网的）网关，同时接入了管理内网（<code>vmbr2</code> / <code>eth2</code> / <code>172.30.0.1/24</code>）、容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.1/16</code>）和校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.252/24</code>），通过 NAT 提供内网机器的对外访问以及特殊需求的端口转发。</p>
+<p>该容器配置为四核 8G，仅运行了基本系统组件（主要是 iptables、radvd 和 WireGuard）。</p>
 <h2 id="_1">内网上网转发<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>内网虚拟机（172.31.0.0/16，172.30.0.0/24）的所有到外网流量都通过本机转发，转发通过 iptables 设置，由内核完成，因此本容器中的 iptables 规则十分重要。下面解释设置文件 <code>iptables.sh</code>（曾经位于 <code>/root</code> 下，在 2020 年 11 月 rootfs 损坏后丢失，<strong>现在的做法</strong>是直接手动 <code>/etc/iptables/rules.v4</code> / <code>rules.v6</code>）。</p>
+<p>内网虚拟机（172.31.0.0/16，172.30.0.0/24）的所有到外网流量都通过本机转发，转发通过 iptables 设置，由内核完成，因此本容器中的 iptables 规则十分重要。下面解释设置文件 <code>iptables.sh</code>（曾经位于 <code>/root</code> 下，在 2020 年 11 月 rootfs 损坏后丢失，<strong>现在的做法</strong>是直接手动维护 <code>/etc/iptables/rules.v4</code> / <code>rules.v6</code>）。</p>
 <h3 id="_2">防火墙部分<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1195,7 +1195,7 @@
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">### IPv4 ###</span>
-iptables -P INPUT DROP
+iptables -P INPUT ACCEPT
 iptables -P FORWARD ACCEPT
 iptables -P OUTPUT ACCEPT
 iptables -F
@@ -1206,7 +1206,7 @@ iptables -A VLAB -i lo -j ACCEPT
 iptables -A VLAB -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables -A VLAB -p tcp --dport <span class="m">22</span> -j ACCEPT
 iptables -A VLAB -p tcp --dport <span class="m">1024</span> ! -s <span class="m">202</span>.38.75.226 -j DROP
-iptables -A INPUT -j VLAB
+iptables -A INPUT -i vmbr+ -j VLAB
 </code></pre></div>
 </td></tr></table>
 <p>开头的部分 1-6 行初始化 iptables 设置，注意到转发的流量走的是 FORWARD 链而不是 INPUT 链，所以有 <code>-P FORWARD ACCEPT</code>。第 7 行创建 VLAB 链放我们自己的 rules。</p>

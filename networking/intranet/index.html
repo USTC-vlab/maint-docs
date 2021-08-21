@@ -1081,26 +1081,12 @@
                 
                 
                 <h1 id="_1">容器内网<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>容器内网使用 VXLAN 实现，在所有计算服务器上均使用 ens1f1 界面连接，创建命令为</p>
-<div class="highlight"><pre><span></span><code>ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">10</span> group <span class="m">239</span>.1.1.1 dstport <span class="m">0</span> dev ens1f1
+<p>容器内网使用 VXLAN 实现，在所有计算服务器上均使用 bond1 界面连接，创建命令为</p>
+<div class="highlight"><pre><span></span><code>ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">1</span> group <span class="m">239</span>.1.1.1 dev bond1
 </code></pre></div>
-<p><s><a href="https://tools.ietf.org/html/rfc7348">RFC 7348</a> 指出 VXLAN 接收端口为 UDP 4789</s>,但由于历史原因包括 Linux 在内的一众厂商都在使用 UDP 8472，因此该端口必须在 ens1f1 上开放。实际上由于 ens1f0 和 ens1f1 这两个界面没有外部接入，故不设防。</p>
+<p><s><a href="https://tools.ietf.org/html/rfc7348">RFC 7348</a> 指出 VXLAN 接收端口为 UDP 4789</s>，但由于历史原因包括 Linux 在内的一众厂商都在使用 UDP 8472，因此该端口必须在 bond1 上开放。实际上由于光纤界面没有外部接入，故不设防。</p>
 <h2 id="ip">IP 地址分配<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
-<p>容器内网 IP 段为 172.31.0.0/16，目前使用情况：</p>
-<ul>
-<li>172.31.0.1 为内网网关，运行在 CT 100 上，该容器同时连接校园网，对外 IP 为 202.38.75.252，提供所有学生机的校园网访问以及 SSH 接入（均为 NAT）</li>
-<li>172.31.0.2 为 web 服务器，即 CT 101，对外 IP 为 202.38.75.226，也是域名 <code>vlab.ustc.edu.cn</code> 指向的地址</li>
-<li>172.31.0.0/22 保留，用于实验等内部用途</li>
-<li>172.31.0.0 和 172.31.255.255 不是单播地址，无法使用</li>
-<li>172.31.4.0 - 172.31.255.254 分配给学生机使用</li>
-</ul>
-<p>另外还有一段 172.30.0.0/24 用于主机接入等内部用途，目前分配情况如下：</p>
-<ul>
-<li>172.30.0.1 = CT 100</li>
-<li>172.30.0.2 = CT 101</li>
-<li>172.30.0.3 = CT 102</li>
-<li>172.30.0.101 - 172.30.0.108 为主机接入</li>
-</ul>
+<p>内容已移至 <a href="../ips/">IP 地址分配</a>。</p>
                 
               
               
