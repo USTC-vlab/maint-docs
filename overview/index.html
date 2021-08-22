@@ -1019,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-08-21.md" class="md-nav__link">
+      <a href="../records/2021-08-21/" class="md-nav__link">
         2021 年 8 月 21 日
       </a>
     </li>
@@ -1188,7 +1188,7 @@
 <p>其中 pvg1 安装有两块 RTX 2070 Super GPU（可能为技嘉），pvg2 安装有一块 RTX 2070 Super GPU（型号未知）和一块 Quadro RTX 6000 GPU。</p>
 <p>主机的 IPMI 地址分别为 10.38.79.181 和 10.38.79.182，详见 <a href="../networking/ips/">IP 地址列表</a>。</p>
 <h2 id="operating-system">操作系统<a class="headerlink" href="#operating-system" title="Permanent link">&para;</a></h2>
-<p>这批服务器全部安装 <a href="https://pve.proxmox.com/">Proxmox VE</a> 7.x 的系统，基于 Debian 11。本平台使用 Proxmox VE 管理容器，仅在 GPU 实例使用 KVM 虚拟机。</p>
+<p>这批服务器全部安装 <a href="https://pve.proxmox.com/">Proxmox VE</a> 系统，基于 Debian。本平台使用 Proxmox VE 管理容器，仅在 GPU 实例使用 KVM 虚拟机。</p>
 <h2 id="storage-server">存储服务器<a class="headerlink" href="#storage-server" title="Permanent link">&para;</a></h2>
 <p>存储服务器为 HPE MSA 1050，有 24 个 2.5 寸 SAS 盘位和两个 iSCSI 控制器。购买时带有 18 块 1.2 TB 的硬盘，后来邢凯老师提供了一个额外的硬盘笼，扩展了 24 个盘位，正好放下 8 台计算服务器各自带的 3 块机械硬盘。</p>
 <p>该存储服务器有两个控制器，每个控制器各有一个以太网口（用于管理界面）和两个光纤接口（10 Gbps，用于数据传输）。目前两个控制器的管理接口都接入校园网，地址分别为 <a href="https://10.38.79.98/">10.38.79.98</a> 和 <a href="https://10.38.79.99/">10.38.79.99</a>。</p>

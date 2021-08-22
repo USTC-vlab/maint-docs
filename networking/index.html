@@ -1000,7 +1000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-08-21.md" class="md-nav__link">
+      <a href="../records/2021-08-21/" class="md-nav__link">
         2021 年 8 月 21 日
       </a>
     </li>
@@ -1145,7 +1145,7 @@
 <p>IP 分配情况见 <a href="ips/">IP 地址列表</a>。</p>
 <p>运行在这个网络上的设施有 iSCSI 和 NFS（用于共享容器镜像，LVM 带锁不能直接多机同时挂载）。</p>
 <h2 id="overlay-intranet">容器内网<a class="headerlink" href="#overlay-intranet" title="Permanent link">&para;</a></h2>
-<p>容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，IP 地址段暂定为 172.31.0.0/16，在主机上的接口为 vmbr1。更多信息参见 <a href="intranet/">容器内网</a> 一页。</p>
+<p>容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，更多信息参见 <a href="intranet/">容器内网</a> 一页。</p>
 <h3 id="vm-network">学生机网络<a class="headerlink" href="#vm-network" title="Permanent link">&para;</a></h3>
 <p>CT100 为网关，将所有学生机的上行流量 NAT 后连接到校园网，详见 <a href="../servers/ct100/">CT100 容器的文档</a>。</p>
 <p>CT101 为 web 服务器，提供 web 界面（Nginx, Django）和 VNC 统一接入（程序在 <a href="https://github.com/pdlan">pdlan</a> 的一个私有仓库中，由于潜在的版权问题不能公开）。具体内容详见 <a href="../servers/ct101/">CT101 容器的文档</a>。</p>

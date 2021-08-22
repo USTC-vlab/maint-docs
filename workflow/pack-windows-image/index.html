@@ -1096,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-08-21.md" class="md-nav__link">
+      <a href="../../records/2021-08-21/" class="md-nav__link">
         2021 年 8 月 21 日
       </a>
     </li>
@@ -1469,7 +1469,7 @@
 <li>
 <p><strong>清理浏览器记录</strong></p>
 <p>对于 Internet Explorer：请参考 Microsoft Docs（<a href="https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-internet-explorer-%E4%B8%AD%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4%E6%B5%8F%E8%A7%88%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95-098ffe52-5ac9-a449-c296-c735c32c8678">中文</a> / <a href="https://support.microsoft.com/en-us/windows/view-and-delete-your-browsing-history-in-internet-explorer-098ffe52-5ac9-a449-c296-c735c32c8678">English</a>)</p>
-<p>对于 Microsoft Edge：清空目录 <code>C:\Users\Vlab\AppData\Local\Microsoft\Edge</code></p>
+<p>对于 Microsoft Edge：删除目录 <code>C:\Users\Vlab\AppData\Local\Microsoft\Edge\User Data</code></p>
 </li>
 <li>
 <p><strong>进行磁盘清理</strong></p>
@@ -1506,7 +1506,7 @@
 <h3 id="packaging">提取虚拟机镜像<a class="headerlink" href="#packaging" title="Permanent link">&para;</a></h3>
 <p>首先请参考<a href="../pack-ct-image/#packaging">打包容器镜像</a>对应的一节激活虚拟机对应的 LVM 卷。</p>
 <details class="tip"><summary>提取虚拟机的快照</summary><p>如果你想提取虚拟机的某个快照，而不是其当前状态，需要在 <code>lvchange</code> 命令中额外添加 <code>-Ky</code> 参数。</p>
-<div class="highlight"><pre><span></span><code>lvchange -ay -Ky /dev/<span class="o">{</span>vg<span class="o">}</span>/<span class="o">{</span>lv<span class="o">}</span>
+<div class="highlight"><pre><span></span><code>lvchange -ay -Ky /dev/<span class="o">{</span>vg<span class="o">}</span>/<span class="o">{</span>snap-lv<span class="o">}</span>
 </code></pre></div>
 </details>
 <p>然后，使用 QEMU 的磁盘工具将存储在 LVM 中的原始（raw）磁盘镜像提取出来：</p>
