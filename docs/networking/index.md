@@ -20,7 +20,7 @@ IP 分配情况见 [IP 地址列表](ips.md)。
 
 ## 容器内网 {#overlay-intranet}
 
-容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，IP 地址段暂定为 172.31.0.0/16，在主机上的接口为 vmbr1。更多信息参见 [容器内网](intranet.md) 一页。
+容器之间的连接基于运行在光纤之上的 overlay 网络，overlay 实现采用 VXLAN，更多信息参见 [容器内网](intranet.md) 一页。
 
 ### 学生机网络 {#vm-network}
 

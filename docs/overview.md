@@ -26,7 +26,7 @@
 
 ## 操作系统 {#operating-system}
 
-这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 7.x 的系统，基于 Debian 11。本平台使用 Proxmox VE 管理容器，仅在 GPU 实例使用 KVM 虚拟机。
+这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 系统，基于 Debian。本平台使用 Proxmox VE 管理容器，仅在 GPU 实例使用 KVM 虚拟机。
 
 ## 存储服务器 {#storage-server}
 

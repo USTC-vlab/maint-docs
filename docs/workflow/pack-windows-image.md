@@ -172,7 +172,7 @@ Invoke-WebRequest -Uri https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_
 
     对于 Internet Explorer：请参考 Microsoft Docs（[中文](https://support.microsoft.com/zh-cn/windows/%E5%9C%A8-internet-explorer-%E4%B8%AD%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4%E6%B5%8F%E8%A7%88%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95-098ffe52-5ac9-a449-c296-c735c32c8678) / [English](https://support.microsoft.com/en-us/windows/view-and-delete-your-browsing-history-in-internet-explorer-098ffe52-5ac9-a449-c296-c735c32c8678))
 
-    对于 Microsoft Edge：清空目录 `C:\Users\Vlab\AppData\Local\Microsoft\Edge`
+    对于 Microsoft Edge：删除目录 `C:\Users\Vlab\AppData\Local\Microsoft\Edge\User Data`
 
 - **进行磁盘清理**
 
@@ -229,7 +229,7 @@ Sysprep 运行完成后 Windows 会自动关机，**此时就不要再开机了*
     如果你想提取虚拟机的某个快照，而不是其当前状态，需要在 `lvchange` 命令中额外添加 `-Ky` 参数。
 
     ```shell
-    lvchange -ay -Ky /dev/{vg}/{lv}
+    lvchange -ay -Ky /dev/{vg}/{snap-lv}
     ```
 
 然后，使用 QEMU 的磁盘工具将存储在 LVM 中的原始（raw）磁盘镜像提取出来：
@@ -270,4 +270,4 @@ qemu-img convert -p -c -f qcow2 -O qcow2 win10.qcow2 win10-new.qcow2
 
 ## 参考资料 {#references}
 
-- [[TUTORIAL] - windows cloud init working | Proxmox Support Forum](https://forum.proxmox.com/threads/windows-cloud-init-working.83511/)
+- [\[TUTORIAL\] - windows cloud init working | Proxmox Support Forum](https://forum.proxmox.com/threads/windows-cloud-init-working.83511/)
