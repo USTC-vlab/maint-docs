@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-6-13" class="md-skip">
+        <a href="#2021-8-21" class="md-skip">
           跳转至
         </a>
       
@@ -1150,7 +1150,7 @@
                   </a>
                 
                 
-                <h1 id="2021-6-13">2021 年 6 月 13 日工作总结<a class="headerlink" href="#2021-6-13" title="Permanent link">&para;</a></h1>
+                <h1 id="2021-8-21">2021 年 8 月 21 日工作总结<a class="headerlink" href="#2021-8-21" title="Permanent link">&para;</a></h1>
 <h2 id="raid">解除固态硬盘的 RAID<a class="headerlink" href="#raid" title="Permanent link">&para;</a></h2>
 <h3 id="rootfs-lvm-mirror">缩小主机的 rootfs 并添加 LVM mirror<a class="headerlink" href="#rootfs-lvm-mirror" title="Permanent link">&para;</a></h3>
 <p>参考 <a href="https://ibug.io/p/44">iBug 的博客</a>。</p>
@@ -1244,6 +1244,10 @@ work<span class="o">()</span> <span class="o">{</span>
 </code></pre></div>
 </details>
 <h2 id="_1">其他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>将用户内网 VXLAN ID 改为 1（原来是 10，因为创建的命令是网上随便抄来的），对应界面名称改为 vxlan1，方便识别和辨认</li>
+<li>将内部设施使用的管理网络划分出一个单独的 VXLAN（ID 2），命名为 vxlan2，桥接为 vmbr2（IP 地址是 172.30.0.1/24 没变）</li>
+</ul>
                 
               
               
