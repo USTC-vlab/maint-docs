@@ -1152,8 +1152,22 @@
                 
                 <h1 id="2021-8-21">2021 年 8 月 21 日工作总结<a class="headerlink" href="#2021-8-21" title="Permanent link">&para;</a></h1>
 <h2 id="raid">解除固态硬盘的 RAID<a class="headerlink" href="#raid" title="Permanent link">&para;</a></h2>
+<p>重启前先装 <code>mdadm</code>。</p>
+<p>可以在 IPMI KVM 中操作。重启后出现提示界面时按 F9 进入 HPE UEFI 设置页面。设置页面可以使用鼠标操作，选择 RAID 1，在控制器设置的 manage arrays 中找到 delete array 解除阵列。</p>
+<p>解除后，需要挂载 iso（HPE IPMI 不支持 DNS，所以目前使用 iBug 的内网小机器，地址为 <a href="https://10.38.79.2/iso/">https://10.38.79.2/iso/</a>，在其中选择适用的 Debian 版本挂载）。</p>
 <h3 id="rootfs-lvm-mirror">缩小主机的 rootfs 并添加 LVM mirror<a class="headerlink" href="#rootfs-lvm-mirror" title="Permanent link">&para;</a></h3>
 <p>参考 <a href="https://ibug.io/p/44">iBug 的博客</a>。</p>
+<p>主要几步（假设拆完之后是 <code>/dev/sda</code> 和 <code>/dev/sdb</code>）：</p>
+<ol>
+<li>使用 testdisk 找到 <code>/dev/sda</code> 分区表，并且写入正确的分区表到磁盘中。</li>
+<li>使用 <code>vgscan</code> 加载 LVM 信息。假设 <code>rootfs</code> 是 <code>/dev/pve/root</code></li>
+<li>运行 <code>e2fsck -f /dev/pve/root</code> 检查一致性，运行 <code>resize2fs -M -p /dev/pve/root</code> 将 rootfs 文件系统缩小到最小，<strong>确保缩小得到的大小小于 16GB，否则接下来的操作会破坏 rootfs!</strong>。</li>
+<li>运行 <code>lvresize -L 16G pve/root</code> 将 LVM rootfs 逻辑分区缩小到 16GB，然后运行 <code>resize2fs -p /dev/pve/root</code> 将文件系统扩大到 16GB。</li>
+<li>使用 testdisk 找到 <code>/dev/sdb</code> 分区表，并且写入正确的分区表到磁盘中。</li>
+<li><strong>使用 <code>fdisk -l /dev/sdb</code> 确认原来 LVM 在 <code>/dev/sdb</code> 上的分区名，假设是 <code>/dev/sdb2</code></strong>，运行 <code>dd if=/dev/zero of=/dev/sdb2 bs=1M count=1</code> 擦除 LVM metadata，然后 <code>pvcreate /dev/sdb2</code>, <code>vgextend pve /dev/sdb2</code> 加入到现在的 LVM 卷组中。</li>
+<li><code>lvconvert -m1 pve/root</code>，设置 rootfs 为 RAID 1.</li>
+<li>按照 <a href="https://ibug.io/blog/2021/08/proxmox-disassemble-hardware-raid1/#fix-grub">https://ibug.io/blog/2021/08/proxmox-disassemble-hardware-raid1/#fix-grub</a> 的说明挂载必要的卷，然后 <code>chroot</code> 进入 rootfs。安装 <code>grub-efi</code> 后运行 <code>grub-install</code>。<strong>请确保 LiveCD Debian 和系统 Debian 版本尽可能一致，否则可能会无法引导。（例如，使用 Debian 11 ISO 跑 Debian 10 grub-install 会出现关于 efi variables 的错误，导致安装失败）</strong>。如果还是无法引导，<code>/dev/sda1</code> 和 <code>/dev/sdb1</code> 都分别挂到 <code>/boot/efi</code>，然后跑 <code>grub-install</code> 试试。</li>
+</ol>
 <h2 id="proxmox-ve-7">升级至 Proxmox VE 7<a class="headerlink" href="#proxmox-ve-7" title="Permanent link">&para;</a></h2>
 <p>PVE 做得很好，升级过程跟 Debian 体验完全一致，可以参考 <a href="https://www.debian.org/releases/bullseye/amd64/release-notes/ch-upgrading.en.html">Debian 10 升级到 11</a> 的文档模仿操作。</p>
 <p>更新过程中需要注意一些配置文件：</p>
