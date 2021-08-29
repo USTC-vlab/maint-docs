@@ -13,14 +13,14 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/records/2021-08-21/">
+        <link rel="canonical" href="https://vlab.ibugone.com/records/2021-08-28/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
     
     
       
-        <title>2021 年 8 月 21 日 - Vlab 维护文档</title>
+        <title>2021 年 8 月 28 日 - Vlab 维护文档</title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-8-21" class="md-skip">
+        <a href="#2021-8-28" class="md-skip">
           跳转至
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2021 年 8 月 21 日
+              2021 年 8 月 28 日
             
           </span>
         </div>
@@ -933,6 +933,18 @@
             
   
   
+  
+    <li class="md-nav__item">
+      <a href="../2021-08-21/" class="md-nav__link">
+        2021 年 8 月 21 日
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
   
   
@@ -945,12 +957,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          2021 年 8 月 21 日
+          2021 年 8 月 28 日
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        2021 年 8 月 21 日
+        2021 年 8 月 28 日
       </a>
       
         
@@ -968,42 +980,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#raid" class="md-nav__link">
-    解除固态硬盘的 RAID
-  </a>
-  
-    <nav class="md-nav" aria-label="解除固态硬盘的 RAID">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rootfs-lvm-mirror" class="md-nav__link">
-    缩小主机的 rootfs 并添加 LVM mirror
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#proxmox-ve-7" class="md-nav__link">
-    升级至 Proxmox VE 7
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#apt" class="md-nav__link">
-    更换 APT 源至中科大镜像站及缩减用户磁盘空间
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
-    其他
+    容器备份错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kvm" class="md-nav__link">
+    KVM 虚拟机备份错误
   </a>
   
 </li>
@@ -1012,18 +997,6 @@
   
 </nav>
       
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../2021-08-28/" class="md-nav__link">
-        2021 年 8 月 28 日
-      </a>
     </li>
   
 
@@ -1105,42 +1078,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#raid" class="md-nav__link">
-    解除固态硬盘的 RAID
-  </a>
-  
-    <nav class="md-nav" aria-label="解除固态硬盘的 RAID">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rootfs-lvm-mirror" class="md-nav__link">
-    缩小主机的 rootfs 并添加 LVM mirror
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#proxmox-ve-7" class="md-nav__link">
-    升级至 Proxmox VE 7
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#apt" class="md-nav__link">
-    更换 APT 源至中科大镜像站及缩减用户磁盘空间
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
-    其他
+    容器备份错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kvm" class="md-nav__link">
+    KVM 虚拟机备份错误
   </a>
   
 </li>
@@ -1157,122 +1103,36 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/records/2021-08-21.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/records/2021-08-28.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="2021-8-21">2021 年 8 月 21 日工作总结<a class="headerlink" href="#2021-8-21" title="Permanent link">&para;</a></h1>
-<h2 id="raid">解除固态硬盘的 RAID<a class="headerlink" href="#raid" title="Permanent link">&para;</a></h2>
-<p>重启前先装 <code>mdadm</code>。</p>
-<p>可以在 IPMI KVM 中操作。重启后出现提示界面时按 F9 进入 HPE UEFI 设置页面。设置页面可以使用鼠标操作，选择 RAID 1，在控制器设置的 manage arrays 中找到 delete array 解除阵列。</p>
-<p>解除后，需要挂载 iso（HPE IPMI 不支持 DNS，所以目前使用 iBug 的内网小机器，地址为 <a href="https://10.38.79.2/iso/">https://10.38.79.2/iso/</a>，在其中选择适用的 Debian 版本挂载）。</p>
-<h3 id="rootfs-lvm-mirror">缩小主机的 rootfs 并添加 LVM mirror<a class="headerlink" href="#rootfs-lvm-mirror" title="Permanent link">&para;</a></h3>
-<p>参考 <a href="https://ibug.io/p/44">iBug 的博客</a>。</p>
-<p>主要几步（假设拆完之后是 <code>/dev/sda</code> 和 <code>/dev/sdb</code>）：</p>
-<ol>
-<li>使用 testdisk 找到 <code>/dev/sda</code> 分区表，并且写入正确的分区表到磁盘中。</li>
-<li>使用 <code>vgscan</code> 加载 LVM 信息。假设 <code>rootfs</code> 是 <code>/dev/pve/root</code></li>
-<li>运行 <code>e2fsck -f /dev/pve/root</code> 检查一致性，运行 <code>resize2fs -M -p /dev/pve/root</code> 将 rootfs 文件系统缩小到最小，<strong>确保缩小得到的大小小于 16GB，否则接下来的操作会破坏 rootfs!</strong>。</li>
-<li>运行 <code>lvresize -L 16G pve/root</code> 将 LVM rootfs 逻辑分区缩小到 16GB，然后运行 <code>resize2fs -p /dev/pve/root</code> 将文件系统扩大到 16GB。</li>
-<li>使用 testdisk 找到 <code>/dev/sdb</code> 分区表，并且写入正确的分区表到磁盘中。</li>
-<li><strong>使用 <code>fdisk -l /dev/sdb</code> 确认原来 LVM 在 <code>/dev/sdb</code> 上的分区名，假设是 <code>/dev/sdb2</code></strong>，运行 <code>dd if=/dev/zero of=/dev/sdb2 bs=1M count=1</code> 擦除 LVM metadata，然后 <code>pvcreate /dev/sdb2</code>, <code>vgextend pve /dev/sdb2</code> 加入到现在的 LVM 卷组中。</li>
-<li><code>lvconvert -m1 pve/root</code>，设置 rootfs 为 RAID 1.</li>
-<li>按照 <a href="https://ibug.io/blog/2021/08/proxmox-disassemble-hardware-raid1/#fix-grub">https://ibug.io/blog/2021/08/proxmox-disassemble-hardware-raid1/#fix-grub</a> 的说明挂载必要的卷，然后 <code>chroot</code> 进入 rootfs。安装 <code>grub-efi</code> 后运行 <code>grub-install</code>。<strong>请确保 LiveCD Debian 和系统 Debian 版本尽可能一致，否则可能会无法引导。（例如，使用 Debian 11 ISO 跑 Debian 10 grub-install 会出现关于 efi variables 的错误，导致安装失败）</strong>。如果还是无法引导，<code>/dev/sda1</code> 和 <code>/dev/sdb1</code> 都分别挂到 <code>/boot/efi</code>，然后跑 <code>grub-install</code> 试试。</li>
-</ol>
-<h2 id="proxmox-ve-7">升级至 Proxmox VE 7<a class="headerlink" href="#proxmox-ve-7" title="Permanent link">&para;</a></h2>
-<p>PVE 做得很好，升级过程跟 Debian 体验完全一致，可以参考 <a href="https://www.debian.org/releases/bullseye/amd64/release-notes/ch-upgrading.en.html">Debian 10 升级到 11</a> 的文档模仿操作。</p>
-<p>更新过程中需要注意一些配置文件：</p>
+                <h1 id="2021-8-28">2021 年 8 月 28 日工作总结<a class="headerlink" href="#2021-8-28" title="Permanent link">&para;</a></h1>
+<p>本周末的工作是解决 <code>vzdump</code> 备份的相关问题。在 8 月 21 日后，我们发现每周备份开始出现问题。</p>
+<h2 id="_1">容器备份错误<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>出现的错误类似于 <code>command 'rsync --stats -h -X -A --numeric-ids -aH --delete --no-whole-file --sparse --one-file-system --relative '--exclude=/tmp/?*' '--exclude=/var/tmp/?*' '--exclude=/var/run/?*.pid' /proc/1665219/root//./ /var/tmp/vzdumptmp1666920_102' failed: exit code 11</code>。</p>
+<p>解决方法：<code>vzdump</code> 会先 rsync 容器的 rootfs 到 <code>/var/tmp</code>，而在缩减主机 rootfs 的大小之后，剩余空间不足以承载容器的 rootfs。所以新开一个 LVM 卷挂载到 <code>/var/tmp</code>。</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>tmpfs</code> 无法解决问题</p>
+<p>容器里 Docker overlay 需要 user attr，<code>tmpfs</code> 不支持此属性，会导致备份失败。</p>
+</div>
+<h2 id="kvm">KVM 虚拟机备份错误<a class="headerlink" href="#kvm" title="Permanent link">&para;</a></h2>
+<p>出现的错误类似于 <code>job failed with err -5 - Input/output error</code>。阅读主机 <code>dmesg</code>，会发现大量 <code>connection1:0: detected conn error (1020)</code>，以及标红的 ext4/块设备 I/O error 问题。测试发现备份会导致 iSCSI 间接性断连，诱发 I/O error，I/O error 有大概率导致主机上的容器/KVM 虚拟机磁盘进入 readonly 状态。</p>
+<p>周末两天基本上都在排查这个问题，目前（2021/8/30 凌晨），我们得到的结论如下：</p>
 <ul>
-<li><code>/etc/issue</code>：此文件每次开机时 Proxmox 会覆盖，所以选 Y 和 N 没有区别</li>
-<li>
-<p><code>/etc/ssh/sshd_config</code>：Debian 11 的 <code>sshd_config</code> 文件包含了一条 <code>Include /etc/ssh/sshd_config.d/*.conf</code>，因此我们的自定义设置也移到了 <code>sshd_config.d/vlab.conf</code>，为了以后更新方便，这里可以选择覆盖（注意 reload ssh 前把 <code>vlab.conf</code> 准备好）</p>
-<details class="abstract"><summary><code>vlab.conf</code> 文件</summary><div class="highlight"><pre><span></span><code>HostKey /etc/ssh/ssh_host_rsa_key
-HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
-TrustedUserCAKeys /etc/ssh/ssh_user_ca
-
-PermitRootLogin prohibit-password
-PasswordAuthentication no
-AuthorizedKeysFile /dev/null
-</code></pre></div>
-</details>
-</li>
-<li>
-<p><code>/etc/lvm/lvm.conf</code>：同样为了以后更新方便，选择覆盖。我们自己添加的、有用的设置是这两条，覆盖后加回去即可（注意添加到合适的位置，<code>lvm.conf</code> 是分 section 的）</p>
-<div class="highlight"><pre><span></span><code><span class="n">global_filter</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;r|/dev/disk/by-id/usb.*|&quot;</span><span class="p">,</span> <span class="s">&quot;r|/dev/zd.*|&quot;</span><span class="p">,</span> <span class="s">&quot;r|/dev/mapper/pve-.*|&quot;</span> <span class="s">&quot;r|/dev/mapper/.*-(vm|base)--[0-9]+--disk--[0-9]+|&quot;</span><span class="p">]</span>
-
-<span class="n">auto_activation_volume_list</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;pve&quot;</span><span class="p">,</span> <span class="s">&quot;data&quot;</span> <span class="p">]</span>
-</code></pre></div>
-<p><strong>修改完 <code>lvm.conf</code> 后记得运行 <code>update-initramfs</code>。</strong></p>
-</li>
+<li>这个问题是在集群升级到 PVE 7 后产生的。最早出现问题的记录在 8 月 21 日凌晨 01:08。</li>
+<li>如果将虚拟机迁移到 pvg1, pvg2 上，那么不会出现此问题。pvg[1-2] 与 pv[1-7] 的区别除了多了 GPU，网卡的型号也不同。pv 使用的网卡是 Intel X710，pvg 的网卡是 Broadcom 的。</li>
+<li>在其他软件版本不变情况下，Linux 5.4 (PVE 6 kernel) 比 Linux 5.10 有可能更稳定（不执行备份任务时不会出错），但是执行备份任务时仍然会出现问题。</li>
+<li>降级 <code>open-iscsi</code> 无效。</li>
+<li>升级存储服务器固件、升级 pv Intel 网卡固件均无效。</li>
+<li><code>pve-qemu-kvm</code> 从 <code>6.0.0-3</code> 降级到 <code>5.2.0-6</code> 之后，备份任务执行时不再出现 I/O error，但是仍然有可能出现 <code>conn error</code>。</li>
+<li>限制 <code>vzdump</code> 的带宽有可能能减缓 <code>conn error</code> 出现的次数，但是在 pv1 和 pv8 上测试的结果不太一样。</li>
 </ul>
-<p>其他可以覆盖，能拆分出来、不修改包管理器提供的文件的就尽量拆出来，例如把 sysctl 设置放进 <code>/etc/sysctl.d</code> 里而不是直接修改 <code>sysctl.conf</code>，诸如此类。</p>
-<h2 id="apt">更换 APT 源至中科大镜像站及缩减用户磁盘空间<a class="headerlink" href="#apt" title="Permanent link">&para;</a></h2>
-<p>更换 APT 源比较简单，挂载磁盘然后跑一下 <code>sed</code> 即可。</p>
-<p>同时由于我们使用 /opt/vlab 来提供各种容量较大的实验软件，新虚拟机的磁盘使用量只有不到 3.5 GB，因此我们再次将新虚拟机的磁盘容量下调到 16 GB。由于 LVM 的空间比较紧张了（使用量 &gt; 70%），我们还 retroactively 将现有容器的磁盘统一缩减。缩减方案是实际占用量小于 12 GB（12288 MB）的缩减为 16 GB，实际占用量小于 24 GB 的缩减为 32 GB，大于 24 GB 的不动。</p>
-<p>缩减磁盘空间操作比较复杂，大致过程与处理主机的 rootfs 一样，先 resize2fs 小一点，然后 lvresize 改分区，再 resize2fs 扩充回来。但是出于未知原因 e2fsck 会报下面这个错误，因此操作前需要额外加一个 tune2fs，具体过程见下附的批处理脚本。</p>
-<blockquote>
-<p>e2fsck: MMP: e2fsck being run while checking MMP block</p>
-</blockquote>
-<details class="abstract"><summary>使用的 <code>change-repo.sh</code> 脚本</summary><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
-
-<span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BASH_VERSION</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span>
-
-work<span class="o">()</span> <span class="o">{</span>
-  <span class="nb">local</span> <span class="nv">id</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
-  <span class="nb">local</span> <span class="nv">param</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
-  <span class="nb">local</span> <span class="nv">lv</span><span class="o">=</span>user-data/vm-<span class="s2">&quot;</span><span class="nv">$id</span><span class="s2">&quot;</span>-disk-0
-  <span class="nb">local</span> <span class="nv">conf</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>find /etc/pve/nodes -name <span class="s2">&quot;</span><span class="nv">$id</span><span class="s2">.conf&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
-  <span class="nb">local</span> <span class="nv">mnt</span><span class="o">=</span>/tmp/mnt-<span class="s2">&quot;</span><span class="nv">$id</span><span class="s2">&quot;</span>
-  mkdir -p <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>
-  <span class="nb">local</span> <span class="nv">list</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>/etc/apt/sources.list
-  <span class="nb">echo</span> <span class="s2">&quot;******************** WORKING ON VM ID </span><span class="nv">$id</span><span class="s2"> (</span><span class="nv">$param</span><span class="s2"> remaining) ********************&quot;</span>
-  lvchange -y -ay <span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-  tune2fs -f -E clear_mmp /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-  <span class="c1">#e2fsck -y -f /dev/&quot;$lv&quot; || true</span>
-  mount /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>
-  <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$list</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    sed -i <span class="s1">&#39;s/mirrors\.tuna\.tsinghua\.edu\.cn/mirrors.ustc.edu.cn/g&#39;</span> <span class="s2">&quot;</span><span class="nv">$list</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span>
-      <span class="nb">echo</span> <span class="s2">&quot;Run sed on CT </span><span class="nv">$id</span><span class="s2">&quot;</span>
-  <span class="k">else</span>
-    <span class="nb">echo</span> <span class="s2">&quot;CT </span><span class="nv">$id</span><span class="s2"> does not contain /etc/apt/sources.list&quot;</span>
-  <span class="k">fi</span>
-  <span class="nb">local</span> <span class="nv">size</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>df -BM --output<span class="o">=</span>size <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;NR==2{print $1+0}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
-  <span class="nb">local</span> <span class="nv">used</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>df -BM --output<span class="o">=</span>used <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;NR==2{print $1+0}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
-  <span class="nb">echo</span> <span class="s2">&quot;Size of VM </span><span class="nv">$id</span><span class="s2">: </span><span class="si">${</span><span class="nv">used</span><span class="si">}</span><span class="s2">M / </span><span class="si">${</span><span class="nv">size</span><span class="si">}</span><span class="s2">M&quot;</span>
-  umount <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>
-  <span class="k">if</span> <span class="o">[</span> <span class="nv">$used</span> -gt <span class="m">0</span> -a <span class="nv">$used</span> -lt <span class="m">12288</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Shrinking VM </span><span class="nv">$id</span><span class="s2"> to 16G&quot;</span>
-    tune2fs -f -E clear_mmp /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    e2fsck -y -f /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    resize2fs -p /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span> 15G
-    lvresize -y -f -L 16G <span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="nb">true</span>
-    tune2fs -f -E clear_mmp /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    resize2fs -p /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    <span class="nb">test</span> -n <span class="s2">&quot;</span><span class="nv">$conf</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> sed -i <span class="s1">&#39;/^rootfs:/s/size=[0-9]\+G/size=16G/&#39;</span> <span class="s2">&quot;</span><span class="nv">$conf</span><span class="s2">&quot;</span>
-  <span class="k">elif</span> <span class="o">[</span> <span class="nv">$used</span> -ge <span class="m">12288</span> -a <span class="nv">$used</span> -lt <span class="m">24576</span> -a <span class="nv">$size</span> -gt <span class="m">32768</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Shrinking VM </span><span class="nv">$id</span><span class="s2"> to 32G&quot;</span>
-    tune2fs -f -E clear_mmp /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    e2fsck -y -f /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    resize2fs -p /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span> 31G
-    lvresize -y -f -L 32G <span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="nb">true</span>
-    tune2fs -f -E clear_mmp /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    resize2fs -p /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-    <span class="nb">test</span> -n <span class="s2">&quot;</span><span class="nv">$conf</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> sed -i <span class="s1">&#39;/^rootfs:/s/size=[0-9]\+G/size=32G/&#39;</span> <span class="s2">&quot;</span><span class="nv">$conf</span><span class="s2">&quot;</span>
-  <span class="k">fi</span>
-  lvchange -y -an <span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
-<span class="o">}</span>
-
-<span class="nv">total</span><span class="o">=</span><span class="k">$(</span>&lt;<span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">disks</span><span class="p">.txt</span><span class="si">}</span> wc -l<span class="k">)</span>
-<span class="k">for</span> id <span class="k">in</span> <span class="k">$(</span>&lt;<span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">disks</span><span class="p">.txt</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span>
-  work <span class="s2">&quot;</span><span class="nv">$id</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="k">$((</span>total-<span class="o">=</span><span class="m">1</span><span class="k">))</span><span class="s2">&quot;</span>
-<span class="k">done</span>
-</code></pre></div>
-</details>
-<h2 id="_1">其他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>目前的情况：</p>
 <ul>
-<li>将用户内网 VXLAN ID 改为 1（原来是 10，因为创建的命令是网上随便抄来的），对应界面名称改为 vxlan1，方便识别和辨认</li>
-<li>将内部设施使用的管理网络划分出一个单独的 VXLAN（ID 2），命名为 vxlan2，桥接为 vmbr2（IP 地址是 172.30.0.1/24 没变）</li>
+<li>pv1, pv8 的 <code>pve-qemu-kvm</code> 降级到了 <code>5.2.0-6</code>。其他软件（包括内核）版本不变。</li>
+<li><code>pbs</code> 虚拟机迁移到 <code>pvg1</code>。</li>
 </ul>
                 
               
@@ -1298,7 +1158,7 @@ work<span class="o">()</span> <span class="o">{</span>
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../2021-06-13/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 2021 年 6 月 13 日" rel="prev">
+        <a href="../2021-08-21/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 2021 年 8 月 21 日" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1307,20 +1167,20 @@ work<span class="o">()</span> <span class="o">{</span>
               <span class="md-footer__direction">
                 上一页
               </span>
-              2021 年 6 月 13 日
+              2021 年 8 月 21 日
             </div>
           </div>
         </a>
       
       
         
-        <a href="../2021-08-28/" class="md-footer__link md-footer__link--next" aria-label="下一页: 2021 年 8 月 28 日" rel="next">
+        <a href="../../history/gen1/" class="md-footer__link md-footer__link--next" aria-label="下一页: 第一代" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              2021 年 8 月 28 日
+              第一代
             </div>
           </div>
           <div class="md-footer__button md-icon">
