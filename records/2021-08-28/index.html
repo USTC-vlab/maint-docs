@@ -1111,28 +1111,29 @@
                 <h1 id="2021-8-28">2021 年 8 月 28 日工作总结<a class="headerlink" href="#2021-8-28" title="Permanent link">&para;</a></h1>
 <p>本周末的工作是解决 <code>vzdump</code> 备份的相关问题。在 8 月 21 日后，我们发现每周备份开始出现问题。</p>
 <h2 id="_1">容器备份错误<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>出现的错误类似于 <code>command 'rsync --stats -h -X -A --numeric-ids -aH --delete --no-whole-file --sparse --one-file-system --relative '--exclude=/tmp/?*' '--exclude=/var/tmp/?*' '--exclude=/var/run/?*.pid' /proc/1665219/root//./ /var/tmp/vzdumptmp1666920_102' failed: exit code 11</code>。</p>
+<p>出现的错误类似于 <code>command 'rsync ...' failed: exit code 11</code>。</p>
 <p>解决方法：<code>vzdump</code> 会先 rsync 容器的 rootfs 到 <code>/var/tmp</code>，而在缩减主机 rootfs 的大小之后，剩余空间不足以承载容器的 rootfs。所以新开一个 LVM 卷挂载到 <code>/var/tmp</code>。</p>
 <div class="admonition warning">
-<p class="admonition-title"><code>tmpfs</code> 无法解决问题</p>
-<p>容器里 Docker overlay 需要 user attr，<code>tmpfs</code> 不支持此属性，会导致备份失败。</p>
+<p class="admonition-title">tmpfs 无法解决问题</p>
+<p>容器里 Docker overlay 需要 userxattr，tmpfs 不支持这个特性，会导致备份失败。</p>
 </div>
 <h2 id="kvm">KVM 虚拟机备份错误<a class="headerlink" href="#kvm" title="Permanent link">&para;</a></h2>
 <p>出现的错误类似于 <code>job failed with err -5 - Input/output error</code>。阅读主机 <code>dmesg</code>，会发现大量 <code>connection1:0: detected conn error (1020)</code>，以及标红的 ext4/块设备 I/O error 问题。测试发现备份会导致 iSCSI 间接性断连，诱发 I/O error，I/O error 有大概率导致主机上的容器/KVM 虚拟机磁盘进入 readonly 状态。</p>
 <p>周末两天基本上都在排查这个问题，目前（2021/8/30 凌晨），我们得到的结论如下：</p>
 <ul>
 <li>这个问题是在集群升级到 PVE 7 后产生的。最早出现问题的记录在 8 月 21 日凌晨 01:08。</li>
-<li>如果将虚拟机迁移到 pvg1, pvg2 上，那么不会出现此问题。pvg[1-2] 与 pv[1-7] 的区别除了多了 GPU，网卡的型号也不同。pv 使用的网卡是 Intel X710，pvg 的网卡是 Broadcom 的。</li>
+<li>如果将虚拟机迁移到 pvg1, pvg2 上，那么不会出现此问题。pvg[1-2] 与 pv[1-8] 的区别除了多了 GPU，光网卡的型号也不同。pv 使用的网卡是 Intel X710，pvg 的网卡是 Broadcom NetXtreme II BCM57810。</li>
 <li>在其他软件版本不变情况下，Linux 5.4 (PVE 6 kernel) 比 Linux 5.10 有可能更稳定（不执行备份任务时不会出错），但是执行备份任务时仍然会出现问题。</li>
 <li>降级 <code>open-iscsi</code> 无效。</li>
-<li>升级存储服务器固件、升级 pv Intel 网卡固件均无效。</li>
+<li>升级存储服务器固件、升级 pv8 Intel 网卡固件均无效。</li>
 <li><code>pve-qemu-kvm</code> 从 <code>6.0.0-3</code> 降级到 <code>5.2.0-6</code> 之后，备份任务执行时不再出现 I/O error，但是仍然有可能出现 <code>conn error</code>。</li>
-<li>限制 <code>vzdump</code> 的带宽有可能能减缓 <code>conn error</code> 出现的次数，但是在 pv1 和 pv8 上测试的结果不太一样。</li>
+<li>对虚拟磁盘指定 <code>aio=io_uring</code>, <code>aio=native</code> 或 <code>aio=threads</code> 均无效。</li>
+<li>限制 <code>vzdump</code> 的带宽有可能能减少 <code>conn error</code> 出现的次数，但是在 pv1 和 pv8 上测试的结果不太一样。</li>
 </ul>
 <p>目前的情况：</p>
 <ul>
 <li>pv1, pv8 的 <code>pve-qemu-kvm</code> 降级到了 <code>5.2.0-6</code>。其他软件（包括内核）版本不变。</li>
-<li><code>pbs</code> 虚拟机迁移到 <code>pvg1</code>。</li>
+<li>pbs 虚拟机迁移到 <code>pvg1</code>。</li>
 </ul>
                 
               
