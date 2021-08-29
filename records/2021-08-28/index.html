@@ -1118,7 +1118,7 @@
 <p>容器里 Docker overlay 需要 userxattr，tmpfs 不支持这个特性，会导致备份失败。</p>
 </div>
 <h2 id="kvm">KVM 虚拟机备份错误<a class="headerlink" href="#kvm" title="Permanent link">&para;</a></h2>
-<p>出现的错误类似于 <code>job failed with err -5 - Input/output error</code>。阅读主机 <code>dmesg</code>，会发现大量 <code>connection1:0: detected conn error (1020)</code>，以及标红的 ext4/块设备 I/O error 问题。测试发现备份会导致 iSCSI 间接性断连，诱发 I/O error，I/O error 有大概率导致主机上的容器/KVM 虚拟机磁盘进入 readonly 状态。</p>
+<p>出现的错误类似于 <code>job failed with err -5 - Input/output error</code>。阅读主机 dmesg，会发现大量 <code>connection1:0: detected conn error (1020)</code>，以及标红的 ext4/块设备 I/O error 问题。测试发现备份会导致 iSCSI 间接性断连，诱发 I/O error，I/O error 有大概率导致主机上的容器/KVM 虚拟机磁盘进入 readonly 状态。</p>
 <p>周末两天基本上都在排查这个问题，目前（2021/8/30 凌晨），我们得到的结论如下：</p>
 <ul>
 <li>这个问题是在集群升级到 PVE 7 后产生的。最早出现问题的记录在 8 月 21 日凌晨 01:08。</li>
@@ -1133,7 +1133,7 @@
 <p>目前的情况：</p>
 <ul>
 <li>pv1, pv8 的 <code>pve-qemu-kvm</code> 降级到了 <code>5.2.0-6</code>。其他软件（包括内核）版本不变。</li>
-<li>pbs 虚拟机迁移到 <code>pvg1</code>。</li>
+<li>pbs 虚拟机迁移到 pvg1。</li>
 </ul>
                 
               
