@@ -1050,6 +1050,20 @@
 <p>目前该虚拟机运行在 pv8 上，从 user-data 分配了 16 GB 的 rootfs（PBS 与 PVE 同样默认使用 LVM）和 128 GB 的数据盘，挂在 <code>/mnt/data</code> 下，对应的 Datastore 名称就叫 <code>data</code>。</p>
 <p>由于 PBS 不能加入 PVE 集群，只能添加为一个 Storage location，自然也无法使用 PVE 的账号系统。我们目前的做法是每次需要登录 web 界面时先 SSH 上去将 root 密码改掉，然后使用 root 登录，在操作完成后再 <code>passwd -d root</code>。</p>
                 
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2021</span>
+      
+    
+  </small>
+</div>
+                  
+                
               
               
                 
