@@ -109,19 +109,18 @@ nav:
     - 打包虚拟机镜像: workflow/pack-vm-image.md
     - 打包 Windows 镜像: workflow/pack-windows-image.md
     - 杂项: workflow/miscellaneous.md
-  - 参考资料:
-    - desktop 桌面图标文件: references/desktop.md
-    - 统一身份认证: references/ustccas.md
-    - Proxmox ID 分配表: references/pve-ids.md
   - 其他资料:
+    - 参考资料:
+      - desktop 桌面图标文件: references/desktop.md
+      - 统一身份认证: references/ustccas.md
+      - Proxmox ID 分配表: references/pve-ids.md
     - 踩坑记录: traps.md
     - 更新历史: changelog.md
     - 工作总结:
-      - 2020 年 3 月 31 日: records/2020-03-31.md
-      - 2020 年 8 月 1 日: records/2020-08-01.md
-      - 2021 年 3 月 18 日: records/2021-03-18.md
-      - 2021 年 6 月 13 日: records/2021-06-13.md
-      - 2021 年 8 月 21 日: records/2021-08-21.md
       - 2021 年 8 月 28 日: records/2021-08-28.md
-    - 历史版本:
-      - 第一代: history/gen1.md
+      - 2021 年 8 月 21 日: records/2021-08-21.md
+      - 2021 年 6 月 13 日: records/2021-06-13.md
+      - 2021 年 3 月 18 日: records/2021-03-18.md
+      - 2020 年 8 月 1 日: records/2020-08-01.md
+      - 2020 年 3 月 31 日: records/2020-03-31.md
+    - 历史版本: history/gen1.md

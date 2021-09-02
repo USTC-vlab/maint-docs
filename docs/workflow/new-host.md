@@ -1,6 +1,6 @@
 # 配置新主机并加入集群
 
-使用 U 盘安装好 Proxmox VE，主机名为 `pv#.vlab.ustc.edu.cn`（Proxmox 安装程序要求，装好后可以改），其中 `#` 为数字或其他标记，手动递增。
+使用 U 盘安装好 Proxmox VE，主机名为 `pv#.ibuglab.com`（Proxmox 安装程序要求，装好后可以改），其中 `#` 为数字或其他标记，手动递增。
 
 ## 远程访问
 
@@ -32,7 +32,7 @@ deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 
 - Vim 宇宙第一文本编辑器
 - Htop 任务管理器
-- iptables-persistent 用于保存 iptables 配置
+- iptables-persistent 和 ipset-persistent 用于保存 iptables 配置
 - ipmitool 用于维护 IPMI，**使用最简安装（即 `--no-install-recommends`）**
 
 ## 配置网卡
@@ -41,18 +41,35 @@ deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 
 ## 配置防火墙
 
-需要安装 `iptables-persistent` 软件包。将[防火墙](../networking/firewall.md)一页给出的脚本保存为 `iptables.sh` 并运行。
+需要安装 `iptables-persistent` 和 `ipset-persistent` 软件包，从另一台主机上复制 `/etc/iptables` 目录，修改相关文件中的网卡名称（如有需要）并重启 `netfilter-persistent.service`。
 
 ## 挂载存储服务器
 
 使用 iSCSI 命令行管理工具
 
 ```shell
-iscsiadm -m discover
-iscsiadm -d2 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login
+iscsiadm -m discovery
+iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login
 ```
 
 存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。
+
+### 更新 open-iscsi.service
+
+open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是由于我们的存储设施在一个链路上暴露了两个端口（IP 地址），直接使用该服务会导致存储被挂载两遍，后面 LVM 会产生更多的警告或错误信息。
+
+我们没有找到一个“原生”的解决办法，所以我们直接修改服务（使用 `systemctl edit` 或手动添加 override.conf 文件）：
+
+```dosini
+[Service]
+ExecStart=
+ExecStart=/sbin/iscsiadm -d8 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login 
+ExecStart=/lib/open-iscsi/activate-storage.sh
+```
+
+注意把中间那行后面的 IP 地址换掉（如果需要）。
+
+这是一个 oneshot 类型的服务，所以修改之后就放着不用动了，下次开机时会自动应用。
 
 ## 挂载 NFS 镜像共享
 
