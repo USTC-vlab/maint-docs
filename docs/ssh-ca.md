@@ -13,10 +13,10 @@ CA 公钥：
 可以在服务器上直接使用 Wget 或 cURL 获取：
 
 ```shell
-wget -O /etc/ssh/ssh_user_ca https://vlab.pages.dev/assets/vlab_ca.pub
+wget -O /etc/ssh/ssh_user_ca https://vlab.ibugone.com/assets/vlab_ca.pub
 ```
 
-`sshd_config` 相关配置：
+然后准备 `/etc/ssh/sshd_config.d/vlab.conf`：
 
 ```conf
 HostKey /etc/ssh/ssh_host_rsa_key
@@ -24,9 +24,7 @@ HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
 TrustedUserCAKeys /etc/ssh/ssh_user_ca
 
 AuthorizedKeysFile /dev/null  # 屏蔽不带证书的公钥认证
-
 PermitRootLogin prohibit-password
-
 PasswordAuthentication no
 ```
 
@@ -43,7 +41,7 @@ PasswordAuthentication no
 可以在虚拟机中直接使用 Wget 或 cURL 获取：
 
 ```shell
-wget -O /etc/ssh/ssh_user_ca https://vlab.pages.dev/assets/vlab_user_ca.pub
+wget -O /etc/ssh/ssh_user_ca https://vlab.ibugone.com/assets/vlab_user_ca.pub
 ```
 
 将 CA 添加至容器或虚拟机的操作与上面类似，但是不需要对主机公钥进行签名，因此只需要
@@ -54,3 +52,5 @@ wget -O /etc/ssh/ssh_user_ca https://vlab.pages.dev/assets/vlab_user_ca.pub
     ```
     TrustedUserCAKeys /etc/ssh/ssh_user_ca
     ```
+
+    注意使用 `sshd_config.d` 前要确认软件包提供的 `sshd_config` 包含了 Include 语句，否则请直接修改 `sshd_config`。

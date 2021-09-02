@@ -1,7 +1,7 @@
 site_name: "Vlab 维护文档"
 site_description: "Vlab 维护文档"
 site_author: 'iBug'
-site_url: 'https://vlab.ibugone.com/'
+site_url: 'https://vlab.ibugone.com'
 
 # Repository
 repo_name: 'USTC-vlab/maint-docs'

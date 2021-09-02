@@ -70,7 +70,7 @@
 
     配置并打包好了 Ubuntu 20.04 的镜像，暂时以编号 99 提供
 
-[3 月 31 日](records/2 020-03-31.md)
+[3 月 31 日](records/2020-03-31.md)
 
 :   向 pv0 加装了 32 GB 内存，向 pv2~pv8 加装了 64 GB 内存，向 pv2~pv5 加装了 Netronome Agilio 系列网卡
 
