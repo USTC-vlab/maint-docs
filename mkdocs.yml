@@ -42,10 +42,6 @@ plugins:
   - search
   - git-revision-date-localized:
       fallback_to_build_date: true
-  - git-authors:
-      show_contribution: true
-      show_line_count: true
-      fallback_to_empty: true
 
 # Customization
 extra:
