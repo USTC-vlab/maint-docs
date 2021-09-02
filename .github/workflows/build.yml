@@ -19,28 +19,14 @@ jobs:
         : > site/.nojekyll
         echo -n 'vlab.ibugone.com' > site/CNAME
     - name: Deploy to GitHub Pages
-      env:
-        DEPLOY_REPOSITORY: iBug/vlab-maint-docs
-        SSH_KEY_E: ${{ secrets.SSH_KEY_E }}
       run: |
-        # Prepare SSH Key
-        if [ -z "$SSH_KEY_E" ]; then
-          echo 'No $SSH_KEY_E given, cannot continue.' >&2
-          exit 1
-        fi
-        mkdir -p ~/.ssh || exit 2
-        base64 -d <<< "$SSH_KEY_E" | gunzip -c > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa'
-
         # Clone and deploy
         git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
-          "git@github.com:${DEPLOY_REPOSITORY}.git" test
+          "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" test
         mv test/.git site/.git && rmdir test/
-        git push "git@github.com:${DEPLOY_REPOSITORY}.git" +HEAD:master
         pushd site/ &>/dev/null
         git add -A
         git -c user.name=GitHub -c user.email=noreply@github.com commit \
-          -m "Auto deploy from GitHub Actions build ${GITHUB_RUN_NUMBER}"
+          -m "Auto deploy from GitHub Actions build ${{ github.run_number }}"
         git push
         popd &>/dev/null
