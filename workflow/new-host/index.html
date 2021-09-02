@@ -1208,7 +1208,7 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span clas
 <p>我们没有找到一个“原生”的解决办法，所以我们直接修改服务（使用 <code>systemctl edit</code> 或手动添加 override.conf 文件）：</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">ExecStart</span><span class="o">=</span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/sbin/iscsiadm -d8 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.201:3260 --login </span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/sbin/iscsiadm -d8 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login </span>
 <span class="na">ExecStart</span><span class="o">=</span><span class="s">/lib/open-iscsi/activate-storage.sh</span>
 </code></pre></div>
 <p>注意把中间那行后面的 IP 地址换掉（如果需要）。</p>
