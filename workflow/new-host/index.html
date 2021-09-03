@@ -1199,10 +1199,11 @@ deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 <p>需要安装 <code>iptables-persistent</code> 和 <code>ipset-persistent</code> 软件包，从另一台主机上复制 <code>/etc/iptables</code> 目录，修改相关文件中的网卡名称（如有需要）并重启 <code>netfilter-persistent.service</code>。</p>
 <h2 id="_7">挂载存储服务器<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>使用 iSCSI 命令行管理工具</p>
-<div class="highlight"><pre><span></span><code>iscsiadm -m discovery
+<div class="highlight"><pre><span></span><code>iscsiadm -m discovery -t sendtargets -p <span class="m">10</span>.0.0.200
 iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span class="m">10</span>.0.0.200 --login
 </code></pre></div>
 <p>存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。</p>
+<p>第一步（<code>-t sendtargets</code>）操作完成后需要进入 <code>/etc/iscsi/nodes/iqn.2015-11.com.hpe:storage.msa1050.1840436ed4</code> 删掉多余的资料，只保留第二步选定的那个 IP 对应的目录。</p>
 <h3 id="open-iscsiservice">更新 open-iscsi.service<a class="headerlink" href="#open-iscsiservice" title="Permanent link">&para;</a></h3>
 <p>open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是由于我们的存储设施在一个链路上暴露了两个端口（IP 地址），直接使用该服务会导致存储被挂载两遍，后面 LVM 会产生更多的警告或错误信息。</p>
 <p>我们没有找到一个“原生”的解决办法，所以我们直接修改服务（使用 <code>systemctl edit</code> 或手动添加 override.conf 文件）：</p>
@@ -1226,7 +1227,7 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span clas
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 3, 2021</span>
       
     
   </small>
