@@ -56,6 +56,8 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200
 
 第一步（`-t sendtargets`）操作完成后需要进入 `/etc/iscsi/nodes/iqn.2015-11.com.hpe:storage.msa1050.1840436ed4` 删掉多余的资料，只保留第二步选定的那个 IP 对应的目录。
 
+挂载看到 iSCSI 的卷之后，进入存储服务器的管理页面，选 Hosts，为刚才新增的那个主机补上名称。IQN 可以看主机里的 `/etc/iscsi/initiatorname.iscsi` 文件来确认。
+
 ### 更新 open-iscsi.service
 
 open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是由于我们的存储设施在一个链路上暴露了两个端口（IP 地址），直接使用该服务会导致存储被挂载两遍，后面 LVM 会产生更多的警告或错误信息。
