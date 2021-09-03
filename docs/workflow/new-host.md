@@ -48,11 +48,13 @@ deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 使用 iSCSI 命令行管理工具
 
 ```shell
-iscsiadm -m discovery
+iscsiadm -m discovery -t sendtargets -p 10.0.0.200
 iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login
 ```
 
 存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。
+
+第一步（`-t sendtargets`）操作完成后需要进入 `/etc/iscsi/nodes/iqn.2015-11.com.hpe:storage.msa1050.1840436ed4` 删掉多余的资料，只保留第二步选定的那个 IP 对应的目录。
 
 ### 更新 open-iscsi.service
 
