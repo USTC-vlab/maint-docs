@@ -119,7 +119,6 @@ vgscan
 vgchange -ay pve/root
 mount /dev/pve/root /mnt
 mount -o rbind /run /mnt/run  # For systemd-udevd
-mount -o bind /tmp /mnt/tmp   # For systemd-udevd
 chroot /mnt
 mount -t devtmpfs devtmpfs dev
 mount -t proc proc proc
@@ -312,14 +311,14 @@ Docker 需要获取到 kernel session key 才能正常运行。首先查看 `/pr
 
 `root_maxbytes` 和 `root_maxkeys` 一般都非常大（见 `key-users` 的第一行），可以不用管。
 
-如果需要持久化配置，需要编辑 `/etc/sysctl.conf`，添加：
+如果需要持久化配置，请添加 `/etc/sysctl.d/20-keys.conf`，写入下面的内容：
 
 ```ini
 kernel.keys.maxbytes = 500000
 kernel.keys.maxkeys = 5000
 ```
 
-然后 `sysctl --system`。
+然后执行 `sysctl --system`。
 
 ### Docker in LXC 启动失败 (Proxmox VE 7)
 
