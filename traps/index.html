@@ -1549,7 +1549,6 @@
 vgchange -ay pve/root
 mount /dev/pve/root /mnt
 mount -o rbind /run /mnt/run  <span class="c1"># For systemd-udevd</span>
-mount -o <span class="nb">bind</span> /tmp /mnt/tmp   <span class="c1"># For systemd-udevd</span>
 chroot /mnt
 mount -t devtmpfs devtmpfs dev
 mount -t proc proc proc
@@ -1688,11 +1687,11 @@ chown <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2"
 </ul>
 <p>注意最后两列。如果出现很贴近限额的情况，需要调整 <code>/proc/sys/kernel/keys/maxbytes</code> 和 <code>/proc/sys/kernel/keys/maxkeys</code> 的值。root 下 echo 一个更大的数进去即可。</p>
 <p><code>root_maxbytes</code> 和 <code>root_maxkeys</code> 一般都非常大（见 <code>key-users</code> 的第一行），可以不用管。</p>
-<p>如果需要持久化配置，需要编辑 <code>/etc/sysctl.conf</code>，添加：</p>
+<p>如果需要持久化配置，请添加 <code>/etc/sysctl.d/20-keys.conf</code>，写入下面的内容：</p>
 <div class="highlight"><pre><span></span><code><span class="na">kernel.keys.maxbytes</span> <span class="o">=</span> <span class="s">500000</span>
 <span class="na">kernel.keys.maxkeys</span> <span class="o">=</span> <span class="s">5000</span>
 </code></pre></div>
-<p>然后 <code>sysctl --system</code>。</p>
+<p>然后执行 <code>sysctl --system</code>。</p>
 <h3 id="docker-in-lxc-proxmox-ve-7">Docker in LXC 启动失败 (Proxmox VE 7)<a class="headerlink" href="#docker-in-lxc-proxmox-ve-7" title="Permanent link">&para;</a></h3>
 <p>从 Proxmox VE 6 升级到 Proxmox VE 7 后配置了 <code>keyctl=1,nesting=1</code> 的容器无法启动 <code>docker.service</code>，journalctl 输出有 <code>Devices cgroup isn't mounted</code>。</p>
 <p><strong>原因：</strong>Proxmox VE 7 默认开启了 unified cgroup hierarchy（即 cgroup v2），而旧版本的 Docker 需要原来的 cgroup v1 结构。</p>
@@ -1726,7 +1725,7 @@ chown <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2"
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 18, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 7, 2021</span>
       
     
   </small>
