@@ -352,6 +352,10 @@ fs.inotify.max_user_watches = 1048576
 
 更详细的指导参见 <https://www.suse.com/support/kb/doc/?id=000015901>
 
+### 使用 Ubuntu cloud-image 镜像 import 的虚拟机启动卡死
+
+解决方法：手动挂载（`lvchange -y -ay 磁盘名`），使用 `fdisk -l` 检查分区表是否有问题。如果有（提示 The primary GPT table is corrupt, but the backup appears OK, so that will be used），使用 `fdisk` 打开，`w` 写入备份分区表。
+
 ## HPE 服务器 IPMI（HPE iLO）
 
 HPE iLO 固件下载（官方链接，免登录）：<https://pingtool.org/latest-hp-ilo-firmwares/>
