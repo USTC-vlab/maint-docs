@@ -354,7 +354,7 @@ fs.inotify.max_user_watches = 1048576
 
 ### 使用 Ubuntu cloud-image 镜像 import 的虚拟机启动卡死
 
-解决方法：手动挂载（`lvchange -y -ay 磁盘名`），使用 `fdisk -l` 检查分区表是否有问题。如果有（提示 The primary GPT table is corrupt, but the backup appears OK, so that will be used），使用 `fdisk` 打开，`w` 写入备份分区表。
+解决方法：手动挂载（`lvchange -ay 磁盘名`），使用 `fdisk -l` 检查分区表是否有问题。如果有（提示 The primary GPT table is corrupt, but the backup appears OK, so that will be used），使用 `fdisk` 打开，再执行 `w` 利用备份分区表写入修复。
 
 ## HPE 服务器 IPMI（HPE iLO）
 
