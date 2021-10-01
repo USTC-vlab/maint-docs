@@ -1379,7 +1379,7 @@ ln -s libtinfo.so.6 libtinfo.so.5
 <p>只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 <code>ssh -L</code> 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。</p>
 <p>LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logout 能用就基本 OK 了。</p>
 <h2 id="pre-packaging">四、打包前的工作<a class="headerlink" href="#pre-packaging" title="Permanent link">&para;</a></h2>
-<p>其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：（假设挂载点为 <code>$MOUNT</code>）</p>
+<p>其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：（假设容器镜像的挂载点为/解压到了 <code>$MOUNT</code>）</p>
 <ul>
 <li><strong><code>$MOUNT/etc/ssh</code></strong>：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对</li>
 <li><strong><code>$MOUNT/run</code>, <code>$MOUNT/tmp</code>, <code>$MOUNT/var/{backups,cache,crash,log,tmp}</code></strong>：全部清空，注意 <code>$MOUNT/tmp</code>, <code>$MOUNT/var/crash</code> 和 <code>$MOUNT/var/tmp</code> 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。</li>
