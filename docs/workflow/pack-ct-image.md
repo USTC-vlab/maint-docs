@@ -43,6 +43,15 @@ Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像�
 - Xfce 的小玩意 `xfce-goodies`，这个包会带上记事本计算器等小工具
 - `ibus-pinyin` 或 `fcitx-libpinyin` 并配置好，作为默认的中文拼音输入法
 - `fonts-droid-fallback` 或 `fonts-wqy-microhei` 作为中文字体。不要安装 `fonts-noto-sans` 等字体，它们太大了
+- **重要：`libncurses5`，Vivado 需要它**
+
+    另一个办法是，进入 `/lib/x86_64-linux-gnu/` 目录，将 `libncurses.so.5` 软链接到 `libncurses.so.6`，同样也链接一下 `libtinfo.so.5` 即可。
+
+    ```shell
+    cd /lib/x86_64-linux-gnu/
+    ln -s libncurses.so.6 libncurses.so.5
+    ln -s libtinfo.so.6 libtinfo.so.5
+    ```
 
 由于桌面环境经常附带一堆用不上的东西，所以打包前多花点时间清理。
 
