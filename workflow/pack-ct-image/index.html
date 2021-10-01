@@ -1342,6 +1342,14 @@
 <li>Xfce 的小玩意 <code>xfce-goodies</code>，这个包会带上记事本计算器等小工具</li>
 <li><code>ibus-pinyin</code> 或 <code>fcitx-libpinyin</code> 并配置好，作为默认的中文拼音输入法</li>
 <li><code>fonts-droid-fallback</code> 或 <code>fonts-wqy-microhei</code> 作为中文字体。不要安装 <code>fonts-noto-sans</code> 等字体，它们太大了</li>
+<li>
+<p><strong>重要：<code>libncurses5</code>，Vivado 需要它</strong></p>
+<p>另一个办法是，进入 <code>/lib/x86_64-linux-gnu/</code> 目录，将 <code>libncurses.so.5</code> 软链接到 <code>libncurses.so.6</code>，同样也链接一下 <code>libtinfo.so.5</code> 即可。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /lib/x86_64-linux-gnu/
+ln -s libncurses.so.6 libncurses.so.5
+ln -s libtinfo.so.6 libtinfo.so.5
+</code></pre></div>
+</li>
 </ul>
 <p>由于桌面环境经常附带一堆用不上的东西，所以打包前多花点时间清理。</p>
 <h3 id="vlab-software">配置 Vlab Software<a class="headerlink" href="#vlab-software" title="Permanent link">&para;</a></h3>
