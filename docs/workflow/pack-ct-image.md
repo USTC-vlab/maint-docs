@@ -103,7 +103,7 @@ LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logou
 
 ## 四、打包前的工作 {#pre-packaging}
 
-其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：（假设挂载点为 `$MOUNT`）
+其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：（假设容器镜像的挂载点为/解压到了 `$MOUNT`）
 
 - **`$MOUNT/etc/ssh`**：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对
 - **`$MOUNT/run`, `$MOUNT/tmp`, `$MOUNT/var/{backups,cache,crash,log,tmp}`**：全部清空，注意 `$MOUNT/tmp`, `$MOUNT/var/crash` 和 `$MOUNT/var/tmp` 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。
