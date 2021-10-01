@@ -96,11 +96,13 @@ LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logou
 
 其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：
 
-- **`/etc/ssh`**：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对
-- **`/run`, `/tmp`, `/var/{backups,cache,crash,log,tmp}`**：全部清空，注意 `/tmp`, `/var/crash` 和 `/var/tmp` 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。
-- **`/root` 和 `/home/<user>`**：把 `.bash_history` 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 `.config`）。
+- **`挂载点/etc/ssh`**：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对
+- **`挂载点/run`, `挂载点/tmp`, `挂载点/var/{backups,cache,crash,log,tmp}`**：全部清空，注意 `挂载点/tmp`, `挂载点/var/crash` 和 `挂载点/var/tmp` 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。
+- **`挂载点/root` 和 `挂载点/home/<user>`**：把 `.bash_history` 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 `.config`）。
 
-对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 `apt-get clean`，也可以手动清空 `/var/lib/apt/lists` 目录。
+**清理的时候务必看清楚，不要把 host 的文件删了！**
+
+对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 `apt-get clean`，也可以手动清空 `挂载点/var/lib/apt/lists` 目录。
 
 当然清理之前要把容器关机了，不然 tmp 和 cache 之类的东西还会源源不断地冒出来。
 
