@@ -1379,15 +1379,15 @@ ln -s libtinfo.so.6 libtinfo.so.5
 <p>只接入内网的容器中转发什么的比较麻烦（如果你会用 SSH 转发 <code>ssh -L</code> 的话当然也可以），这里提供一个使用 VNC 统一登录的办法，就是自己创建一个虚拟机，记录下 IP 之后关机，再把 IP 切换到正在安装配置的这个容器上，就可以使用 VNC 统一登录了。</p>
 <p>LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logout 能用就基本 OK 了。</p>
 <h2 id="pre-packaging">四、打包前的工作<a class="headerlink" href="#pre-packaging" title="Permanent link">&para;</a></h2>
-<p>其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：（假设挂载到了 <code>/tmp/image</code>）</p>
+<p>其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：（假设挂载点为 <code>$MOUNT</code>）</p>
 <ul>
-<li><strong><code>/tmp/image/etc/ssh</code></strong>：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对</li>
-<li><strong><code>/tmp/image/run</code>, <code>/tmp/image/tmp</code>, <code>/tmp/image/var/{backups,cache,crash,log,tmp}</code></strong>：全部清空，注意 <code>/tmp/image/tmp</code>, <code>/tmp/image/var/crash</code> 和 <code>/tmp/image/var/tmp</code> 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。</li>
-<li><strong><code>/tmp/image/root</code> 和 <code>/tmp/image/home/&lt;user&gt;</code></strong>：把 <code>.bash_history</code> 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 <code>.config</code>）。</li>
-<li><strong><code>/tmp/image/var/spool/postfix/dev</code> 和 <code>/tmp/image/dev</code></strong>：否则新建容器时可能会出错。</li>
+<li><strong><code>$MOUNT/etc/ssh</code></strong>：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对</li>
+<li><strong><code>$MOUNT/run</code>, <code>$MOUNT/tmp</code>, <code>$MOUNT/var/{backups,cache,crash,log,tmp}</code></strong>：全部清空，注意 <code>$MOUNT/tmp</code>, <code>$MOUNT/var/crash</code> 和 <code>$MOUNT/var/tmp</code> 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。</li>
+<li><strong><code>$MOUNT/root</code> 和 <code>$MOUNT/home/&lt;user&gt;</code></strong>：把 <code>.bash_history</code> 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 <code>.config</code>）。</li>
+<li><strong><code>$MOUNT/var/spool/postfix/dev</code> 和 <code>$MOUNT/dev</code></strong>：否则新建容器时可能会出错。</li>
 </ul>
 <p><strong>清理的时候切换目录时请勿使用绝对路径，并且务必看清楚，不要把 host 的文件删了！</strong></p>
-<p>对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 <code>apt-get clean</code>，也可以手动清空 <code>/tmp/image/var/lib/apt/lists</code> 目录。</p>
+<p>对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 <code>apt-get clean</code>，也可以手动清空 <code>$MOUNT/var/lib/apt/lists</code> 目录。</p>
 <p>当然清理之前要把容器关机了，不然 tmp 和 cache 之类的东西还会源源不断地冒出来。</p>
 <h2 id="packaging">五、打包<a class="headerlink" href="#packaging" title="Permanent link">&para;</a></h2>
 <p>根据第一步创建容器时选择的存储，这里涉及到的 VG 可能是 <code>user-data</code> 或 <code>pve</code>。</p>
