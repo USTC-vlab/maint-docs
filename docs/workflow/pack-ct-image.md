@@ -94,15 +94,16 @@ LightDM 的关机重启功能无效是正常现象，放心忽略，只要 Logou
 
 ## 四、打包前的工作 {#pre-packaging}
 
-其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：
+其实就是清理工作，避免把不必要的内容打包进镜像。下面是一些需要清理的东西：（假设挂载到了 `/tmp/image`）
 
-- **`挂载点/etc/ssh`**：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对
-- **`挂载点/run`, `挂载点/tmp`, `挂载点/var/{backups,cache,crash,log,tmp}`**：全部清空，注意 `挂载点/tmp`, `挂载点/var/crash` 和 `挂载点/var/tmp` 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。
-- **`挂载点/root` 和 `挂载点/home/<user>`**：把 `.bash_history` 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 `.config`）。
+- **`/tmp/image/etc/ssh`**：将生成的 Host Key 全部删掉（如果有），这样创建新容器的时候可以生成新的主机密钥对
+- **`/tmp/image/run`, `/tmp/image/tmp`, `/tmp/image/var/{backups,cache,crash,log,tmp}`**：全部清空，注意 `/tmp/image/tmp`, `/tmp/image/var/crash` 和 `/tmp/image/var/tmp` 这三个目录的权限是 1777 (rwxrwxrwt)，其他目录权限都是 0755 (rwxr-xr-x)。
+- **`/tmp/image/root` 和 `/tmp/image/home/<user>`**：把 `.bash_history` 之类的文件都删掉，只留下最基本的内容（如果配置了桌面环境，谨慎清理 `.config`）。
+- **`/tmp/image/var/spool/postfix/dev` 和 `/tmp/image/dev`**：否则新建容器时可能会出错。
 
-**清理的时候务必看清楚，不要把 host 的文件删了！**
+**清理的时候切换目录时请勿使用绝对路径，并且务必看清楚，不要把 host 的文件删了！**
 
-对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 `apt-get clean`，也可以手动清空 `挂载点/var/lib/apt/lists` 目录。
+对于 Ubuntu/Debian 镜像，还（最好）要清除 apt 的缓存。可以使用 chroot 进入镜像运行 `apt-get clean`，也可以手动清空 `/tmp/image/var/lib/apt/lists` 目录。
 
 当然清理之前要把容器关机了，不然 tmp 和 cache 之类的东西还会源源不断地冒出来。
 
