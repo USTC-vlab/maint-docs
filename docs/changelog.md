@@ -12,6 +12,12 @@
 
 ### 2021 年
 
+10 月 22 日
+
+:   修复了 Grafana 显示的 VNC 在线时长每个月会有一个异常高峰的情况（MySQL 日期时间计算问题）。
+
+    原来使用的 SELECT 项目是 `SUM(disconnect_time - connect_time)`，改为 `SUM(TIME_TO_SEC(TIMEDIFF(disconnect_time, connect_time)))` 后正常了。
+
 10 月 1 日
 
 :   更新了 01 号镜像，升级了所有软件包，清理了多余的软件包，并将 apt 源换回了科大镜像站。
