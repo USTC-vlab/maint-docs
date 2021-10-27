@@ -356,6 +356,18 @@ fs.inotify.max_user_watches = 1048576
 
 解决方法：手动挂载（`lvchange -ay 磁盘名`），使用 `fdisk -l` 检查分区表是否有问题。如果有（提示 The primary GPT table is corrupt, but the backup appears OK, so that will be used），使用 `fdisk` 打开，再执行 `w` 利用备份分区表写入修复。
 
+## Web 及用户界面
+
+### 创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')
+
+查看 pv1 上的 `systemctl status pveproxy` 可见如下内容：
+
+```
+Oct 27 17:13:56 pv1 pveproxy[34382]: problem with client ::ffff:172.30.0.2; rsa_padding_check_pkcs1_type_1: invalid padding
+```
+
+**解决方法**：直接 reload django 应用即可，原因及复现方法未知。
+
 ## HPE 服务器 IPMI（HPE iLO）
 
 HPE iLO 固件下载（官方链接，免登录）：<https://pingtool.org/latest-hp-ilo-firmwares/>

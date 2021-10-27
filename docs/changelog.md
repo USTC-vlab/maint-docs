@@ -12,6 +12,10 @@
 
 ### 2021 年
 
+10 月 27 日
+
+:   `vlab.ustc.edu.cn` 配置的 [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) 从 1 小时升级至 1 周（`max-age=604800`）。
+
 10 月 22 日
 
 :   修复了 Grafana 显示的 VNC 在线时长每个月会有一个异常高峰的情况（MySQL 日期时间计算问题）。
