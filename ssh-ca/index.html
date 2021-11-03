@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ssh" class="md-skip">
+        <a href="#ssh-证书认证" class="md-skip">
           跳转至
         </a>
       
@@ -320,7 +320,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ca" class="md-nav__link">
+  <a href="#用户-ca" class="md-nav__link">
     用户 CA
   </a>
   
@@ -1164,7 +1164,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ca" class="md-nav__link">
+  <a href="#用户-ca" class="md-nav__link">
     用户 CA
   </a>
   
@@ -1187,7 +1187,7 @@
                   </a>
                 
                 
-                <h1 id="ssh">SSH 证书认证<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h1>
+                <h1 id="ssh-证书认证">SSH 证书认证<a class="headerlink" href="#ssh-证书认证" title="Permanent link">&para;</a></h1>
 <p>所有 Proxmox VE 主机及几个特殊容器（<a href="../servers/ct100/">CT100 gateway</a>，<a href="../servers/ct101/">CT101 web</a> 和其他 ID 为 1xx 的容器/虚拟机）的 SSH 登录均使用证书。</p>
 <p>关于 OpenSSH 的证书认证方式，可以参考 <a href="https://ibug.io/p/30">iBug 的博客</a>（英文）以及校 Linux 用户协会的<a href="https://docs.ustclug.org/infrastructure/sshca/">服务器维护文档</a>。</p>
 <p>CA 公钥：</p>
@@ -1205,7 +1205,7 @@ AuthorizedKeysFile /dev/null  # 屏蔽不带证书的公钥认证
 PermitRootLogin prohibit-password
 PasswordAuthentication no
 </code></pre></div>
-<h2 id="ca">用户 CA<a class="headerlink" href="#ca" title="Permanent link">&para;</a></h2>
+<h2 id="用户-ca">用户 CA<a class="headerlink" href="#用户-ca" title="Permanent link">&para;</a></h2>
 <p>由于 Proxmox VE 没有提供直接在容器内执行命令的 API，因此我们通过内嵌 SSH CA 的方式自己造个轮子。</p>
 <p>出于管理的考虑，用户 CA 和主机 CA 独立。公钥：</p>
 <div class="highlight"><pre><span></span><code>ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3ZHisQY0iMpUNDQNaxcnRSqDbauE8ih6/MrEENJZa7FHKINOPi+bunK1wEXPqlKfu8INEBWCf95+t86z+jXVxmQE176xenS92wiLvR4MZyCBfD5DXAB0mK5iV1eQug5P/cD8Pohr/3wywFbKgKzsix9unky9sJGr86RunSwJbAkMGlw== Vlab-User-CA

@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#打包容器镜像" class="md-skip">
           跳转至
         </a>
       
@@ -813,7 +813,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#vlab-software" class="md-nav__link">
+  <a href="#配置-vlab-software" class="md-nav__link">
     配置 Vlab Software
   </a>
   
@@ -1249,7 +1249,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#vlab-software" class="md-nav__link">
+  <a href="#配置-vlab-software" class="md-nav__link">
     配置 Vlab Software
   </a>
   
@@ -1311,7 +1311,7 @@
                   </a>
                 
                 
-                <h1 id="_1">打包容器镜像<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="打包容器镜像">打包容器镜像<a class="headerlink" href="#打包容器镜像" title="Permanent link">&para;</a></h1>
 <p>Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像不宜直接用于 Proxmox VE。基准镜像可以直接使用已有的 vlab 镜像（推荐），或者使用 <code>pveam</code> 命令从 Proxmox 官方下载。</p>
 <p>同样由于镜像内容的不一致以及下面提到的一些与网络相关的设置，尝试在自己的 LXC / LXD 环境中进行镜像的配置工作可能会遇到各种各样的困难，例如权限问题、网络问题等，因此我们直接在现有的 Proxmox 集群中操作就行了。</p>
 <p>打包的容器镜像应当在功能完整、追求开箱即用的情况下<strong>尽可能保持精简</strong>，例如 build-essential 可以安装，但是 Clang / LLVM 最好不要（</p>
@@ -1356,7 +1356,7 @@ ln -s libtinfo.so.6 libtinfo.so.5
 </li>
 </ul>
 <p>由于桌面环境经常附带一堆用不上的东西，所以打包前多花点时间清理。</p>
-<h3 id="vlab-software">配置 Vlab Software<a class="headerlink" href="#vlab-software" title="Permanent link">&para;</a></h3>
+<h3 id="配置-vlab-software">配置 Vlab Software<a class="headerlink" href="#配置-vlab-software" title="Permanent link">&para;</a></h3>
 <p>主文章：<a href="../../vlab-software/">Vlab Software</a></p>
 <p>取决于所安装的桌面环境，在 <code>/etc/xdg/menus</code> 下的某个 <code>.menu</code> 文件最后的关闭标签<strong>前</strong>插入如下内容：</p>
 <div class="highlight"><pre><span></span><code><span class="c">&lt;!-- Vlab --&gt;</span>

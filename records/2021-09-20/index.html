@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-9-20" class="md-skip">
+        <a href="#2021-年-9-月-20-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -1144,7 +1144,7 @@
                   </a>
                 
                 
-                <h1 id="2021-9-20">2021 年 9 月 20 日工作总结<a class="headerlink" href="#2021-9-20" title="Permanent link">&para;</a></h1>
+                <h1 id="2021-年-9-月-20-日工作总结">2021 年 9 月 20 日工作总结<a class="headerlink" href="#2021-年-9-月-20-日工作总结" title="Permanent link">&para;</a></h1>
 <p><strong>起因</strong>：通过 PVE 的 Web 界面查看集群状态，发现 pv4 的状态为问号，系统运行指标（CPU、内存等）折线图无法显示，各种虚拟机操作大量超时。</p>
 <p>SSH 登录 pv4 后先尝试运行 <code>apt upgrade</code>，在更新内核时卡在 <code>/etc/kernel/postinst.d/zz-update-grub</code> 一行，进一步排查发现 <code>grub-probe</code> 卡住，<code>lvs user-data</code> 出现 <code>giving up waiting for lock</code>，最终查到 iSCSI 存储掉线（但是过了一会它又自己恢复了）。</p>
 <p>考虑到<a href="../2021-08-28/">不到一个月前</a>才出现过由虚拟机备份触发的 iSCSI 错误，我们继续检查了 iSCSI 与网络问题。</p>

@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-8-21" class="md-skip">
+        <a href="#2021-年-8-月-21-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -1042,7 +1042,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#raid" class="md-nav__link">
+  <a href="#解除固态硬盘的-raid" class="md-nav__link">
     解除固态硬盘的 RAID
   </a>
   
@@ -1050,7 +1050,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rootfs-lvm-mirror" class="md-nav__link">
+  <a href="#缩小主机的-rootfs-并添加-lvm-mirror" class="md-nav__link">
     缩小主机的 rootfs 并添加 LVM mirror
   </a>
   
@@ -1062,21 +1062,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proxmox-ve-7" class="md-nav__link">
+  <a href="#升级至-proxmox-ve-7" class="md-nav__link">
     升级至 Proxmox VE 7
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#apt" class="md-nav__link">
+  <a href="#更换-apt-源至中科大镜像站及缩减用户磁盘空间" class="md-nav__link">
     更换 APT 源至中科大镜像站及缩减用户磁盘空间
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#其他" class="md-nav__link">
     其他
   </a>
   
@@ -1202,7 +1202,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#raid" class="md-nav__link">
+  <a href="#解除固态硬盘的-raid" class="md-nav__link">
     解除固态硬盘的 RAID
   </a>
   
@@ -1210,7 +1210,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rootfs-lvm-mirror" class="md-nav__link">
+  <a href="#缩小主机的-rootfs-并添加-lvm-mirror" class="md-nav__link">
     缩小主机的 rootfs 并添加 LVM mirror
   </a>
   
@@ -1222,21 +1222,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proxmox-ve-7" class="md-nav__link">
+  <a href="#升级至-proxmox-ve-7" class="md-nav__link">
     升级至 Proxmox VE 7
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#apt" class="md-nav__link">
+  <a href="#更换-apt-源至中科大镜像站及缩减用户磁盘空间" class="md-nav__link">
     更换 APT 源至中科大镜像站及缩减用户磁盘空间
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#其他" class="md-nav__link">
     其他
   </a>
   
@@ -1259,12 +1259,12 @@
                   </a>
                 
                 
-                <h1 id="2021-8-21">2021 年 8 月 21 日工作总结<a class="headerlink" href="#2021-8-21" title="Permanent link">&para;</a></h1>
-<h2 id="raid">解除固态硬盘的 RAID<a class="headerlink" href="#raid" title="Permanent link">&para;</a></h2>
+                <h1 id="2021-年-8-月-21-日工作总结">2021 年 8 月 21 日工作总结<a class="headerlink" href="#2021-年-8-月-21-日工作总结" title="Permanent link">&para;</a></h1>
+<h2 id="解除固态硬盘的-raid">解除固态硬盘的 RAID<a class="headerlink" href="#解除固态硬盘的-raid" title="Permanent link">&para;</a></h2>
 <p>重启前先装 <code>mdadm</code>。</p>
 <p>可以在 IPMI KVM 中操作。重启后出现提示界面时按 F9 进入 HPE UEFI 设置页面。设置页面可以使用鼠标操作，选择 RAID 1，在控制器设置的 manage arrays 中找到 delete array 解除阵列。</p>
 <p>解除后，需要挂载 iso（HPE IPMI 不支持 DNS，所以目前使用 iBug 的内网小机器，地址为 <a href="https://10.38.79.2/iso/">https://10.38.79.2/iso/</a>，在其中选择适用的 Debian 版本挂载）。</p>
-<h3 id="rootfs-lvm-mirror">缩小主机的 rootfs 并添加 LVM mirror<a class="headerlink" href="#rootfs-lvm-mirror" title="Permanent link">&para;</a></h3>
+<h3 id="缩小主机的-rootfs-并添加-lvm-mirror">缩小主机的 rootfs 并添加 LVM mirror<a class="headerlink" href="#缩小主机的-rootfs-并添加-lvm-mirror" title="Permanent link">&para;</a></h3>
 <p>参考 <a href="https://ibug.io/p/44">iBug 的博客</a>。</p>
 <p>主要几步（假设拆完之后是 <code>/dev/sda</code> 和 <code>/dev/sdb</code>）：</p>
 <ol>
@@ -1277,7 +1277,7 @@
 <li><code>lvconvert -m1 pve/root</code>，设置 rootfs 为 RAID 1.</li>
 <li>按照 <a href="https://ibug.io/blog/2021/08/proxmox-disassemble-hardware-raid1/#fix-grub">https://ibug.io/blog/2021/08/proxmox-disassemble-hardware-raid1/#fix-grub</a> 的说明挂载必要的卷，然后 <code>chroot</code> 进入 rootfs。安装 <code>grub-efi</code> 后运行 <code>grub-install</code>。<strong>请确保 LiveCD Debian 和系统 Debian 版本尽可能一致，否则可能会无法引导。（例如，使用 Debian 11 ISO 跑 Debian 10 grub-install 会出现关于 efi variables 的错误，导致安装失败）</strong>。如果还是无法引导，<code>/dev/sda1</code> 和 <code>/dev/sdb1</code> 都分别挂到 <code>/boot/efi</code>，然后跑 <code>grub-install</code> 试试。</li>
 </ol>
-<h2 id="proxmox-ve-7">升级至 Proxmox VE 7<a class="headerlink" href="#proxmox-ve-7" title="Permanent link">&para;</a></h2>
+<h2 id="升级至-proxmox-ve-7">升级至 Proxmox VE 7<a class="headerlink" href="#升级至-proxmox-ve-7" title="Permanent link">&para;</a></h2>
 <p>PVE 做得很好，升级过程跟 Debian 体验完全一致，可以参考 <a href="https://www.debian.org/releases/bullseye/amd64/release-notes/ch-upgrading.en.html">Debian 10 升级到 11</a> 的文档模仿操作。</p>
 <p>更新过程中需要注意一些配置文件：</p>
 <ul>
@@ -1304,7 +1304,7 @@ AuthorizedKeysFile /dev/null
 </li>
 </ul>
 <p>其他可以覆盖，能拆分出来、不修改包管理器提供的文件的就尽量拆出来，例如把 sysctl 设置放进 <code>/etc/sysctl.d</code> 里而不是直接修改 <code>sysctl.conf</code>，诸如此类。</p>
-<h2 id="apt">更换 APT 源至中科大镜像站及缩减用户磁盘空间<a class="headerlink" href="#apt" title="Permanent link">&para;</a></h2>
+<h2 id="更换-apt-源至中科大镜像站及缩减用户磁盘空间">更换 APT 源至中科大镜像站及缩减用户磁盘空间<a class="headerlink" href="#更换-apt-源至中科大镜像站及缩减用户磁盘空间" title="Permanent link">&para;</a></h2>
 <p>更换 APT 源比较简单，挂载磁盘然后跑一下 <code>sed</code> 即可。</p>
 <p>同时由于我们使用 /opt/vlab 来提供各种容量较大的实验软件，新虚拟机的磁盘使用量只有不到 3.5 GB，因此我们再次将新虚拟机的磁盘容量下调到 16 GB。由于 LVM 的空间比较紧张了（使用量 &gt; 70%），我们还 retroactively 将现有容器的磁盘统一缩减。缩减方案是实际占用量小于 12 GB（12288 MB）的缩减为 16 GB，实际占用量小于 24 GB 的缩减为 32 GB，大于 24 GB 的不动。</p>
 <p>缩减磁盘空间操作比较复杂，大致过程与处理主机的 rootfs 一样，先 resize2fs 小一点，然后 lvresize 改分区，再 resize2fs 扩充回来。但是出于未知原因 e2fsck 会报下面这个错误，因此操作前需要额外加一个 tune2fs，具体过程见下附的批处理脚本。</p>
@@ -1366,7 +1366,7 @@ work<span class="o">()</span> <span class="o">{</span>
 <span class="k">done</span>
 </code></pre></div>
 </details>
-<h2 id="_1">其他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="其他">其他<a class="headerlink" href="#其他" title="Permanent link">&para;</a></h2>
 <ul>
 <li>将用户内网 VXLAN ID 改为 1（原来是 10，因为创建的命令是网上随便抄来的），对应界面名称改为 vxlan1，方便识别和辨认</li>
 <li>将内部设施使用的管理网络划分出一个单独的 VXLAN（ID 2），命名为 vxlan2，桥接为 vmbr2（IP 地址是 172.30.0.1/24 没变）</li>

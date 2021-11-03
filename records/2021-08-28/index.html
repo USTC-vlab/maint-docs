@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-8-28" class="md-skip">
+        <a href="#2021-年-8-月-28-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -1028,14 +1028,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#容器备份错误" class="md-nav__link">
     容器备份错误
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kvm" class="md-nav__link">
+  <a href="#kvm-虚拟机备份错误" class="md-nav__link">
     KVM 虚拟机备份错误
   </a>
   
@@ -1175,14 +1175,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#容器备份错误" class="md-nav__link">
     容器备份错误
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kvm" class="md-nav__link">
+  <a href="#kvm-虚拟机备份错误" class="md-nav__link">
     KVM 虚拟机备份错误
   </a>
   
@@ -1205,16 +1205,16 @@
                   </a>
                 
                 
-                <h1 id="2021-8-28">2021 年 8 月 28 日工作总结<a class="headerlink" href="#2021-8-28" title="Permanent link">&para;</a></h1>
+                <h1 id="2021-年-8-月-28-日工作总结">2021 年 8 月 28 日工作总结<a class="headerlink" href="#2021-年-8-月-28-日工作总结" title="Permanent link">&para;</a></h1>
 <p>本周末的工作是解决 <code>vzdump</code> 备份的相关问题。在 8 月 21 日后，我们发现每周备份开始出现问题。</p>
-<h2 id="_1">容器备份错误<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="容器备份错误">容器备份错误<a class="headerlink" href="#容器备份错误" title="Permanent link">&para;</a></h2>
 <p>出现的错误类似于 <code>command 'rsync ...' failed: exit code 11</code>。</p>
 <p>解决方法：<code>vzdump</code> 会先 rsync 容器的 rootfs 到 <code>/var/tmp</code>，而在缩减主机 rootfs 的大小之后，剩余空间不足以承载容器的 rootfs。所以新开一个 LVM 卷挂载到 <code>/var/tmp</code>。</p>
 <div class="admonition warning">
 <p class="admonition-title">tmpfs 无法解决问题</p>
 <p>容器里 Docker overlay 需要 userxattr，tmpfs 不支持这个特性，会导致备份失败。</p>
 </div>
-<h2 id="kvm">KVM 虚拟机备份错误<a class="headerlink" href="#kvm" title="Permanent link">&para;</a></h2>
+<h2 id="kvm-虚拟机备份错误">KVM 虚拟机备份错误<a class="headerlink" href="#kvm-虚拟机备份错误" title="Permanent link">&para;</a></h2>
 <p>出现的错误类似于 <code>job failed with err -5 - Input/output error</code>。阅读主机 dmesg，会发现大量 <code>connection1:0: detected conn error (1020)</code>，以及标红的 ext4/块设备 I/O error 问题。测试发现备份会导致 iSCSI 间接性断连，诱发 I/O error，I/O error 有大概率导致主机上的容器/KVM 虚拟机磁盘进入 readonly 状态。</p>
 <p>周末两天基本上都在排查这个问题，目前（2021/8/30 凌晨），我们得到的结论如下：</p>
 <ul>

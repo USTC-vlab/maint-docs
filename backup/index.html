@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#备份" class="md-skip">
           跳转至
         </a>
       
@@ -1140,7 +1140,7 @@
                   </a>
                 
                 
-                <h1 id="_1">备份<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="备份">备份<a class="headerlink" href="#备份" title="Permanent link">&para;</a></h1>
 <p>我们配置了一个虚拟机（pbs，ID 为 104）安装 Proxmox Backup Server 提供虚拟机的备份服务。</p>
 <p>目前该虚拟机运行在 pv8 上，从 user-data 分配了 16 GB 的 rootfs（PBS 与 PVE 同样默认使用 LVM）和 128 GB 的数据盘，挂在 <code>/mnt/data</code> 下，对应的 Datastore 名称就叫 <code>data</code>。</p>
 <p>由于 PBS 不能加入 PVE 集群，只能添加为一个 Storage location，自然也无法使用 PVE 的账号系统。我们目前的做法是每次需要登录 web 界面时先 SSH 上去将 root 密码改掉，然后使用 root 登录，在操作完成后再 <code>passwd -d root</code>。</p>

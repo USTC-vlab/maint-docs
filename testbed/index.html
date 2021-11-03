@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#测试环境" class="md-skip">
           跳转至
         </a>
       
@@ -727,14 +727,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#与生产环境的比较" class="md-nav__link">
     与生产环境的比较
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#与生产环境的联系" class="md-nav__link">
     与生产环境的联系
   </a>
   
@@ -742,14 +742,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#登录" class="md-nav__link">
     登录
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#配置" class="md-nav__link">
     配置
   </a>
   
@@ -1193,14 +1193,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#与生产环境的比较" class="md-nav__link">
     与生产环境的比较
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#与生产环境的联系" class="md-nav__link">
     与生产环境的联系
   </a>
   
@@ -1208,14 +1208,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#登录" class="md-nav__link">
     登录
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#配置" class="md-nav__link">
     配置
   </a>
   
@@ -1243,9 +1243,9 @@
                   </a>
                 
                 
-                <h1 id="_1">测试环境<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="测试环境">测试环境<a class="headerlink" href="#测试环境" title="Permanent link">&para;</a></h1>
 <p>我们的测试环境运行在单机 pv0 上，没有使用集群配置。</p>
-<h2 id="_2">与生产环境的比较<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="与生产环境的比较">与生产环境的比较<a class="headerlink" href="#与生产环境的比较" title="Permanent link">&para;</a></h2>
 <p>测试环境主要用于开发和测试，各方面配置都与生产环境接近，例如：</p>
 <ul>
 <li>相同的 CT 100（gateway）和 CT 101（web）</li>
@@ -1259,8 +1259,8 @@
 <li>pv0 在 2021 年 7 月重装，我们直接采用了 Proxmox VE 7 的 iso 镜像安装，而当时的生产环境还都在运行 PVE 6.4</li>
 <li>gateway0 和 web0 使用 Proxmox 提供的 Debian 10.10 (buster) 镜像创建，但创建后立刻升级到了 Debian 11.0 (bullseye)</li>
 </ul>
-<h2 id="_3">与生产环境的联系<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<h3 id="_4">登录<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h2 id="与生产环境的联系">与生产环境的联系<a class="headerlink" href="#与生产环境的联系" title="Permanent link">&para;</a></h2>
+<h3 id="登录">登录<a class="headerlink" href="#登录" title="Permanent link">&para;</a></h3>
 <p>为了方便复制和传输数据，部分生产环境的主机和虚拟机可以直接 SSH 登录部分测试环境（当然也就可以 rsync 了）：</p>
 <ul>
 <li>root@pv1 通过 SSH 可以直接访问 pv0</li>
@@ -1271,7 +1271,7 @@
 <p class="admonition-title">Warning</p>
 <p>出于安全考虑，<strong>不要</strong>在测试环境中配置生产环境的登录权限（添加公钥等）。</p>
 </div>
-<h3 id="_5">配置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="配置">配置<a class="headerlink" href="#配置" title="Permanent link">&para;</a></h3>
 <p>测试环境和生产环境共用同一套 Nginx 配置文件方便调试，但测试环境的 /etc/nginx 仓库中的 deploy key 没有写入权限，请自行 <code>git pull</code> 后再 <code>git push</code>。</p>
 <p>其他配置暂时没有共享。</p>
                 

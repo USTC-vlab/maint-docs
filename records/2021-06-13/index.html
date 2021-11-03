@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-6-13" class="md-skip">
+        <a href="#2021-年-6-月-13-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -1056,14 +1056,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#django-id" class="md-nav__link">
+  <a href="#移除-django-代码里的虚拟机-id-偏移量" class="md-nav__link">
     移除 Django 代码里的“虚拟机 ID 偏移量”
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#其他" class="md-nav__link">
     其他
   </a>
   
@@ -1175,14 +1175,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#django-id" class="md-nav__link">
+  <a href="#移除-django-代码里的虚拟机-id-偏移量" class="md-nav__link">
     移除 Django 代码里的“虚拟机 ID 偏移量”
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#其他" class="md-nav__link">
     其他
   </a>
   
@@ -1205,8 +1205,8 @@
                   </a>
                 
                 
-                <h1 id="2021-6-13">2021 年 6 月 13 日工作总结<a class="headerlink" href="#2021-6-13" title="Permanent link">&para;</a></h1>
-<h2 id="django-id">移除 Django 代码里的“虚拟机 ID 偏移量”<a class="headerlink" href="#django-id" title="Permanent link">&para;</a></h2>
+                <h1 id="2021-年-6-月-13-日工作总结">2021 年 6 月 13 日工作总结<a class="headerlink" href="#2021-年-6-月-13-日工作总结" title="Permanent link">&para;</a></h1>
+<h2 id="移除-django-代码里的虚拟机-id-偏移量">移除 Django 代码里的“虚拟机 ID 偏移量”<a class="headerlink" href="#移除-django-代码里的虚拟机-id-偏移量" title="Permanent link">&para;</a></h2>
 <p>同时改数据库和 Django 代码，清理掉 <code>VMID_INCR</code> 这个历史包袱。</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- Drop foreign key</span>
 <span class="c1">-- https://stackoverflow.com/posts/comments/32882353</span>
@@ -1229,7 +1229,7 @@
 <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">vm_sshkey</span> <span class="k">ADD</span> <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">vm_sshkey_ct_id_8bfb3d03_fk_vm_pvect_id</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">ct_id</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">vm_pvect</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">);</span>
 </code></pre></div>
 <p>代码部分见 <a href="https://github.com/USTC-vlab/cslab/pull/1">Pull Request #1</a></p>
-<h2 id="_1">其他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="其他">其他<a class="headerlink" href="#其他" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>将 <code>/mnt/container-template</code> 重命名为了更简洁的 <code>/mnt/vz</code>。由于 PVE 的一些设定，操作顺序如下：</p>

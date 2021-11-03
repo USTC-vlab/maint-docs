@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2020-8-1" class="md-skip">
+        <a href="#2020-年-8-月-1-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -1084,21 +1084,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mtu" class="md-nav__link">
+  <a href="#系统维护mtu-设置" class="md-nav__link">
     系统维护（MTU 设置）
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pv8" class="md-nav__link">
+  <a href="#pv8-光纤网络问题" class="md-nav__link">
     pv8 光纤网络问题
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#待办事项" class="md-nav__link">
     待办事项
   </a>
   
@@ -1182,21 +1182,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mtu" class="md-nav__link">
+  <a href="#系统维护mtu-设置" class="md-nav__link">
     系统维护（MTU 设置）
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pv8" class="md-nav__link">
+  <a href="#pv8-光纤网络问题" class="md-nav__link">
     pv8 光纤网络问题
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#待办事项" class="md-nav__link">
     待办事项
   </a>
   
@@ -1219,8 +1219,8 @@
                   </a>
                 
                 
-                <h1 id="2020-8-1">2020 年 8 月 1 日工作总结<a class="headerlink" href="#2020-8-1" title="Permanent link">&para;</a></h1>
-<h2 id="mtu">系统维护（MTU 设置）<a class="headerlink" href="#mtu" title="Permanent link">&para;</a></h2>
+                <h1 id="2020-年-8-月-1-日工作总结">2020 年 8 月 1 日工作总结<a class="headerlink" href="#2020-年-8-月-1-日工作总结" title="Permanent link">&para;</a></h1>
+<h2 id="系统维护mtu-设置">系统维护（MTU 设置）<a class="headerlink" href="#系统维护mtu-设置" title="Permanent link">&para;</a></h2>
 <p>VXLAN 的 MTU 为下层承载网络的减去 50 字节，考虑到 1450 字节这种非标准的设定早晚会导致更多的麻烦（例如 KVM 虚拟机需要单独设置等），决定找机会进行系统维护，把这个设置改掉，把下层承载网卡的 MTU 增加 50 字节以供 VXLAN 填补。</p>
 <p>具体的调整方法就是在 <code>/etc/network/interfaces</code> 中的 <code>iface ens1f1 inet static</code> 后面加入一行 <code>mtu 1550</code>，同样（保险起见）在 <code>iface vxlan0</code> 后面加入一行 <code>mtu 1500</code>。</p>
 <p>改过之后的 interfaces 文件类似这样：</p>
@@ -1248,11 +1248,11 @@ grep -lwirF <span class="nv">mtu</span><span class="o">=</span><span class="m">1
 </code></pre></div>
 <p>Proxmox 会自动将修改过的配置文件同步至集群中的其他主机（注意需要全部保持在线，否则同步会挂，踩坑记录有写）。</p>
 <p>最后把 Django 前端的 <code>config.py</code> 改一下，让新创建的容器使用默认的 MTU 就行了。</p>
-<h2 id="pv8">pv8 光纤网络问题<a class="headerlink" href="#pv8" title="Permanent link">&para;</a></h2>
+<h2 id="pv8-光纤网络问题">pv8 光纤网络问题<a class="headerlink" href="#pv8-光纤网络问题" title="Permanent link">&para;</a></h2>
 <p>一开始的表现是 pv8 的两个光纤内网 IP 都能连通，但是 VXLAN 死活连不上。</p>
 <p>首先这里有<a href="../../traps/#linux-arp">另一个坑</a>，解决之后重新检查，确定实际问题是 ens1f1 界面不连通，联系卢建良老师前往机房实地排查，最终确认故障部件是该网路在交换机一端的光模块有问题，替换成旁边一个闲置的光模块后网络连通性恢复。</p>
 <p>接下来的待办事项就是请人检查这个光模块有什么问题了（这个就交给老师处理了）。</p>
-<h2 id="_1">待办事项<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="待办事项">待办事项<a class="headerlink" href="#待办事项" title="Permanent link">&para;</a></h2>
 <p>见上</p>
                 
                   

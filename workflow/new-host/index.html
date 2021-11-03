@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#配置新主机并加入集群" class="md-skip">
           跳转至
         </a>
       
@@ -777,42 +777,42 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#远程访问" class="md-nav__link">
     远程访问
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#软件源" class="md-nav__link">
     软件源
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#安装软件可选" class="md-nav__link">
     安装软件（可选）
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#配置网卡" class="md-nav__link">
     配置网卡
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#配置防火墙" class="md-nav__link">
     配置防火墙
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#挂载存储服务器" class="md-nav__link">
     挂载存储服务器
   </a>
   
@@ -820,7 +820,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#open-iscsiservice" class="md-nav__link">
+  <a href="#更新-open-iscsiservice" class="md-nav__link">
     更新 open-iscsi.service
   </a>
   
@@ -832,7 +832,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nfs" class="md-nav__link">
+  <a href="#挂载-nfs-镜像共享" class="md-nav__link">
     挂载 NFS 镜像共享
   </a>
   
@@ -1221,42 +1221,42 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#远程访问" class="md-nav__link">
     远程访问
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#软件源" class="md-nav__link">
     软件源
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#安装软件可选" class="md-nav__link">
     安装软件（可选）
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#配置网卡" class="md-nav__link">
     配置网卡
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#配置防火墙" class="md-nav__link">
     配置防火墙
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#挂载存储服务器" class="md-nav__link">
     挂载存储服务器
   </a>
   
@@ -1264,7 +1264,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#open-iscsiservice" class="md-nav__link">
+  <a href="#更新-open-iscsiservice" class="md-nav__link">
     更新 open-iscsi.service
   </a>
   
@@ -1276,7 +1276,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nfs" class="md-nav__link">
+  <a href="#挂载-nfs-镜像共享" class="md-nav__link">
     挂载 NFS 镜像共享
   </a>
   
@@ -1299,12 +1299,12 @@
                   </a>
                 
                 
-                <h1 id="_1">配置新主机并加入集群<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="配置新主机并加入集群">配置新主机并加入集群<a class="headerlink" href="#配置新主机并加入集群" title="Permanent link">&para;</a></h1>
 <p>使用 U 盘安装好 Proxmox VE，主机名为 <code>pv#.ibuglab.com</code>（Proxmox 安装程序要求，装好后可以改），其中 <code>#</code> 为数字或其他标记，手动递增。</p>
-<h2 id="_2">远程访问<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="远程访问">远程访问<a class="headerlink" href="#远程访问" title="Permanent link">&para;</a></h2>
 <p>先配好 SSH 访问，对 SSH Host Key 签名，并加入 TrustedUserCAKeys。见 <a href="../../ssh-ca/">SSH 证书认证</a> 一页。</p>
 <p><strong>在加入现有的 Proxmox VE 集群后</strong>删除 root 密码（<code>passwd -d root</code>），方便以后维护。</p>
-<h2 id="_3">软件源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="软件源">软件源<a class="headerlink" href="#软件源" title="Permanent link">&para;</a></h2>
 <p>修改 <code>/etc/apt/sources.list</code>，将软件源替换为 TUNA：</p>
 <div class="highlight"><pre><span></span><code>deb https://mirrors.ustc.edu.cn/debian bullseye main contrib
 deb https://mirrors.ustc.edu.cn/debian bullseye-updates main contrib
@@ -1314,7 +1314,7 @@ deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 <div class="highlight"><pre><span></span><code>deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 </code></pre></div>
 <p>刷新软件源并安装更新。</p>
-<h2 id="_4">安装软件（可选）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="安装软件可选">安装软件（可选）<a class="headerlink" href="#安装软件可选" title="Permanent link">&para;</a></h2>
 <p>从 APT 安装一些软件以便管理和调试。请尽可能保持主机系统简洁。</p>
 <ul>
 <li>Vim 宇宙第一文本编辑器</li>
@@ -1322,11 +1322,11 @@ deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 <li>iptables-persistent 和 ipset-persistent 用于保存 iptables 配置</li>
 <li>ipmitool 用于维护 IPMI，<strong>使用最简安装（即 <code>--no-install-recommends</code>）</strong></li>
 </ul>
-<h2 id="_5">配置网卡<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="配置网卡">配置网卡<a class="headerlink" href="#配置网卡" title="Permanent link">&para;</a></h2>
 <p>参见<a href="../../networking/host/">主机网卡</a>一页。</p>
-<h2 id="_6">配置防火墙<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="配置防火墙">配置防火墙<a class="headerlink" href="#配置防火墙" title="Permanent link">&para;</a></h2>
 <p>需要安装 <code>iptables-persistent</code> 和 <code>ipset-persistent</code> 软件包，从另一台主机上复制 <code>/etc/iptables</code> 目录，修改相关文件中的网卡名称（如有需要）并重启 <code>netfilter-persistent.service</code>。</p>
-<h2 id="_7">挂载存储服务器<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="挂载存储服务器">挂载存储服务器<a class="headerlink" href="#挂载存储服务器" title="Permanent link">&para;</a></h2>
 <p>使用 iSCSI 命令行管理工具</p>
 <div class="highlight"><pre><span></span><code>iscsiadm -m discovery -t sendtargets -p <span class="m">10</span>.0.0.200
 iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span class="m">10</span>.0.0.200 --login
@@ -1334,7 +1334,7 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span clas
 <p>存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。</p>
 <p>第一步（<code>-t sendtargets</code>）操作完成后需要进入 <code>/etc/iscsi/nodes/iqn.2015-11.com.hpe:storage.msa1050.1840436ed4</code> 删掉多余的资料，只保留第二步选定的那个 IP 对应的目录。</p>
 <p>挂载看到 iSCSI 的卷之后，进入存储服务器的管理页面，选 Hosts，为刚才新增的那个主机补上名称。IQN 可以看主机里的 <code>/etc/iscsi/initiatorname.iscsi</code> 文件来确认。</p>
-<h3 id="open-iscsiservice">更新 open-iscsi.service<a class="headerlink" href="#open-iscsiservice" title="Permanent link">&para;</a></h3>
+<h3 id="更新-open-iscsiservice">更新 open-iscsi.service<a class="headerlink" href="#更新-open-iscsiservice" title="Permanent link">&para;</a></h3>
 <p>open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是由于我们的存储设施在一个链路上暴露了两个端口（IP 地址），直接使用该服务会导致存储被挂载两遍，后面 LVM 会产生更多的警告或错误信息。</p>
 <p>我们没有找到一个“原生”的解决办法，所以我们直接修改服务（使用 <code>systemctl edit</code> 或手动添加 override.conf 文件）：</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
@@ -1344,7 +1344,7 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p <span clas
 </code></pre></div>
 <p>注意把中间那行后面的 IP 地址换掉（如果需要）。</p>
 <p>这是一个 oneshot 类型的服务，所以修改之后就放着不用动了，下次开机时会自动应用。</p>
-<h2 id="nfs">挂载 NFS 镜像共享<a class="headerlink" href="#nfs" title="Permanent link">&para;</a></h2>
+<h2 id="挂载-nfs-镜像共享">挂载 NFS 镜像共享<a class="headerlink" href="#挂载-nfs-镜像共享" title="Permanent link">&para;</a></h2>
 <p>挂载 NFS 共享所用的 <code>/etc/fstab</code> 条目：</p>
 <div class="highlight"><pre><span></span><code>10.0.0.1:/var/lib/vz /mnt/vz nfs rw,async,hard,intr,noexec 0 0
 </code></pre></div>

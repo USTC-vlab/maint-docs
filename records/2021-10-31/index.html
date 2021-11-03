@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-10-31" class="md-skip">
+        <a href="#2021-年-10-月-31-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -1130,7 +1130,7 @@
                   </a>
                 
                 
-                <h1 id="2021-10-31">2021 年 10 月 31 日工作总结<a class="headerlink" href="#2021-10-31" title="Permanent link">&para;</a></h1>
+                <h1 id="2021-年-10-月-31-日工作总结">2021 年 10 月 31 日工作总结<a class="headerlink" href="#2021-年-10-月-31-日工作总结" title="Permanent link">&para;</a></h1>
 <p>今日发现 pv4 与 pv5 内存占用较多，检查进程后发现 blueman 相关进程占用额外内存较多，可能是在容器镜像打包时未删除。我们在这两台机器上对正在运行的容器执行了以下的命令：</p>
 <div class="highlight"><pre><span></span><code>pct list | awk &#39;$2==&quot;running&quot;{print $1}&#39; | xargs -I xxx pct exec xxx -- dpkg -P blueman
 </code></pre></div>

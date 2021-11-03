@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#容器内网" class="md-skip">
           跳转至
         </a>
       
@@ -393,7 +393,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ip" class="md-nav__link">
+  <a href="#ip-地址分配" class="md-nav__link">
     IP 地址分配
   </a>
   
@@ -1166,7 +1166,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ip" class="md-nav__link">
+  <a href="#ip-地址分配" class="md-nav__link">
     IP 地址分配
   </a>
   
@@ -1189,12 +1189,12 @@
                   </a>
                 
                 
-                <h1 id="_1">容器内网<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="容器内网">容器内网<a class="headerlink" href="#容器内网" title="Permanent link">&para;</a></h1>
 <p>容器内网使用 VXLAN 实现，在所有计算服务器上均使用 bond1 界面连接，创建命令为</p>
 <div class="highlight"><pre><span></span><code>ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">1</span> group <span class="m">239</span>.1.1.1 dev bond1
 </code></pre></div>
 <p><s><a href="https://tools.ietf.org/html/rfc7348">RFC 7348</a> 指出 VXLAN 接收端口为 UDP 4789</s>，但由于历史原因包括 Linux 在内的一众厂商都在使用 UDP 8472，因此该端口必须在 bond1 上开放。实际上由于光纤界面没有外部接入，故不设防。</p>
-<h2 id="ip">IP 地址分配<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<h2 id="ip-地址分配">IP 地址分配<a class="headerlink" href="#ip-地址分配" title="Permanent link">&para;</a></h2>
 <p>内容已移至 <a href="../ips/">IP 地址分配</a>。</p>
                 
                   

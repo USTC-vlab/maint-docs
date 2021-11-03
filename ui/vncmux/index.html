@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#远程桌面配置与管理" class="md-skip">
           跳转至
         </a>
       
@@ -549,14 +549,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#配置文件" class="md-nav__link">
     配置文件
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#vncmux-cli" class="md-nav__link">
+  <a href="#vncmux-cli-工具" class="md-nav__link">
     vncmux-cli 工具
   </a>
   
@@ -564,49 +564,49 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#列出在线用户" class="md-nav__link">
     列出在线用户
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#断开用户连接" class="md-nav__link">
     断开用户连接
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#更换通知图片" class="md-nav__link">
     更换通知图片
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#发送图片" class="md-nav__link">
     发送图片
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#打开和关闭通知" class="md-nav__link">
     打开和关闭通知
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#realvnc" class="md-nav__link">
+  <a href="#打开和关闭-realvnc-有损压缩" class="md-nav__link">
     打开和关闭 RealVNC 有损压缩
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#realvnc_1" class="md-nav__link">
+  <a href="#设定-realvnc-有损压缩质量等级" class="md-nav__link">
     设定 RealVNC 有损压缩质量等级
   </a>
   
@@ -1228,14 +1228,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#配置文件" class="md-nav__link">
     配置文件
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#vncmux-cli" class="md-nav__link">
+  <a href="#vncmux-cli-工具" class="md-nav__link">
     vncmux-cli 工具
   </a>
   
@@ -1243,49 +1243,49 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#列出在线用户" class="md-nav__link">
     列出在线用户
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#断开用户连接" class="md-nav__link">
     断开用户连接
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#更换通知图片" class="md-nav__link">
     更换通知图片
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#发送图片" class="md-nav__link">
     发送图片
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#打开和关闭通知" class="md-nav__link">
     打开和关闭通知
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#realvnc" class="md-nav__link">
+  <a href="#打开和关闭-realvnc-有损压缩" class="md-nav__link">
     打开和关闭 RealVNC 有损压缩
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#realvnc_1" class="md-nav__link">
+  <a href="#设定-realvnc-有损压缩质量等级" class="md-nav__link">
     设定 RealVNC 有损压缩质量等级
   </a>
   
@@ -1313,9 +1313,9 @@
                   </a>
                 
                 
-                <h1 id="_1">远程桌面配置与管理<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="远程桌面配置与管理">远程桌面配置与管理<a class="headerlink" href="#远程桌面配置与管理" title="Permanent link">&para;</a></h1>
 <p>vnc-multiplexer (以下简称 vncmux) 用于实现 VNC 统一登录。vncmux 用户在登录中输入的用户名、密码，将被程序通过 API 发送给 Django 后端，并得到内网客户机的 VNC 服务器连接信息，以此实现转发。除了简单的转发数据，vncmux 还会对 VNC 协议的消息进行解析、修改，以此实现通知功能。以下简介 vncmux 的配置和管理方法。</p>
-<h2 id="_2">配置文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="配置文件">配置文件<a class="headerlink" href="#配置文件" title="Permanent link">&para;</a></h2>
 <p>vncmux 的配置文件存储在 <code>/etc/vnc_multiplexer/config.json</code>，目前如下：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">5900</span><span class="p">,</span>
@@ -1396,24 +1396,24 @@
 <p><code>threads</code>： 工作线程数</p>
 </li>
 </ul>
-<h2 id="vncmux-cli">vncmux-cli 工具<a class="headerlink" href="#vncmux-cli" title="Permanent link">&para;</a></h2>
+<h2 id="vncmux-cli-工具">vncmux-cli 工具<a class="headerlink" href="#vncmux-cli-工具" title="Permanent link">&para;</a></h2>
 <p>vncmux-cli 工具用于管理运行中的 vncmux 服务器。连接到 vncmux 服务器的方法如下：</p>
 <div class="highlight"><pre><span></span><code>vncmux-cli <span class="o">[</span>path<span class="o">]</span>
 </code></pre></div>
 <p>连接后输入 <code>exit</code> 可以退出，输入 <code>help</code> 可以显示帮助，还可以进行以下操作：</p>
-<h3 id="_3">列出在线用户<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="列出在线用户">列出在线用户<a class="headerlink" href="#列出在线用户" title="Permanent link">&para;</a></h3>
 <p>输入 <code>list</code> 即可列出在线用户的信息，包括连接 ID 、连接时间、用户名、主机 IP 、用户 IP 、客户端类型。</p>
-<h3 id="_4">断开用户连接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="断开用户连接">断开用户连接<a class="headerlink" href="#断开用户连接" title="Permanent link">&para;</a></h3>
 <p>输入 <code>disconnect &lt;id&gt;</code> 可以把 ID 对应的连接断开。</p>
-<h3 id="_5">更换通知图片<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="更换通知图片">更换通知图片<a class="headerlink" href="#更换通知图片" title="Permanent link">&para;</a></h3>
 <p>输入 <code>load-notification &lt;image file&gt;</code> 可以更换通知文件，通知文件最好是绝对路径。当前已在线的用户将不会看到新的通知。</p>
-<h3 id="_6">发送图片<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="发送图片">发送图片<a class="headerlink" href="#发送图片" title="Permanent link">&para;</a></h3>
 <p>可以发送 PNG 格式的图片给一个或多个用户。命令格式为 <code>send-image &lt;image file&gt; &lt;id&gt; [id] ...</code> ，其中 id 可以从 <code>list</code> 的输出得知。</p>
-<h3 id="_7">打开和关闭通知<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="打开和关闭通知">打开和关闭通知<a class="headerlink" href="#打开和关闭通知" title="Permanent link">&para;</a></h3>
 <p>命令分别为 <code>enable-notification</code> 和 <code>disable-notification</code></p>
-<h3 id="realvnc">打开和关闭 RealVNC 有损压缩<a class="headerlink" href="#realvnc" title="Permanent link">&para;</a></h3>
+<h3 id="打开和关闭-realvnc-有损压缩">打开和关闭 RealVNC 有损压缩<a class="headerlink" href="#打开和关闭-realvnc-有损压缩" title="Permanent link">&para;</a></h3>
 <p>命令分别为 <code>enable-realvnc-lossy</code> 和 <code>disable-realvnc-lossy</code></p>
-<h3 id="realvnc_1">设定 RealVNC 有损压缩质量等级<a class="headerlink" href="#realvnc_1" title="Permanent link">&para;</a></h3>
+<h3 id="设定-realvnc-有损压缩质量等级">设定 RealVNC 有损压缩质量等级<a class="headerlink" href="#设定-realvnc-有损压缩质量等级" title="Permanent link">&para;</a></h3>
 <p>命令为 <code>set-realvnc-jpeg-level &lt;0-9&gt;</code></p>
                 
                   

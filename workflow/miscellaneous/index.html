@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#杂项" class="md-skip">
           跳转至
         </a>
       
@@ -839,6 +839,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#从主机上寻找-pid-所属的容器" class="md-nav__link">
+    从主机上寻找 PID 所属的容器
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1172,6 +1179,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#从主机上寻找-pid-所属的容器" class="md-nav__link">
+    从主机上寻找 PID 所属的容器
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1189,7 +1203,7 @@
                   </a>
                 
                 
-                <h1 id="_1">杂项<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+                <h1 id="杂项">杂项<a class="headerlink" href="#杂项" title="Permanent link">&para;</a></h1>
 <h2 id="list-all-vms">列出集群中所有容器<a class="headerlink" href="#list-all-vms" title="Permanent link">&para;</a></h2>
 <p>首先 <code>apt install jq</code>（这个工具很小，不用担心弄乱系统环境），然后</p>
 <div class="highlight"><pre><span></span><code>jq -r <span class="s1">&#39;.ids | to_entries[] | select(.value.type == &quot;lxc&quot;) | .key&#39;</span> /etc/pve/.vmlist
@@ -1199,6 +1213,28 @@
 <ul>
 <li><a href="https://forum.proxmox.com/threads/list-all-vmids-from-command-line.10964/">List all VMID's from command line? | Proxmox Support Forum</a></li>
 </ul>
+<h2 id="从主机上寻找-pid-所属的容器">从主机上寻找 PID 所属的容器<a class="headerlink" href="#从主机上寻找-pid-所属的容器" title="Permanent link">&para;</a></h2>
+<p>思路：从 <code>/proc</code> 里不断读取其父 PID 直到找到容器里的 PID 1，这个 "PID 1" 的父进程 <code>lxc-start</code> 的命令行里可以看到容器 ID。</p>
+<p>参考代码：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+
+<span class="nv">PID</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+
+<span class="k">while</span> :<span class="p">;</span> <span class="k">do</span>
+  <span class="nv">procfile</span><span class="o">=</span><span class="s2">&quot;/proc/</span><span class="nv">$PID</span><span class="s2">/status&quot;</span>
+  <span class="nv">name</span><span class="o">=</span><span class="k">$(</span>awk <span class="s1">&#39;$1==&quot;Name:&quot;{print $2}&#39;</span> <span class="s2">&quot;</span><span class="nv">$procfile</span><span class="s2">&quot;</span><span class="k">)</span>
+  <span class="nv">ppid</span><span class="o">=</span><span class="k">$(</span>awk <span class="s1">&#39;$1==&quot;PPid:&quot;{print $2}&#39;</span> <span class="s2">&quot;</span><span class="nv">$procfile</span><span class="s2">&quot;</span><span class="k">)</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;lxc-start&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    tr <span class="s1">&#39;\0&#39;</span> <span class="s1">&#39; &#39;</span> &lt; <span class="s2">&quot;/proc/</span><span class="nv">$PID</span><span class="s2">/cmdline&quot;</span> <span class="p">|</span> cut -d<span class="s1">&#39; &#39;</span> -f4
+    <span class="nb">break</span>
+  <span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$ppid</span><span class="s2">&quot;</span> -eq <span class="m">1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> Failed
+    <span class="nb">exit</span> <span class="m">1</span>
+  <span class="k">else</span>
+    <span class="nv">PID</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$ppid</span><span class="s2">&quot;</span>
+  <span class="k">fi</span>
+<span class="k">done</span>
+</code></pre></div>
                 
                   
                     
@@ -1207,7 +1243,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 20, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2021</span>
       
     
   </small>
