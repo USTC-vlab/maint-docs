@@ -77,6 +77,7 @@ markdown_extensions:
       subscript: false
   - toc:
       permalink: true
+      slugify: !!python/name:pymdownx.slugs.uslugify
 
 nav:
   - 首页: index.md
