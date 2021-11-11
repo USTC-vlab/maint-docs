@@ -27,3 +27,9 @@ IP 分配情况见 [IP 地址列表](ips.md)。
 CT100 为网关，将所有学生机的上行流量 NAT 后连接到校园网，详见 [CT100 容器的文档](../servers/ct100.md)。
 
 CT101 为 web 服务器，提供 web 界面（Nginx, Django）和 VNC 统一接入（程序在 [pdlan](https://github.com/pdlan) 的一个私有仓库中，由于潜在的版权问题不能公开）。具体内容详见 [CT101 容器的文档](../servers/ct101.md)。
+
+## 网络架构 {#structure}
+
+![External network structure](https://image.ibugone.com/vlab/network-external-1.png){: .img-border }
+
+![Internal network structure](https://image.ibugone.com/vlab/network-internal.png){: .img-border }
