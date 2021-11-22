@@ -993,6 +993,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#proxmox-backup-server-无法连接提示-error-fetching-datastores---fingerprint-xxxxxx" class="md-nav__link">
+    Proxmox Backup Server 无法连接，提示 Error fetching datastores - fingerprint XX:XX:XX:…
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1425,6 +1432,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#proxmox-backup-server-无法连接提示-error-fetching-datastores---fingerprint-xxxxxx" class="md-nav__link">
+    Proxmox Backup Server 无法连接，提示 Error fetching datastores - fingerprint XX:XX:XX:…
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1666,10 +1680,20 @@
 </div>
 <h3 id="手动迁移启用了-ha-的虚拟机或容器又被自动迁移回来了">手动迁移启用了 HA 的虚拟机或容器又被自动迁移回来了<a class="headerlink" href="#手动迁移启用了-ha-的虚拟机或容器又被自动迁移回来了" title="Permanent link">&para;</a></h3>
 <p>PVE 的 HA 太敬业了，运行虚拟机时会严格按照 HA 配置好的节点优先级来运行虚拟机。</p>
-<details class="note"><summary>旧解决方法</summary><p>要想 HA “听话”，办法就是直接改各节点的优先级，让听话的 HA 帮你迁移。</p>
+<details class="note">
+<summary>旧解决方法</summary>
+<p>要想 HA “听话”，办法就是直接改各节点的优先级，让听话的 HA 帮你迁移。</p>
 <p>维护节点前请将其优先级调低或删掉（默认为零，数值越高越优先），以免重启过程中 HA 将虚拟机频繁迁移。</p>
 </details>
 <p>HA group 有一个选项是 nofailback，即禁用“有更高优先级节点在线时优先迁移到更高节点”这个默认行为。启用 nofailback 后 HA 会尽量避免迁移虚拟机而不是尽量往高优先级节点上迁移。</p>
+<h3 id="proxmox-backup-server-无法连接提示-error-fetching-datastores---fingerprint-xxxxxx">Proxmox Backup Server 无法连接，提示 Error fetching datastores - fingerprint XX:XX:XX:…<a class="headerlink" href="#proxmox-backup-server-无法连接提示-error-fetching-datastores---fingerprint-xxxxxx" title="Permanent link">&para;</a></h3>
+<p>PVE 会验证 PBS 的证书，如果证书与配置的 fingerprint 不匹配（或者在没有 fingerprint 的时候不信任证书），则会提示错误。</p>
+<p>由于我们的证书使用 acme.sh 自动更新，每次更新后证书的 fingerprint 就会变化，而我们使用内网地址连接 PBS 也不可能获得公网可信任的证书，因此解决方法是每次更新证书时同步更新 fingerprint。</p>
+<p>在 pv1 的更新证书的 cron 脚本最后加入以下内容，使用 OpenSSL 获取证书 fingerprint 并用 pvesm 命令登记修改：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">FP</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>openssl x509 -noout -fingerprint -sha256 -inform pem -in <span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">/pveproxy-ssl.pem&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">FP</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">FP</span><span class="p">##*=</span><span class="si">}</span><span class="s2">&quot;</span>
+pvesm <span class="nb">set</span> pbs --fingerprint <span class="s2">&quot;</span><span class="nv">$FP</span><span class="s2">&quot;</span>
+</code></pre></div>
 <h2 id="lvm">LVM<a class="headerlink" href="#lvm" title="Permanent link">&para;</a></h2>
 <h3 id="开机显示-cannot-process-volume-group-pve-等错误信息">开机显示 Cannot process volume group pve 等错误信息<a class="headerlink" href="#开机显示-cannot-process-volume-group-pve-等错误信息" title="Permanent link">&para;</a></h3>
 <p>这一步比较麻烦，主要是因为 IPMI 提供的那个远程终端经常卡。</p>
@@ -1916,7 +1940,7 @@ chown <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2"
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2021</span>
       
     
   </small>

@@ -1460,7 +1460,9 @@
 <h3 id="windows-oobe">Windows OOBE<a class="headerlink" href="#windows-oobe" title="Permanent link">&para;</a></h3>
 <p>OOBE 阶段可以自行配置，不过既然是要用作面向用户的模板，选择一些设置时稍微考虑一下。</p>
 <p>地区语言当然是中文了，键盘微软拼音（这是默认，下一步），然后一路到创建账户这里会有个错误提示码 OOBEAADV10，忽略掉它创建一个本地账户，命名为 Vlab，密码留空（不然后面要你填三个安全问题，WTF?）。</p>
-<details class="note"><summary>错误码 OOBEAADV10</summary><p>这是 Windows 在尝试连接到 Azure Active Directory 时报的错，因为这个时候只有 IPv6 网络是通的（有 SLAAC），用户内网没有 DHCP。</p>
+<details class="note">
+<summary>错误码 OOBEAADV10</summary>
+<p>这是 Windows 在尝试连接到 Azure Active Directory 时报的错，因为这个时候只有 IPv6 网络是通的（有 SLAAC），用户内网没有 DHCP。</p>
 </details>
 <p>位置服务、广告标识符这个页面全部关掉，Cortana 也别开，都是些浪费时间和资源的东西。</p>
 <p>到这里就差不多进入桌面了，目前为止没有太多坑，除了密码必须留空之外（嗯，这种地方要求填安全问题是个奇怪的设定）。</p>
@@ -1502,7 +1504,9 @@
 <p>任务栏设置里的“使用‘速览’预览桌面”出于性能考虑建议不要开，其他随意，例如“合并任务栏按钮”可以改成“任务栏已满时”等等，其他的桌面背景、颜色、开始菜单等都随意。</p>
 <p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2 1 21z"/></svg></span> 开始菜单里预装的 UWP 应用现在<strong>不要动</strong>，否则后面 Sysprep 的时候会出错。（如果你特别想删掉其中的一个或多个时，<a href="#cleanup">第四节清理</a>有详细说明。）</p>
 <p>Windows 检测网络连接的功能经常坏，原因是 msftconnecttest.com 服务器在国外，很慢而且不稳定，可以修改注册表将这个功能替换成使用校内的服务。</p>
-<details class="abstract"><summary>注册表文件</summary><p><a href="../../assets/WindowsInternet.reg">下载直链</a></p>
+<details class="abstract">
+<summary>注册表文件</summary>
+<p><a href="../../assets/WindowsInternet.reg">下载直链</a></p>
 <div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
 
 <span class="k">[</span><span class="nb">HKEY_LOCAL_MACHINE</span><span class="k">\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]</span>
@@ -1535,7 +1539,9 @@
 <li>从 <code>metadata_services</code> 里删掉其他配置，只保留一个 <code>ConfigDriveService</code>。注意这是一个逗号分隔的列表，不要看错了</li>
 <li>将 <code>check_latest_version</code> 改成 false</li>
 </ul>
-<details class="abstract"><summary>参考：修改后的文件内容</summary><div class="highlight"><pre><span></span><code><span class="k">[DEFAULT]</span>
+<details class="abstract">
+<summary>参考：修改后的文件内容</summary>
+<div class="highlight"><pre><span></span><code><span class="k">[DEFAULT]</span>
 <span class="na">username</span><span class="o">=</span><span class="s">Administrator</span>
 <span class="na">groups</span><span class="o">=</span><span class="s">Administrators</span>
 <span class="na">inject_user_password</span><span class="o">=</span><span class="s">true</span>
@@ -1590,7 +1596,9 @@
 </li>
 <li>
 <p>（可选）<strong>删除预装的 UWP 应用</strong></p>
-<details class="info"><summary>这是高级操作，建议仅当你熟悉 Windows 10 时进行</summary><p>以管理员打开 PowerShell，运行 <code class="highlight"><span class="nb">Get-AppxProvisionedPackage</span> <span class="n">-Online</span></code> 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。</p>
+<details class="info">
+<summary>这是高级操作，建议仅当你熟悉 Windows 10 时进行</summary>
+<p>以管理员打开 PowerShell，运行 <code class="highlight"><span class="nb">Get-AppxProvisionedPackage</span> <span class="n">-Online</span></code> 来列出当前系统中已预装的 UWP 应用。对于每一个想要删除的应用，记录下 PackageName。</p>
 <p>继续在 PowerShell 中，运行 <code class="highlight"><span class="nb">Remove-AppxProvisionedPackage</span> <span class="n">-Online</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code>，其中 <code>$PackageName</code> 替换成刚才记录下来的 PackageName。删除预装后，也要<strong>同时删除当前用户已安装的这一份相同应用</strong>。你可以使用 <code class="highlight"><span class="nb">Remove-AppxPackage</span> <span class="n">-PackageName</span> <span class="nv">$PackageName</span></code> 命令，也可以直接在开始菜单中找到它选择“卸载”（如果你找得到的话）。</p>
 <p>作为练习，你可以选择删除 Microsoft Solitaire Collection 和 Skype 这两个应用，或者选择跳过这一步。</p>
 </details>
@@ -1606,7 +1614,9 @@
 </code></pre></div>
 <p>这个 <code>Unattend.xml</code> 由 Cloudbase-init 提供，所以需要先 <code>cd</code> 到上述目录。</p>
 <p>如果 Sysprep 出现错误，请检查 <code>C:\Windows\System32\Sysprep\Panther\setupact.log</code> 并利用 Google 排查。</p>
-<details class="danger"><summary>不正确地卸载预装的 UWP 应用会导致 Sysprep 失败</summary><p><code>setupact.log</code> 中能看到以下错误信息，以 Microsoft Solitaire Collection 为例：</p>
+<details class="danger">
+<summary>不正确地卸载预装的 UWP 应用会导致 Sysprep 失败</summary>
+<p><code>setupact.log</code> 中能看到以下错误信息，以 Microsoft Solitaire Collection 为例：</p>
 <div class="highlight"><pre><span></span><code>Package Microsoft.MicrosoftSolitaireCollection_4.10.7290.0_neutral_~_8wekyb3d8bbwe was installed for a user, but not provisioned for all users. This package will not function properly in the sysprep image.
 </code></pre></div>
 <p>请回到第四节正确卸载错误信息给出的软件包。</p>
@@ -1614,7 +1624,9 @@
 <p>Sysprep 运行完成后 Windows 会自动关机，<strong>此时就不要再开机了</strong>，把当前版本的虚拟机镜像提取出来，就算打包完成了。你也可以选择直接将这个虚拟机转换为 Template，就可以直接从它创建出新虚拟机了。</p>
 <h3 id="packaging">提取虚拟机镜像<a class="headerlink" href="#packaging" title="Permanent link">&para;</a></h3>
 <p>首先请参考<a href="../pack-ct-image/#packaging">打包容器镜像</a>对应的一节激活虚拟机对应的 LVM 卷。</p>
-<details class="tip"><summary>提取虚拟机的快照</summary><p>如果你想提取虚拟机的某个快照，而不是其当前状态，需要在 <code>lvchange</code> 命令中额外添加 <code>-Ky</code> 参数。</p>
+<details class="tip">
+<summary>提取虚拟机的快照</summary>
+<p>如果你想提取虚拟机的某个快照，而不是其当前状态，需要在 <code>lvchange</code> 命令中额外添加 <code>-Ky</code> 参数。</p>
 <div class="highlight"><pre><span></span><code>lvchange -ay -Ky /dev/<span class="o">{</span>vg<span class="o">}</span>/<span class="o">{</span>snap-lv<span class="o">}</span>
 </code></pre></div>
 </details>

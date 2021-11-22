@@ -1284,7 +1284,9 @@
 <li><code>/etc/issue</code>：此文件每次开机时 Proxmox 会覆盖，所以选 Y 和 N 没有区别</li>
 <li>
 <p><code>/etc/ssh/sshd_config</code>：Debian 11 的 <code>sshd_config</code> 文件包含了一条 <code>Include /etc/ssh/sshd_config.d/*.conf</code>，因此我们的自定义设置也移到了 <code>sshd_config.d/vlab.conf</code>，为了以后更新方便，这里可以选择覆盖（注意 reload ssh 前把 <code>vlab.conf</code> 准备好）</p>
-<details class="abstract"><summary><code>vlab.conf</code> 文件</summary><div class="highlight"><pre><span></span><code>HostKey /etc/ssh/ssh_host_rsa_key
+<details class="abstract">
+<summary><code>vlab.conf</code> 文件</summary>
+<div class="highlight"><pre><span></span><code>HostKey /etc/ssh/ssh_host_rsa_key
 HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
 TrustedUserCAKeys /etc/ssh/ssh_user_ca
 
@@ -1311,7 +1313,9 @@ AuthorizedKeysFile /dev/null
 <blockquote>
 <p>e2fsck: MMP: e2fsck being run while checking MMP block</p>
 </blockquote>
-<details class="abstract"><summary>使用的 <code>change-repo.sh</code> 脚本</summary><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<details class="abstract">
+<summary>使用的 <code>change-repo.sh</code> 脚本</summary>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BASH_VERSION</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span>
 

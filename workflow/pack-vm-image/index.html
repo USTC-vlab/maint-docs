@@ -1305,7 +1305,9 @@ qm <span class="nb">set</span> <span class="m">910</span> --boot c --bootdisk sc
 <p>为虚拟机提供网络信息（注意把 IP 地址改掉）：</p>
 <div class="highlight"><pre><span></span><code>qm <span class="nb">set</span> <span class="m">910</span> --ipconfig0 <span class="nv">ip</span><span class="o">=</span><span class="m">172</span>.31.0.256/16,gw<span class="o">=</span><span class="m">172</span>.31.0.1,ip6<span class="o">=</span>auto
 </code></pre></div>
-<details class="note"><summary>可选项目：将 console 设为串口</summary><p>Proxmox VE 官方文档里的说明：</p>
+<details class="note">
+<summary>可选项目：将 console 设为串口</summary>
+<p>Proxmox VE 官方文档里的说明：</p>
 <blockquote>
 <p>Many Cloud-Init images rely on this, as it is an requirement for OpenStack images.</p>
 </blockquote>

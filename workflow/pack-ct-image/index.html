@@ -1406,7 +1406,9 @@ mount /dev/<span class="o">{</span>vg<span class="o">}</span>/vm-<span class="o"
 </code></pre></div>
 <h3 id="process-uid-for-unprivileged-containers">Unprivileged container 打包后的 UID/GID 处理<a class="headerlink" href="#process-uid-for-unprivileged-containers" title="Permanent link">&para;</a></h3>
 <p>如果容器创建时设置为了 unprivileged，则其存在文件系统中的 UID/GID 等都被 LXC 映射到了 +100000（10 万）的数值，打包后需要将这增加的数值修改回来。参考<a href="https://stackoverflow.com/q/39153605/5958455">这个 Stack Overflow 主题</a>，使用这个 Go 程序可以改写 tar 中的文件信息：</p>
-<details class="abstract"><summary>Go 代码</summary><div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nx">main</span>
+<details class="abstract">
+<summary>Go 代码</summary>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
     <span class="s">&quot;archive/tar&quot;</span>
