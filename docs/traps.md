@@ -46,6 +46,20 @@ PVE 的 HA 太敬业了，运行虚拟机时会严格按照 HA 配置好的节�
 
 HA group 有一个选项是 nofailback，即禁用“有更高优先级节点在线时优先迁移到更高节点”这个默认行为。启用 nofailback 后 HA 会尽量避免迁移虚拟机而不是尽量往高优先级节点上迁移。
 
+### Proxmox Backup Server 无法连接，提示 Error fetching datastores - fingerprint XX:XX:XX:…
+
+PVE 会验证 PBS 的证书，如果证书与配置的 fingerprint 不匹配（或者在没有 fingerprint 的时候不信任证书），则会提示错误。
+
+由于我们的证书使用 acme.sh 自动更新，每次更新后证书的 fingerprint 就会变化，而我们使用内网地址连接 PBS 也不可能获得公网可信任的证书，因此解决方法是每次更新证书时同步更新 fingerprint。
+
+在 pv1 的更新证书的 cron 脚本最后加入以下内容，使用 OpenSSL 获取证书 fingerprint 并用 pvesm 命令登记修改：
+
+```shell
+FP="$(openssl x509 -noout -fingerprint -sha256 -inform pem -in "$SRC/pveproxy-ssl.pem")"
+FP="${FP##*=}"
+pvesm set pbs --fingerprint "$FP"
+```
+
 ## LVM
 
 ### 开机显示 Cannot process volume group pve 等错误信息
