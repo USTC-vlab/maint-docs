@@ -370,6 +370,18 @@ fs.inotify.max_user_watches = 1048576
 
 解决方法：手动挂载（`lvchange -ay 磁盘名`），使用 `fdisk -l` 检查分区表是否有问题。如果有（提示 The primary GPT table is corrupt, but the backup appears OK, so that will be used），使用 `fdisk` 打开，再执行 `w` 利用备份分区表写入修复。
 
+### `tcpdump` 运行无输出
+
+2021/12/19 凌晨有同学反馈该问题，经检查问题为容器中的 apparmor 规则阻止了 `tcpdump` 向 `stdout`/`stderr` 导致的。简单的解决方法如下：
+
+```shell
+cd /etc/apparmor.d
+sudo mv usr.sbin.tcpdump disable/
+sudo apparmor_parser -R /etc/apparmor.d/disable/
+```
+
+之后需要修改镜像，移除 `usr.sbin.tcpdump` 规则。
+
 ## Web 及用户界面
 
 ### 创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')
