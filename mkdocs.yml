@@ -100,6 +100,7 @@ nav:
   - Vlab 实验软件:
     - 配置: vlab-software/index.md
     - 软件安装: vlab-software/installation.md
+    - 相关记录: vlab-software/misc.md
   - KVM 虚拟机:
     - cloud-init 配置: kvm/cloud-init.md
   - 测试环境:
