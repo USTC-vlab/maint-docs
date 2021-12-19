@@ -12,21 +12,21 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/ssh-ca/">
+        <link rel="canonical" href="https://vlab.ibugone.com/vlab-software/misc/">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
     
     
       
-        <title>SSH 证书认证 - Vlab 维护文档</title>
+        <title>相关记录 - Vlab 维护文档</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -42,7 +42,7 @@
     
       <link rel="stylesheet" href="https://vlab.ustc.edu.cn/docs/assets/css/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ssh-证书认证" class="md-skip">
+        <a href="#vlab-实验软件套装相关记录" class="md-skip">
           跳转至
         </a>
       
@@ -84,7 +84,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href="../.." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SSH 证书认证
+              相关记录
             
           </span>
         </div>
@@ -204,7 +204,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href="../.." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -235,7 +235,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         首页
       </a>
     </li>
@@ -250,7 +250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         概览
       </a>
     </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../backup/" class="md-nav__link">
+      <a href="../../backup/" class="md-nav__link">
         备份
       </a>
     </li>
@@ -278,52 +278,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          SSH 证书认证
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../ssh-ca/" class="md-nav__link">
         SSH 证书认证
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#用户-ca" class="md-nav__link">
-    用户 CA
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -364,7 +323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/" class="md-nav__link">
+      <a href="../../networking/" class="md-nav__link">
         网络界面
       </a>
     </li>
@@ -378,7 +337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/host/" class="md-nav__link">
+      <a href="../../networking/host/" class="md-nav__link">
         主机网卡
       </a>
     </li>
@@ -392,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/intranet/" class="md-nav__link">
+      <a href="../../networking/intranet/" class="md-nav__link">
         容器内网
       </a>
     </li>
@@ -406,7 +365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/firewall/" class="md-nav__link">
+      <a href="../../networking/firewall/" class="md-nav__link">
         防火墙与安全
       </a>
     </li>
@@ -420,7 +379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/ips/" class="md-nav__link">
+      <a href="../../networking/ips/" class="md-nav__link">
         IP 地址列表
       </a>
     </li>
@@ -470,7 +429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servers/ct100/" class="md-nav__link">
+      <a href="../../servers/ct100/" class="md-nav__link">
         网关 (CT 100)
       </a>
     </li>
@@ -484,7 +443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servers/ct101/" class="md-nav__link">
+      <a href="../../servers/ct101/" class="md-nav__link">
         Web 服务器 (CT 101)
       </a>
     </li>
@@ -498,7 +457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servers/vm104/" class="md-nav__link">
+      <a href="../../servers/vm104/" class="md-nav__link">
         备份服务器 (VM 104)
       </a>
     </li>
@@ -548,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ui/vncmux/" class="md-nav__link">
+      <a href="../../ui/vncmux/" class="md-nav__link">
         VNC 统一登录
       </a>
     </li>
@@ -562,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ui/rdpproxy/" class="md-nav__link">
+      <a href="../../ui/rdpproxy/" class="md-nav__link">
         RDP 统一登录
       </a>
     </li>
@@ -582,14 +541,16 @@
 
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
       
       
       
@@ -612,7 +573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vlab-software/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         配置
       </a>
     </li>
@@ -626,7 +587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vlab-software/installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         软件安装
       </a>
     </li>
@@ -638,11 +599,52 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../vlab-software/misc/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          相关记录
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         相关记录
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#在-lxc-中以-ubuntu-1804-docker-容器运行-vivado-20191" class="md-nav__link">
+    在 LXC 中以 Ubuntu 18.04 Docker 容器运行 Vivado 2019.1
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -690,7 +692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kvm/cloud-init/" class="md-nav__link">
+      <a href="../../kvm/cloud-init/" class="md-nav__link">
         cloud-init 配置
       </a>
     </li>
@@ -740,7 +742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testbed/" class="md-nav__link">
+      <a href="../../testbed/" class="md-nav__link">
         简介
       </a>
     </li>
@@ -790,7 +792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/new-host/" class="md-nav__link">
+      <a href="../../workflow/new-host/" class="md-nav__link">
         配置新主机
       </a>
     </li>
@@ -804,7 +806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/pack-ct-image/" class="md-nav__link">
+      <a href="../../workflow/pack-ct-image/" class="md-nav__link">
         打包容器镜像
       </a>
     </li>
@@ -818,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/pack-vm-image/" class="md-nav__link">
+      <a href="../../workflow/pack-vm-image/" class="md-nav__link">
         打包虚拟机镜像
       </a>
     </li>
@@ -832,7 +834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/pack-windows-image/" class="md-nav__link">
+      <a href="../../workflow/pack-windows-image/" class="md-nav__link">
         打包 Windows 镜像
       </a>
     </li>
@@ -846,7 +848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflow/miscellaneous/" class="md-nav__link">
+      <a href="../../workflow/miscellaneous/" class="md-nav__link">
         杂项
       </a>
     </li>
@@ -922,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../references/desktop/" class="md-nav__link">
+      <a href="../../references/desktop/" class="md-nav__link">
         desktop 桌面图标文件
       </a>
     </li>
@@ -936,7 +938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../references/ustccas/" class="md-nav__link">
+      <a href="../../references/ustccas/" class="md-nav__link">
         统一身份认证
       </a>
     </li>
@@ -950,7 +952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../references/pve-ids/" class="md-nav__link">
+      <a href="../../references/pve-ids/" class="md-nav__link">
         Proxmox ID 分配表
       </a>
     </li>
@@ -971,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../traps/" class="md-nav__link">
+      <a href="../../traps/" class="md-nav__link">
         踩坑记录
       </a>
     </li>
@@ -985,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../changelog/" class="md-nav__link">
+      <a href="../../changelog/" class="md-nav__link">
         更新历史
       </a>
     </li>
@@ -1025,7 +1027,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-09-20/" class="md-nav__link">
+      <a href="../../records/2021-09-20/" class="md-nav__link">
         2021 年 9 月 20 日
       </a>
     </li>
@@ -1039,7 +1041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-08-28/" class="md-nav__link">
+      <a href="../../records/2021-08-28/" class="md-nav__link">
         2021 年 8 月 28 日
       </a>
     </li>
@@ -1053,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-08-21/" class="md-nav__link">
+      <a href="../../records/2021-08-21/" class="md-nav__link">
         2021 年 8 月 21 日
       </a>
     </li>
@@ -1067,7 +1069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-06-13/" class="md-nav__link">
+      <a href="../../records/2021-06-13/" class="md-nav__link">
         2021 年 6 月 13 日
       </a>
     </li>
@@ -1081,7 +1083,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2021-03-18/" class="md-nav__link">
+      <a href="../../records/2021-03-18/" class="md-nav__link">
         2021 年 3 月 18 日
       </a>
     </li>
@@ -1095,7 +1097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2020-08-01/" class="md-nav__link">
+      <a href="../../records/2020-08-01/" class="md-nav__link">
         2020 年 8 月 1 日
       </a>
     </li>
@@ -1109,7 +1111,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../records/2020-03-31/" class="md-nav__link">
+      <a href="../../records/2020-03-31/" class="md-nav__link">
         2020 年 3 月 31 日
       </a>
     </li>
@@ -1130,7 +1132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../history/gen1/" class="md-nav__link">
+      <a href="../../history/gen1/" class="md-nav__link">
         历史版本
       </a>
     </li>
@@ -1171,8 +1173,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#用户-ca" class="md-nav__link">
-    用户 CA
+  <a href="#在-lxc-中以-ubuntu-1804-docker-容器运行-vivado-20191" class="md-nav__link">
+    在 LXC 中以 Ubuntu 18.04 Docker 容器运行 Vivado 2019.1
   </a>
   
 </li>
@@ -1189,54 +1191,36 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/ssh-ca.md" title="编辑此页" class="md-content__button md-icon">
+<a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/vlab-software/misc.md" title="编辑此页" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="ssh-证书认证">SSH 证书认证<a class="headerlink" href="#ssh-证书认证" title="Permanent link">&para;</a></h1>
-<p>所有 Proxmox VE 主机及几个特殊容器（<a href="../servers/ct100/">CT100 gateway</a>，<a href="../servers/ct101/">CT101 web</a> 和其他 ID 为 1xx 的容器/虚拟机）的 SSH 登录均使用证书。</p>
-<p>关于 OpenSSH 的证书认证方式，可以参考 <a href="https://ibug.io/p/30">iBug 的博客</a>（英文）、<a href="https://yyw.moe/2021/08/02/Use-SSH-CA/">totoro 的博客</a>以及校 Linux 用户协会的<a href="https://docs.ustclug.org/infrastructure/sshca/">服务器维护文档</a>。</p>
-<p>CA 公钥：</p>
-<div class="highlight"><pre><span></span><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6KdAJzKLswXyjf4SipNL1dlK1Vq0KNOit/MTDLiamkqvHJDiKceLYmN97y3Chdx8ofXwW6sRUBJRrjmYq6M0JZSGc8roUtUnSai1P5q1kZQ59x1IhsduTg4WENSteSB6vIvpyoSmcIhi3v9UHgUsl4MsnHxffxx5BiyW7UHPY3MzzkRZL96A4QXUOFd9P+NED3zHmEZ9B2Q66+s2ep2FmNralK4XwRaVxBO2r9san8vYU5pH2TzYZLYxNZ/AFX3bLV5M+AmZytaSNLcuIzZHyqbYawvD+Lee00VB9A3JcaqsjDUCtHZ5gQsZMmqw2r7gj9lDqM6Fw6A8y5rWNJP3Q+FOEEYvzGnQ/SnzU0MpMvGpYWrm/uCJ8pFdbYTYkxAJ+VO0lJ5mAIN664cX0DQ3OyGH/xmCNWGGCfGfmvWqwMwD6Kzo06xcqzsoqaMxwgBuVyICE+VvVCf3pcX4HERDrZY0TMjZxaTc8Ws2xQHJbqekv6nIjQWUgH7LIjkYvycQkxXE2dWfDy/c2SRiKWuxW9n8Hymmfp3lbBHzlCa/LtHeuPIzmBUHUoGya0feWFjrbGnKcPs3etNqpvyIGngMaecTAsbrf5v+J1M0VLCfwzwLt13/G1BCb+BK22vYzMTusrR+6A68Fm6OWSFlBYp31uVLxPg0nqtiW8bi1FbD0hQ== Vlab-CA
+<h1 id="vlab-实验软件套装相关记录">Vlab 实验软件套装相关记录<a class="headerlink" href="#vlab-实验软件套装相关记录" title="Permanent link">&para;</a></h1>
+<h2 id="在-lxc-中以-ubuntu-1804-docker-容器运行-vivado-20191">在 LXC 中以 Ubuntu 18.04 Docker 容器运行 Vivado 2019.1<a class="headerlink" href="#在-lxc-中以-ubuntu-1804-docker-容器运行-vivado-20191" title="Permanent link">&para;</a></h2>
+<p>运行 Ubuntu 18.04 容器：</p>
+<div class="highlight"><pre><span></span><code>sudo docker run -it -e <span class="nv">DISPLAY</span><span class="o">=</span><span class="nv">$DISPLAY</span> -e <span class="nv">LANG</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span> -v /tmp/.X11-unix/:/tmp/.X11-unix -v /opt/vlab:/opt/vlab -v /home/ubuntu:/user --rm ustclug/ubuntu:18.04
 </code></pre></div>
-<p>可以在服务器上直接使用 Wget 或 cURL 获取：</p>
-<div class="highlight"><pre><span></span><code>wget -O /etc/ssh/ssh_user_ca https://vlab.ibugone.com/assets/vlab_ca.pub
-</code></pre></div>
-<p>然后准备 <code>/etc/ssh/sshd_config.d/vlab.conf</code>：</p>
-<div class="highlight"><pre><span></span><code>HostKey /etc/ssh/ssh_host_rsa_key
-HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
-TrustedUserCAKeys /etc/ssh/ssh_user_ca
-
-AuthorizedKeysFile /dev/null  # 屏蔽不带证书的公钥认证
-PermitRootLogin prohibit-password
-PasswordAuthentication no
-</code></pre></div>
-<h2 id="用户-ca">用户 CA<a class="headerlink" href="#用户-ca" title="Permanent link">&para;</a></h2>
-<p>由于 Proxmox VE 没有提供直接在容器内执行命令的 API，因此我们通过内嵌 SSH CA 的方式自己造个轮子。</p>
-<p>出于管理的考虑，用户 CA 和主机 CA 独立。公钥：</p>
-<div class="highlight"><pre><span></span><code>ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3ZHisQY0iMpUNDQNaxcnRSqDbauE8ih6/MrEENJZa7FHKINOPi+bunK1wEXPqlKfu8INEBWCf95+t86z+jXVxmQE176xenS92wiLvR4MZyCBfD5DXAB0mK5iV1eQug5P/cD8Pohr/3wywFbKgKzsix9unky9sJGr86RunSwJbAkMGlw== Vlab-User-CA
-</code></pre></div>
-<p>可以在虚拟机中直接使用 Wget 或 cURL 获取：</p>
-<div class="highlight"><pre><span></span><code>wget -O /etc/ssh/ssh_user_ca https://vlab.ibugone.com/assets/vlab_user_ca.pub
-</code></pre></div>
-<p>将 CA 添加至容器或虚拟机的操作与上面类似，但是不需要对主机公钥进行签名，因此只需要</p>
+<p>在启动的 Docker 容器中:</p>
 <ul>
-<li>将以上公钥保存至某个文件，如 <code>/etc/ssh/ssh_user_ca</code></li>
-<li>
-<p>在 <code>sshd_config</code> 中追加，或者创建 <code>/etc/ssh/sshd_config.d/vlab.conf</code> 并写入</p>
-<div class="highlight"><pre><span></span><code>TrustedUserCAKeys /etc/ssh/ssh_user_ca
-</code></pre></div>
-<p>注意使用 <code>sshd_config.d</code> 前要确认软件包提供的 <code>sshd_config</code> 包含了 Include 语句，否则请直接修改 <code>sshd_config</code>。</p>
-</li>
+<li>安装相关依赖</li>
+<li>配置 locales（否则浏览文件中含中文会抛出异常）</li>
+<li>添加用户（否则会出现权限错误 <code>connect(3, {sa_family=AF_UNIX, sun_path=@"/tmp/.X11-unix/X0"}, 20) = -1 ECONNREFUSED (Connection refused)</code>）：</li>
 </ul>
+<div class="highlight"><pre><span></span><code>apt update
+apt install libx11-6 libxext6 libxrender1 libxtst6 libxi6 locales
+locale-gen zh_CN.UTF-8
+adduser vlab  <span class="c1"># 需要让容器中用户 PID 与外面相同</span>
+su vlab
+/opt/vlab/bin/vivado
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 24, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2021</span>
       
     
   </small>
@@ -1259,7 +1243,7 @@ PasswordAuthentication no
     <nav class="md-footer__inner md-grid" aria-label="页脚">
       
         
-        <a href="../backup/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 备份" rel="prev">
+        <a href="../installation/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 软件安装" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1268,20 +1252,20 @@ PasswordAuthentication no
               <span class="md-footer__direction">
                 上一页
               </span>
-              备份
+              软件安装
             </div>
           </div>
         </a>
       
       
         
-        <a href="../networking/" class="md-footer__link md-footer__link--next" aria-label="下一页: 网络界面" rel="next">
+        <a href="../../kvm/cloud-init/" class="md-footer__link md-footer__link--next" aria-label="下一页: cloud-init 配置" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              网络界面
+              cloud-init 配置
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1337,10 +1321,10 @@ PasswordAuthentication no
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
       
     
   </body>
