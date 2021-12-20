@@ -1226,6 +1226,20 @@
 
 <h1 id="vlab-实验软件套装">Vlab 实验软件套装<a class="headerlink" href="#vlab-实验软件套装" title="Permanent link">&para;</a></h1>
 <p>Vlab Software 是存放于各个主机上的 <code>/opt/vlab</code> 的软件组合，通过 bind mount 挂载进虚拟机的 <code>/opt/vlab</code> 目录，为用户提供预装的软件。因此我们也经常称为 /opt/vlab。</p>
+<p>为了保证各用户能够及时用上统一版本的 Vlab Software，我们在 pv1 上使用 crontab 每天凌晨将 <code>/opt/vlab</code> 同步至 pv2-pv7 上，其中 crontab 条目如下：</p>
+<div class="highlight"><pre><span></span><code>47 4 * * * /root/sync-software.sh
+</code></pre></div>
+<p>对应的 shell 脚本如下：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">exec</span> &gt;/dev/null <span class="m">2</span>&gt;/dev/null
+
+<span class="k">for</span> node <span class="k">in</span> pv<span class="o">{</span><span class="m">2</span>..7<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+  rsync -avz --delete /opt/vlab/ <span class="s2">&quot;</span><span class="nv">$node</span><span class="s2">&quot;</span>:/opt/vlab/ <span class="p">&amp;</span>
+<span class="k">done</span>
+<span class="nb">wait</span>
+</code></pre></div>
+<p>如果有对 <code>/opt/vlab</code> 修改后需要立刻同步的（一般不需要），手动执行 <code>/root/sync-software.sh</code> 即可。</p>
 <h2 id="为虚拟机配置-vlab-software">为虚拟机配置 Vlab Software<a class="headerlink" href="#为虚拟机配置-vlab-software" title="Permanent link">&para;</a></h2>
 <p>取决于所安装的桌面环境，在 <code>/etc/xdg/menus</code> 下的某个 <code>.menu</code> 文件最后的关闭标签<strong>前</strong>插入如下内容，也就是在最外层的 <code>&lt;Menu&gt;</code> 下添加一个子键。</p>
 <div class="highlight"><pre><span></span><code><span class="c">&lt;!-- Vlab --&gt;</span>
@@ -1250,7 +1264,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 14, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2021</span>
       
     
   </small>
