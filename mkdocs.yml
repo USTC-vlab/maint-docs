@@ -70,7 +70,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.snippets:
       base_path: docs/assets/
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde:
