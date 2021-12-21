@@ -1836,7 +1836,9 @@ mount /dev/sda1 /boot/efi
 <p>如果更新到 PVE 7 的时候没有自动将 ifupdown 替换为 ifupdown2，请手动替换并更新配置文件。</p>
 </div>
 <p>语法比较：</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ifupdown</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">ifupdown</label><label for="__tabbed_1_2">ifupdown2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>auto eno1
 iface eno1 inet manual
     bond-master bond0
@@ -1853,7 +1855,7 @@ iface bond0 inet manual
     bond-updelay 200
 </code></pre></div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ifupdown2</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>auto eno1
 iface eno1
 
@@ -1868,6 +1870,7 @@ iface bond0
     bond-downdelay 200
     bond-updelay 200
 </code></pre></div>
+</div>
 </div>
 </div>
 <p>更多信息请见<a href="../networking/host/">主机网卡</a>。</p>

@@ -1181,7 +1181,9 @@
 <h1 id="主机网卡">主机网卡<a class="headerlink" href="#主机网卡" title="Permanent link">&para;</a></h1>
 <p>Proxmox VE 不支持 ifupdown 以外的网络管理系统（PVE 7 开始默认使用 ifupdown2），如 NetworkManager 和 systemd-networkd 等，因此网络配置只能使用 <code>/etc/network/interfaces</code> 文件。</p>
 <p>以下是 pv2 的配置供参考，批量修改请见<a href="https://gist.github.com/iBug/988806dea74b79408062db2325b972be">这个 Gist</a>。关于 ifupdown 和 ifupdown2 的区别见<a href="https://support.cumulusnetworks.com/hc/en-us/articles/202933638-Comparing-ifupdown2-Commands-with-ifupdown-Commands">这个页面</a>，以及 ifupdown2 的文档<a href="https://cumulusnetworks.github.io/ifupdown2/ifupdown2/index.html">在这</a>。</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ifupdown2</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">ifupdown2</label><label for="__tabbed_1_2">ifupdown</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>auto lo
 iface lo inet loopback
 
@@ -1256,7 +1258,7 @@ iface vmbr2
     bridge-fd 0
 </code></pre></div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ifupdown</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><span class="twemoji orangered"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></svg></span> 以下配置文件为迁移至 ifupdown2 前的最后配置，实际情况已发生变化，内容仅供参考</p>
 <div class="highlight"><pre><span></span><code>auto lo
 iface lo inet loopback
@@ -1325,6 +1327,7 @@ iface vmbr1 inet static
     bridge_stp off
     bridge_fd 0
 </code></pre></div>
+</div>
 </div>
 </div>
 <p>其中 ens1f1 的 <code>mtu 1550</code> 和 vxlan0 的 <code>mtu 1500</code> 设置见<a href="../../traps/#vxlan-mtu">踩坑记录</a>中的解释。</p>
