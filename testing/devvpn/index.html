@@ -1255,7 +1255,7 @@
 <h1 id="vpn-for-vlab-devs">VPN for Vlab devs<a class="headerlink" href="#vpn-for-vlab-devs" title="Permanent link">&para;</a></h1>
 <p>为了方便参与开发的同学连接校园网，我们开设了一个 OpenVPN Server 运行在 <a href="../../servers/ct100/">gateway（CT 100）</a>上。</p>
 <h2 id="使用方式">使用方式<a class="headerlink" href="#使用方式" title="Permanent link">&para;</a></h2>
-<p>登录进 gateway，切换目录至 <code>/etc/openvpn/ca</code>，运行 <code>./genconf.sh '&lt;Common Name&gt;'</code>，其中 <code>&lt;Common Name&gt;</code> 为标识客户端的名称（X.509 证书的 Common Name 字段，建议使用姓名或昵称等能够辨认的名称）。如果一切正常，就能在 <code>clients</code> 目录中生成一个 <code>&lt;Common Name&gt;.ovpn</code> 文件，将该文件分发给用户，使用 OpenVPN 客户端导入并连接即可</p>
+<p>登录进 gateway，切换目录至 <code>/etc/openvpn/ca</code>，运行 <code>./genconf.sh '&lt;Common Name&gt;'</code>，其中 <code>&lt;Common Name&gt;</code> 为标识客户端的名称（X.509 证书的 Common Name 字段，建议使用姓名或昵称等能够辨认的名称）。如果一切正常，就能在 <code>clients</code> 目录中生成一个 <code>&lt;Common Name&gt;.ovpn</code> 文件，将该文件分发给用户，使用 OpenVPN 客户端导入并连接即可。</p>
 <h2 id="配置-openvpn-server">配置 OpenVPN Server<a class="headerlink" href="#配置-openvpn-server" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">未完待续</p>
