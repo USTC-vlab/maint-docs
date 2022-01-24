@@ -105,7 +105,8 @@ nav:
   - KVM 虚拟机:
     - cloud-init 配置: kvm/cloud-init.md
   - 测试环境:
-    - 简介: testbed/index.md
+    - 简介: testing/index.md
+    - Vlab VPN: testing/devvpn.md
   - 工作流程:
     - 配置新主机: workflow/new-host.md
     - 打包容器镜像: workflow/pack-ct-image.md
