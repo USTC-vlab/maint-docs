@@ -12,21 +12,21 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/ui/rdpproxy/">
+        <link rel="canonical" href="https://vlab.ibugone.com/testing/">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
       
-        <title>RDP 统一登录 - Vlab 维护文档</title>
+        <title>简介 - Vlab 维护文档</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6e60f8b8.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -42,7 +42,7 @@
     
       <link rel="stylesheet" href="https://vlab.ustc.edu.cn/docs/assets/css/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rdp-proxy-配置" class="md-skip">
+        <a href="#测试环境" class="md-skip">
           跳转至
         </a>
       
@@ -84,7 +84,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../.." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href=".." title="Vlab 维护文档" class="md-header__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              RDP 统一登录
+              简介
             
           </span>
         </div>
@@ -204,7 +204,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
+    <a href=".." title="Vlab 维护文档" class="md-nav__button md-logo" aria-label="Vlab 维护文档" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 0 0 0 2.75v4c0 .372.116.717.314 1a1.742 1.742 0 0 0-.314 1v4c0 .966.784 1.75 1.75 1.75h12.5A1.75 1.75 0 0 0 16 12.75v-4c0-.372-.116-.717-.314-1 .198-.283.314-.628.314-1v-4A1.75 1.75 0 0 0 14.25 1H1.75zm0 7.5a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75zM1.5 2.75a.25.25 0 0 1 .25-.25h12.5a.25.25 0 0 1 .25.25v4a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25v-4zm5.5 2A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75zM7.75 10a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5zM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75zM3.75 10a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5z"/></svg>
@@ -235,7 +235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         首页
       </a>
     </li>
@@ -250,7 +250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         概览
       </a>
     </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup/" class="md-nav__link">
+      <a href="../backup/" class="md-nav__link">
         备份
       </a>
     </li>
@@ -280,7 +280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ssh-ca/" class="md-nav__link">
+      <a href="../ssh-ca/" class="md-nav__link">
         SSH 证书认证
       </a>
     </li>
@@ -323,7 +323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/" class="md-nav__link">
+      <a href="../networking/" class="md-nav__link">
         网络界面
       </a>
     </li>
@@ -337,7 +337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/host/" class="md-nav__link">
+      <a href="../networking/host/" class="md-nav__link">
         主机网卡
       </a>
     </li>
@@ -351,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/intranet/" class="md-nav__link">
+      <a href="../networking/intranet/" class="md-nav__link">
         容器内网
       </a>
     </li>
@@ -365,7 +365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/firewall/" class="md-nav__link">
+      <a href="../networking/firewall/" class="md-nav__link">
         防火墙与安全
       </a>
     </li>
@@ -379,7 +379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/ips/" class="md-nav__link">
+      <a href="../networking/ips/" class="md-nav__link">
         IP 地址列表
       </a>
     </li>
@@ -429,7 +429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../servers/ct100/" class="md-nav__link">
+      <a href="../servers/ct100/" class="md-nav__link">
         网关 (CT 100)
       </a>
     </li>
@@ -443,7 +443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../servers/ct101/" class="md-nav__link">
+      <a href="../servers/ct101/" class="md-nav__link">
         Web 服务器 (CT 101)
       </a>
     </li>
@@ -457,7 +457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../servers/vm104/" class="md-nav__link">
+      <a href="../servers/vm104/" class="md-nav__link">
         备份服务器 (VM 104)
       </a>
     </li>
@@ -477,16 +477,14 @@
 
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
       
       
       
@@ -509,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vncmux/" class="md-nav__link">
+      <a href="../ui/vncmux/" class="md-nav__link">
         VNC 统一登录
       </a>
     </li>
@@ -521,21 +519,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../ui/rdpproxy/" class="md-nav__link">
         RDP 统一登录
       </a>
-      
     </li>
   
 
@@ -583,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../vlab-software/" class="md-nav__link">
+      <a href="../vlab-software/" class="md-nav__link">
         配置
       </a>
     </li>
@@ -597,7 +585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../vlab-software/installation/" class="md-nav__link">
+      <a href="../vlab-software/installation/" class="md-nav__link">
         软件安装
       </a>
     </li>
@@ -611,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../vlab-software/misc/" class="md-nav__link">
+      <a href="../vlab-software/misc/" class="md-nav__link">
         相关记录
       </a>
     </li>
@@ -661,7 +649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../kvm/cloud-init/" class="md-nav__link">
+      <a href="../kvm/cloud-init/" class="md-nav__link">
         cloud-init 配置
       </a>
     </li>
@@ -681,14 +669,16 @@
 
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" checked>
       
       
       
@@ -709,11 +699,79 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../testing/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          简介
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         简介
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#与生产环境的比较" class="md-nav__link">
+    与生产环境的比较
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#与生产环境的联系" class="md-nav__link">
+    与生产环境的联系
+  </a>
+  
+    <nav class="md-nav" aria-label="与生产环境的联系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#登录" class="md-nav__link">
+    登录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#配置" class="md-nav__link">
+    配置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -725,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../testing/devvpn/" class="md-nav__link">
+      <a href="devvpn/" class="md-nav__link">
         Vlab VPN
       </a>
     </li>
@@ -775,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/new-host/" class="md-nav__link">
+      <a href="../workflow/new-host/" class="md-nav__link">
         配置新主机
       </a>
     </li>
@@ -789,7 +847,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/pack-ct-image/" class="md-nav__link">
+      <a href="../workflow/pack-ct-image/" class="md-nav__link">
         打包容器镜像
       </a>
     </li>
@@ -803,7 +861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/pack-vm-image/" class="md-nav__link">
+      <a href="../workflow/pack-vm-image/" class="md-nav__link">
         打包虚拟机镜像
       </a>
     </li>
@@ -817,7 +875,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/pack-windows-image/" class="md-nav__link">
+      <a href="../workflow/pack-windows-image/" class="md-nav__link">
         打包 Windows 镜像
       </a>
     </li>
@@ -831,7 +889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/miscellaneous/" class="md-nav__link">
+      <a href="../workflow/miscellaneous/" class="md-nav__link">
         杂项
       </a>
     </li>
@@ -907,7 +965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../references/desktop/" class="md-nav__link">
+      <a href="../references/desktop/" class="md-nav__link">
         desktop 桌面图标文件
       </a>
     </li>
@@ -921,7 +979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../references/ustccas/" class="md-nav__link">
+      <a href="../references/ustccas/" class="md-nav__link">
         统一身份认证
       </a>
     </li>
@@ -935,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../references/pve-ids/" class="md-nav__link">
+      <a href="../references/pve-ids/" class="md-nav__link">
         Proxmox ID 分配表
       </a>
     </li>
@@ -956,7 +1014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../traps/" class="md-nav__link">
+      <a href="../traps/" class="md-nav__link">
         踩坑记录
       </a>
     </li>
@@ -970,7 +1028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         更新历史
       </a>
     </li>
@@ -1010,7 +1068,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-12-20/" class="md-nav__link">
+      <a href="../records/2021-12-20/" class="md-nav__link">
         2021 年 12 月 20 日
       </a>
     </li>
@@ -1024,7 +1082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-10-31/" class="md-nav__link">
+      <a href="../records/2021-10-31/" class="md-nav__link">
         2021 年 10 月 31 日
       </a>
     </li>
@@ -1038,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-09-20/" class="md-nav__link">
+      <a href="../records/2021-09-20/" class="md-nav__link">
         2021 年 9 月 20 日
       </a>
     </li>
@@ -1052,7 +1110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-08-28/" class="md-nav__link">
+      <a href="../records/2021-08-28/" class="md-nav__link">
         2021 年 8 月 28 日
       </a>
     </li>
@@ -1066,7 +1124,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-08-21/" class="md-nav__link">
+      <a href="../records/2021-08-21/" class="md-nav__link">
         2021 年 8 月 21 日
       </a>
     </li>
@@ -1080,7 +1138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-06-13/" class="md-nav__link">
+      <a href="../records/2021-06-13/" class="md-nav__link">
         2021 年 6 月 13 日
       </a>
     </li>
@@ -1094,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-03-18/" class="md-nav__link">
+      <a href="../records/2021-03-18/" class="md-nav__link">
         2021 年 3 月 18 日
       </a>
     </li>
@@ -1108,7 +1166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2020-08-01/" class="md-nav__link">
+      <a href="../records/2020-08-01/" class="md-nav__link">
         2020 年 8 月 1 日
       </a>
     </li>
@@ -1122,7 +1180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2020-03-31/" class="md-nav__link">
+      <a href="../records/2020-03-31/" class="md-nav__link">
         2020 年 3 月 31 日
       </a>
     </li>
@@ -1143,7 +1201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../history/gen1/" class="md-nav__link">
+      <a href="../history/gen1/" class="md-nav__link">
         历史版本
       </a>
     </li>
@@ -1177,6 +1235,48 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#与生产环境的比较" class="md-nav__link">
+    与生产环境的比较
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#与生产环境的联系" class="md-nav__link">
+    与生产环境的联系
+  </a>
+  
+    <nav class="md-nav" aria-label="与生产环境的联系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#登录" class="md-nav__link">
+    登录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#配置" class="md-nav__link">
+    配置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1187,29 +1287,49 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/ui/rdpproxy.md" title="编辑此页" class="md-content__button md-icon">
+<a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/testing/index.md" title="编辑此页" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="rdp-proxy-配置">RDP Proxy 配置<a class="headerlink" href="#rdp-proxy-配置" title="Permanent link">&para;</a></h1>
-<p>参考 <code>.rdp</code> 文件：</p>
-<div class="highlight"><pre><span></span><code><span class="nx">connection</span> <span class="nx">type</span><span class="o">:</span><span class="nx">i</span><span class="o">:</span><span class="mf">7</span>
-<span class="nx">disable</span> <span class="nx">wallpaper</span><span class="o">:</span><span class="nx">i</span><span class="o">:</span><span class="mf">0</span>
-<span class="nx">allow</span> <span class="nx">font</span> <span class="nx">smoothing</span><span class="o">:</span><span class="nx">i</span><span class="o">:</span><span class="mf">1</span>
-<span class="nx">allow</span> <span class="nx">desktop</span> <span class="nx">composition</span><span class="o">:</span><span class="nx">i</span><span class="o">:</span><span class="mf">1</span>
-<span class="nx">disable</span> <span class="nx">full</span> <span class="nb">window</span> <span class="nx">drag</span><span class="o">:</span><span class="nx">i</span><span class="o">:</span><span class="mf">0</span>
-<span class="nx">disable</span> <span class="nx">menu</span> <span class="nx">anims</span><span class="o">:</span><span class="nx">i</span><span class="o">:</span><span class="mf">0</span>
-<span class="nx">full</span> <span class="nx">address</span><span class="o">:</span><span class="nx">s</span><span class="o">:</span><span class="nx">vlab</span><span class="p">.</span><span class="nx">ustc</span><span class="p">.</span><span class="nx">edu</span><span class="p">.</span><span class="nx">cn</span>
-<span class="nx">loadbalanceinfo</span><span class="o">:</span><span class="nx">s</span><span class="o">:</span><span class="nx">Cookie</span><span class="o">:</span> <span class="nx">msts</span><span class="o">=</span><span class="nx">example_token</span>
-</code></pre></div>
+<h1 id="测试环境">测试环境<a class="headerlink" href="#测试环境" title="Permanent link">&para;</a></h1>
+<p>我们的测试环境运行在单机 pv0 上，没有使用集群配置。</p>
+<h2 id="与生产环境的比较">与生产环境的比较<a class="headerlink" href="#与生产环境的比较" title="Permanent link">&para;</a></h2>
+<p>测试环境主要用于开发和测试，各方面配置都与生产环境接近，例如：</p>
+<ul>
+<li>相同的 CT 100（gateway）和 CT 101（web）</li>
+<li>相同的网络架构</li>
+<li>同样的 bond / vmbr0 / vmbr1</li>
+<li>同样采用 VXLAN 作为容器内网（但是没有多机，一些防火墙规则可能不起作用）</li>
+<li>同样的 IP 地址分配（如测试和生产的 gateway 对内都是 172.31.0.1）</li>
+</ul>
+<p>同时测试环境也用于踩坑，所以在新软件或新版操作系统发布时甚至发布前，我们也会更积极地升级，例如：</p>
+<ul>
+<li>pv0 在 2021 年 7 月重装，我们直接采用了 Proxmox VE 7 的 iso 镜像安装，而当时的生产环境还都在运行 PVE 6.4</li>
+<li>gateway0 和 web0 使用 Proxmox 提供的 Debian 10.10 (buster) 镜像创建，但创建后立刻升级到了 Debian 11.0 (bullseye)</li>
+</ul>
+<h2 id="与生产环境的联系">与生产环境的联系<a class="headerlink" href="#与生产环境的联系" title="Permanent link">&para;</a></h2>
+<h3 id="登录">登录<a class="headerlink" href="#登录" title="Permanent link">&para;</a></h3>
+<p>为了方便复制和传输数据，部分生产环境的主机和虚拟机可以直接 SSH 登录部分测试环境（当然也就可以 rsync 了）：</p>
+<ul>
+<li>root@pv1 通过 SSH 可以直接访问 pv0</li>
+<li>root@web 通过 SSH 可以直接访问 web0</li>
+</ul>
+<p>以上两个访问都是直接添加的 <code>~/.ssh/authorized_keys</code>。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>出于安全考虑，<strong>不要</strong>在测试环境中配置生产环境的登录权限（添加公钥等）。</p>
+</div>
+<h3 id="配置">配置<a class="headerlink" href="#配置" title="Permanent link">&para;</a></h3>
+<p>测试环境和生产环境共用同一套 Nginx 配置文件方便调试，但测试环境的 /etc/nginx 仓库中的 deploy key 没有写入权限，请自行 <code>git pull</code> 后再 <code>git push</code>。</p>
+<p>其他配置暂时没有共享。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 14, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 24, 2022</span>
       
     
   </small>
@@ -1232,7 +1352,7 @@
     <nav class="md-footer__inner md-grid" aria-label="页脚">
       
         
-        <a href="../vncmux/" class="md-footer__link md-footer__link--prev" aria-label="上一页: VNC 统一登录" rel="prev">
+        <a href="../kvm/cloud-init/" class="md-footer__link md-footer__link--prev" aria-label="上一页: cloud-init 配置" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1241,20 +1361,20 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              VNC 统一登录
+              cloud-init 配置
             </div>
           </div>
         </a>
       
       
         
-        <a href="../../vlab-software/" class="md-footer__link md-footer__link--next" aria-label="下一页: 配置" rel="next">
+        <a href="devvpn/" class="md-footer__link md-footer__link--next" aria-label="下一页: Vlab VPN" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              配置
+              Vlab VPN
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1310,10 +1430,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

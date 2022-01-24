@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/workflow/pack-windows-image/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -62,7 +62,7 @@
   
     
     
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -699,8 +699,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../../testbed/" class="md-nav__link">
+      <a href="../../testing/" class="md-nav__link">
         简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/devvpn/" class="md-nav__link">
+        Vlab VPN
       </a>
     </li>
   
@@ -1542,20 +1556,20 @@
 <details class="abstract">
 <summary>注册表文件</summary>
 <p><a href="../../assets/WindowsInternet.reg">下载直链</a></p>
-<div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00
+<div class="highlight"><pre><span></span><code>Windows Registry Editor Version 5.00<span class="w"></span>
 
-<span class="k">[</span><span class="nb">HKEY_LOCAL_MACHINE</span><span class="k">\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]</span>
-<span class="na">&quot;ActiveDnsProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;202.38.64.1&quot;</span>
-<span class="na">&quot;ActiveDnsProbeContentV6&quot;</span><span class="o">=</span><span class="s">&quot;2001:da8:d800::1&quot;</span>
-<span class="na">&quot;ActiveDnsProbeHost&quot;</span><span class="o">=</span><span class="s">&quot;ns.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveDnsProbeHostV6&quot;</span><span class="o">=</span><span class="s">&quot;ns.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveWebProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;USTC Mirrors Connect Test&quot;</span>
-<span class="na">&quot;ActiveWebProbeContentV6&quot;</span><span class="o">=</span><span class="s">&quot;USTC Mirrors Connect Test&quot;</span>
-<span class="na">&quot;ActiveWebProbeHost&quot;</span><span class="o">=</span><span class="s">&quot;mirrors.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveWebProbeHostV6&quot;</span><span class="o">=</span><span class="s">&quot;ipv6.mirrors.ustc.edu.cn&quot;</span>
-<span class="na">&quot;ActiveWebProbePath&quot;</span><span class="o">=</span><span class="s">&quot;connecttest.txt&quot;</span>
-<span class="na">&quot;ActiveWebProbePathV6&quot;</span><span class="o">=</span><span class="s">&quot;connecttest.txt&quot;</span>
-<span class="na">&quot;EnableActiveProbing&quot;</span><span class="o">=</span><span class="nv">dword</span><span class="p">:</span><span class="m">00000001</span>
+<span class="k">[</span><span class="nb">HKEY_LOCAL_MACHINE</span><span class="k">\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]</span><span class="w"></span>
+<span class="na">&quot;ActiveDnsProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;202.38.64.1&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveDnsProbeContentV6&quot;</span><span class="o">=</span><span class="s">&quot;2001:da8:d800::1&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveDnsProbeHost&quot;</span><span class="o">=</span><span class="s">&quot;ns.ustc.edu.cn&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveDnsProbeHostV6&quot;</span><span class="o">=</span><span class="s">&quot;ns.ustc.edu.cn&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveWebProbeContent&quot;</span><span class="o">=</span><span class="s">&quot;USTC Mirrors Connect Test&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveWebProbeContentV6&quot;</span><span class="o">=</span><span class="s">&quot;USTC Mirrors Connect Test&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveWebProbeHost&quot;</span><span class="o">=</span><span class="s">&quot;mirrors.ustc.edu.cn&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveWebProbeHostV6&quot;</span><span class="o">=</span><span class="s">&quot;ipv6.mirrors.ustc.edu.cn&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveWebProbePath&quot;</span><span class="o">=</span><span class="s">&quot;connecttest.txt&quot;</span><span class="w"></span>
+<span class="na">&quot;ActiveWebProbePathV6&quot;</span><span class="o">=</span><span class="s">&quot;connecttest.txt&quot;</span><span class="w"></span>
+<span class="na">&quot;EnableActiveProbing&quot;</span><span class="o">=</span><span class="nv">dword</span><span class="p">:</span><span class="m">00000001</span><span class="w"></span>
 </code></pre></div>
 </details>
 <h2 id="cloudbase-init">三、安装 Cloudbase-init<a class="headerlink" href="#cloudbase-init" title="Permanent link">&para;</a></h2>
@@ -1576,28 +1590,28 @@
 </ul>
 <details class="abstract">
 <summary>参考：修改后的文件内容</summary>
-<div class="highlight"><pre><span></span><code><span class="k">[DEFAULT]</span>
-<span class="na">username</span><span class="o">=</span><span class="s">Administrator</span>
-<span class="na">groups</span><span class="o">=</span><span class="s">Administrators</span>
-<span class="na">inject_user_password</span><span class="o">=</span><span class="s">true</span>
-<span class="na">first_logon_behaviour</span><span class="o">=</span><span class="s">no</span>
-<span class="na">config_drive_cdrom</span><span class="o">=</span><span class="s">true</span>
-<span class="na">bsdtar_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\bin\bsdtar.exe</span>
-<span class="na">mtools_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\bin\</span>
-<span class="na">verbose</span><span class="o">=</span><span class="s">true</span>
-<span class="na">debug</span><span class="o">=</span><span class="s">true</span>
-<span class="na">logdir</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\log\</span>
-<span class="na">logfile</span><span class="o">=</span><span class="s">cloudbase-init-unattend.log</span>
-<span class="na">default_log_levels</span><span class="o">=</span><span class="s">comtypes=INFO,suds=INFO,iso8601=WARN,requests=WARN</span>
-<span class="na">logging_serial_port_settings</span><span class="o">=</span><span class="s">COM1,115200,N,8</span>
-<span class="na">mtu_use_dhcp_config</span><span class="o">=</span><span class="s">true</span>
-<span class="na">ntp_use_dhcp_config</span><span class="o">=</span><span class="s">true</span>
-<span class="na">local_scripts_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\LocalScripts\</span>
-<span class="na">check_latest_version</span><span class="o">=</span><span class="s">false</span>
-<span class="na">metadata_services</span><span class="o">=</span><span class="s">cloudbaseinit.metadata.services.configdrive.ConfigDriveService</span>
-<span class="na">plugins</span><span class="o">=</span><span class="s">cloudbaseinit.plugins.common.mtu.MTUPlugin,cloudbaseinit.plugins.common.sethostname.SetHostNamePlugin,cloudbaseinit.plugins.windows.extendvolumes.ExtendVolumesPlugin</span>
-<span class="na">allow_reboot</span><span class="o">=</span><span class="s">false</span>
-<span class="na">stop_service_on_exit</span><span class="o">=</span><span class="s">false</span>
+<div class="highlight"><pre><span></span><code><span class="k">[DEFAULT]</span><span class="w"></span>
+<span class="na">username</span><span class="o">=</span><span class="s">Administrator</span><span class="w"></span>
+<span class="na">groups</span><span class="o">=</span><span class="s">Administrators</span><span class="w"></span>
+<span class="na">inject_user_password</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="na">first_logon_behaviour</span><span class="o">=</span><span class="s">no</span><span class="w"></span>
+<span class="na">config_drive_cdrom</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="na">bsdtar_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\bin\bsdtar.exe</span><span class="w"></span>
+<span class="na">mtools_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\bin\</span><span class="w"></span>
+<span class="na">verbose</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="na">debug</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="na">logdir</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\log\</span><span class="w"></span>
+<span class="na">logfile</span><span class="o">=</span><span class="s">cloudbase-init-unattend.log</span><span class="w"></span>
+<span class="na">default_log_levels</span><span class="o">=</span><span class="s">comtypes=INFO,suds=INFO,iso8601=WARN,requests=WARN</span><span class="w"></span>
+<span class="na">logging_serial_port_settings</span><span class="o">=</span><span class="s">COM1,115200,N,8</span><span class="w"></span>
+<span class="na">mtu_use_dhcp_config</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="na">ntp_use_dhcp_config</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="na">local_scripts_path</span><span class="o">=</span><span class="s">C:\Program Files\Cloudbase Solutions\Cloudbase-Init\LocalScripts\</span><span class="w"></span>
+<span class="na">check_latest_version</span><span class="o">=</span><span class="s">false</span><span class="w"></span>
+<span class="na">metadata_services</span><span class="o">=</span><span class="s">cloudbaseinit.metadata.services.configdrive.ConfigDriveService</span><span class="w"></span>
+<span class="na">plugins</span><span class="o">=</span><span class="s">cloudbaseinit.plugins.common.mtu.MTUPlugin,cloudbaseinit.plugins.common.sethostname.SetHostNamePlugin,cloudbaseinit.plugins.windows.extendvolumes.ExtendVolumesPlugin</span><span class="w"></span>
+<span class="na">allow_reboot</span><span class="o">=</span><span class="s">false</span><span class="w"></span>
+<span class="na">stop_service_on_exit</span><span class="o">=</span><span class="s">false</span><span class="w"></span>
 </code></pre></div>
 </details>
 <h2 id="cleanup">四、打包前的清理工作<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h2>
@@ -1800,10 +1814,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/kvm/cloud-init/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -62,7 +62,7 @@
   
     
     
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -924,8 +924,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../../testbed/" class="md-nav__link">
+      <a href="../../testing/" class="md-nav__link">
         简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/devvpn/" class="md-nav__link">
+        Vlab VPN
       </a>
     </li>
   
@@ -1598,23 +1612,23 @@ sudo yum install cloud-init  <span class="c1"># CentOS</span>
 <p>cloud-init 的配置信息在文件 <code>/etc/cloud/cloud.cfg.d/*.cfg</code> 和 <code>/etc/cloud/cloud.cfg</code> 中。cloud-init 以字母顺序读取所有的 <code>*.cfg</code> 文件，相同参数后面的文件会覆盖前面的文件。</p>
 <p>在 cloud.cfg 文件中，任务以 module 形式组织. 例如指定 <code>set_hostname</code> 的 moudle 时，cloud-init 会执行 hostname 任务，具体的配置参数由 metadata 指定。</p>
 <p>我们需要在此文件中删除不需要的模块, 例如 <code>disable-ec2-metadata</code> 和 <code>byobu</code> 等。 </p>
-<div class="highlight"><pre><span></span><code><span class="nt">cloud_config_modules</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">snap</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">snap_config</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu-advantage</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">disable-ec2-metadata</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">byobu</span>
+<div class="highlight"><pre><span></span><code><span class="nt">cloud_config_modules</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snap</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snap_config</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-advantage</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disable-ec2-metadata</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byobu</span><span class="w"></span>
 
-<span class="nt">cloud_final_modules</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">snappy</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">fan</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">landscape</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">lxd</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">puppet</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">chef</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mcollective</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">salt-minion</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">rightscale_userdata</span>
+<span class="nt">cloud_final_modules</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snappy</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">landscape</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">puppet</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chef</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcollective</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">salt-minion</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rightscale_userdata</span><span class="w"></span>
 </code></pre></div>
 <p>cloud-init 的数据文件放在 <code>/var/lib/cloud/data</code> 中，
 日志文件放在 <code>/var/log/cloud-init-output.log</code> (每阶段输出)，
@@ -1700,9 +1714,9 @@ qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span clas
 <p>各 module 对应下 config data 格式及功能说明：<a href="https://cloudinit.readthedocs.io/en/latest/topics/modules.html">https://cloudinit.readthedocs.io/en/latest/topics/modules.html</a></p>
 <div class="admonition example">
 <p class="admonition-title">示例</p>
-<div class="highlight"><pre><span></span><code><span class="nt">bootcmd</span><span class="p">:</span>
-   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo 192.168.1.130 us.archive.com &gt; /etc/hosts</span>
-   <span class="p p-Indicator">-</span> <span class="p p-Indicator">[</span> <span class="nv">cloud-init-per</span><span class="p p-Indicator">,</span> <span class="nv">one</span><span class="p p-Indicator">,</span> <span class="nv">mymkfs</span><span class="p p-Indicator">,</span> <span class="nv">mkfs</span><span class="p p-Indicator">,</span> <span class="nv">/dev/vdb</span> <span class="p p-Indicator">]</span>
+<div class="highlight"><pre><span></span><code><span class="nt">bootcmd</span><span class="p">:</span><span class="w"></span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo 192.168.1.130 us.archive.com &gt; /etc/hosts</span><span class="w"></span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">cloud-init-per</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">one</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">mymkfs</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">mkfs</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">/dev/vdb</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="config-示例">config 示例:<a class="headerlink" href="#config-示例" title="Permanent link">&para;</a></h4>
@@ -1722,8 +1736,8 @@ qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span clas
 </ul>
 <p>在虚拟机 <code>/etc/cloud/cloud.cfg.d/</code> 下有多个 <code>.cfg</code> 结尾的文件，这些 ci 配置文件将按照字母顺序执行，后面的 cfg 文件会覆盖前面的 cfg 文件中相同的配置。</p>
 <p>通过测试，新建一个 cfg 文件，使用模块 bootcmd，在此模块下编写的脚本程序将会被执行，例如新建文件 <code>/etc/cloud/cloud.cfg.d/test.cfg</code>，写入内容</p>
-<p><div class="highlight"><pre><span></span><code><span class="nt">bootcmd</span><span class="p">:</span>
-   <span class="p p-Indicator">-</span> <span class="p p-Indicator">[</span> <span class="nv">sh</span><span class="p p-Indicator">,</span> <span class="nv">-xc</span><span class="p p-Indicator">,</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">&#39;hello</span><span class="nv"> </span><span class="s">world&#39;</span><span class="nv"> </span><span class="s">&gt;&gt;</span><span class="nv"> </span><span class="s">testfile&quot;</span> <span class="p p-Indicator">]</span>
+<p><div class="highlight"><pre><span></span><code><span class="nt">bootcmd</span><span class="p">:</span><span class="w"></span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">sh</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-xc</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">&#39;hello</span><span class="nv"> </span><span class="s">world&#39;</span><span class="nv"> </span><span class="s">&gt;&gt;</span><span class="nv"> </span><span class="s">testfile&quot;</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
    就将会在当前 .cfg 文件目录下建立一个内容为 "hello world" 的名为 testfile 的文件。</p>
 <p>虚拟机每次启动都会执行 bootcmd 其后的命令，通过将配置过程写成脚本的形式再作为 bootcmd 的参数写入 .cfg 配置文件中，虚拟机便能够完成配置任务。</p>
@@ -1811,7 +1825,7 @@ perl: warning: Falling back to a fallback locale <span class="o">(</span><span c
       
       
         
-        <a href="../../testbed/" class="md-footer__link md-footer__link--next" aria-label="下一页: 简介" rel="next">
+        <a href="../../testing/" class="md-footer__link md-footer__link--next" aria-label="下一页: 简介" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
@@ -1873,10 +1887,10 @@ perl: warning: Falling back to a fallback locale <span class="o">(</span><span c
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/servers/ct100/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -62,7 +62,7 @@
   
     
     
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -513,8 +513,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bind9" class="md-nav__link">
-    Bind9
+  <a href="#adguardhome" class="md-nav__link">
+    AdGuardHome
+  </a>
+  
+    <nav class="md-nav" aria-label="AdGuardHome">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#过时内容bind9" class="md-nav__link">
+    过时内容：Bind9
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vlab-dev-vpn" class="md-nav__link">
+    Vlab Dev VPN
   </a>
   
 </li>
@@ -797,8 +817,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../../testbed/" class="md-nav__link">
+      <a href="../../testing/" class="md-nav__link">
         简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/devvpn/" class="md-nav__link">
+        Vlab VPN
       </a>
     </li>
   
@@ -1304,8 +1338,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bind9" class="md-nav__link">
-    Bind9
+  <a href="#adguardhome" class="md-nav__link">
+    AdGuardHome
+  </a>
+  
+    <nav class="md-nav" aria-label="AdGuardHome">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#过时内容bind9" class="md-nav__link">
+    过时内容：Bind9
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vlab-dev-vpn" class="md-nav__link">
+    Vlab Dev VPN
   </a>
   
 </li>
@@ -1457,9 +1511,14 @@ iptables-save -f /etc/iptables/rules.v4
     };
 };
 </code></pre></div>
-<h2 id="bind9">Bind9<a class="headerlink" href="#bind9" title="Permanent link">&para;</a></h2>
+<h2 id="adguardhome">AdGuardHome<a class="headerlink" href="#adguardhome" title="Permanent link">&para;</a></h2>
+<p>网关上运行 AdGuardHome 替代曾经的 bind9，因为 bind9 内存占用太高且维护不易，而 AGH 小巧轻便，作为局域网的递归 DNS 比 bind9 更合适。</p>
+<p>我们使用 <a href="https://github.com/fernvenue/adguardhome-upstream">GitHub 上的 开 源 项 目</a> 在 AGH 上实现一些高级的解析功能。</p>
+<h3 id="过时内容bind9">过时内容：Bind9<a class="headerlink" href="#过时内容bind9" title="Permanent link">&para;</a></h3>
 <p>网关的 bind9 负责处理学生机的 DNS 请求，转发给学校 DNS（有 20 QPS/IP 的限制），并缓存相关结果。</p>
 <p>特别地，关闭了 DNSSEC 验证，因为某些域名把 CNAME 配置在了根域名上（比如说 <code>gitee.com</code>）会导致 bind9 出错。相关参数可以在 <code>named.conf.options</code> 中设置。</p>
+<h2 id="vlab-dev-vpn">Vlab Dev VPN<a class="headerlink" href="#vlab-dev-vpn" title="Permanent link">&para;</a></h2>
+<p><em>主条目：<a href="../../testing/devvpn/">Vlab Dev VPN</a></em></p>
 <h2 id="故障">故障<a class="headerlink" href="#故障" title="Permanent link">&para;</a></h2>
 <p>2020 年 11 月 16 日发现该容器无法登录，进一步检查发现其 rootfs 已完全损坏无法恢复。由于 iptables 规则是运行在内核中的，其期望功能（作为网关）没有受到影响。考虑到失控的危害（该容器不能重启，否则就再也开不起来了），已从还在运行的 namespace 中提取出 iptables 规则，并重建作为替代。新的 CT 100 将 rootfs 缩小到了 4 GB，配置好了 iptables-persistent 和 radvd。</p>
 <p>事后查明故障原因为，PVE 测试节点未加入集群，但是使用了相同的 LVM 存储，导致在创建/删除 LVM 卷时，LVM 没有正确被锁定。在测试节点删除其上的 CT 100 时，出现混乱。</p>
@@ -1480,7 +1539,7 @@ iptables-save -f /etc/iptables/rules.v4
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 3, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 24, 2022</span>
       
     
   </small>
@@ -1581,10 +1640,10 @@ iptables-save -f /etc/iptables/rules.v4
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>
