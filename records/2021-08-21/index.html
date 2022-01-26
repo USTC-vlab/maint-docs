@@ -1419,6 +1419,9 @@ work<span class="o">()</span> <span class="o">{</span>
 <span class="k">done</span>
 </code></pre></div>
 </details>
+<p>其中生成 disks.txt 的代码利用了 <code>/etc/pve/.vmlist</code> 这个只读的 JSON 接口：</p>
+<div class="highlight"><pre><span></span><code>jq -r <span class="s1">&#39;.ids | with_entries(select((.key | tonumber &gt;= 1000) and (.value.type == &quot;lxc&quot;))) | keys | map(tonumber) | sort | .[]&#39;</span> /etc/pve/.vmlist &gt; disks.txt
+</code></pre></div>
 <h2 id="其他">其他<a class="headerlink" href="#其他" title="Permanent link">&para;</a></h2>
 <ul>
 <li>将用户内网 VXLAN ID 改为 1（原来是 10，因为创建的命令是网上随便抄来的），对应界面名称改为 vxlan1，方便识别和辨认</li>
@@ -1430,7 +1433,7 @@ work<span class="o">()</span> <span class="o">{</span>
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 26, 2022</span>
       
     
   </small>
