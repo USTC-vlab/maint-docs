@@ -12,14 +12,14 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/records/2021-09-20/">
+        <link rel="canonical" href="https://vlab.ibugone.com/records/2022-01-26/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
       
-        <title>2021 年 9 月 20 日 - Vlab 维护文档</title>
+        <title>2022 年 1 月 26 日 - Vlab 维护文档</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2021-年-9-月-20-日工作总结" class="md-skip">
+        <a href="#2022-年-1-月-26-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2021 年 9 月 20 日
+              2022 年 1 月 26 日
             
           </span>
         </div>
@@ -1000,11 +1000,21 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../2022-01-26/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         2022 年 1 月 26 日
       </a>
+      
     </li>
   
 
@@ -1042,21 +1052,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../2021-09-20/" class="md-nav__link">
         2021 年 9 月 20 日
       </a>
-      
     </li>
   
 
@@ -1203,23 +1203,89 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/records/2021-09-20.md" title="编辑此页" class="md-content__button md-icon">
+<a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/records/2022-01-26.md" title="编辑此页" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="2021-年-9-月-20-日工作总结">2021 年 9 月 20 日工作总结<a class="headerlink" href="#2021-年-9-月-20-日工作总结" title="Permanent link">&para;</a></h1>
-<p><strong>起因</strong>：通过 PVE 的 Web 界面查看集群状态，发现 pv4 的状态为问号，系统运行指标（CPU、内存等）折线图无法显示，各种虚拟机操作大量超时。</p>
-<p>SSH 登录 pv4 后先尝试运行 <code>apt upgrade</code>，在更新内核时卡在 <code>/etc/kernel/postinst.d/zz-update-grub</code> 一行，进一步排查发现 <code>grub-probe</code> 卡住，<code>lvs user-data</code> 出现 <code>giving up waiting for lock</code>，最终查到 iSCSI 存储掉线（但是过了一会它又自己恢复了）。</p>
-<p>考虑到<a href="../2021-08-28/">不到一个月前</a>才出现过由虚拟机备份触发的 iSCSI 错误，我们继续检查了 iSCSI 与网络问题。</p>
-<p>我们在 user-data 中创建了一个新卷用于测试主机到 iSCSI 的连接带宽与稳定性，发现从存储读取时速度很慢且不稳定，但是写入存储的连接很正常。调试后发现将主机的光纤网口的 MTU 从 1550 调整至 9000 并重启后，可以恢复正常。之后将组织时间修改所有主机的 MTU 设置。</p>
+<h1 id="2022-年-1-月-26-日工作总结">2022 年 1 月 26 日工作总结<a class="headerlink" href="#2022-年-1-月-26-日工作总结" title="Permanent link">&para;</a></h1>
+<p>今日进行了停机维护，操作内容如下：</p>
+<ol>
+<li>更新了所有节点的 Linux 内核版本，以修复 CVE-2022-0185 安全漏洞。</li>
+<li>为所有学生容器调整了以下配置：</li>
+<li>重新设置了用户 CA 证书，以及相应的配置项；</li>
+<li>调整了 apparmor 设置，修正 tcpdump 无法正常使用的问题；</li>
+<li>添加了 Vlab 软件源；</li>
+<li>删除了容器桌面环境不需要的软件包。</li>
+<li>尝试为学生容器修复漏洞，但是由于 <code>apt update</code> 操作过慢，没有全部完成。</li>
+</ol>
+<p>操作脚本如下：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BASH_VERSION</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span>
+
+gen_sh<span class="o">()</span> <span class="o">{</span>
+  cat <span class="s">&lt;&lt; EOFX</span>
+<span class="s">echo &#39;ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAH3ZHisQY0iMpUNDQNaxcnRSqDbauE8ih6/MrEENJZa7FHKINOPi+bunK1wEXPqlKfu8INEBWCf95+t86z+jXVxmQE176xenS92wiLvR4MZyCBfD5DXAB0mK5iV1eQug5P/cD8Pohr/3wywFbKgKzsix9unky9sJGr86RunSwJbAkMGlw==&#39; &gt; /etc/ssh/ssh_user_ca</span>
+<span class="s">mkdir -p /etc/ssh/sshd_config.d/</span>
+<span class="s">cat &gt; /etc/ssh/sshd_config.d/vlab_ca.conf &lt;&lt; EOF</span>
+<span class="s">TrustedUserCAKeys /etc/ssh/ssh_user_ca</span>
+<span class="s">AuthorizedPrincipalsCommand /usr/bin/printf &#39;root\n%u\n&#39;</span>
+<span class="s">AuthorizedPrincipalsCommandUser nobody</span>
+<span class="s">EOF</span>
+<span class="s">chown 0.0 /etc/ssh/ssh_user_ca /etc/ssh/sshd_config.d/vlab_ca.conf</span>
+<span class="s">mv /etc/apparmor.d/usr.sbin.tcpdump /etc/apparmor.d/disable/</span>
+
+<span class="s">if [ -d /etc/apt/sources.list.d ]; then</span>
+<span class="s">  echo &quot;deb [trusted=yes] https://vlab.ustc.edu.cn/repo/ ./&quot; &gt; /etc/apt/sources.list.d/vlab.list</span>
+<span class="s">fi</span>
+
+<span class="s">dpkg -P blueman brltty brltty-x11 sbsigntool secureboot-db speech-dispatcher speech-dispatcher-espeak-ng orca libespeak-ng1 espeak-ng-data gir1.2-gstreamer-1.0 gir1.2-nm-1.0 libao-common libao4 libatk-adaptor libbluetooth3 libbrlapi0.7 libdotconf0 libnm0 libpcaudio0 libpcre2-32-0 libsonic0 libspeechd2 python3-brlapi python3-louis python3-pyatspi python3-speechd sound-icons speech-dispatcher-audio-plugins xbrlapi</span>
+<span class="s">#apt update</span>
+<span class="s">#apt-get install -y --only-upgrade policykit-1 sudo</span>
+
+<span class="s">systemctl disable cups-browsed.service</span>
+<span class="s">EOFX</span>
+<span class="o">}</span>
+
+work<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">local</span> <span class="nv">id</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+  <span class="nb">local</span> <span class="nv">param</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+  <span class="nb">local</span> <span class="nv">lv</span><span class="o">=</span>user-data/vm-<span class="s2">&quot;</span><span class="nv">$id</span><span class="s2">&quot;</span>-disk-0
+  <span class="nb">local</span> <span class="nv">mnt</span><span class="o">=</span>/tmp/mnt-<span class="s2">&quot;</span><span class="nv">$id</span><span class="s2">&quot;</span>
+  mkdir -p <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;******************** WORKING ON VM ID </span><span class="nv">$id</span><span class="s2"> (</span><span class="nv">$param</span><span class="s2"> remaining) ********************&quot;</span>
+  lvchange -y -ay <span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
+  mount /dev/<span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>
+
+    gen_sh &gt; <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>/tmp/work.sh
+  <span class="c1"># generate /dev/null for &quot;$mnt&quot;</span>
+  rm -f <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>/dev/null
+  mknod <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>/dev/null c <span class="m">1</span> <span class="m">3</span>
+  chmod <span class="m">666</span> <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>/dev/null
+  lxc-usernsexec -- chroot <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span> bash /tmp/work.sh
+  rm <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>/tmp/work.sh
+  umount <span class="s2">&quot;</span><span class="nv">$mnt</span><span class="s2">&quot;</span>
+  lvchange -y -an <span class="s2">&quot;</span><span class="nv">$lv</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+<span class="nv">total</span><span class="o">=</span><span class="k">$(</span>&lt;<span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">disks</span><span class="p">.txt</span><span class="si">}</span><span class="s2">&quot;</span> wc -l<span class="k">)</span>
+<span class="k">for</span> id <span class="k">in</span> <span class="k">$(</span>&lt;<span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">disks</span><span class="p">.txt</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span>
+  work <span class="s2">&quot;</span><span class="nv">$id</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="k">$((</span>total-<span class="o">=</span><span class="m">1</span><span class="k">))</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>脚本内容与先前 <code>change-repo.sh</code> 类似。有一些不同的地方：</p>
+<ul>
+<li>在最开始的时候，我们发现添加软件源后 <code>chroot</code> 后 <code>apt update</code> 可能会卡死在 <code>Waiting for header</code> 提示中。调试约一个半小时后发现其依赖 <code>/dev/null</code>。于是脚本使用 <code>chroot</code> 操作前后添加了 <code>/dev/null</code> 的相关操作；</li>
+<li><code>lxc-usernsexec</code> 用于确保 UID 的映射正确（实际以容器里的 root 的身份执行维护脚本）：容器里的 root 事实上是 100000 号用户，直接以 host 的 root 身份写入会出现权限问题。</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 27, 2022</span>
       
     
   </small>
@@ -1242,7 +1308,7 @@
     <nav class="md-footer__inner md-grid" aria-label="页脚">
       
         
-        <a href="../2021-10-31/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 2021 年 10 月 31 日" rel="prev">
+        <a href="../../changelog/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 更新历史" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1251,20 +1317,20 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              2021 年 10 月 31 日
+              更新历史
             </div>
           </div>
         </a>
       
       
         
-        <a href="../2021-08-28/" class="md-footer__link md-footer__link--next" aria-label="下一页: 2021 年 8 月 28 日" rel="next">
+        <a href="../2021-12-20/" class="md-footer__link md-footer__link--next" aria-label="下一页: 2021 年 12 月 20 日" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              2021 年 8 月 28 日
+              2021 年 12 月 20 日
             </div>
           </div>
           <div class="md-footer__button md-icon">
