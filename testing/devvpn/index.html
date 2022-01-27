@@ -756,9 +756,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#配置-openvpn-server" class="md-nav__link">
+  <a href="#configure" class="md-nav__link">
     配置 OpenVPN Server
   </a>
+  
+    <nav class="md-nav" aria-label="配置 OpenVPN Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openvpn-pki" class="md-nav__link">
+    证书系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openvpn-server" class="md-nav__link">
+    OpenVPN Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openvpn-client-conf" class="md-nav__link">
+    编写客户端配置文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1243,9 +1270,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#配置-openvpn-server" class="md-nav__link">
+  <a href="#configure" class="md-nav__link">
     配置 OpenVPN Server
   </a>
+  
+    <nav class="md-nav" aria-label="配置 OpenVPN Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openvpn-pki" class="md-nav__link">
+    证书系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openvpn-server" class="md-nav__link">
+    OpenVPN Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openvpn-client-conf" class="md-nav__link">
+    编写客户端配置文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1270,17 +1324,75 @@
 <p>为了方便参与开发的同学连接校园网，我们开设了一个 OpenVPN Server 运行在 <a href="../../servers/ct100/">gateway（CT 100）</a>上。</p>
 <h2 id="使用方式">使用方式<a class="headerlink" href="#使用方式" title="Permanent link">&para;</a></h2>
 <p>登录进 gateway，切换目录至 <code>/etc/openvpn/ca</code>，运行 <code>./genconf.sh '&lt;Common Name&gt;'</code>，其中 <code>&lt;Common Name&gt;</code> 为标识客户端的名称（X.509 证书的 Common Name 字段，建议使用姓名或昵称等能够辨认的名称）。如果一切正常，就能在 <code>clients</code> 目录中生成一个 <code>&lt;Common Name&gt;.ovpn</code> 文件，将该文件分发给用户，使用 OpenVPN 客户端导入并连接即可。</p>
-<h2 id="配置-openvpn-server">配置 OpenVPN Server<a class="headerlink" href="#配置-openvpn-server" title="Permanent link">&para;</a></h2>
+<h2 id="configure">配置 OpenVPN Server<a class="headerlink" href="#configure" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
-<p class="admonition-title">未完待续</p>
+<p class="admonition-title">服务端只需配置一次，以下记录作为参考</p>
 </div>
+<p>安装软件包：</p>
+<div class="highlight"><pre><span></span><code>apt install --no-install-recommends openvpn easy-rsa
+</code></pre></div>
+<h3 id="openvpn-pki">证书系统<a class="headerlink" href="#openvpn-pki" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc/openvpn
+make-cadir ca
+<span class="nb">cd</span> ca
+./easyrsa init-pki
+./easyrsa build-ca nopass
+</code></pre></div>
+<p>至此在 <code>/etc/openvpn/ca/pki</code> 目录下就有一堆准备好的文件，可以开始签证书了。</p>
+<p>首先给服务端签一个证书：</p>
+<div class="highlight"><pre><span></span><code>./easyrsa build-server-full <span class="s1">&#39;Vlab VPN Server&#39;</span> nopass
+</code></pre></div>
+<p>然后把 <code>pki/issued/Vlab VPN Server.crt</code> 和 <code>pki/issued/Vlab VPN Server.key</code> 复制到 <code>/etc/openvpn/server</code> 下，分别命名为 <code>server.crt</code> 和 <code>server.key</code>。</p>
+<p>接下来每个客户端都用这样的命令签一个证书，注意 Common Name 不要重复。</p>
+<div class="highlight"><pre><span></span><code>./easyrsa build-client-full <span class="s1">&#39;&lt;Client Name&gt;&#39;</span> nopass
+</code></pre></div>
+<p>现在 <code>pki/issued</code> 下和 <code>pki/private</code> 下就有了一套证书和密钥，可以用它们来制作客户端配置文件了（见下）。</p>
+<h3 id="openvpn-server">OpenVPN Server<a class="headerlink" href="#openvpn-server" title="Permanent link">&para;</a></h3>
+<p>复制一份样例 <code>server.conf</code>：</p>
+<div class="highlight"><pre><span></span><code>cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/server/
+gunzip /etc/openvpn/server/server.conf.gz
+</code></pre></div>
+<p>编辑 <code>server.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>;dev tap<span class="w"></span>
+<span class="gd">-dev tun</span><span class="w"></span>
+<span class="gi">+dev ovpn</span><span class="w"></span>
+<span class="gi">+dev-type tun</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="gd">-;topology subnet</span><span class="w"></span>
+<span class="gi">+topology subnet</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="gd">-server 10.8.0.0 255.255.255.0</span><span class="w"></span>
+<span class="gi">+server 192.168.254.0 255.255.255.0</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="gd">-tls-auth ta.key 0 # This file is secret</span><span class="w"></span>
+<span class="gi">+;tls-auth ta.key 0 # This file is secret</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="gd">-;push &quot;route 192.168.10.0 255.255.255.0&quot;</span><span class="w"></span>
+<span class="gd">-;push &quot;route 192.168.20.0 255.255.255.0&quot;</span><span class="w"></span>
+<span class="gi">+push &quot;route 172.31.0.0 255.255.0.0&quot;</span><span class="w"></span>
+<span class="gi">+push &quot;route 202.38.75.85 255.255.255.255&quot;</span><span class="w"></span>
+<span class="gi">+push &quot;route 202.38.75.4 255.255.255.255&quot;</span><span class="w"></span>
+<span class="gi">+push &quot;route 202.38.75.24 255.255.255.255&quot;</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="gd">-cipher AES-256-CBC</span><span class="w"></span>
+<span class="gi">+cipher AES-256-GCM</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="gd">-;user nobody</span><span class="w"></span>
+<span class="gd">-;group nogroup</span><span class="w"></span>
+<span class="gi">+user nobody</span><span class="w"></span>
+<span class="gi">+group nogroup</span><span class="w"></span>
+</code></pre></div>
+<p>生成 DH 参数文件：</p>
+<div class="highlight"><pre><span></span><code>openssl dhparam -out /etc/openvpn/server/dh2048.pem <span class="m">2048</span>
+</code></pre></div>
+<h3 id="openvpn-client-conf">编写客户端配置文件<a class="headerlink" href="#openvpn-client-conf" title="Permanent link">&para;</a></h3>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 24, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 27, 2022</span>
       
     
   </small>
