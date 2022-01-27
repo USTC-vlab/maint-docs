@@ -1281,6 +1281,7 @@ work<span class="o">()</span> <span class="o">{</span>
 <li>在最开始的时候，我们发现添加软件源后 <code>chroot</code> 后 <code>apt update</code> 可能会卡死在 <code>Waiting for header</code> 提示中。调试约一个半小时后发现其依赖 <code>/dev/null</code>。于是脚本使用 <code>chroot</code> 操作前后添加了 <code>/dev/null</code> 的相关操作；</li>
 <li><code>lxc-usernsexec</code> 用于确保 UID 的映射正确（实际以容器里的 root 的身份执行维护脚本）：容器里的 root 事实上是 100000 号用户，直接以 host 的 root 身份写入会出现权限问题。</li>
 </ul>
+<p>前期工作：<a href="../2021-08-21/">2021 年 8 月 21 日</a></p>
 
   <hr>
 <div class="md-source-file">
