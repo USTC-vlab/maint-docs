@@ -479,6 +479,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    SSL 证书
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#web" class="md-nav__link">
     Django web 应用与 Nginx
   </a>
@@ -1264,6 +1271,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    SSL 证书
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#web" class="md-nav__link">
     Django web 应用与 Nginx
   </a>
@@ -1326,6 +1340,27 @@
 <p>这个容器是 vlab 对外服务的主要场所，上面运行了我们的各种程序。</p>
 <p>该容器接入校园网（<code>vmbr0</code> / <code>eth0</code> / <code>202.38.75.226/24</code>，且该 IP 是 <code>vlab.ustc.edu.cn</code> 域名指向的）、容器内网（<code>vmbr1</code> / <code>eth1</code> / <code>172.31.0.2/16</code>）和管理内网（<code>vmbr2</code> / <code>eth2</code> / <code>172.30.0.2/24</code>），通过校园网对外提供 Web 服务、VNC 统一登录服务和 SSH 统一登录服务，通过容器内网连接其他虚拟机。尽管本容器接入了三个网络，但是<strong>不用作转发</strong>。</p>
 <p>由于这个容器的 22 端口用作 SSH 统一登录了，因此它自己的 sshd 开在 179 端口上。</p>
+<h2 id="ssl">SSL 证书<a class="headerlink" href="#ssl" title="Permanent link">&para;</a></h2>
+<p>我们使用 <a href="https://github.com/acmesh-official/acme.sh">acme.sh</a> 申请及更新 SSL 证书。</p>
+<p>acme.sh 安装在 <code>/etc/acme.sh</code>，安装步骤如下：</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/acmesh-official/acme.sh.git
+<span class="nb">cd</span> acme.sh
+./acme.sh --install --home /etc/acme.sh --accountemail vlab@ustc.edu.cn
+</code></pre></div>
+<p>申请证书的命令如下：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc/acme.sh
+./acme.sh --issue <span class="se">\</span>
+  -d vlab.ustc.edu.cn <span class="se">\</span>
+  -d file.vlab.ustc.edu.cn <span class="se">\</span>
+  -d bbs.vlab.ustc.edu.cn <span class="se">\</span>
+  -w /var/www
+</code></pre></div>
+<p>其中 <code>/var/www/.well-known</code> 目录提前建好，并且需要申请证书的域名对应的 Nginx <code>server</code> 块包含以下内容：</p>
+<div class="highlight"><span class="filename">/etc/nginx/snippets/well-known</span><pre><span></span><code><span class="k">location</span><span class="w"> </span><span class="s">/.well-known</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kn">access_log</span><span class="w"> </span><span class="no">off</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kn">root</span><span class="w"> </span><span class="s">/var/www</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
 <h2 id="web">Django web 应用与 Nginx<a class="headerlink" href="#web" title="Permanent link">&para;</a></h2>
 <p>未完待续</p>
 <h2 id="vnc-unified-login">VNC 统一登录<a class="headerlink" href="#vnc-unified-login" title="Permanent link">&para;</a></h2>
@@ -1413,7 +1448,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 9, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 28, 2022</span>
       
     
   </small>
