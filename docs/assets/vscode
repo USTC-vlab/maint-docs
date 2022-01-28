@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NAME='Vlab Visual Studio Code server'
+NAME='USTC Vlab Visual Studio Code server'
 UID="$(id -u)"
 SERVICE_FILE=~/.config/systemd/user/code-server.service
 SERVICE_DIR="$(dirname "$SERVICE_FILE")"
@@ -9,14 +9,14 @@ SERVICE_NAME="$(basename "$SERVICE_FILE")"
 sudo_ok=""
 
 test_sudo() {
-  if [ -n "$sudo_ok" ]; then
-    return "$sudo_ok"
+  if [ -z "$sudo_ok" ]; then
+    if sudo /bin/true; then
+      sudo_ok=0
+    else
+      sudo_ok=1
+    fi
   fi
-  if sudo /bin/true; then
-    sudo_ok=0
-  else
-    sudo_ok=1
-  fi
+  return "$sudo_ok"
 }
 
 is_root() {
@@ -38,8 +38,9 @@ Type=simple
 ExecStart=/opt/vlab/code-server/bin/code-server --auth=none --bind-addr=0.0.0.0:1024 --disable-telemetry
 Restart=on-failure
 
-Environment=SERVICE_URL=https://marketplace.visualstudio.com/_apis/public/gallery
-Environment=ITEM_URL=https://marketplace.visualstudio.com/items
+#Environment=SERVICE_URL=https://marketplace.visualstudio.com/_apis/public/gallery
+#Environment=ITEM_URL=https://marketplace.visualstudio.com/items
+Environment=EXTENSIONS_GALLERY='{"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery", "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index", "itemUrl": "https://marketplace.visualstudio.com/items"}'
 
 [Install]
 WantedBy=default.target
@@ -54,12 +55,14 @@ write_firewall_rules() {
     RULES4=/etc/iptables/rules.v4
     RULES6=/etc/iptables/rules.v6
   fi
+  mkdir -p "$(dirname "$RULES4")"
   cat << EOF
 iptables -D INPUT ! -i lo ! -s 172.31.0.2 -p tcp --dport 1024 -j REJECT --reject-with tcp-reset >/dev/null 2>&1
 iptables -I INPUT ! -i lo ! -s 172.31.0.2 -p tcp --dport 1024 -j REJECT --reject-with tcp-reset
+iptables-save > $RULES4
+
 ip6tables -D INPUT ! -i lo -p tcp --dport 1024 -j REJECT --reject-with tcp-reset >/dev/null 2>&1
 ip6tables -I INPUT ! -i lo -p tcp --dport 1024 -j REJECT --reject-with tcp-reset
-iptables-save > $RULES4
 ip6tables-save > $RULES6
 EOF
 }
@@ -81,12 +84,12 @@ echo "$NAME manager"
 
 # Not expecting root, use sudo
 if is_root; then
-  echo "[E] This installer script should NOT be run as root (or sudo). Please try again with a normal user."
+  echo "[E] This installer script should NOT be run as root (or sudo). Please try again with a normal user." >&2
   exit 1
 fi
 
 if ! command -v sudo >/dev/null; then
-  echo "[E] No sudo command available. Please install sudo and try again."
+  echo "[E] No sudo command available. Please install sudo and try again." >&2
   exit 1
 fi
 
@@ -94,6 +97,7 @@ fi
 if ! systemctl is-active --quiet "user@$UID.service"; then
   echo "Systemd user instance for user $UID isn't running, attempting to start it"
   verbose_run sudo systemctl start "user@$UID.service"
+  verbose_run sudo loginctl enable-linger "$UID"
 
   # Attempt to make user instance auto-start as well
   TARGET="/etc/systemd/system/multi-user.target.wants/user@$UID.service"
@@ -106,9 +110,17 @@ fi
 case "$1" in
   ""|enable|start)
     mkdir -p "$SERVICE_DIR"
-    if [ ! -e "$SERVICE_FILE" ]; then
+    if [ -e "$SERVICE_FILE" ]; then
       echo "Service file doesn't exist, creating"
+      CREATE_SERVICE_FILE=1
+    elif [ "$1" = enable ]; then
+      echo "Re-creating service file"
+      CREATE_SERVICE_FILE=1
+    fi
+
+    if [ -n "$CREATE_SERVICE_FILE" ]; then
       write_service_file > "$SERVICE_FILE"
+      systemctl --user daemon-reload
       verbose_run systemctl --user enable "$SERVICE_NAME"
     fi
 
@@ -124,7 +136,7 @@ case "$1" in
     echo "Starting $NAME"
     verbose_run systemctl --user start "$SERVICE_NAME"
     if [ $? -ne 0 ]; then
-      echo "Something went wrong, please try again later. If this problem persists, please report it to Vlab."
+      echo "Something went wrong, please try again later. If this problem persists, please report it to us."
     fi
     ;;
   stop)
