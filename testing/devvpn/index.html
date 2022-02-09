@@ -1353,6 +1353,13 @@ make-cadir ca
 gunzip /etc/openvpn/server/server.conf.gz
 </code></pre></div>
 <p>编辑 <code>server.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>;proto tcp<span class="w"></span>
+<span class="gd">-proto udp</span><span class="w"></span>
+<span class="gi">+proto udp6</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p>使用 <code>proto udp6</code> 可以让 OpenVPN server 使用 v4+v6 双栈的 socket，见 <a href="https://serverfault.com/a/651869/450575">https://serverfault.com/a/651869/450575</a>。</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="w"> </span>;dev tap<span class="w"></span>
 <span class="gd">-dev tun</span><span class="w"></span>
 <span class="gi">+dev ovpn</span><span class="w"></span>
@@ -1386,13 +1393,104 @@ gunzip /etc/openvpn/server/server.conf.gz
 <div class="highlight"><pre><span></span><code>openssl dhparam -out /etc/openvpn/server/dh2048.pem <span class="m">2048</span>
 </code></pre></div>
 <h3 id="openvpn-client-conf">编写客户端配置文件<a class="headerlink" href="#openvpn-client-conf" title="Permanent link">&para;</a></h3>
+<p>与 OpenVPN server 类似，一个基本的客户端配置文件如下：</p>
+<details class="example">
+<summary>OpenVPN 客户端配置文件样例</summary>
+<div class="highlight"><pre><span></span><code>client
+
+proto udp
+
+dev vlabvpn
+dev-type tun
+
+persist-key
+persist-tun
+
+nobind
+remote <span class="cm">&lt;!-- 服务器地址 --&gt;</span>
+cipher AES-256-GCM
+
+<span class="nt">&lt;ca&gt;</span>
+<span class="cm">&lt;!-- CA 证书 --&gt;</span>
+<span class="nt">&lt;/ca&gt;</span>
+<span class="nt">&lt;cert&gt;</span>
+<span class="cm">&lt;!-- 此客户端的证书 --&gt;</span>
+<span class="nt">&lt;/cert&gt;</span>
+<span class="nt">&lt;key&gt;</span>
+<span class="cm">&lt;!-- 此客户端的私钥 --&gt;</span>
+<span class="nt">&lt;/key&gt;</span>
+</code></pre></div>
+</details>
+<p>其中 <code>&lt;ca&gt;</code> 可以直接填入 ca.crt 文件的内容，而 <code>&lt;cert&gt;</code> 和 <code>&lt;key&gt;</code> 需要为每个客户端签发一个，因此我们编写了一个脚本，调用 <code>easyrsa</code> 签发客户端证书，并利用模板在 <code>clients/</code> 目录下生成客户端配置文件：</p>
+<details class="example">
+<summary>/etc/openvpn/ca/genconf.sh</summary>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BASH_VERSION</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span>
+<span class="nb">cd</span> <span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">PKI</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>/pki
+<span class="nv">OUTDIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>/clients
+
+gen_conf<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">local</span> <span class="nv">cafile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+  <span class="nb">local</span> <span class="nv">certfile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+  <span class="nb">local</span> <span class="nv">keyfile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$3</span><span class="s2">&quot;</span>
+  cat <span class="s">&lt;&lt; EOF</span>
+<span class="s">#!/usr/bin/openvpn</span>
+<span class="s">client</span>
+
+<span class="s">proto udp</span>
+
+<span class="s">dev vlabvpn</span>
+<span class="s">dev-type tun</span>
+
+<span class="s">persist-key</span>
+<span class="s">persist-tun</span>
+
+<span class="s">nobind</span>
+<span class="s">remote vpn.ibuglab.com</span>
+<span class="s">cipher AES-256-GCM</span>
+
+<span class="s">&lt;ca&gt;</span>
+<span class="s">$(&lt;&quot;$cafile&quot;)</span>
+<span class="s">&lt;/ca&gt;</span>
+<span class="s">&lt;cert&gt;</span>
+<span class="s">$(&lt;&quot;$certfile&quot;)</span>
+<span class="s">&lt;/cert&gt;</span>
+<span class="s">&lt;key&gt;</span>
+<span class="s">$(&lt;&quot;$keyfile&quot;)</span>
+<span class="s">&lt;/key&gt;</span>
+<span class="s">EOF</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Need an argument!&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="nv">$#</span> -gt <span class="m">1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Too many arguments!&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+<span class="nv">CN</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nv">OUTFILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$OUTDIR</span><span class="s2">&quot;</span>/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.ovpn
+<span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$OUTFILE</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Error: Output file </span><span class="nv">$OUTFILE</span><span class="s2"> already exists. Remove it if you want to proceed.&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+
+rm -f <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/reqs/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.req <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/issued/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.crt <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/private/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.key
+./easyrsa build-client-full <span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span> nopass
+gen_conf <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/ca.crt <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/issued/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.crt <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/private/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.key &gt; <span class="s2">&quot;</span><span class="nv">$OUTFILE</span><span class="s2">&quot;</span>
+rm -f <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/reqs/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.req <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/issued/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.crt <span class="s2">&quot;</span><span class="nv">$PKI</span><span class="s2">&quot;</span>/private/<span class="s2">&quot;</span><span class="nv">$CN</span><span class="s2">&quot;</span>.key
+</code></pre></div>
+</details>
+<p>该脚本的使用方式见本文最上方。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 27, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 9, 2022</span>
       
     
   </small>
