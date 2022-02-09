@@ -56,6 +56,16 @@ gunzip /etc/openvpn/server/server.conf.gz
 编辑 `server.conf`:
 
 ```diff
+ ;proto tcp
+-proto udp
++proto udp6
+```
+
+!!! note ""
+
+    使用 `proto udp6` 可以让 OpenVPN server 使用 v4+v6 双栈的 socket，见 <https://serverfault.com/a/651869/450575>。
+
+```diff
  ;dev tap
 -dev tun
 +dev ovpn
@@ -105,3 +115,43 @@ openssl dhparam -out /etc/openvpn/server/dh2048.pem 2048
 ```
 
 ### 编写客户端配置文件 {#openvpn-client-conf}
+
+与 OpenVPN server 类似，一个基本的客户端配置文件如下：
+
+??? example "OpenVPN 客户端配置文件样例"
+
+    ```xml
+    client
+
+    proto udp
+
+    dev vlabvpn
+    dev-type tun
+
+    persist-key
+    persist-tun
+
+    nobind
+    remote <!-- 服务器地址 -->
+    cipher AES-256-GCM
+
+    <ca>
+    <!-- CA 证书 -->
+    </ca>
+    <cert>
+    <!-- 此客户端的证书 -->
+    </cert>
+    <key>
+    <!-- 此客户端的私钥 -->
+    </key>
+    ```
+
+其中 `<ca>` 可以直接填入 ca.crt 文件的内容，而 `<cert>` 和 `<key>` 需要为每个客户端签发一个，因此我们编写了一个脚本，调用 `easyrsa` 签发客户端证书，并利用模板在 `clients/` 目录下生成客户端配置文件：
+
+??? example "/etc/openvpn/ca/genconf.sh"
+
+    ```sh
+    --8<-- "ovpn-genconf.sh"
+    ```
+
+该脚本的使用方式见本文最上方。
