@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+SRC="/etc/pve/nodes/pv1"
+DSTROOT="/etc/pve/nodes"
+
+scp web:/etc/acme.sh/ibuglab.com/ibuglab.com.key "$SRC/pveproxy-ssl.key"
+scp web:/etc/acme.sh/ibuglab.com/fullchain.cer "$SRC/pveproxy-ssl.pem"
+systemctl reload pveproxy.service
+
+for DST in "$DSTROOT"/*; do
+  [ "$DST" = "$SRC" ] && continue
+  node="$(basename "$DST")"
+  cp "$SRC/pveproxy-ssl.key" "$SRC/pveproxy-ssl.pem" "$DST/"
+  ssh "$node" 'systemctl reload pveproxy.service' &
+  scp /etc/hosts "$node":/etc/hosts &
+done
+wait
+
+# Proxmox Backup Server
+scp "$SRC/pveproxy-ssl.key" pbs:/etc/proxmox-backup/proxy.key
+scp "$SRC/pveproxy-ssl.pem" pbs:/etc/proxmox-backup/proxy.pem
+scp /etc/hosts pbs:/etc/hosts
+ssh pbs systemctl reload proxmox-backup-proxy.service
+
+#FP="$(openssl x509 -noout -fingerprint -sha256 -inform pem -in "$SRC/pveproxy-ssl.pem")"
+#FP="${FP##*=}"
+#pvesm set pbs --fingerprint "$FP"

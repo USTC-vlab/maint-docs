@@ -141,6 +141,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://vlab.ibugone.com/servers/pve/</loc>
+         <lastmod>2022-02-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://vlab.ibugone.com/servers/vm104/</loc>
          <lastmod>2022-02-15</lastmod>
          <changefreq>daily</changefreq>
