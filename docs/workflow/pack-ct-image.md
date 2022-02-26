@@ -1,5 +1,9 @@
 # 打包容器镜像
 
+!!! tip
+
+    我们准备了一些自动化脚本在仓库 [labstrap](https://github.com/USTC-vlab/labstrap)。
+
 Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像不宜直接用于 Proxmox VE。基准镜像可以直接使用已有的 vlab 镜像（推荐），或者使用 `pveam` 命令从 Proxmox 官方下载。
 
 同样由于镜像内容的不一致以及下面提到的一些与网络相关的设置，尝试在自己的 LXC / LXD 环境中进行镜像的配置工作可能会遇到各种各样的困难，例如权限问题、网络问题等，因此我们直接在现有的 Proxmox 集群中操作就行了。

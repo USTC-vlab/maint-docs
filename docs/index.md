@@ -23,6 +23,6 @@
 ## 资源 {#resources}
 
 - [:fontawesome-brands-github: GitHub 讨论列表](https://github.com/USTC-vlab/discussions/issues)
-- :fontawesome-brands-telegram-plane: Telegram 开发小组讨论群 <!-- 没有链接，这是故意的 -->
+- :fontawesome-brands-telegram: Telegram 开发小组讨论群 <!-- 没有链接，这是故意的 -->
 
 ![Vlab 首页](https://vlab.ustc.edu.cn/docs/images/home.png)
