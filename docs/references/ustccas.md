@@ -21,6 +21,30 @@
 }
 ```
 
+??? example "原始响应内容（XML example）"
+
+    ```xml
+    <cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'>
+    <cas:authenticationSuccess>
+    <cas:user>SA21011000</cas:user>
+    <attributes>
+    <cas:xbm>1</cas:xbm>
+    <cas:logintime>2020-02-30 12:34:56</cas:logintime>
+    <cas:gid>2201234567</cas:gid>
+    <cas:ryzxztdm>10</cas:ryzxztdm>
+    <cas:ryfldm>201030000</cas:ryfldm>
+    <cas:loginip>192.0.2.0</cas:loginip>
+    <cas:name>张三</cas:name>
+    <cas:login>SA21011000</cas:login>
+    <cas:zjhm>SA21011000</cas:zjhm>
+    <cas:glzjh>SA21011000	PB17000001</cas:glzjh>
+    <cas:deptCode>011</cas:deptCode>
+    <cas:email>noreply@mail.ustc.edu.cn</cas:email>
+    </attributes>
+    </cas:authenticationSuccess>
+    </cas:serviceResponse>
+    ```
+
 ## 人员在校状态码
 
 ```csv
