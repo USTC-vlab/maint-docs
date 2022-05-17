@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://vlab.ibugone.com/networking/ips/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.15">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.e411adfe.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.c382b1dc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
@@ -433,6 +433,19 @@
   <a href="#内网-ipv4" class="md-nav__link">
     内网 IPv4
   </a>
+  
+    <nav class="md-nav" aria-label="内网 IPv4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#分配规则" class="md-nav__link">
+    分配规则
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1283,6 +1296,19 @@
     内网 IPv4
   </a>
   
+    <nav class="md-nav" aria-label="内网 IPv4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#分配规则" class="md-nav__link">
+    分配规则
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1610,30 +1636,39 @@
 </tr>
 <tr>
 <td align="center">172.31.0.3</td>
-<td align="center"><s>CT 802 Foresyn (iGEM 2019)</s><br></td>
+<td align="center"><s>CT 802 Foresyn (iGEM 2019)</s></td>
 </tr>
 <tr>
-<td align="center">172.31.0.221</td>
-<td align="center">VM 805 (iBug 的虚拟机)</td>
-</tr>
-<tr>
-<td align="center">172.31.0.222</td>
-<td align="center">VM 999 (iBug 的虚拟机)</td>
-</tr>
-<tr>
-<td align="center">172.31.0.223</td>
-<td align="center">VM 998 (iBug 的虚拟机)</td>
-</tr>
-<tr>
-<td align="center">172.31.1.1</td>
+<td align="center">172.31.1.3</td>
 <td align="center">VM 803 (Verilog OJ)</td>
 </tr>
 <tr>
 <td align="center">172.31.1.4</td>
 <td align="center">VM 804 (FPGAOL Compile)</td>
 </tr>
+<tr>
+<td align="center">172.31.1.5</td>
+<td align="center">VM 805 (iBug 的虚拟机)</td>
+</tr>
+<tr>
+<td align="center">172.31.1.199</td>
+<td align="center">VM 999 (iBug 的虚拟机)</td>
+</tr>
+<tr>
+<td align="center">172.31.1.198</td>
+<td align="center">VM 998 (iBug 的虚拟机)</td>
+</tr>
 </tbody>
 </table>
+<h3 id="分配规则">分配规则<a class="headerlink" href="#分配规则" title="Permanent link">&para;</a></h3>
+<p><strong>172.31.0.1-?</strong>：Vlab 的服务，即平台的基础设施和以 Vlab 名义提供的服务
+<strong>172.31.1.0-199</strong>：对应 VM 800-999，其中 IP 地址最后一组数字为 VMID - 800，并且：</p>
+<ul>
+<li>8xx 用于托管在 Vlab 上的、由第三方运行和维护的服务（即 Vlab IaaS）</li>
+<li>9xx 用于各种测试用途的虚拟机，请标明所有者</li>
+</ul>
+<p><strong>172.31.2.0-3.255</strong>：暂未使用
+<strong>172.31.4.0-255.254</strong>：用户虚拟机</p>
 <h2 id="内网-ipv6">内网 IPv6<a class="headerlink" href="#内网-ipv6" title="Permanent link">&para;</a></h2>
 <p>我们没有内网服务运行在 IPv6 上。</p>
 <table>
@@ -1660,7 +1695,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 21, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 17, 2022</span>
       
     
   </small>
@@ -1761,10 +1796,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a6c66575.min.js"></script>
       
     
   </body>
