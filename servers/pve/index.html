@@ -1397,6 +1397,17 @@ ssh pbs systemctl reload proxmox-backup-proxy.service
 <p>PVE 主机上可以使用 <code>pct enter</code> 和 <code>pct console</code> 命令获取 LXC 容器中的一个 shell 或者接入 /dev/tty0，但该“接口”不在 PVE API 中提供。考虑到这两个接口的主要连接方式是 SSH，因此我们写了这个 recovery SSHd 放在 pv1 上运行，供 sshpiper 调用。</p>
 <p>代码在 <a href="https://github.com/USTC-vlab/recovery-sshd">recovery-sshd</a> 仓库中，配置文件为 <code>/etc/recovery-sshd.json</code>，对应的 systemd service 为 <code>recovery-sshd.service</code>。</p>
 
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
+      
+    
+  </small>
+</div>
+
 
 
 

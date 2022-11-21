@@ -1265,6 +1265,17 @@
 <p>考虑到<a href="../2021-08-28/">不到一个月前</a>才出现过由虚拟机备份触发的 iSCSI 错误，我们继续检查了 iSCSI 与网络问题。</p>
 <p>我们在 user-data 中创建了一个新卷用于测试主机到 iSCSI 的连接带宽与稳定性，发现从存储读取时速度很慢且不稳定，但是写入存储的连接很正常。调试后发现将主机的光纤网口的 MTU 从 1550 调整至 9000 并重启后，可以恢复正常。之后将组织时间修改所有主机的 MTU 设置。</p>
 
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
+      
+    
+  </small>
+</div>
+
 
 
 

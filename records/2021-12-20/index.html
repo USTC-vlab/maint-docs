@@ -1274,6 +1274,17 @@
 <p>尝试使用 Ubuntu 18.04 Docker 运行 Vivado，生成正常。在检索相关资料后，我们认为该问题可能是 Ubuntu 20.04 的 libudev.so 与 Vivado 2019.1 不兼容导致的，或为 libudev 在 LXC 容器中触发了某些 corner case。将 Ubuntu 18.04 的 libudev.so 提取后，加入 <code>LD_PRELOAD</code> 中，再次运行 Vivado，生成正常。</p>
 <p>相关修改已经部署到 Vlab Software 中。</p>
 
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
+      
+    
+  </small>
+</div>
+
 
 
 
