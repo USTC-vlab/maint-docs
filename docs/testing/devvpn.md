@@ -61,7 +61,7 @@ gunzip /etc/openvpn/server/server.conf.gz
 +proto udp6
 ```
 
-!!! note ""
+!!! note
 
     使用 `proto udp6` 可以让 OpenVPN server 使用 v4+v6 双栈的 socket，见 <https://serverfault.com/a/651869/450575>。
 
