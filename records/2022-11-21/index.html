@@ -12,14 +12,14 @@
         <meta name="author" content="iBug">
       
       
-        <link rel="canonical" href="https://vlab.ibugone.com/kvm/cloud-init/">
+        <link rel="canonical" href="https://vlab.ibugone.com/records/2022-11-21/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>cloud-init 配置 - Vlab 维护文档</title>
+        <title>2022 年 11 月 21 日 - Vlab 维护文档</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#虚拟机-cloud-init-配置和使用" class="md-skip">
+        <a href="#2022-年-11-月-21-日工作总结" class="md-skip">
           跳转至
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              cloud-init 配置
+              2022 年 11 月 21 日
             
           </span>
         </div>
@@ -639,16 +639,14 @@
 
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
       
       
       
@@ -669,234 +667,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          cloud-init 配置
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../kvm/cloud-init/" class="md-nav__link">
         cloud-init 配置
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#配置带有-cloud-init-的镜像" class="md-nav__link">
-    配置带有 cloud-init 的镜像
-  </a>
-  
-    <nav class="md-nav" aria-label="配置带有 cloud-init 的镜像">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#创建虚拟机并安装-cloud-init" class="md-nav__link">
-    创建虚拟机，并安装 cloud-init
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#解决从同一模板中创建的虚拟机有相同的-machine-id-问题" class="md-nav__link">
-    解决从同一模板中创建的虚拟机有相同的 machine-id 问题
-  </a>
-  
-    <nav class="md-nav" aria-label="解决从同一模板中创建的虚拟机有相同的 machine-id 问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#方法-1" class="md-nav__link">
-    方法 1
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#方法-2" class="md-nav__link">
-    方法 2
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#安装必要软件包" class="md-nav__link">
-    安装必要软件包
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#设置-username-和-password-失败无法使用在-proxmox-web-页面上设置的-username-和-password-登录虚拟机" class="md-nav__link">
-    设置 username 和 password (失败，无法使用在 proxmox web 页面上设置的 username 和 password 登录虚拟机)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cloud-init-简介和配置解释" class="md-nav__link">
-    cloud-init 简介和配置解释
-  </a>
-  
-    <nav class="md-nav" aria-label="cloud-init 简介和配置解释">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#阶段" class="md-nav__link">
-    阶段
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#user-data" class="md-nav__link">
-    User-Data
-  </a>
-  
-    <nav class="md-nav" aria-label="User-Data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#关于-volumes" class="md-nav__link">
-    关于 volumes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#user-data-格式" class="md-nav__link">
-    User-Data 格式
-  </a>
-  
-    <nav class="md-nav" aria-label="User-Data 格式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#user-data-script" class="md-nav__link">
-    User-Data Script
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cloud-config-data" class="md-nav__link">
-    Cloud Config Data
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#config-示例" class="md-nav__link">
-    config 示例:
-  </a>
-  
-    <nav class="md-nav" aria-label="config 示例:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kernel-command-line" class="md-nav__link">
-    Kernel Command Line
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#其他" class="md-nav__link">
-    其他
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#部署" class="md-nav__link">
-    部署
-  </a>
-  
-    <nav class="md-nav" aria-label="部署">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#部署文件形式" class="md-nav__link">
-    部署文件形式
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#部署方式" class="md-nav__link">
-    部署方式
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#其他问题" class="md-nav__link">
-    其他问题
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1084,14 +859,16 @@
 
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" checked>
       
       
       
@@ -1215,12 +992,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_4" type="checkbox" id="__nav_12_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_4" type="checkbox" id="__nav_12_4" checked>
       
       
       
@@ -1241,11 +1020,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../records/2022-11-21/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          2022 年 11 月 21 日
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         2022 年 11 月 21 日
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#登出-iscsi-会话过程" class="md-nav__link">
+    登出 iSCSI 会话过程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#修改容器-user-namespace-idmap-范围" class="md-nav__link">
+    修改容器 user namespace idmap 范围
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#存储阵列" class="md-nav__link">
+    存储阵列
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1257,7 +1091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2022-09-20/" class="md-nav__link">
+      <a href="../2022-09-20/" class="md-nav__link">
         2022 年 9 月 20 日
       </a>
     </li>
@@ -1271,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2022-06-16/" class="md-nav__link">
+      <a href="../2022-06-16/" class="md-nav__link">
         2022 年 6 月 16 日
       </a>
     </li>
@@ -1285,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2022-01-26/" class="md-nav__link">
+      <a href="../2022-01-26/" class="md-nav__link">
         2022 年 1 月 26 日
       </a>
     </li>
@@ -1299,7 +1133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-12-20/" class="md-nav__link">
+      <a href="../2021-12-20/" class="md-nav__link">
         2021 年 12 月 20 日
       </a>
     </li>
@@ -1313,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-10-31/" class="md-nav__link">
+      <a href="../2021-10-31/" class="md-nav__link">
         2021 年 10 月 31 日
       </a>
     </li>
@@ -1327,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-09-20/" class="md-nav__link">
+      <a href="../2021-09-20/" class="md-nav__link">
         2021 年 9 月 20 日
       </a>
     </li>
@@ -1341,7 +1175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-08-28/" class="md-nav__link">
+      <a href="../2021-08-28/" class="md-nav__link">
         2021 年 8 月 28 日
       </a>
     </li>
@@ -1355,7 +1189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-08-21/" class="md-nav__link">
+      <a href="../2021-08-21/" class="md-nav__link">
         2021 年 8 月 21 日
       </a>
     </li>
@@ -1369,7 +1203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-06-13/" class="md-nav__link">
+      <a href="../2021-06-13/" class="md-nav__link">
         2021 年 6 月 13 日
       </a>
     </li>
@@ -1383,7 +1217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2021-03-18/" class="md-nav__link">
+      <a href="../2021-03-18/" class="md-nav__link">
         2021 年 3 月 18 日
       </a>
     </li>
@@ -1397,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2020-08-01/" class="md-nav__link">
+      <a href="../2020-08-01/" class="md-nav__link">
         2020 年 8 月 1 日
       </a>
     </li>
@@ -1411,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../records/2020-03-31/" class="md-nav__link">
+      <a href="../2020-03-31/" class="md-nav__link">
         2020 年 3 月 31 日
       </a>
     </li>
@@ -1473,191 +1307,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#配置带有-cloud-init-的镜像" class="md-nav__link">
-    配置带有 cloud-init 的镜像
+  <a href="#登出-iscsi-会话过程" class="md-nav__link">
+    登出 iSCSI 会话过程
   </a>
-  
-    <nav class="md-nav" aria-label="配置带有 cloud-init 的镜像">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#创建虚拟机并安装-cloud-init" class="md-nav__link">
-    创建虚拟机，并安装 cloud-init
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#解决从同一模板中创建的虚拟机有相同的-machine-id-问题" class="md-nav__link">
-    解决从同一模板中创建的虚拟机有相同的 machine-id 问题
-  </a>
-  
-    <nav class="md-nav" aria-label="解决从同一模板中创建的虚拟机有相同的 machine-id 问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#方法-1" class="md-nav__link">
-    方法 1
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#方法-2" class="md-nav__link">
-    方法 2
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#安装必要软件包" class="md-nav__link">
-    安装必要软件包
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#设置-username-和-password-失败无法使用在-proxmox-web-页面上设置的-username-和-password-登录虚拟机" class="md-nav__link">
-    设置 username 和 password (失败，无法使用在 proxmox web 页面上设置的 username 和 password 登录虚拟机)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cloud-init-简介和配置解释" class="md-nav__link">
-    cloud-init 简介和配置解释
-  </a>
-  
-    <nav class="md-nav" aria-label="cloud-init 简介和配置解释">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#阶段" class="md-nav__link">
-    阶段
+  <a href="#修改容器-user-namespace-idmap-范围" class="md-nav__link">
+    修改容器 user namespace idmap 范围
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#user-data" class="md-nav__link">
-    User-Data
+      
+        <li class="md-nav__item">
+  <a href="#存储阵列" class="md-nav__link">
+    存储阵列
   </a>
-  
-    <nav class="md-nav" aria-label="User-Data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#关于-volumes" class="md-nav__link">
-    关于 volumes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#user-data-格式" class="md-nav__link">
-    User-Data 格式
-  </a>
-  
-    <nav class="md-nav" aria-label="User-Data 格式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#user-data-script" class="md-nav__link">
-    User-Data Script
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cloud-config-data" class="md-nav__link">
-    Cloud Config Data
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#config-示例" class="md-nav__link">
-    config 示例:
-  </a>
-  
-    <nav class="md-nav" aria-label="config 示例:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kernel-command-line" class="md-nav__link">
-    Kernel Command Line
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#其他" class="md-nav__link">
-    其他
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#部署" class="md-nav__link">
-    部署
-  </a>
-  
-    <nav class="md-nav" aria-label="部署">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#部署文件形式" class="md-nav__link">
-    部署文件形式
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#部署方式" class="md-nav__link">
-    部署方式
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#其他问题" class="md-nav__link">
-    其他问题
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1675,197 +1341,41 @@
                 
                   
 
-  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/kvm/cloud-init.md" title="编辑此页" class="md-content__button md-icon">
+  <a href="https://github.com/USTC-vlab/maint-docs/edit/master/docs/records/2022-11-21.md" title="编辑此页" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="虚拟机-cloud-init-配置和使用">虚拟机 cloud-init 配置和使用<a class="headerlink" href="#虚拟机-cloud-init-配置和使用" title="Permanent link">&para;</a></h1>
-<h2 id="配置带有-cloud-init-的镜像">配置带有 cloud-init 的镜像<a class="headerlink" href="#配置带有-cloud-init-的镜像" title="Permanent link">&para;</a></h2>
-<h3 id="创建虚拟机并安装-cloud-init">创建虚拟机，并安装 cloud-init<a class="headerlink" href="#创建虚拟机并安装-cloud-init" title="Permanent link">&para;</a></h3>
-<p>从本地选择 iso 创建虚拟机，装好系统后进入虚拟机，安装 cloud-init。如果在装系统时没有换源，就先换源。</p>
-<div class="highlight"><pre><span></span><code>sudo apt install cloud-init  <span class="c1"># Ubuntu</span>
-sudo yum install cloud-init  <span class="c1"># CentOS</span>
-</code></pre></div>
-<p>cloud-init 的配置信息在文件 <code>/etc/cloud/cloud.cfg.d/*.cfg</code> 和 <code>/etc/cloud/cloud.cfg</code> 中。cloud-init 以字母顺序读取所有的 <code>*.cfg</code> 文件，相同参数后面的文件会覆盖前面的文件。</p>
-<p>在 cloud.cfg 文件中，任务以 module 形式组织. 例如指定 <code>set_hostname</code> 的 moudle 时，cloud-init 会执行 hostname 任务，具体的配置参数由 metadata 指定。</p>
-<p>我们需要在此文件中删除不需要的模块, 例如 <code>disable-ec2-metadata</code> 和 <code>byobu</code> 等。 </p>
-<div class="highlight"><pre><span></span><code><span class="nt">cloud_config_modules</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snap</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snap_config</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-advantage</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disable-ec2-metadata</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byobu</span><span class="w"></span>
-
-<span class="nt">cloud_final_modules</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snappy</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">landscape</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lxd</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">puppet</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chef</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcollective</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">salt-minion</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rightscale_userdata</span><span class="w"></span>
-</code></pre></div>
-<p>cloud-init 的数据文件放在 <code>/var/lib/cloud/data</code> 中，
-日志文件放在 <code>/var/log/cloud-init-output.log</code> (每阶段输出)，
-<code>/var/log/cloud-init.log</code> (每一个操作更详细的调试日志)，
-<code>/run/cloud-init</code> 决定开启和关闭自身的某些功能。</p>
-<h3 id="解决从同一模板中创建的虚拟机有相同的-machine-id-问题">解决从同一模板中创建的虚拟机有相同的 machine-id 问题<a class="headerlink" href="#解决从同一模板中创建的虚拟机有相同的-machine-id-问题" title="Permanent link">&para;</a></h3>
-<h4 id="方法-1">方法 1<a class="headerlink" href="#方法-1" title="Permanent link">&para;</a></h4>
-<p>Proxmox 会对创建的新虚拟机自动分配不同的 MAC 地址。</p>
-<p>但是对于 Ubuntu，从统一模板中创建的虚拟机有和模板相同的 machine-id，虚拟机使用此 machine-id 来获取 DHCP 的 lease，从导致多个虚拟机竞争同一个 IP 地址。</p>
-<p>解决此问题的方法是文件 <code>/etc/machine-id</code> 删除，重新创建一个同名空白文件</p>
-<div class="highlight"><pre><span></span><code>sudo rm /etc/machine-id
-sudo touch /etc/machine-id
-</code></pre></div>
-<p>之后，转到文件 <code>/var/lib/dbus/machine-id</code>，此文件会在每次虚拟机重启之后将 machine-id 复制到 <code>/etc/machine-id</code> 中。
-所以将此文件删除，创建一个 <code>/etc/machine-id</code> 的符号链接到此处。</p>
-<div class="highlight"><pre><span></span><code>sudo rm /var/lib/dbus/machine-id
-sudo ln -s /etc/machine-id /var/lib/dbus/machine-id
-</code></pre></div>
-<p>然后将此虚拟机关机（不是重启，否则会生成新的 machine-id），制作为模板。</p>
-<h4 id="方法-2">方法 2<a class="headerlink" href="#方法-2" title="Permanent link">&para;</a></h4>
-<p>修改 DHCP 的 identifier，<code>/etc/netplan/</code> 下文件，在 network 下的 ethernets 下的条目增加 <code>dhcp-identifier: mac</code>，即可使用 MAC 作为 DHCP 分配 IP 的唯一标志。
-但 SSH 也使用 machine-id，所以此方法只解决了 ip 的问题。</p>
-<h3 id="安装必要软件包">安装必要软件包<a class="headerlink" href="#安装必要软件包" title="Permanent link">&para;</a></h3>
-<p>安装 net-tools, openssh-server 等工具</p>
-<h3 id="设置-username-和-password-失败无法使用在-proxmox-web-页面上设置的-username-和-password-登录虚拟机">设置 username 和 password (失败，无法使用在 proxmox web 页面上设置的 username 和 password 登录虚拟机)<a class="headerlink" href="#设置-username-和-password-失败无法使用在-proxmox-web-页面上设置的-username-和-password-登录虚拟机" title="Permanent link">&para;</a></h3>
-<p>完成上面的工作后将虚拟机关机，在 proxmox web 界面 hardware 栏中 add cloudinit Drive，然后在 Cloud-init 栏中设置用户名和密码（必须设置，否则无法进入由此模板创建的虚拟机）。</p>
-<h2 id="cloud-init-简介和配置解释">cloud-init 简介和配置解释<a class="headerlink" href="#cloud-init-简介和配置解释" title="Permanent link">&para;</a></h2>
-<h3 id="阶段">阶段<a class="headerlink" href="#阶段" title="Permanent link">&para;</a></h3>
-<p>cloud-init.cfg 文件中有五个 stage，cloud-init 分为五个阶段进行，具体以服务的形式注册到系统中按如下次序执行：</p>
+<h1 id="2022-年-11-月-21-日工作总结">2022 年 11 月 21 日工作总结<a class="headerlink" href="#2022-年-11-月-21-日工作总结" title="Permanent link">&para;</a></h1>
+<p><strong>起因</strong>：有学生反馈容器启动程序较慢，维护人员发现 <code>iowait</code> 较高，随后发现存储阵列管理界面无法登录。</p>
+<p>今日进行了停机维护，操作内容如下：</p>
 <ol>
-<li>
-<p>generator</p>
-<p>此阶段检测 ci 是否被禁用</p>
-</li>
-<li>
-<p>local:cloud-init-local.service </p>
-<p>当/挂载时执行，此阶段的任务主要是定位本地数据，将网络配置应用到本地。</p>
-<p>需要将网络 block</p>
-<p>此阶段没有用到的模块</p>
-</li>
-<li>
-<p>network:cloud-init.service</p>
-<p>处理所有的 user-data, 包括任何 <code>#include</code> or <code>#include-once</code>, 解压缩所有压缩文件, 运行所有的 <code>part-handler</code></p>
-</li>
-<li>
-<p>config:cloud.config.service</p>
-<p>此阶段仅运行 config module, 其他阶段不起作用的模块都在这个阶段运行</p>
-</li>
-<li>
-<p>final:cloud-final.service</p>
-<p>此阶段运行用户自定义的需要在登录系统后执行的脚本在此处运行。</p>
-</li>
+<li>登出所有 iSCSI 会话，重置存储阵列认证凭据并重启阵列；</li>
+<li>修改容器 user namespace idmap 范围以支持 rootless podman；</li>
+<li>更新所有主机节点软件包。</li>
 </ol>
-<p>每个阶段中执行的任务以模块的形式定义, 模块执行的具体任务由 metadata 决定</p>
-<h3 id="user-data">User-Data<a class="headerlink" href="#user-data" title="Permanent link">&para;</a></h3>
-<p>cloud-init 通过命令行 <code>--cicustom</code> 将用户自定义的 config 文件进行配置 </p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Syntax</span>
-qm <span class="nb">set</span> &lt;vid&gt; --cicustom <span class="s2">&quot;user=&lt;volume&gt;, network=&lt;volume&gt;, meta=&lt;volume&gt;&quot;</span> 
-
-<span class="c1"># Example</span>
-qm <span class="nb">set</span> <span class="m">9000</span> --cicustom <span class="s2">&quot;user=local:snippets/userconfig.yaml&quot;</span> 
-</code></pre></div>
-<p>cicustom 文件需要在支持 snippets 并且所有的 VM 都能 access 的节点上。</p>
-<p>创建一个 snippets: 在 proxmox 的 web 界面上的 datacenter 中点击存储 - add-directory, 设置 id, 选择目录 content 选择 snippets, node 选 ALL (No restrictions)。</p>
-<h4 id="关于-volumes">关于 volumes<a class="headerlink" href="#关于-volumes" title="Permanent link">&para;</a></h4>
-<p>local 默认位置为 <code>/var/lib/vz</code>（定义在配置文件 <code>/etc/pve/storage.cfg</code> 中）</p>
-<p>cloudinit 日志文件在 <code>/var/log/cloud-init-ouput.log</code> 中 </p>
-<h4 id="user-data-格式">User-Data 格式<a class="headerlink" href="#user-data-格式" title="Permanent link">&para;</a></h4>
-<h5 id="user-data-script">User-Data Script<a class="headerlink" href="#user-data-script" title="Permanent link">&para;</a></h5>
-<p>通常用于仅需要执行一个 shell 脚本的时候 </p>
-<p>格式：以 <code>#!</code> 开始或者当使用 MIME 归档时以 <code>Content-Type: text/x-shellscript</code> 开始</p>
-<div class="admonition example">
-<p class="admonition-title">示例</p>
-<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
-<span class="nb">echo</span> <span class="s2">&quot;Hello World. The time is now </span><span class="k">$(</span>date -R<span class="k">)</span><span class="s2">!&quot;</span> <span class="p">|</span> tee /root/output.txt
-</code></pre></div>
-</div>
-<p>在虚拟机的 <code>/var/lib/cloud/scripts</code> 目录下存放要执行的脚本文件。</p>
-<h5 id="cloud-config-data">Cloud Config Data<a class="headerlink" href="#cloud-config-data" title="Permanent link">&para;</a></h5>
-<p>必须是合法的 yaml 格式</p>
-<p>local 目录在 <code>/var/lib/vz</code> 下（在 <code>/etc/pve/storage.cfg</code> 中配置）</p>
-<p>格式: 以 <code>#cloud-config</code> 开始或者当使用 MIME 时以 <code>Content-Type: text/cloud-config</code> 开始</p>
-<p>各 module 对应下 config data 格式及功能说明：<a href="https://cloudinit.readthedocs.io/en/latest/topics/modules.html">https://cloudinit.readthedocs.io/en/latest/topics/modules.html</a></p>
-<div class="admonition example">
-<p class="admonition-title">示例</p>
-<div class="highlight"><pre><span></span><code><span class="nt">bootcmd</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo 192.168.1.130 us.archive.com &gt; /etc/hosts</span><span class="w"></span>
-<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">cloud-init-per</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">one</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">mymkfs</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">mkfs</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">/dev/vdb</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"></span>
-</code></pre></div>
-</div>
-<h4 id="config-示例">config 示例:<a class="headerlink" href="#config-示例" title="Permanent link">&para;</a></h4>
-<p>配置实例的 SSH key：<a href="https://cloudinit.readthedocs.io/en/latest/topics/modules.html#ssh">https://cloudinit.readthedocs.io/en/latest/topics/modules.html#ssh</a></p>
-<p>扩容：<a href="https://cloudinit.readthedocs.io/en/latest/topics/modules.html#growpart">https://cloudinit.readthedocs.io/en/latest/topics/modules.html#growpart</a></p>
-<h5 id="kernel-command-line">Kernel Command Line<a class="headerlink" href="#kernel-command-line" title="Permanent link">&para;</a></h5>
-<p>使用 NoCloud 时，用户可以将用户数据通过内核命令行参数传递。</p>
-<h5 id="其他">其他<a class="headerlink" href="#其他" title="Permanent link">&para;</a></h5>
-<p>其他格式还有 include, upstart job, cloud boothook, part handler 等</p>
-<p>ci 有一个脚本 <code>make-mime.py</code> 可以将不同类型的用户数据综合在一起，例如将 cloud-config 类型的 config.yaml 和 x-shellscript 类型的 script.sh 组合在一起形成 user-data 数据:</p>
-<div class="highlight"><pre><span></span><code>./tools/make-mime.py -a config.yaml:cloud-config -a script.sh:x-shellscript &gt; user-data
-</code></pre></div>
-<h3 id="部署">部署<a class="headerlink" href="#部署" title="Permanent link">&para;</a></h3>
-<h4 id="部署文件形式">部署文件形式<a class="headerlink" href="#部署文件形式" title="Permanent link">&para;</a></h4>
-<ul>
-<li>通过 .cfg 文件:</li>
-</ul>
-<p>在虚拟机 <code>/etc/cloud/cloud.cfg.d/</code> 下有多个 <code>.cfg</code> 结尾的文件，这些 ci 配置文件将按照字母顺序执行，后面的 cfg 文件会覆盖前面的 cfg 文件中相同的配置。</p>
-<p>通过测试，新建一个 cfg 文件，使用模块 bootcmd，在此模块下编写的脚本程序将会被执行，例如新建文件 <code>/etc/cloud/cloud.cfg.d/test.cfg</code>，写入内容</p>
-<p><div class="highlight"><pre><span></span><code><span class="nt">bootcmd</span><span class="p">:</span><span class="w"></span>
-<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">sh</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-xc</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;echo</span><span class="nv"> </span><span class="s">&#39;hello</span><span class="nv"> </span><span class="s">world&#39;</span><span class="nv"> </span><span class="s">&gt;&gt;</span><span class="nv"> </span><span class="s">testfile&quot;</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"></span>
-</code></pre></div>
-   就将会在当前 .cfg 文件目录下建立一个内容为 "hello world" 的名为 testfile 的文件。</p>
-<p>虚拟机每次启动都会执行 bootcmd 其后的命令，通过将配置过程写成脚本的形式再作为 bootcmd 的参数写入 .cfg 配置文件中，虚拟机便能够完成配置任务。</p>
-<p>此外，bootcmd 是每次虚拟机启动都会执行，如果需要虚拟机只执行一次命令，可以使用 runcmd 选项。</p>
-<ul>
-<li>通过 userdata script 文件:</li>
-</ul>
-<p>此外，也可以直接将配置过程以脚本的形式呈现，将其存储在 <code>/var/lib/cloud/scripts/</code> 下，虚拟机每次启动都会执行此脚本中的命令。</p>
-<h4 id="部署方式">部署方式<a class="headerlink" href="#部署方式" title="Permanent link">&para;</a></h4>
+<h2 id="登出-iscsi-会话过程">登出 iSCSI 会话过程<a class="headerlink" href="#登出-iscsi-会话过程" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p>虚拟机本地</p>
-<p>将 <code>.cfg</code> 和 <code>script</code> 文件存储在相应目录下，由虚拟机在启动的时候读取并执行配置过程</p>
-</li>
-<li>
-<p>qm 命令从数据中心的命令行（未实现）</p>
-<p>从数据中心的终端上执行命令进行部署</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 格式</span>
-qm <span class="nb">set</span> &lt;vmid&gt; --cicustom <span class="s2">&quot;user=&lt;volume&gt;&quot;</span>
-
-<span class="c1"># 示例</span>
-qm <span class="nb">set</span> <span class="m">101</span> --cicustom <span class="s2">&quot;user=local:snippets/userconfig.yaml&quot;</span>
-</code></pre></div>
-</li>
+<li>首先停止所有学生容器及其他依赖于存储阵列的服务；</li>
+<li>在各节点运行 <code>iscsiadm -m node -T &lt;target-name&gt; -U all</code> 登出 iSCSI 会话；</li>
+<li>在各节点运行 <code>iscsiadm -m session -P 3</code> 确认会话成功登出。</li>
 </ol>
-<h4 id="其他问题">其他问题<a class="headerlink" href="#其他问题" title="Permanent link">&para;</a></h4>
-<p>修复报错:</p>
-<ol>
-<li>
-<p>错误表现如下</p>
-<div class="highlight"><pre><span></span><code>perl: warning: Setting locale failed.
-perl: warning: Please check that your locale settings:
-   <span class="nv">LANGUAGE</span> <span class="o">=</span> <span class="o">(</span><span class="nb">unset</span><span class="o">)</span>,
-   <span class="nv">LC_ALL</span> <span class="o">=</span> <span class="o">(</span><span class="nb">unset</span><span class="o">)</span>,
-   <span class="nv">LC_ADDRESS</span> <span class="o">=</span> <span class="s2">&quot;zh_CN.UTF-8&quot;</span>,
-   .....
-   are supported and installed on your system.
-perl: warning: Falling back to a fallback locale <span class="o">(</span><span class="s2">&quot;en_US.UTF-8&quot;</span><span class="o">)</span>.
-</code></pre></div>
-<p>解决方法：设置环境变量 <code>LC_ALL=C</code> 或 <code>LC_ALL=C.UTF-8</code></p>
-</li>
-</ol>
+<p><strong>注</strong>：停止 <code>iscsid.service</code> 并不会登出 iSCSI 会话。</p>
+<h2 id="修改容器-user-namespace-idmap-范围">修改容器 user namespace idmap 范围<a class="headerlink" href="#修改容器-user-namespace-idmap-范围" title="Permanent link">&para;</a></h2>
+<p>修改 <code>/etc/sub{u,g}id</code>，将第三个数字由 <code>65536</code> 改为 <code>165536</code>，增大容器允许使用的 ID 范围。</p>
+<h2 id="存储阵列">存储阵列<a class="headerlink" href="#存储阵列" title="Permanent link">&para;</a></h2>
+<p>存储阵列无法登录原因不明，使用串口重置凭据并重新设置认证后可以正常登录。</p>
+<p>查看阵列日志，仅发现 2022/11/15 出现过一个 <code>memory allocation failed</code> 事件，无法确认是否与本次无法登录相关。</p>
+<p>查阅 <a href="https://support.hpe.com/hpesc/public/docDisplay?docLocale=en_US&amp;docId=sd00002146en_us">HPE 设备固件发行注记</a>，没有发现与本次故障相关的内容。</p>
+<p>可能需要向上游反馈本次故障。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 10, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
       
     
   </small>
@@ -1895,7 +1405,7 @@ perl: warning: Falling back to a fallback locale <span class="o">(</span><span c
     <nav class="md-footer__inner md-grid" aria-label="页脚" >
       
         
-        <a href="../../vlab-software/misc/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 相关记录" rel="prev">
+        <a href="../../changelog/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 更新历史" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1904,20 +1414,20 @@ perl: warning: Falling back to a fallback locale <span class="o">(</span><span c
               <span class="md-footer__direction">
                 上一页
               </span>
-              相关记录
+              更新历史
             </div>
           </div>
         </a>
       
       
         
-        <a href="../../testing/" class="md-footer__link md-footer__link--next" aria-label="下一页: 简介" rel="next">
+        <a href="../2022-09-20/" class="md-footer__link md-footer__link--next" aria-label="下一页: 2022 年 9 月 20 日" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              简介
+              2022 年 9 月 20 日
             </div>
           </div>
           <div class="md-footer__button md-icon">
