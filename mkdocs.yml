@@ -52,8 +52,7 @@ extra:
       link: 'https://github.com/USTC-vlab'
 
 extra_css:
-  # Borrow CSS from user docs
-  - 'https://vlab.ustc.edu.cn/docs/assets/css/extra.css'
+  - /assets/css/extra.css
 
 markdown_extensions:
   - admonition
