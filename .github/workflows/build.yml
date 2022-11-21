@@ -19,6 +19,7 @@ jobs:
         : > site/.nojekyll
         echo -n 'vlab.ibugone.com' > site/CNAME
     - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/master'
       run: |
         # Clone and deploy
         git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
