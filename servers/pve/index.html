@@ -1427,9 +1427,9 @@ ssh pbs systemctl reload proxmox-backup-proxy.service
 <h2 id="lxc-特殊设置">LXC 特殊设置<a class="headerlink" href="#lxc-特殊设置" title="Permanent link">&para;</a></h2>
 <p><code>/usr/share/lxc/config/common.conf.d/</code> 下除了 <code>00-lxcfs.conf</code>（lxcfs 挂载相关内容）和 <code>01-pve.conf</code>（启动前、结束后、设备挂载相关 hook）以外，我们添加了一些自己的全局配置。</p>
 <p>10-pids.conf:</p>
-<div class="highlight"><pre><span></span><code>lxc.cgroup2.pids.max = 8192
+<div class="highlight"><pre><span></span><code>lxc.cgroup2.pids.max = 32768
 </code></pre></div>
-<p>注意是 cgroup2 哦！cgroup1 的配置无效。</p>
+<p>注意是 cgroup2 哦！cgroup1 的配置无效。特别地，pv1 上这个配置是 8192。</p>
 <p>10-prlimits.conf:</p>
 <div class="highlight"><pre><span></span><code>lxc.prlimit.memlock = 16777216
 </code></pre></div>
