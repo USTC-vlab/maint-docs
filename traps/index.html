@@ -1199,6 +1199,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#处理-fork-bomb" class="md-nav__link">
+    处理 fork bomb
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1728,6 +1735,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#处理-fork-bomb" class="md-nav__link">
+    处理 fork bomb
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2071,6 +2085,12 @@ sudo mv usr.sbin.tcpdump disable/
 sudo apparmor_parser -R /etc/apparmor.d/disable/
 </code></pre></div>
 <p>之后需要修改镜像，移除 <code>usr.sbin.tcpdump</code> 规则。</p>
+<h3 id="处理-fork-bomb">处理 fork bomb<a class="headerlink" href="#处理-fork-bomb" title="Permanent link">&para;</a></h3>
+<ol>
+<li>找到问题主机，从 <code>/proc/&lt;很大的 PID&gt;/mounts</code> 获得 VMID</li>
+<li><code>echo 1 &gt; /sys/fs/cgroup/lxc/&lt;VMID&gt;/cgroup.kill</code></li>
+<li>等一段时间，让 kernel 慢慢杀（<code>cgroup.kill</code> 会阻止 cgroup 内部进程创建新进程，并且发送 SIGKILL）。如果有需要，单独添加更严格的限额（在文件 <code>/etc/pve/lxc/&lt;VMID&gt;.conf</code> 添加 <code>lxc.cgroup2.pids.max: 2000</code>）</li>
+</ol>
 <h2 id="web-及用户界面">Web 及用户界面<a class="headerlink" href="#web-及用户界面" title="Permanent link">&para;</a></h2>
 <h3 id="创建虚拟机出现-connection-aborted-remotedisconnectedremote-end-closed-connection-without-response">创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')<a class="headerlink" href="#创建虚拟机出现-connection-aborted-remotedisconnectedremote-end-closed-connection-without-response" title="Permanent link">&para;</a></h3>
 <p>查看 pv1 上的 <code>systemctl status pveproxy</code> 可见如下内容：</p>
@@ -2090,7 +2110,7 @@ sudo apparmor_parser -R /etc/apparmor.d/disable/
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
       
     
   </small>
