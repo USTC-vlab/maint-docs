@@ -382,6 +382,12 @@ sudo apparmor_parser -R /etc/apparmor.d/disable/
 
 之后需要修改镜像，移除 `usr.sbin.tcpdump` 规则。
 
+### 处理 fork bomb
+
+1. 找到问题主机，从 `/proc/<很大的 PID>/mounts` 获得 VMID
+2. `echo 1 > /sys/fs/cgroup/lxc/<VMID>/cgroup.kill`
+3. 等一段时间，让 kernel 慢慢杀（`cgroup.kill` 会阻止 cgroup 内部进程创建新进程，并且发送 SIGKILL）。如果有需要，单独添加更严格的限额（在文件 `/etc/pve/lxc/<VMID>.conf` 添加 `lxc.cgroup2.pids.max: 2000`）
+
 ## Web 及用户界面
 
 ### 创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')

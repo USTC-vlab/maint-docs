@@ -23,3 +23,23 @@
 PVE 主机上可以使用 `pct enter` 和 `pct console` 命令获取 LXC 容器中的一个 shell 或者接入 /dev/tty0，但该“接口”不在 PVE API 中提供。考虑到这两个接口的主要连接方式是 SSH，因此我们写了这个 recovery SSHd 放在 pv1 上运行，供 sshpiper 调用。
 
 代码在 [recovery-sshd](https://github.com/USTC-vlab/recovery-sshd) 仓库中，配置文件为 `/etc/recovery-sshd.json`，对应的 systemd service 为 `recovery-sshd.service`。
+
+## LXC 特殊设置
+
+`/usr/share/lxc/config/common.conf.d/` 下除了 `00-lxcfs.conf`（lxcfs 挂载相关内容）和 `01-pve.conf`（启动前、结束后、设备挂载相关 hook）以外，我们添加了一些自己的全局配置。
+
+10-pids.conf:
+
+```
+lxc.cgroup2.pids.max = 8192
+```
+
+注意是 cgroup2 哦！cgroup1 的配置无效。
+
+10-prlimits.conf:
+
+```
+lxc.prlimit.memlock = 16777216
+```
+
+给未来的 earlyoom 预留的。
