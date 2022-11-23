@@ -31,10 +31,10 @@ PVE 主机上可以使用 `pct enter` 和 `pct console` 命令获取 LXC 容器�
 10-pids.conf:
 
 ```
-lxc.cgroup2.pids.max = 8192
+lxc.cgroup2.pids.max = 32768
 ```
 
-注意是 cgroup2 哦！cgroup1 的配置无效。
+注意是 cgroup2 哦！cgroup1 的配置无效。特别地，pv1 上这个配置是 8192。
 
 10-prlimits.conf:
 
