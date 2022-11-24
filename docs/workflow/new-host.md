@@ -87,14 +87,4 @@ ExecStart=/lib/open-iscsi/activate-storage.sh
 
 ## 额外的系统设置
 
-修改 subuid 和 subgid，将第三列的值从 65536 改为 165536：
-
-```text title="/etc/subuid 和 /etc/subgid"
-root:100000:165536
-```
-
-设置 16 MiB 的可锁定内存，为容器内使用 earlyoom 做准备。讨论见 [:fontawesome-brands-github: discussions#19](https://github.com/USTC-vlab/discussions/issues/19)
-
-```dosini title="/usr/share/lxc/config/common.conf.d/10-prlimits.conf"
-lxc.prlimit.memlock = 16777216
-```
+参见 [PVE 服务器的额外设置](../servers/pve.md#extra-settings)。

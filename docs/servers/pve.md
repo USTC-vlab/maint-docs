@@ -24,22 +24,34 @@ PVE 主机上可以使用 `pct enter` 和 `pct console` 命令获取 LXC 容器�
 
 代码在 [recovery-sshd](https://github.com/USTC-vlab/recovery-sshd) 仓库中，配置文件为 `/etc/recovery-sshd.json`，对应的 systemd service 为 `recovery-sshd.service`。
 
-## LXC 特殊设置
+## 额外的系统配置 {#extra-settings}
 
-`/usr/share/lxc/config/common.conf.d/` 下除了 `00-lxcfs.conf`（lxcfs 挂载相关内容）和 `01-pve.conf`（启动前、结束后、设备挂载相关 hook）以外，我们添加了一些自己的全局配置。
+### Subuid 和 Subgid
 
-10-pids.conf:
+修改 subuid 和 subgid，将第三列的值从 65536 改为 165536：
 
+```text title="/etc/subuid 和 /etc/subgid"
+root:100000:165536
 ```
+
+### LXC 特殊设置
+
+LXC 的全局设置位于 `/usr/share/lxc/config/common.conf.d/`，其中除了 `00-lxcfs.conf`（lxcfs 挂载相关内容）和 `01-pve.conf`（启动前、结束后、设备挂载相关 hook）以外，我们添加了一些自己的配置。
+
+设置 32768 PID 上限，避免容器内运行 fork bomb 等程序影响主机或互相影响
+
+```dosini title="/usr/share/lxc/config/common.conf.d/10-pids.conf"
 lxc.cgroup2.pids.max = 32768
 ```
 
-注意是 cgroup2 哦！cgroup1 的配置无效。特别地，pv1 上这个配置是 8192。
+!!! info
 
-10-prlimits.conf:
+    从 PVE 7 开始此处设置需要用 `lxc.cgroup2`，cgroup1 的配置仅对 PVE 6 有效。
+    
+    特别地，pv1 主机上这个配置是 8192（没有用户容器）。
 
-```
+设置 16 MiB 的可锁定内存，为容器内使用 earlyoom 做准备。讨论见 [:fontawesome-brands-github: discussions#19](https://github.com/USTC-vlab/discussions/issues/19)
+
+```dosini title="/usr/share/lxc/config/common.conf.d/10-prlimits.conf"
 lxc.prlimit.memlock = 16777216
 ```
-
-给未来的 earlyoom 预留的。
