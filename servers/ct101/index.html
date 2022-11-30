@@ -23,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.472b142f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.08040f6c.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
         
       
       
@@ -544,6 +544,19 @@
   <a href="#grafana" class="md-nav__link">
     Grafana 与监控、统计
   </a>
+  
+    <nav class="md-nav" aria-label="Grafana 与监控、统计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grafana-security" class="md-nav__link">
+    安全维护
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1379,6 +1392,19 @@
     Grafana 与监控、统计
   </a>
   
+    <nav class="md-nav" aria-label="Grafana 与监控、统计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grafana-security" class="md-nav__link">
+    安全维护
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1506,14 +1532,22 @@
 <p>这个 webhook 前面还是套了一层 Nginx 的，不是直连的</p>
 </div>
 <h2 id="grafana">Grafana 与监控、统计<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h2>
-<p>未完待续</p>
+<h3 id="grafana-security">安全维护<a class="headerlink" href="#grafana-security" title="Permanent link">&para;</a></h3>
+<p>根据相关要求，grafana 限制仅允许校园网访问。尽管如此，我们仍然需要保证 grafana 始终处在安全的最新版本。建议维护者使用 RSS 订阅 <a href="https://grafana.com/tags/security/index.xml">https://grafana.com/tags/security/index.xml</a>，在有安全通知发布后检查版本并及时升级。</p>
+<p>升级步骤：</p>
+<ol>
+<li>检查 <a href="https://grafana.com/docs/grafana/latest/setup-grafana/upgrade-grafana">https://grafana.com/docs/grafana/latest/setup-grafana/upgrade-grafana</a> 是否包含可能破坏当前功能的修改。</li>
+<li>执行 <code>docker pull grafana/grafana:latest</code></li>
+<li>执行 <code>~/docker/grafana.sh</code></li>
+</ol>
+<p>其他配置未完待续。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 24, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 30, 2022</span>
       
     
   </small>
@@ -1625,8 +1659,9 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
+    
     
   </body>
 </html>
