@@ -23,7 +23,7 @@ HostKey /etc/ssh/ssh_host_rsa_key
 HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
 TrustedUserCAKeys /etc/ssh/ssh_user_ca
 
-AuthorizedKeysFile /dev/null  # 屏蔽不带证书的公钥认证
+AuthorizedKeysFile none  # 屏蔽不带证书的公钥认证
 PermitRootLogin prohibit-password
 PasswordAuthentication no
 ```
