@@ -1388,6 +1388,16 @@
 <span class="nt">&lt;/cas:serviceResponse&gt;</span>
 </code></pre></div>
 </details>
+<div class="admonition warning">
+<p class="admonition-title"><code>glzjh</code> 的值不完全可靠</p>
+<p>根据 USTCCAS 的文档，这个属性中包含了用户所有的历史证件号（学号/工号），以 <code>\t</code> 分割。</p>
+<p>但是在实际操作中发现这个属性问题比较多，例如（以下例子经过匿名化处理）：</p>
+<ol>
+<li>有教师的 glzjh 值为 <code>"BA01000000\t00000\tSA97000000"</code>，第一个值是二十多年前的博士 ID，而最新的教师证件号是中间的值</li>
+<li>有 SA 新生的 glzjh 值为 <code>"U0000000"</code></li>
+<li>有 SA 新生的 glzjh 值为 <code>"null"</code></li>
+</ol>
+</div>
 <h2 id="人员在校状态码">人员在校状态码<a class="headerlink" href="#人员在校状态码" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>id,sfztm,sfzt
 1,10,在校
@@ -1441,7 +1451,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 10, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 28, 2022</span>
       
     
   </small>
