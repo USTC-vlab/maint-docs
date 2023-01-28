@@ -1087,6 +1087,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#关闭-swap-分配" class="md-nav__link">
+    关闭 swap 分配
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1352,6 +1359,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#关闭-swap-分配" class="md-nav__link">
+    关闭 swap 分配
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1465,11 +1479,16 @@ Stack:
 </code></pre></div>
 <p><code>gcc -Wall -fPIC -shared -o dlopen.so dlopen.c -ldl</code> 后 <code>LD_PRELOAD</code> 执行 vivado 2019 进程，发现在加载 <code>libdbus-glib-1.so.2</code> 时程序崩溃。将 Ubuntu 18.04 的对应库下载并 <code>LD_PRELOAD</code> 测试，发现工作正常。</p>
 <h2 id="定时任务导致的-io-拥堵问题">定时任务导致的 I/O 拥堵问题<a class="headerlink" href="#定时任务导致的-io-拥堵问题" title="Permanent link">&para;</a></h2>
-<p>根据以往的系统资源记录，我们发现更新 man-db 与系统更新操作可能导致 I/O 拥堵。目前（正在）处理所有正在运行的容器：</p>
+<p>根据以往的系统资源记录，我们发现更新 man-db 与系统更新操作可能导致 I/O 拥堵。目前处理了所有正在运行的容器：</p>
 <div class="highlight"><pre><span></span><code><span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>man-db.timer
 <span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apt-daily-upgrade.timer
 </code></pre></div>
 <p>以及新的 22.04 容器也预期不包含这些定时任务。</p>
+<h2 id="关闭-swap-分配">关闭 swap 分配<a class="headerlink" href="#关闭-swap-分配" title="Permanent link">&para;</a></h2>
+<p>默认 PVE 给每个容器分配了 512M 的 swap，但是主机 swap 仅有 8G，因此批量关闭了所有容器的 swap，并且修改了管理平台相关代码。</p>
+<div class="highlight"><pre><span></span><code><span class="gp"># </span>inside<span class="w"> </span>/etc/pve/lxc
+<span class="gp"># </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>*<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="p">/.conf/</span><span class="si">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pct<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="p">/.conf/</span><span class="si">}</span><span class="w"> </span>--swap<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
