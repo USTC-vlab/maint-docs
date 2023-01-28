@@ -131,6 +131,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://vlab.ibugone.com/records/2023-01-28/</loc>
+         <lastmod>2023-01-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://vlab.ibugone.com/references/desktop/</loc>
          <lastmod>2023-01-28</lastmod>
          <changefreq>daily</changefreq>
