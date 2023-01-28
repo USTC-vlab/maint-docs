@@ -25,19 +25,44 @@ wait
 
 ## 为虚拟机配置 Vlab Software
 
-取决于所安装的桌面环境，在 `/etc/xdg/menus` 下的某个 `.menu` 文件最后的关闭标签**前**插入如下内容，也就是在最外层的 `<Menu>` 下添加一个子键。
+在 `/etc/skel/.config/menus/` 下新建 `mate-applications.menu` 内容如下：
 
 ```xml
-<!-- Vlab -->
+<?xml version="1.0" ?>
+<!DOCTYPE Menu
+  PUBLIC '-//freedesktop//DTD Menu 1.0//EN'
+  'http://standards.freedesktop.org/menu-spec/menu-1.0.dtd'>
 <Menu>
-  <Name>Vlab</Name>
-  <Directory>Vlab.directory</Directory>
-  <AppDir>/opt/vlab/applications</AppDir>
-  <Include><And><Category>Vlab</Category></And></Include>
+  <Name>Applications</Name>
+  <MergeFile type="parent">/etc/xdg/menus/mate-applications.menu</MergeFile>
+
+  <!-- Vlab -->
+  <Menu>
+    <Name>Vlab</Name>
+    <Directory>Vlab.directory</Directory>
+    <AppDir>/opt/vlab/applications</AppDir>
+    <Include><And><Category>Vlab</Category></And></Include>
+  </Menu>
 </Menu>
 ```
 
-例如，对于 MATE 桌面环境，文件是 `/etc/xdg/menus/mate-applications.menu`；对于 Xfce 文件名是 `xfce-applications.menu`。
+（其他桌面环境下文件名需要做类似修改）
+
+??? info "旧的直接修改系统文件的方法"
+
+    取决于所安装的桌面环境，在 `/etc/xdg/menus` 下的某个 `.menu` 文件最后的关闭标签**前**插入如下内容，也就是在最外层的 `<Menu>` 下添加一个子键。
+
+    ```xml
+    <!-- Vlab -->
+    <Menu>
+      <Name>Vlab</Name>
+      <Directory>Vlab.directory</Directory>
+      <AppDir>/opt/vlab/applications</AppDir>
+      <Include><And><Category>Vlab</Category></And></Include>
+    </Menu>
+    ```
+
+    例如，对于 MATE 桌面环境，文件是 `/etc/xdg/menus/mate-applications.menu`；对于 Xfce 文件名是 `xfce-applications.menu`。
 
 同时为了使命令行环境能够正确加载 PATH，需要在 `/etc/profile.d` 下创建一个文件 `vlab.sh`：
 
