@@ -1,8 +1,14 @@
 # 打包容器镜像
 
+!!! success
+
+    我们已将此任务完全自动化，脚本和相关资源在 [labstrap](https://github.com/USTC-vlab/labstrap) 仓库中。
+
+    管理员（有仓库权限的人）可以在 [Image Build CI](https://github.com/USTC-vlab/labstrap/actions/workflows/build.yml) 页面点击 **Run workflow** 启动一次构建，构建完成后会自动上传到 [Auto builds](https://github.com/USTC-vlab/labstrap/releases/tag/auto-build) 这个 release。
+
 !!! tip
 
-    我们准备了一些自动化脚本在仓库 [labstrap](https://github.com/USTC-vlab/labstrap)。
+    以下内容是我们在自动化之前的手动打包流程，留作参考。
 
 Proxmox VE 的容器镜像和 LXC 略有不同，所以从 LXC 下载的镜像不宜直接用于 Proxmox VE。基准镜像可以直接使用已有的 vlab 镜像（推荐），或者使用 `pveam` 命令从 Proxmox 官方下载。
 
