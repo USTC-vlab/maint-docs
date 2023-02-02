@@ -21,7 +21,7 @@
         <link rel="next" href="../2022-11-21/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.7">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.558e4712.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0d440cfe.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
@@ -1094,6 +1094,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#后续使用-github-actions-构建镜像" class="md-nav__link">
+    后续：使用 GitHub Actions 构建镜像
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1366,6 +1373,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#后续使用-github-actions-构建镜像" class="md-nav__link">
+    后续：使用 GitHub Actions 构建镜像
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1477,7 +1491,7 @@ Stack:
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>gcc -Wall -fPIC -shared -o dlopen.so dlopen.c -ldl</code> 后 <code>LD_PRELOAD</code> 执行 vivado 2019 进程，发现在加载 <code>libdbus-glib-1.so.2</code> 时程序崩溃。将 Ubuntu 18.04 的对应库下载并 <code>LD_PRELOAD</code> 测试，发现工作正常。</p>
+<p><code>gcc -Wall -fPIC -shared -o dlopen.so dlopen.c -ldl</code> 后 <code>LD_PRELOAD</code> 执行 Vivado 2019 进程，发现在加载 <code>libdbus-glib-1.so.2</code> 时程序崩溃。将 Ubuntu 18.04 的对应库下载并 <code>LD_PRELOAD</code> 测试，发现工作正常。</p>
 <h2 id="定时任务导致的-io-拥堵问题">定时任务导致的 I/O 拥堵问题<a class="headerlink" href="#定时任务导致的-io-拥堵问题" title="Permanent link">&para;</a></h2>
 <p>根据以往的系统资源记录，我们发现更新 man-db 与系统更新操作可能导致 I/O 拥堵。目前处理了所有正在运行的容器：</p>
 <div class="highlight"><pre><span></span><code><span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>man-db.timer
@@ -1486,16 +1500,19 @@ Stack:
 <p>以及新的 22.04 容器也预期不包含这些定时任务。</p>
 <h2 id="关闭-swap-分配">关闭 swap 分配<a class="headerlink" href="#关闭-swap-分配" title="Permanent link">&para;</a></h2>
 <p>默认 PVE 给每个容器分配了 512M 的 swap，但是主机 swap 仅有 8G，因此批量关闭了所有容器的 swap，并且修改了管理平台相关代码。</p>
-<div class="highlight"><pre><span></span><code><span class="gp"># </span>inside<span class="w"> </span>/etc/pve/lxc
+<div class="highlight"><pre><span></span><code><span class="gp"># </span><span class="c1"># inside /etc/pve/lxc</span>
 <span class="gp"># </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>*<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="p">/.conf/</span><span class="si">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pct<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="p">/.conf/</span><span class="si">}</span><span class="w"> </span>--swap<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </code></pre></div>
+<h2 id="后续使用-github-actions-构建镜像">后续：使用 GitHub Actions 构建镜像<a class="headerlink" href="#后续使用-github-actions-构建镜像" title="Permanent link">&para;</a></h2>
+<p>2023 年 2 月 1 日更新：</p>
+<p>我们在 labstrap 仓库配置了 GitHub Actions 的构建过程，目前设置为仅限手动触发。管理员（有仓库权限的人）可以在 <a href="https://github.com/USTC-vlab/labstrap/actions/workflows/build.yml">Image Build CI</a> 页面点击 Run workflow 启动一次构建，构建完成后会自动上传到 <a href="https://github.com/USTC-vlab/labstrap/releases/tag/auto-build">Auto builds</a> 这个 release。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 28, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 2, 2023</span>
       
     
   </small>
@@ -1571,7 +1588,7 @@ Stack:
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6df46069.min.js"></script>
       
     
   </body>
