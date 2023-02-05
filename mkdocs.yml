@@ -33,6 +33,9 @@ theme:
     logo: octicons/server-16
     repo: octicons/mark-github-16
   features:
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
     - navigation.instant
     - navigation.top
     - navigation.sections
