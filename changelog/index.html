@@ -21,7 +21,7 @@
         <link rel="next" href="../records/2023-02-17/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.13">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ffa9267a.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -1032,6 +1032,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#2023-年" class="md-nav__link">
+    2023 年
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2022-年" class="md-nav__link">
     2022 年
   </a>
@@ -1372,6 +1379,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#2023-年" class="md-nav__link">
+    2023 年
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2022-年" class="md-nav__link">
     2022 年
   </a>
@@ -1435,7 +1449,6 @@
   
 
 
-
 <h1 id="更新记录">更新记录<a class="headerlink" href="#更新记录" title="Permanent link">&para;</a></h1>
 <p>记录我们上线部署新功能（或 bug fix 等）的历史。</p>
 <p>编写时请按时间倒序排序，即最新的日期在最上面。有专门的工作记录页面的请把时间链接到对应的页面。</p>
@@ -1444,8 +1457,24 @@
 <p>本页面于 2020 年 9 月初创建，因此 2020 年 8 月及以前的更新记录是不完整的。尽管编者已从讨论群的聊天记录等地尽可能恢复（补写）出了一些，但许多细节仍然难以保证完整性及准确性。</p>
 </div>
 <h2 id="更新记录_1">更新记录<a class="headerlink" href="#更新记录_1" title="Permanent link">&para;</a></h2>
+<h3 id="2023-年">2023 年<a class="headerlink" href="#2023-年" title="Permanent link">&para;</a></h3>
+<dl>
+<dt><a href="../records/2023-02-17/">2 月 17 日</a></dt>
+<dd>
+<p>更新了 Django，限制并行执行的创建容器任务，加快容器创建，并改进了虚拟机管理页面的用户体验。同时在个人信息页面显示从 CAS 获取的用户邮箱。</p>
+<p>更新了 Filestash，添加了一些提示，使操作更直观。</p>
+</dd>
+<dt><a href="../records/2023-01-28/#github-actions">2 月 1 日</a></dt>
+<dd>
+<p>将容器镜像的构建自动化，不再需要在自己的机器上手动运行构建脚本。</p>
+</dd>
+</dl>
 <h3 id="2022-年">2022 年<a class="headerlink" href="#2022-年" title="Permanent link">&para;</a></h3>
 <dl>
+<dt><a href="../records/2022-11-21/">9 月 20 日</a></dt>
+<dd>
+<p>将 post creation 从创建时执行改为首次启动时执行，使得创建容器的界面不再阻塞。</p>
+</dd>
 <dt>4 月 11 日</dt>
 <dd>
 <p>添加了网页 SSH 登录的功能，以及在 Chrome 与 Edge 浏览器下 noVNC 自动剪贴板的功能，方便用户使用。</p>
@@ -1576,7 +1605,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 19, 2023</span>
       
     
   </small>
@@ -1653,10 +1682,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.instant", "navigation.top", "navigation.sections"], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.instant", "navigation.top", "navigation.sections"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.2a6f1dda.min.js"></script>
       
     
   </body>
