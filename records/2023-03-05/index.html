@@ -1399,7 +1399,7 @@
 <p>对于同时符合以上规则的用户，我们将其从清退列表中移除，然后删除了列表中剩余的用户及其虚拟机。</p>
 <h2 id="django-web-更新">Django web 更新<a class="headerlink" href="#django-web-更新" title="Permanent link">&para;</a></h2>
 <ul>
-<li>添加了 Django 权限组，作为“清退白名单”，权限组中的用户不会在“清退列表”中列出。</li>
+<li>修复了 Django 权限组，使用 <code>vm.can_cas_login</code> 作为“清退白名单”，权限组中的用户不会在“清退列表”中列出。</li>
 <li>添加了一些 Django command，列出符合清理条件的用户及其虚拟机，使此次及以后的清退工作更加方便进行。</li>
 <li>更新了登录页面，提供一个巨大、显眼的“统一身份认证”按钮，并将用户名密码登录折叠起来。</li>
 </ul>
