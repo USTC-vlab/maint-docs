@@ -1397,6 +1397,7 @@
 <li>根据学号判断可能还在校的同学，即本科生至少 PB19，硕士研究生至少 SA20，博士研究生至少 BA19</li>
 </ul>
 <p>对于同时符合以上规则的用户，我们将其从清退列表中移除，然后删除了列表中剩余的用户及其虚拟机。</p>
+<p>根据 Proxmox VE 界面提供的信息，此次清退后“用户数据”分区的使用量从 37.59 TB 下降到了 23.53 TB（-37%），虚拟机数量从 1803 降至 1067（-42%）。</p>
 <h2 id="django-web-更新">Django web 更新<a class="headerlink" href="#django-web-更新" title="Permanent link">&para;</a></h2>
 <ul>
 <li>修复了 Django 权限组，使用 <code>vm.can_cas_login</code> 作为“清退白名单”，权限组中的用户不会在“清退列表”中列出。</li>
