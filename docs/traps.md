@@ -388,6 +388,14 @@ sudo apparmor_parser -R /etc/apparmor.d/disable/
 2. `echo 1 > /sys/fs/cgroup/lxc/<VMID>/cgroup.kill`
 3. 等一段时间，让 kernel 慢慢杀（`cgroup.kill` 会阻止 cgroup 内部进程创建新进程，并且发送 SIGKILL）。如果有需要，单独添加更严格的限额（在文件 `/etc/pve/lxc/<VMID>.conf` 添加 `lxc.cgroup2.pids.max: 2000`）
 
+### 调试 "Failed to run lxc.hook.pre-start for container"
+
+1. 在对应的节点上执行 `lvchange -ay` 激活用户盘
+2. 执行 `lxc-start -n <vmid> -F -I DEBUG -o debug.log`
+3. 启动失败后查看 debug.log 内容
+
+2023/04/07 遇到一个盘写满，结果写不了需要给 systemd-network 的临时文件，然后启动失败的，之后给 postcreation 的 tune2fs 设置了保留 1% 的预留空间（而不是不保留）。
+
 ## Web 及用户界面
 
 ### 创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')
