@@ -14,7 +14,11 @@
 
 4 月 10 日
 
-:   vlab-earlyoom 已不再依赖于系统的 earlyoom 包，转为使用自己预编译的 earlyoom 程序；同时通知方式改为使用 Zenity 图形化通知框（[效果](https://t.me/c/1163841432/5102)）。
+:   vlab-earlyoom 已不再依赖于系统的 earlyoom 包，转为使用自己预编译的 earlyoom 程序；同时通知方式改为使用 Zenity 图形化通知框（[效果](https://vlab.ustc.edu.cn/docs/images/earlyoom.png)）。
+
+    Django 修复了一个由于 `.save()` 会更新所有列导致的 race condition。
+
+    由于磁盘空间爆满后会导致虚拟机无法开机，新创建的虚拟机已将 ext4 reserved space 从 0 改为 1%（在 vlab-pve-agent 中修改 `tune2fs -m` 的参数）。
 
 [3 月 5 日](records/2023-03-05.md)
 
