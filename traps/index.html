@@ -1114,6 +1114,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lvm-metadata-已满无法新建-lv" class="md-nav__link">
+    LVM metadata 已满，无法新建 LV
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#networking" class="md-nav__link">
     网络
   </a>
@@ -1700,6 +1707,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lvm-metadata-已满无法新建-lv" class="md-nav__link">
+    LVM metadata 已满，无法新建 LV
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#networking" class="md-nav__link">
     网络
   </a>
@@ -2014,6 +2028,8 @@ mount<span class="w"> </span>/dev/sda1<span class="w"> </span>/boot/efi
 </ul>
 <p>这个问题当时在 CT 100 上出现，原因为在同学操作测试节点时，使用了和正式环境相同的 LVM 存储，但是未加入集群，导致锁失效。<strong>这种情况是极其危险的，最坏的情况下，可能会破坏 LVM 的分区表。</strong></p>
 <p>目前，测试节点已加入集群，并且对重要容器的备份正在操作中。</p>
+<h2 id="lvm-metadata-已满无法新建-lv">LVM metadata 已满，无法新建 LV<a class="headerlink" href="#lvm-metadata-已满无法新建-lv" title="Permanent link">&para;</a></h2>
+<p>参见 <a href="../records/2022-06-16/">2022 年 6 月 16 日工作总结</a>。</p>
 <h2 id="networking">网络<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
 <h3 id="pve-7-ifupdown2">Proxmox VE 7 网络配置<a class="headerlink" href="#pve-7-ifupdown2" title="Permanent link">&para;</a></h3>
 <p>PVE 7 默认使用 ifupdown2，是 ifupdown 的一个 Python 替代品，配置文件 <code>/etc/network/interfaces</code> <strong>几乎</strong>兼容。</p>
@@ -2197,7 +2213,7 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 20, 2023</span>
       
     
   </small>
