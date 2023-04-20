@@ -161,6 +161,10 @@ mount /dev/sda1 /boot/efi
 
 目前，测试节点已加入集群，并且对重要容器的备份正在操作中。
 
+### LVM metadata 已满，无法新建 LV
+
+参见 [2022 年 6 月 16 日工作总结](records/2022-06-16.md)。
+
 ## 网络 {#networking}
 
 ### Proxmox VE 7 网络配置 {#pve-7-ifupdown2}
