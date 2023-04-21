@@ -1232,6 +1232,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#定时任务调整" class="md-nav__link">
+    定时任务调整
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1825,6 +1832,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#定时任务调整" class="md-nav__link">
+    定时任务调整
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2194,6 +2208,13 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
 <li>启动失败后查看 debug.log 内容</li>
 </ol>
 <p>2023/04/07 遇到一个盘写满，结果写不了需要给 systemd-network 的临时文件，然后启动失败的，之后给 postcreation 的 tune2fs 设置了保留 1% 的预留空间（而不是不保留）。</p>
+<h3 id="定时任务调整">定时任务调整<a class="headerlink" href="#定时任务调整" title="Permanent link">&para;</a></h3>
+<p>如果发现凌晨 0 点或者凌晨 6 至 7 点 iowait% 以及 IO time 过高，对所有正在运行的容器执行以下操作：</p>
+<p>See <a href="../records/2023-01-28/">2023 年 1 月 28 日工作记录</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>man-db.timer
+<span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apt-daily-upgrade.timer
+<span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;mkdir -p /etc/systemd/system/logrotate.timer.d &amp;&amp; echo -e &quot;[Timer]\nRandomizedDelaySec=3h&quot; &gt; /etc/systemd/system/logrotate.timer.d/vlab.conf &amp;&amp; systemctl daemon-reload&#39;</span>
+</code></pre></div>
 <h2 id="web-及用户界面">Web 及用户界面<a class="headerlink" href="#web-及用户界面" title="Permanent link">&para;</a></h2>
 <h3 id="创建虚拟机出现-connection-aborted-remotedisconnectedremote-end-closed-connection-without-response">创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')<a class="headerlink" href="#创建虚拟机出现-connection-aborted-remotedisconnectedremote-end-closed-connection-without-response" title="Permanent link">&para;</a></h3>
 <p>查看 pv1 上的 <code>systemctl status pveproxy</code> 可见如下内容：</p>
@@ -2213,7 +2234,7 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 21, 2023</span>
       
     
   </small>
