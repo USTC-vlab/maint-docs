@@ -400,6 +400,18 @@ sudo apparmor_parser -R /etc/apparmor.d/disable/
 
 2023/04/07 遇到一个盘写满，结果写不了需要给 systemd-network 的临时文件，然后启动失败的，之后给 postcreation 的 tune2fs 设置了保留 1% 的预留空间（而不是不保留）。
 
+### 定时任务调整
+
+如果发现凌晨 0 点或者凌晨 6 至 7 点 iowait% 以及 IO time 过高，对所有正在运行的容器执行以下操作：
+
+See [2023 年 1 月 28 日工作记录](./records/2023-01-28.md).
+
+```console
+# pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- systemctl disable man-db.timer
+# pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- systemctl disable apt-daily-upgrade.timer
+# pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- bash -c 'mkdir -p /etc/systemd/system/logrotate.timer.d && echo -e "[Timer]\nRandomizedDelaySec=3h" > /etc/systemd/system/logrotate.timer.d/vlab.conf && systemctl daemon-reload'
+```
+
 ## Web 及用户界面
 
 ### 创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')
