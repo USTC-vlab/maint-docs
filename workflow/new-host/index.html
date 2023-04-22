@@ -21,7 +21,7 @@
         <link rel="next" href="../pack-ct-image/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.7">
     
     
       
@@ -124,6 +124,8 @@
       <form class="md-header__option" data-md-component="palette">
         
           
+          
+          
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
@@ -131,6 +133,8 @@
             </label>
           
         
+          
+          
           
           <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
@@ -868,19 +872,6 @@
     挂载存储服务器
   </a>
   
-    <nav class="md-nav" aria-label="挂载存储服务器">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#更新-open-iscsiservice" class="md-nav__link">
-    更新 open-iscsi.service
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1447,19 +1438,6 @@
     挂载存储服务器
   </a>
   
-    <nav class="md-nav" aria-label="挂载存储服务器">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#更新-open-iscsiservice" class="md-nav__link">
-    更新 open-iscsi.service
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1540,18 +1518,13 @@ deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> </span>-T<span class="w"> </span>iqn.2015-11.com.hpe:storage.msa1050.1840436ed4<span class="w"> </span>-p<span class="w"> </span><span class="m">10</span>.0.0.200<span class="w"> </span>--login
 </code></pre></div>
 <p>存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。</p>
-<p>第一步（<code>-t sendtargets</code>）操作完成后需要进入 <code>/etc/iscsi/nodes/iqn.2015-11.com.hpe:storage.msa1050.1840436ed4</code> 删掉多余的资料，只保留第二步选定的那个 IP 对应的目录。</p>
 <p>挂载看到 iSCSI 的卷之后，进入存储服务器的管理页面，选 Hosts，为刚才新增的那个主机补上名称。IQN 可以看主机里的 <code>/etc/iscsi/initiatorname.iscsi</code> 文件来确认。</p>
-<h3 id="更新-open-iscsiservice">更新 open-iscsi.service<a class="headerlink" href="#更新-open-iscsiservice" title="Permanent link">&para;</a></h3>
-<p>open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是由于我们的存储设施在一个链路上暴露了两个端口（IP 地址），直接使用该服务会导致存储被挂载两遍，后面 LVM 会产生更多的警告或错误信息。</p>
-<p>我们没有找到一个“原生”的解决办法，所以我们直接修改服务（使用 <code>systemctl edit</code> 或手动添加 override.conf 文件）：</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
-<span class="na">ExecStart</span><span class="o">=</span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/sbin/iscsiadm -d8 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login</span><span class="w"> </span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/lib/open-iscsi/activate-storage.sh</span>
+<p>open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是默认通过 sendtargets 方式发现的 target 不会自动登录，我们可以根据需要自己设置每台机器通过指定的地址和端口登录指定的 target。</p>
+<p>参考<a href="https://library.netapp.com/ecmdocs/ECMP1654943/html/GUID-8EC685B4-8CB6-40D8-A8D5-031A3899BCDC.html">这篇文章</a>，针对想要登录的 target 和地址，修改设置：</p>
+<div class="highlight"><pre><span></span><code>iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> </span>-T<span class="w"> </span>iqn.2015-11.com.hpe:storage.msa1050.1840436ed4<span class="w"> </span>-p<span class="w"> </span><span class="m">10</span>.0.0.200<span class="w"> </span>-o<span class="w"> </span>update<span class="w"> </span>-n<span class="w"> </span>node.startup<span class="w"> </span>-v<span class="w"> </span>automatic
+iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> </span>-T<span class="w"> </span>iqn.2015-11.com.hpe:storage.msa1050.1840436ed4<span class="w"> </span>-p<span class="w"> </span><span class="m">10</span>.0.0.200<span class="w"> </span>-o<span class="w"> </span>update<span class="w"> </span>-n<span class="w"> </span>node.conn<span class="o">[</span><span class="m">0</span><span class="o">]</span>.startup<span class="w"> </span>-v<span class="w"> </span>automatic
 </code></pre></div>
-<p>注意把中间那行后面的 IP 地址换掉（如果需要）。</p>
-<p>这是一个 oneshot 类型的服务，所以修改之后就放着不用动了，下次开机时会自动应用。</p>
+<p>注意正确填写选项 <code>-T</code> 和 <code>-p</code> 的参数。</p>
 <h2 id="挂载-nfs-镜像共享">挂载 NFS 镜像共享<a class="headerlink" href="#挂载-nfs-镜像共享" title="Permanent link">&para;</a></h2>
 <p>挂载 NFS 共享所用的 <code>/etc/fstab</code> 条目：</p>
 <div class="highlight"><pre><span></span><code>10.0.0.1:/var/lib/vz /mnt/vz nfs rw,async,hard,intr,noexec 0 0
@@ -1565,7 +1538,7 @@ iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> <
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 24, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2023</span>
       
     
   </small>
