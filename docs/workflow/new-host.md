@@ -54,26 +54,18 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200
 
 存储服务器的使用地址为 10.0.0.200 与 10.0.0.201，分别归属两个控制器，建议各台计算服务器交替连接这两个地址以「负载均衡」。
 
-第一步（`-t sendtargets`）操作完成后需要进入 `/etc/iscsi/nodes/iqn.2015-11.com.hpe:storage.msa1050.1840436ed4` 删掉多余的资料，只保留第二步选定的那个 IP 对应的目录。
-
 挂载看到 iSCSI 的卷之后，进入存储服务器的管理页面，选 Hosts，为刚才新增的那个主机补上名称。IQN 可以看主机里的 `/etc/iscsi/initiatorname.iscsi` 文件来确认。
 
-### 更新 open-iscsi.service
+open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是默认通过 sendtargets 方式发现的 target 不会自动登录，我们可以根据需要自己设置每台机器通过指定的地址和端口登录指定的 target。
 
-open-iscsi 软件包通过 systemd 服务提供了开机自动挂载 iSCSI 的功能，但是由于我们的存储设施在一个链路上暴露了两个端口（IP 地址），直接使用该服务会导致存储被挂载两遍，后面 LVM 会产生更多的警告或错误信息。
+参考[这篇文章](https://library.netapp.com/ecmdocs/ECMP1654943/html/GUID-8EC685B4-8CB6-40D8-A8D5-031A3899BCDC.html)，针对想要登录的 target 和地址，修改设置：
 
-我们没有找到一个“原生”的解决办法，所以我们直接修改服务（使用 `systemctl edit` 或手动添加 override.conf 文件）：
-
-```dosini
-[Service]
-ExecStart=
-ExecStart=/sbin/iscsiadm -d8 -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 --login 
-ExecStart=/lib/open-iscsi/activate-storage.sh
+```shell
+iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 -o update -n node.startup -v automatic
+iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200 -o update -n node.conn[0].startup -v automatic
 ```
 
-注意把中间那行后面的 IP 地址换掉（如果需要）。
-
-这是一个 oneshot 类型的服务，所以修改之后就放着不用动了，下次开机时会自动应用。
+注意正确填写选项 `-T` 和 `-p` 的参数。
 
 ## 挂载 NFS 镜像共享
 
