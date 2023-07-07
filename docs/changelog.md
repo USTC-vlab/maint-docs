@@ -12,6 +12,10 @@
 
 ### 2023 年
 
+7 月 4 日
+
+:   修改了 `/opt/vlab/.dev/kvm` 权限为 `100000:100107 0660`（Proxmox VE 及 Ubuntu 镜像中的 `kvm` 组），`/opt/vlab/.dev/tun` 权限为 `100000:100000 0666`，使得虚拟机内的普通用户也可以访问 KVM 和 TUN。相关文档于 7 月 7 日更新。
+
 4 月 10 日
 
 :   vlab-earlyoom 已不再依赖于系统的 earlyoom 包，转为使用自己预编译的 earlyoom 程序；同时通知方式改为使用 Zenity 图形化通知框（[效果](https://vlab.ustc.edu.cn/docs/images/earlyoom.png)）。
