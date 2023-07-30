@@ -21,7 +21,7 @@
         <link rel="next" href="../vm104/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.5.1, mkdocs-material-9.1.21">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
@@ -1594,7 +1594,7 @@
 <span class="w">    </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Accept-Encoding</span><span class="w"> </span><span class="s">gzip</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>用户在虚拟机内使用我们自己编写的 <code>vscode</code> 命令来管理 code-server 对应的系统服务，这是一个（粗制滥造的）Bash 脚本，见 <a href="../assets/vscode">vscode</a>。</p>
+<p>用户在虚拟机内使用我们自己编写的 <code>vscode</code> 命令来管理 code-server 对应的系统服务，这是一个（粗制滥造的）Bash 脚本，见 <a href="../../assets/vscode">vscode</a>。</p>
 <h2 id="user-docs">Webhook 与用户文档<a class="headerlink" href="#user-docs" title="Permanent link">&para;</a></h2>
 <p>容器里有一个 webhook 服务器，从 GitHub 接收用户文档仓库 <a href="https://github.com/USTC-vlab/docs">USTC-vlab/docs</a> 的更新通知并拉取更新。</p>
 <p>代码曾经是用 <a href="https://sinatrarb.com/">Ruby Sinatra</a> 写的，后来换成了 Go，参见 <code>/root/webhook/main.go</code>（或<a href="https://gist.github.com/iBug/34caff517617bfd0de2205d2466a3b78">这个 Gist</a>）</p>

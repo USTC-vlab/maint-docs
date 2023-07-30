@@ -21,7 +21,7 @@
         <link rel="next" href="../changelog/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.5.1, mkdocs-material-9.1.21">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
@@ -2000,7 +2000,7 @@ pvesm<span class="w"> </span><span class="nb">set</span><span class="w"> </span>
 </div>
 <div class="admonition question">
 <p class="admonition-title">该坑点可能已修复，尚未测试</p>
-<p>出于不明原因，手动挂载 iSCSI 设备会导致上面所有的 LV 都变成 active。</p>
+<p>开机启动或者手动连接 iSCSI 设备会导致上面所有的 LV 都变成 active，<a href="https://forum.proxmox.com/threads/vm-lvm-volumes-active-on-all-nodes.47531/">这是 PVE 的默认行为</a>。</p>
 <p><strong>解决方法</strong>：根据 Server Fault 上的<a href="https://serverfault.com/a/678654/450575">这个回答</a>，在 <code>/etc/lvm/lvm.conf</code> 中写入以下内容：</p>
 <div class="highlight"><pre><span></span><code><span class="n">auto_activation_volume_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;pve&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;data&quot;</span><span class="w"> </span><span class="p">]</span>
 </code></pre></div>
@@ -2240,7 +2240,7 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 30, 2023</span>
       
     
   </small>
