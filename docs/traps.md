@@ -103,7 +103,7 @@ LVM 卷不能多个主机同时使用（active 状态），如果出现这种情
 
 !!! question "该坑点可能已修复，尚未测试"
 
-    出于不明原因，手动挂载 iSCSI 设备会导致上面所有的 LV 都变成 active。
+    开机启动或者手动连接 iSCSI 设备会导致上面所有的 LV 都变成 active，[这是 PVE 的默认行为](https://forum.proxmox.com/threads/vm-lvm-volumes-active-on-all-nodes.47531/)。
 
     **解决方法**：根据 Server Fault 上的[这个回答](https://serverfault.com/a/678654/450575)，在 `/etc/lvm/lvm.conf` 中写入以下内容：
 
