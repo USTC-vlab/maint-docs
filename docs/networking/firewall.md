@@ -8,6 +8,21 @@
 
     pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时的额外初始化（post-creation-agent）。
 
+    另外，由于 pv1 不运行用户容器，故屏蔽了 iptables-legacy 的相关模块，以减少潜在的故障可能。
+
+    ```shell title="/etc/modprobe.d/iptables-legacy.conf"
+    install iptable_filter    /bin/true
+    install iptable_nat       /bin/true
+    install iptable_mangle    /bin/true
+    install iptable_raw       /bin/true
+    install iptable_security  /bin/true
+    install ip6table_filter   /bin/true
+    install ip6table_nat      /bin/true
+    install ip6table_mangle   /bin/true
+    install ip6table_raw      /bin/true
+    install ip6table_security /bin/true
+    ```
+
 ```shell
 *filter
 :INPUT ACCEPT [0:0]
@@ -17,9 +32,8 @@
 -A INPUT -i lo -j ACCEPT
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
+-A INPUT -i vmbr2 -j ACCEPT
 -A INPUT -i vmbr+ -j VLAB
--A INPUT -i ens1f0 -j ACCEPT
--A INPUT -i ens1f1 -j ACCEPT
 -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A FORWARD -i vmbr+ -j DROP
 -A VLAB -p tcp -m state --state NEW -m tcp --sport 1024:65535 -m multiport --dports 22,80,443,8006 -j ACCEPT
