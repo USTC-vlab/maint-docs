@@ -1775,6 +1775,18 @@
 <div class="admonition todo">
 <p class="admonition-title">pv1 的额外配置</p>
 <p>pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时的额外初始化（post-creation-agent）。</p>
+<p>另外，由于 pv1 不运行用户容器，故屏蔽了 iptables-legacy 的相关模块，以减少潜在的故障可能。</p>
+<div class="highlight"><span class="filename">/etc/modprobe.d/iptables-legacy.conf</span><pre><span></span><code>install<span class="w"> </span>iptable_filter<span class="w">    </span>/bin/true
+install<span class="w"> </span>iptable_nat<span class="w">       </span>/bin/true
+install<span class="w"> </span>iptable_mangle<span class="w">    </span>/bin/true
+install<span class="w"> </span>iptable_raw<span class="w">       </span>/bin/true
+install<span class="w"> </span>iptable_security<span class="w">  </span>/bin/true
+install<span class="w"> </span>ip6table_filter<span class="w">   </span>/bin/true
+install<span class="w"> </span>ip6table_nat<span class="w">      </span>/bin/true
+install<span class="w"> </span>ip6table_mangle<span class="w">   </span>/bin/true
+install<span class="w"> </span>ip6table_raw<span class="w">      </span>/bin/true
+install<span class="w"> </span>ip6table_security<span class="w"> </span>/bin/true
+</code></pre></div>
 </div>
 <div class="highlight"><pre><span></span><code>*filter
 :INPUT<span class="w"> </span>ACCEPT<span class="w"> </span><span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
@@ -1784,9 +1796,8 @@
 -A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>lo<span class="w"> </span>-j<span class="w"> </span>ACCEPT
 -A<span class="w"> </span>INPUT<span class="w"> </span>-m<span class="w"> </span>conntrack<span class="w"> </span>--ctstate<span class="w"> </span>RELATED,ESTABLISHED<span class="w"> </span>-j<span class="w"> </span>ACCEPT
 -A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>icmp<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+-A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>vmbr2<span class="w"> </span>-j<span class="w"> </span>ACCEPT
 -A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>vmbr+<span class="w"> </span>-j<span class="w"> </span>VLAB
--A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>ens1f0<span class="w"> </span>-j<span class="w"> </span>ACCEPT
--A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>ens1f1<span class="w"> </span>-j<span class="w"> </span>ACCEPT
 -A<span class="w"> </span>FORWARD<span class="w"> </span>-m<span class="w"> </span>conntrack<span class="w"> </span>--ctstate<span class="w"> </span>RELATED,ESTABLISHED<span class="w"> </span>-j<span class="w"> </span>ACCEPT
 -A<span class="w"> </span>FORWARD<span class="w"> </span>-i<span class="w"> </span>vmbr+<span class="w"> </span>-j<span class="w"> </span>DROP
 -A<span class="w"> </span>VLAB<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>state<span class="w"> </span>--state<span class="w"> </span>NEW<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--sport<span class="w"> </span><span class="m">1024</span>:65535<span class="w"> </span>-m<span class="w"> </span>multiport<span class="w"> </span>--dports<span class="w"> </span><span class="m">22</span>,80,443,8006<span class="w"> </span>-j<span class="w"> </span>ACCEPT
@@ -1817,7 +1828,7 @@ COMMIT
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 14, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2023</span>
       
     
   </small>

@@ -1788,9 +1788,9 @@
 <h1 id="2023-年-8-月-6-日工作总结">2023 年 8 月 6 日工作总结<a class="headerlink" href="#2023-年-8-月-6-日工作总结" title="Permanent link">&para;</a></h1>
 <p>今日凌晨完成了升级与清退操作。</p>
 <h2 id="升级">升级<a class="headerlink" href="#升级" title="Permanent link">&para;</a></h2>
-<p>所有的 pv 均从 PVE 7 (Debian Bullseye) 升级至 PVE 8 (Debian Bookworm)，并且位于 pv1 的 pbs 也从 2 升级到了 3 (Bookworm)。</p>
-<p>升级注意事项参见：https://pve.proxmox.com/wiki/Upgrade_from_7_to_8</p>
-<p>在升级 pv1 前，将 pv1 上所有 VM 迁移至已经升级的 pv2 以减缓服务中断的影响。因为 CPU 型号一样，所以不会出现问题。此外，在 pv[2-7] 上关闭全部容器的操作非常缓慢（应该是因为有大量的竞争导致的），且如果在关闭容器时升级，可能导致死锁。未来需要考虑以小批量方式关闭容器来加快速度。</p>
+<p>所有的 pv 均从 PVE 7 (Debian Bullseye) 升级至 PVE 8 (Debian Bookworm)，并且位于 pv1 的 PBS 也从 2 升级到了 3 (Bookworm)。</p>
+<p>升级注意事项参见：<a href="https://pve.proxmox.com/wiki/Upgrade_from_7_to_8">https://pve.proxmox.com/wiki/Upgrade_from_7_to_8</a></p>
+<p>在升级 pv1 前，将 pv1 上所有 VM 迁移至已经升级的 pv2 以减缓服务中断的影响。因为 CPU 型号一样，所以不会出现问题。此外，在 pv[2-7] 上关闭全部容器的操作<em>非常</em>缓慢（应该是因为有大量的竞争导致的），且如果在关闭容器时升级，可能导致死锁。未来需要考虑以小批量方式关闭容器来加快速度。</p>
 <p>PVE 8 创建容器需要 SDN.Use 权限，这一点在升级后用户无法创建容器时发现并解决。</p>
 <p>关于 Django 前端，其添加了 KVM 支持，部署新版本没有发生意外。新的数据库结构参考 <a href="https://github.com/USTC-vlab/cslab/blob/master/docs/django.md#proxy-model-%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%95%E8%A1%A8%E7%BB%93%E6%9E%84">https://github.com/USTC-vlab/cslab/blob/master/docs/django.md#proxy-model-%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%95%E8%A1%A8%E7%BB%93%E6%9E%84</a>。</p>
 <h2 id="清退">清退<a class="headerlink" href="#清退" title="Permanent link">&para;</a></h2>
