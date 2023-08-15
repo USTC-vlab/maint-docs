@@ -1898,7 +1898,7 @@
 <span class="w">  </span>-d<span class="w"> </span>bbs.vlab.ustc.edu.cn<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-w<span class="w"> </span>/var/www
 </code></pre></div>
-<p>其中 <code>/var/www/.well-known</code> 目录提前建好，并且需要申请证书的域名对应的 Nginx <code>server</code> 块包含以下内容：</p>
+<p>其中 <code>/var/www/.well-known</code> 目录提前建好，并且需要申请证书的域名对应的 Nginx <code>server</code> 块包含一行 <code>include /etc/nginx/snippets/well-known</code>。作为参考，该文件的内容如下：</p>
 <div class="highlight"><span class="filename">/etc/nginx/snippets/well-known</span><pre><span></span><code><span class="k">location</span><span class="w"> </span><span class="s">/.well-known</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">access_log</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">root</span><span class="w"> </span><span class="s">/var/www</span><span class="p">;</span>
@@ -2000,7 +2000,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 15, 2023</span>
       
     
   </small>
