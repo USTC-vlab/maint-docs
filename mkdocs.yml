@@ -96,7 +96,6 @@ nav:
     - Proxmox VE 主机: servers/pve.md
     - 网关 (CT 100): servers/ct100.md
     - Web 服务器 (CT 101): servers/ct101.md
-    - 备份服务器 (VM 104): servers/vm104.md
   - 用户界面:
     - VNC 统一登录: ui/vncmux.md
     - RDP 统一登录: ui/rdpproxy.md
