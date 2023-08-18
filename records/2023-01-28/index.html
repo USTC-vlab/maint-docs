@@ -1905,6 +1905,10 @@ Stack:
 <div class="highlight"><pre><span></span><code><span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>man-db.timer
 <span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apt-daily-upgrade.timer
 </code></pre></div>
+<p>同时为 <code>logrotate.timer</code> 添加了 3 小时的随机延迟：</p>
+<div class="highlight"><pre><span></span><code>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;mkdir -p /etc/systemd/system/logrotate.timer.d &amp;&amp; echo -e &quot;[Timer]\nRandomizedDelaySec=3h&quot; &gt; /etc/systemd/syst</span>
+<span class="s1">em/logrotate.timer.d/vlab.conf &amp;&amp; systemctl daemon-reload&#39;</span>
+</code></pre></div>
 <p>以及新的 22.04 容器也预期不包含这些定时任务。</p>
 <h2 id="关闭-swap-分配">关闭 swap 分配<a class="headerlink" href="#关闭-swap-分配" title="Permanent link">&para;</a></h2>
 <p>默认 PVE 给每个容器分配了 512M 的 swap，但是主机 swap 仅有 8G，因此批量关闭了所有容器的 swap，并且修改了管理平台相关代码。</p>
@@ -1920,7 +1924,7 @@ Stack:
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 2, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 18, 2023</span>
       
     
   </small>
