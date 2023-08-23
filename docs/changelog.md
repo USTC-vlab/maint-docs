@@ -12,6 +12,16 @@
 
 ### 2023 年
 
+8 月 22 日
+
+:   为《计算系统综合实验》课程定制了系统环境：
+
+    - 编译了 RISC-V 的 GCC 工具链（`riscv64-unknown-elf`），通过 `/opt/vlab/riscv64` 提供。
+    - 编译了 Verilator 5.014，通过 `/opt/vlab` 提供。
+    - 定制 `vlab21-CECS-ubuntu-desktop-mate-22.04` 镜像，通过 `apt install` 添加了一些相关软件。
+
+    另外协助配置了 [soc.ustc.edu.cn](https://soc.ustc.edu.cn) 域名下的相关网页服务。
+
 [8 月 6 日](records/2023-08-06.md)
 
 :   将主机升级到了 PVE 8.0 与 PBS 3.0，同时更新了（7 月已开发完成的）Django KVM 相关功能支持。
