@@ -1828,8 +1828,12 @@
 </thead>
 <tbody>
 <tr>
+<td style="text-align: center;">10.38.79.97</td>
+<td style="text-align: center;">曙光存储服务器的管理端口</td>
+</tr>
+<tr>
 <td style="text-align: center;">10.38.79.98<br>10.38.79.99</td>
-<td style="text-align: center;">存储服务器的管理端口</td>
+<td style="text-align: center;">HPE 存储服务器的管理端口</td>
 </tr>
 <tr>
 <td style="text-align: center;">10.38.79.100</td>
@@ -1980,18 +1984,14 @@
 <td style="text-align: center;"><a href="../../servers/ct101/">CT 101</a>（Web 服务器）</td>
 </tr>
 <tr>
-<td style="text-align: center;">202.38.75.250</td>
-<td style="text-align: center;"><a href="../servers/vm104.md">VM 104</a>（备份服务器）</td>
-</tr>
-<tr>
-<td style="text-align: center;">202.38.75.252</td>
+<td style="text-align: center;">202.38.75.252<br>10.38.79.252</td>
 <td style="text-align: center;"><a href="../../servers/ct100/">CT 100</a>（内网网关出口）</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>另外有一个特殊的 IPv4 地址 202.38.84.252 挂在 CT 100 上，实际并不属于电三楼，用来通过 NAT 供电三楼 420 房间上网。</p>
+<p>10.38.79.252 挂在 CT 100 上，主要用来通过 NAT 供电三楼 420 房间上网。</p>
 </div>
 <h2 id="校园网-ipv6">校园网 IPv6<a class="headerlink" href="#校园网-ipv6" title="Permanent link">&para;</a></h2>
 <table>
@@ -2096,6 +2096,30 @@
 <td style="text-align: center;">pv8</td>
 </tr>
 <tr>
+<td style="text-align: center;">10.0.0.19</td>
+<td style="text-align: center;">pv9</td>
+</tr>
+<tr>
+<td style="text-align: center;">10.0.0.20</td>
+<td style="text-align: center;">pv10</td>
+</tr>
+<tr>
+<td style="text-align: center;">10.0.0.21</td>
+<td style="text-align: center;">pv11</td>
+</tr>
+<tr>
+<td style="text-align: center;">10.0.0.22</td>
+<td style="text-align: center;">pv12</td>
+</tr>
+<tr>
+<td style="text-align: center;">10.0.0.23</td>
+<td style="text-align: center;">pv13</td>
+</tr>
+<tr>
+<td style="text-align: center;">10.0.0.24</td>
+<td style="text-align: center;">pv14</td>
+</tr>
+<tr>
 <td style="text-align: center;">10.0.0.81</td>
 <td style="text-align: center;">pvg1</td>
 </tr>
@@ -2114,14 +2138,6 @@
 <tr>
 <td style="text-align: center;">172.30.0.3</td>
 <td style="text-align: center;">CT 102 (monitor, InfluxDB)</td>
-</tr>
-<tr>
-<td style="text-align: center;">172.30.0.4</td>
-<td style="text-align: center;"><s>VM 103 Wireguard</s><br>现在没用了</td>
-</tr>
-<tr>
-<td style="text-align: center;">172.30.0.5</td>
-<td style="text-align: center;">VM 104 PBS</td>
 </tr>
 <tr>
 <td style="text-align: center;">172.30.0.101</td>
@@ -2156,6 +2172,30 @@
 <td style="text-align: center;">pv8</td>
 </tr>
 <tr>
+<td style="text-align: center;">172.30.0.109</td>
+<td style="text-align: center;">pv9</td>
+</tr>
+<tr>
+<td style="text-align: center;">172.30.0.110</td>
+<td style="text-align: center;">pv10</td>
+</tr>
+<tr>
+<td style="text-align: center;">172.30.0.111</td>
+<td style="text-align: center;">pv11</td>
+</tr>
+<tr>
+<td style="text-align: center;">172.30.0.112</td>
+<td style="text-align: center;">pv12</td>
+</tr>
+<tr>
+<td style="text-align: center;">172.30.0.113</td>
+<td style="text-align: center;">pv13</td>
+</tr>
+<tr>
+<td style="text-align: center;">172.30.0.114</td>
+<td style="text-align: center;">pv14</td>
+</tr>
+<tr>
 <td style="text-align: center;">172.30.0.181</td>
 <td style="text-align: center;">pvg1</td>
 </tr>
@@ -2164,28 +2204,8 @@
 <td style="text-align: center;">pvg2</td>
 </tr>
 <tr>
-<td style="text-align: center;">172.31.0.3</td>
-<td style="text-align: center;"><s>CT 802 Foresyn (iGEM 2019)</s></td>
-</tr>
-<tr>
-<td style="text-align: center;">172.31.1.3</td>
-<td style="text-align: center;">VM 803 (Verilog OJ)</td>
-</tr>
-<tr>
-<td style="text-align: center;">172.31.1.4</td>
-<td style="text-align: center;">VM 804 (FPGAOL Compile)</td>
-</tr>
-<tr>
-<td style="text-align: center;">172.31.1.5</td>
-<td style="text-align: center;">VM 805 (iBug 的虚拟机)</td>
-</tr>
-<tr>
-<td style="text-align: center;">172.31.1.199</td>
-<td style="text-align: center;">VM 999 (iBug 的虚拟机)</td>
-</tr>
-<tr>
-<td style="text-align: center;">172.31.1.198</td>
-<td style="text-align: center;">VM 998 (iBug 的虚拟机)</td>
+<td style="text-align: center;">172.31.1.x</td>
+<td style="text-align: center;">见下</td>
 </tr>
 </tbody>
 </table>
@@ -2226,7 +2246,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2023</span>
       
     
   </small>
