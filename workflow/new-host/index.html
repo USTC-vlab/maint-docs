@@ -1031,6 +1031,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#配置-lvm" class="md-nav__link">
+    配置 LVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#挂载存储服务器" class="md-nav__link">
     挂载存储服务器
   </a>
@@ -1796,6 +1803,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#配置-lvm" class="md-nav__link">
+    配置 LVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#挂载存储服务器" class="md-nav__link">
     挂载存储服务器
   </a>
@@ -1874,6 +1888,16 @@ deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 <p>参见<a href="../../networking/host/">主机网卡</a>一页。</p>
 <h2 id="配置防火墙">配置防火墙<a class="headerlink" href="#配置防火墙" title="Permanent link">&para;</a></h2>
 <p>需要安装 <code>iptables-persistent</code> 和 <code>ipset-persistent</code> 软件包，从另一台主机上复制 <code>/etc/iptables</code> 目录，修改相关文件中的网卡名称（如有需要）并重启 <code>netfilter-persistent.service</code>。</p>
+<h2 id="配置-lvm">配置 LVM<a class="headerlink" href="#配置-lvm" title="Permanent link">&para;</a></h2>
+<p>在 <code>/etc/lvm/lvm.conf</code> 末尾追加以下内容，替换掉 pve-manager 生成的 devices section：</p>
+<div class="highlight"><pre><span></span><code>devices {
+    # added by pve-manager to avoid scanning ZFS zvols
+    global_filter = [&quot;r|/dev/disk/by-id/usb.*|&quot;, &quot;r|/dev/zd.*|&quot;, &quot;r|/dev/mapper/pve-.*|&quot; &quot;r|/dev/mapper/.*-(vm|base)--[0-9]+--disk--[0-9]+|&quot;]
+}
+activation {
+    auto_activation_volume_list = [&quot;pve&quot;, &quot;data&quot;]
+}
+</code></pre></div>
 <h2 id="挂载存储服务器">挂载存储服务器<a class="headerlink" href="#挂载存储服务器" title="Permanent link">&para;</a></h2>
 <p>使用 iSCSI 命令行管理工具</p>
 <div class="highlight"><pre><span></span><code>iscsiadm<span class="w"> </span>-m<span class="w"> </span>discovery<span class="w"> </span>-t<span class="w"> </span>sendtargets<span class="w"> </span>-p<span class="w"> </span><span class="m">10</span>.0.0.200
@@ -1900,7 +1924,7 @@ iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> <
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2023</span>
       
     
   </small>
