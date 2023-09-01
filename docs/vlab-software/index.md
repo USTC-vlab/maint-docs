@@ -2,7 +2,7 @@
 
 Vlab Software 是存放于各个主机上的 `/opt/vlab` 的软件组合，通过 bind mount 挂载进虚拟机的 `/opt/vlab` 目录，为用户提供预装的软件。因此我们也经常称为 /opt/vlab。
 
-为了保证各用户能够及时用上统一版本的 Vlab Software，我们在 pv1 上使用 crontab 每天凌晨将 `/opt/vlab` 同步至 pv2-pv7 上，其中 crontab 条目如下：
+为了保证各用户能够及时用上统一版本的 Vlab Software，我们在 **pv1** 上使用 crontab 每天凌晨将 `/opt/vlab` 同步至 pv2-pv7 上，其中 crontab 条目如下：
 
 ```crontab
 47 4 * * * /root/sync-software.sh
@@ -10,12 +10,12 @@ Vlab Software 是存放于各个主机上的 `/opt/vlab` 的软件组合，通�
 
 对应的 shell 脚本如下：
 
-```shell
+```shell title="/root/sync-software.sh"
 #!/bin/bash
 
 exec >/dev/null 2>/dev/null
 
-for node in pv{2..7}; do
+for node in pv{2..8} pvg{1,2} pv{10..14}; do
   rsync -avz --delete /opt/vlab/ "$node":/opt/vlab/ &
 done
 wait
