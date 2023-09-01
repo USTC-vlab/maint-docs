@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.5">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.6">
     
     
       
@@ -1751,15 +1751,15 @@
 
 <h1 id="vlab-实验软件套装">Vlab 实验软件套装<a class="headerlink" href="#vlab-实验软件套装" title="Permanent link">&para;</a></h1>
 <p>Vlab Software 是存放于各个主机上的 <code>/opt/vlab</code> 的软件组合，通过 bind mount 挂载进虚拟机的 <code>/opt/vlab</code> 目录，为用户提供预装的软件。因此我们也经常称为 /opt/vlab。</p>
-<p>为了保证各用户能够及时用上统一版本的 Vlab Software，我们在 pv1 上使用 crontab 每天凌晨将 <code>/opt/vlab</code> 同步至 pv2-pv7 上，其中 crontab 条目如下：</p>
+<p>为了保证各用户能够及时用上统一版本的 Vlab Software，我们在 <strong>pv1</strong> 上使用 crontab 每天凌晨将 <code>/opt/vlab</code> 同步至 pv2-pv7 上，其中 crontab 条目如下：</p>
 <div class="highlight"><pre><span></span><code>47 4 * * * /root/sync-software.sh
 </code></pre></div>
 <p>对应的 shell 脚本如下：</p>
-<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="highlight"><span class="filename">/root/sync-software.sh</span><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="nb">exec</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;/dev/null
 
-<span class="k">for</span><span class="w"> </span>node<span class="w"> </span><span class="k">in</span><span class="w"> </span>pv<span class="o">{</span><span class="m">2</span>..7<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="k">for</span><span class="w"> </span>node<span class="w"> </span><span class="k">in</span><span class="w"> </span>pv<span class="o">{</span><span class="m">2</span>..8<span class="o">}</span><span class="w"> </span>pvg<span class="o">{</span><span class="m">1</span>,2<span class="o">}</span><span class="w"> </span>pv<span class="o">{</span><span class="m">10</span>..14<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span>rsync<span class="w"> </span>-avz<span class="w"> </span>--delete<span class="w"> </span>/opt/vlab/<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$node</span><span class="s2">&quot;</span>:/opt/vlab/<span class="w"> </span><span class="p">&amp;</span>
 <span class="k">done</span>
 <span class="nb">wait</span>
@@ -1811,7 +1811,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 28, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2023</span>
       
     
   </small>
