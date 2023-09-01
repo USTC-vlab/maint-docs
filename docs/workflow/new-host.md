@@ -43,6 +43,20 @@ deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 
 需要安装 `iptables-persistent` 和 `ipset-persistent` 软件包，从另一台主机上复制 `/etc/iptables` 目录，修改相关文件中的网卡名称（如有需要）并重启 `netfilter-persistent.service`。
 
+## 配置 LVM
+
+在 `/etc/lvm/lvm.conf` 末尾追加以下内容，替换掉 pve-manager 生成的 devices section：
+
+```conf
+devices {
+    # added by pve-manager to avoid scanning ZFS zvols
+    global_filter = ["r|/dev/disk/by-id/usb.*|", "r|/dev/zd.*|", "r|/dev/mapper/pve-.*|" "r|/dev/mapper/.*-(vm|base)--[0-9]+--disk--[0-9]+|"]
+}
+activation {
+    auto_activation_volume_list = ["pve", "data"]
+}
+```
+
 ## 挂载存储服务器
 
 使用 iSCSI 命令行管理工具
