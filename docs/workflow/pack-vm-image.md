@@ -1,6 +1,28 @@
 # 打包虚拟机镜像
 
+!!! success
+
+    我们已将此任务部分自动化，脚本和相关资源在 [labstrap](https://github.com/USTC-vlab/labstrap) 仓库中。相关文件为 `kvmstrap`（shell 脚本）和其引用的 rootfs 相关内容，特别是 `/etc/cloud/cloud.cfg` 文件。
+
 由于 Proxmox VE 上的虚拟机使用 cloud-init 进行定制，我们推荐以发行版官方的 cloud image 为基础进行额外配置。
+
+## 使用 kvmstrap 构建镜像
+
+首先从 ubuntu-cloud-images 获取一个 cloud image 镜像，以 Ubuntu 22.04 LTS 为例，从科大镜像站下载文件：
+
+- <https://mirrors.ustc.edu.cn/ubuntu-cloud-images/jammy/current/jammy-server-cloudimg-amd64.img>
+
+虽然该文件以 .img 结尾，但实际上是一个 qcow2 格式的镜像。在当前系统中准备好 `qemu-img`（软件包 qemu-utils）和 `guestmount`（软件包 libguestfs-tools）之后即可使用 kvmstrap 脚本修改镜像：
+
+```shell
+./kvmstrap jammy-server-cloudimg-amd64.img
+```
+
+修改好的镜像可以直接上传到 Proxmox VE 服务器上，然后在 web 界面创建一个虚拟机，并用上传上去的镜像替换虚拟机的磁盘即可。
+
+!!! tip
+
+    以下内容是我们在自动化之前的手动打包流程，留作参考。
 
 ## 一、从 Ubuntu cloud images 开始准备虚拟机
 

@@ -2,11 +2,11 @@
 
 ## 计算服务器 {#compute-server}
 
-第二代 Vlab 的计算服务器共有 10 台，其中 8 台为普通服务器，2 台为 GPU 服务器，另有一台存储服务器。
+第二代 Vlab 的计算服务器共有 16 台，其中 14 台为普通服务器（8 台一批次，6 台二批次），2 台为 GPU 服务器，另有两批次各台存储服务器。
 
 ### 普通计算服务器 {#compute-server-cpu}
 
-8 台普通计算服务器分别命名为 pv1 到 pv8，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），预装内存 32 GB（2 x 16 GB DDR4 2400 ECC），硬盘配置为两块 HPE SSD 480GB 和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）
+第一批 8 台普通计算服务器分别命名为 pv1 到 pv8，每台服务器包含双路 Intel Xeon Scalable Silver 4110 处理器（共 16 核心、32 线程），预装内存 32 GB（2 x 16 GB DDR4 2400 ECC），硬盘配置为两块 HPE SSD 480GB 和三块 2.4 TB 10K SAS 硬盘（取出来放进存储服务器的额外硬盘笼）
 
 所有服务器的内存在购入时均升级至 160 GB（2 x 16 GB + 4 x 32 GB），其中 pv2 ~ pv8 的内存在 2020 年 3 月底再次升级至 224 GB（2 x 16 GB + 6 x 32 GB）。
 
@@ -16,9 +16,15 @@
 
 主机的 IPMI 地址为 10.38.79.100 至 10.38.79.108，最后一位数字和主机名一致，详见 [IP 地址列表](networking/ips.md)。
 
+---
+
+第二批 6 台普通计算服务器分别命名为 pv9 到 pv14，每台服务器包含双路 Intel Xeon Scalable Silver 4314 处理器（共 32 核心、64 线程），预装内存 256 GB（8 x 32 GB DDR4 2666 ECC），硬盘配置为两块 960 GB SSD（杂牌 SSSTC ER2-CD960A）。这款服务器配置了一块双口 I350（可能是板载）网卡和一块双口 82599ES SFP+ 网卡，以及独立的 IPMI 网口。新批次的服务器之间有一台新的光口交换机互联，新旧交换机之间有一个 QSFP+ 40 Gbps 的光纤。
+
+同前，主机的 IPMI 地址为 10.38.79.109 至 10.38.79.114。
+
 ### GPU 计算服务器 {#compute-server-gpu}
 
-2 台 GPU 服务器，命名为 pvg1 和 pvg2，每台服务器包含双路 Intel Xeon Scalable Gold 5218 处理器（共 32 核心、64 线程），内存容量为 192 GB（组合及 NUMA 情况未知）。硬盘配置为两块 HPE SSD 480GB（pvg1 另有四块 Intel DC4500 480GB），网卡配置与 CPU 计算服务器一致。
+2 台 GPU 服务器，命名为 pvg1 和 pvg2，每台服务器包含双路 Intel Xeon Scalable Gold 5218 处理器（共 32 核心、64 线程），内存容量为 192 GB（组合及 NUMA 情况未知）。硬盘配置为两块 HPE SSD 480GB（pvg1 另有四块 Intel S4500 480GB），网卡配置与 CPU 计算服务器一致。
 
 其中 pvg1 安装有两块 RTX 2070 Super GPU（可能为技嘉），pvg2 安装有一块 RTX 2070 Super GPU（型号未知）和一块 Quadro RTX 6000 GPU。
 
@@ -26,7 +32,7 @@
 
 ## 操作系统 {#operating-system}
 
-这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 系统，基于 Debian。本平台使用 Proxmox VE 管理容器，仅在 GPU 实例使用 KVM 虚拟机。
+这批服务器全部安装 [Proxmox VE](https://pve.proxmox.com/) 系统，基于 Debian。本平台使用 Proxmox VE 管理 LXC 容器和 KVM 虚拟机。
 
 ## 存储服务器 {#storage-server}
 
