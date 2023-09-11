@@ -1869,7 +1869,7 @@
 
 scp<span class="w"> </span>web:/etc/acme.sh/ibuglab.com/ibuglab.com.key<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">/pveproxy-ssl.key&quot;</span>
 scp<span class="w"> </span>web:/etc/acme.sh/ibuglab.com/fullchain.cer<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">/pveproxy-ssl.pem&quot;</span>
-systemctl<span class="w"> </span>reload<span class="w"> </span>pveproxy.service
+systemctl<span class="w"> </span>reload<span class="w"> </span>pveproxy.service<span class="w"> </span>vlab-pve-agent.service
 
 <span class="k">for</span><span class="w"> </span>DST<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DSTROOT</span><span class="s2">&quot;</span>/*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DST</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">continue</span>
@@ -1880,11 +1880,12 @@ systemctl<span class="w"> </span>reload<span class="w"> </span>pveproxy.service
 <span class="k">done</span>
 <span class="nb">wait</span>
 
-<span class="c1"># Proxmox Backup Server</span>
-scp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">/pveproxy-ssl.key&quot;</span><span class="w"> </span>pbs:/etc/proxmox-backup/proxy.key
-scp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">/pveproxy-ssl.pem&quot;</span><span class="w"> </span>pbs:/etc/proxmox-backup/proxy.pem
-scp<span class="w"> </span>/etc/hosts<span class="w"> </span>pbs:/etc/hosts
-ssh<span class="w"> </span>pbs<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>proxmox-backup-proxy.service
+<span class="c1"># Proxmox Backup Server on pv1</span>
+<span class="nv">DST</span><span class="o">=</span><span class="s2">&quot;/etc/proxmox-backup&quot;</span>
+cp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">/pveproxy-ssl.key&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DST</span><span class="s2">/proxy.key&quot;</span>
+cp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SRC</span><span class="s2">/pveproxy-ssl.pem&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DST</span><span class="s2">/proxy.pem&quot;</span>
+systemctl<span class="w"> </span>reload<span class="w"> </span>proxmox-backup-proxy.service
+
 
 <span class="c1">#FP=&quot;$(openssl x509 -noout -fingerprint -sha256 -inform pem -in &quot;$SRC/pveproxy-ssl.pem&quot;)&quot;</span>
 <span class="c1">#FP=&quot;${FP##*=}&quot;</span>
@@ -1897,6 +1898,14 @@ ssh<span class="w"> </span>pbs<span class="w"> </span>systemctl<span class="w"> 
 <p>PVE 主机上可以使用 <code>pct enter</code> 和 <code>pct console</code> 命令获取 LXC 容器中的一个 shell 或者接入 /dev/tty0，但该“接口”不在 PVE API 中提供。考虑到这两个接口的主要连接方式是 SSH，因此我们写了这个 recovery SSHd 放在 pv1 上运行，供 sshpiper 调用。</p>
 <p>代码在 <a href="https://github.com/USTC-vlab/recovery-sshd">recovery-sshd</a> 仓库中，配置文件为 <code>/etc/recovery-sshd.json</code>，对应的 systemd service 为 <code>recovery-sshd.service</code>。</p>
 <h2 id="extra-settings">额外的系统配置<a class="headerlink" href="#extra-settings" title="Permanent link">&para;</a></h2>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>我们已将此任务部分自动化，使用 <a href="https://github.com/USTC-vlab/labstrap">labstrap</a> 仓库中的 <code>pvestrap</code> 脚本。</p>
+<p>脚本的参考运行方式（以 pv1 为例）：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/etc/pve/nodes
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>*<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>ssh<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span><span class="w"> </span>&lt;<span class="w"> </span>~/pvestrap<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="k">done</span><span class="p">;</span><span class="w"> </span><span class="nb">wait</span>
+</code></pre></div>
+</div>
 <h3 id="subuid-和-subgid">Subuid 和 Subgid<a class="headerlink" href="#subuid-和-subgid" title="Permanent link">&para;</a></h3>
 <p>修改 subuid 和 subgid，将第三列的值从 65536 改为 165536：</p>
 <div class="highlight"><span class="filename">/etc/subuid 和 /etc/subgid</span><pre><span></span><code>root:100000:165536
@@ -1904,7 +1913,7 @@ ssh<span class="w"> </span>pbs<span class="w"> </span>systemctl<span class="w"> 
 <h3 id="lxc-特殊设置">LXC 特殊设置<a class="headerlink" href="#lxc-特殊设置" title="Permanent link">&para;</a></h3>
 <p>LXC 的全局设置位于 <code>/usr/share/lxc/config/common.conf.d/</code>，其中除了 <code>00-lxcfs.conf</code>（lxcfs 挂载相关内容）和 <code>01-pve.conf</code>（启动前、结束后、设备挂载相关 hook）以外，我们添加了一些自己的配置。</p>
 <p>设置 32768 PID 上限，避免容器内运行 fork bomb 等程序影响主机或互相影响</p>
-<div class="highlight"><span class="filename">/usr/share/lxc/config/common.conf.d/10-pids.conf</span><pre><span></span><code><span class="na">lxc.cgroup2.pids.max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">32768</span>
+<div class="highlight"><span class="filename">/usr/share/lxc/config/common.conf.d/10-vlab.conf</span><pre><span></span><code><span class="na">lxc.cgroup2.pids.max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">32768</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -1912,7 +1921,7 @@ ssh<span class="w"> </span>pbs<span class="w"> </span>systemctl<span class="w"> 
 <p>特别地，pv1 主机上这个配置是 8192（没有用户容器）。</p>
 </div>
 <p>设置 16 MiB 的可锁定内存，为容器内使用 earlyoom 做准备。讨论见 <a href="https://github.com/USTC-vlab/discussions/issues/19"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span> discussions#19</a></p>
-<div class="highlight"><span class="filename">/usr/share/lxc/config/common.conf.d/10-prlimits.conf</span><pre><span></span><code><span class="na">lxc.prlimit.memlock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">16777216</span>
+<div class="highlight"><span class="filename">/usr/share/lxc/config/common.conf.d/10-vlab.conf</span><pre><span></span><code><span class="na">lxc.prlimit.memlock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">16777216</span>
 </code></pre></div>
 
   <hr>
@@ -1920,7 +1929,7 @@ ssh<span class="w"> </span>pbs<span class="w"> </span>systemctl<span class="w"> 
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 24, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 11, 2023</span>
       
     
   </small>

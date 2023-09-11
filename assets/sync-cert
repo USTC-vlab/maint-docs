@@ -5,7 +5,7 @@ DSTROOT="/etc/pve/nodes"
 
 scp web:/etc/acme.sh/ibuglab.com/ibuglab.com.key "$SRC/pveproxy-ssl.key"
 scp web:/etc/acme.sh/ibuglab.com/fullchain.cer "$SRC/pveproxy-ssl.pem"
-systemctl reload pveproxy.service
+systemctl reload pveproxy.service vlab-pve-agent.service
 
 for DST in "$DSTROOT"/*; do
   [ "$DST" = "$SRC" ] && continue
@@ -16,11 +16,12 @@ for DST in "$DSTROOT"/*; do
 done
 wait
 
-# Proxmox Backup Server
-scp "$SRC/pveproxy-ssl.key" pbs:/etc/proxmox-backup/proxy.key
-scp "$SRC/pveproxy-ssl.pem" pbs:/etc/proxmox-backup/proxy.pem
-scp /etc/hosts pbs:/etc/hosts
-ssh pbs systemctl reload proxmox-backup-proxy.service
+# Proxmox Backup Server on pv1
+DST="/etc/proxmox-backup"
+cp "$SRC/pveproxy-ssl.key" "$DST/proxy.key"
+cp "$SRC/pveproxy-ssl.pem" "$DST/proxy.pem"
+systemctl reload proxmox-backup-proxy.service
+
 
 #FP="$(openssl x509 -noout -fingerprint -sha256 -inform pem -in "$SRC/pveproxy-ssl.pem")"
 #FP="${FP##*=}"
