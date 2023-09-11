@@ -26,6 +26,17 @@ PVE 主机上可以使用 `pct enter` 和 `pct console` 命令获取 LXC 容器�
 
 ## 额外的系统配置 {#extra-settings}
 
+!!! success
+
+    我们已将此任务部分自动化，使用 [labstrap](https://github.com/USTC-vlab/labstrap) 仓库中的 `pvestrap` 脚本。
+
+    脚本的参考运行方式（以 pv1 为例）：
+
+    ```shell
+    cd /etc/pve/nodes
+    for i in *; do ssh "$i" < ~/pvestrap & done; wait
+    ```
+
 ### Subuid 和 Subgid
 
 修改 subuid 和 subgid，将第三列的值从 65536 改为 165536：
@@ -40,7 +51,7 @@ LXC 的全局设置位于 `/usr/share/lxc/config/common.conf.d/`，其中除了 
 
 设置 32768 PID 上限，避免容器内运行 fork bomb 等程序影响主机或互相影响
 
-```dosini title="/usr/share/lxc/config/common.conf.d/10-pids.conf"
+```dosini title="/usr/share/lxc/config/common.conf.d/10-vlab.conf"
 lxc.cgroup2.pids.max = 32768
 ```
 
@@ -52,6 +63,6 @@ lxc.cgroup2.pids.max = 32768
 
 设置 16 MiB 的可锁定内存，为容器内使用 earlyoom 做准备。讨论见 [:fontawesome-brands-github: discussions#19](https://github.com/USTC-vlab/discussions/issues/19)
 
-```dosini title="/usr/share/lxc/config/common.conf.d/10-prlimits.conf"
+```dosini title="/usr/share/lxc/config/common.conf.d/10-vlab.conf"
 lxc.prlimit.memlock = 16777216
 ```
