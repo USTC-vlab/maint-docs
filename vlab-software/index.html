@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
     
     
       
@@ -1751,7 +1751,7 @@
 
 <h1 id="vlab-实验软件套装">Vlab 实验软件套装<a class="headerlink" href="#vlab-实验软件套装" title="Permanent link">&para;</a></h1>
 <p>Vlab Software 是存放于各个主机上的 <code>/opt/vlab</code> 的软件组合，通过 bind mount 挂载进虚拟机的 <code>/opt/vlab</code> 目录，为用户提供预装的软件。因此我们也经常称为 /opt/vlab。</p>
-<p>为了保证各用户能够及时用上统一版本的 Vlab Software，我们在 <strong>pv1</strong> 上使用 crontab 每天凌晨将 <code>/opt/vlab</code> 同步至 pv2-pv7 上，其中 crontab 条目如下：</p>
+<p>为了保证各用户能够及时用上统一版本的 Vlab Software，我们在 <strong>pv1</strong> 上使用 crontab 每天凌晨将 <code>/opt/vlab</code> 同步至其他主机上（pv9 除外），其中 crontab 条目如下：</p>
 <div class="highlight"><pre><span></span><code>47 4 * * * /root/sync-software.sh
 </code></pre></div>
 <p>对应的 shell 脚本如下：</p>
@@ -1811,7 +1811,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 12, 2023</span>
       
     
   </small>
