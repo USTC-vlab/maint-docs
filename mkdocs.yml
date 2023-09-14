@@ -90,7 +90,7 @@ nav:
     - 网络界面: networking/index.md
     - 主机网卡: networking/host.md
     - 容器内网: networking/intranet.md
-    - 防火墙与安全: networking/firewall.md
+    - 防火墙: networking/firewall.md
     - IP 地址列表: networking/ips.md
   - 服务器:
     - Proxmox VE 主机: servers/pve.md
