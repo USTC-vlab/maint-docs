@@ -478,6 +478,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#pve-firewall" class="md-nav__link">
+    计划中的新设置：使用自带的 PVE Firewall
+  </a>
+  
+    <nav class="md-nav" aria-label="计划中的新设置：使用自带的 PVE Firewall">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#research" class="md-nav__link">
+    调研结论
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-host" class="md-nav__link">
+    主机设置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-vm" class="md-nav__link">
+    虚拟机设置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current" class="md-nav__link">
+    当前设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#explanations" class="md-nav__link">
     部分防火墙规则解释
   </a>
@@ -1712,6 +1766,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#pve-firewall" class="md-nav__link">
+    计划中的新设置：使用自带的 PVE Firewall
+  </a>
+  
+    <nav class="md-nav" aria-label="计划中的新设置：使用自带的 PVE Firewall">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#research" class="md-nav__link">
+    调研结论
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-host" class="md-nav__link">
+    主机设置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config-vm" class="md-nav__link">
+    虚拟机设置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current" class="md-nav__link">
+    当前设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#explanations" class="md-nav__link">
     部分防火墙规则解释
   </a>
@@ -1750,12 +1858,68 @@
 
 
 <h1 id="服务器防火墙配置">服务器防火墙配置<a class="headerlink" href="#服务器防火墙配置" title="Permanent link">&para;</a></h1>
+<h2 id="pve-firewall">计划中的新设置：使用自带的 PVE Firewall<a class="headerlink" href="#pve-firewall" title="Permanent link">&para;</a></h2>
+<h3 id="research">调研结论<a class="headerlink" href="#research" title="Permanent link">&para;</a></h3>
+<p>优点：</p>
+<ul>
+<li>PVE 帮忙维护，省心</li>
+<li>尤其是在多个 PVE host 之间同步防火墙规则变得更简单了。只需要建一个 Security Group，然后把它绑定到多个 host 上就行了</li>
+<li>跑在 PVE host 上，对虚拟机/容器完全透明（类似云服务器的安全组）</li>
+<li>自带 MAC filter 和 IP filter，我们就再也不用担心 spoofing 的问题了（虽然 IP filter 需要手动开一下，或者 PUT 一个 API）</li>
+<li>四层开关：</li>
+<li>Datacenter 级别的总开关，只要这个开关不开，就不会有任何规则生效，正式启用之前可以随意改规则</li>
+<li>Host 级别的开关，针对该主机上的规则（不包括其上的虚拟机）</li>
+<li>VM 级别的开关，针对该虚拟机的规则<ul>
+<li>每个虚拟网卡都可以单独开关。注意 VM 级别的开关需要先开启</li>
+</ul>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>和 UFW / Firewalld 类似，PVE 也会弄出一堆 iptables 规则（性能未知，不过根据 UFW / Firewalld 的经验，瓶颈应该还在我们的千兆网口上）</li>
+<li>作为又一个 iptables 前端，PVE firewall 也要独占 ip(6)tables，需要把我们自己的 filter 规则完全迁移过去</li>
+<li>好在初步观察发现它没有动 filter 以外的表（比如 nat），也就是我们自己的 443 → 8006 转发规则还可以留着不冲突，并且还可以继续使用 <code>iptables-persistent</code><ul>
+<li>但是这个规则还是需要我们手动同步</li>
+</ul>
+</li>
+<li>虚拟机层面的开关和一些其他选项（如 IP filter）默认关闭，需要在虚拟机创建好之后再 PUT 一个 API（考虑交给 vlab-pve-agent）</li>
+</ul>
+<h2 id="config">配置文件<a class="headerlink" href="#config" title="Permanent link">&para;</a></h2>
+<p>Datacenter 级别的配置文件在 <code>/etc/pve/firewall/cluster.fw</code>，Host 级别的配置文件在 <code>/etc/pve/nodes/{hostname}/host.fw</code>，VM 级别的配置文件在 <code>/etc/pve/firewall/&lt;id&gt;.fw</code>。</p>
+<h3 id="config-host">主机设置<a class="headerlink" href="#config-host" title="Permanent link">&para;</a></h3>
+<p>PVE 会自动放通集群通信所需的端口，所以我们只需要创建一个名为 <code>management</code> 的 IPset，将我们自己登录 PVE 的 IP 加入就行了，PVE 会帮我们自动放通这个 IPset 里的 IP。</p>
+<p>另有一个特殊 IPset 叫做 <code>blacklist</code>，不过我们暂时用不上。</p>
+<p>参见：<a href="https://pve.proxmox.com/wiki/Firewall">Firewall - Proxmox VE</a></p>
+<h3 id="config-vm">虚拟机设置<a class="headerlink" href="#config-vm" title="Permanent link">&para;</a></h3>
+<p>我们在 datacenter 上建一个 Security Group 叫 <code>vlab-vm</code> 用来配置需要对所有虚拟机的生效的规则，比如针对 code-server 和 VNC 的防火墙可以通过这种方式部署在虚拟机外面。</p>
+<div class="highlight"><pre><span></span><code><span class="k">[OPTIONS]</span>
+
+<span class="na">policy_in</span><span class="o">:</span><span class="w"> </span><span class="s">ACCEPT</span>
+<span class="na">ipfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+<span class="na">macfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+<span class="na">enable</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+
+<span class="k">[RULES]</span>
+
+<span class="na">GROUP vlab-vm</span>
+</code></pre></div>
+<p>配置过程：在网页上将 VM 1095 配好之后，进入 <code>/etc/pve/firewall</code>，将 <code>1095.fw</code> 为每个 VM 复制一份，参考代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>id<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.ids | keys | .[]&#39;</span><span class="w"> </span>/etc/pve/.vmlist<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">1095</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<span class="w">  </span>cp<span class="w"> </span><span class="m">1095</span>.fw<span class="w"> </span><span class="nv">$id</span>.fw
+<span class="k">done</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">计划更新</p>
+<p>我们计划在下次维护时全面切换到 PVE firewall，以下信息是目前的手工配置。</p>
+</div>
+<h2 id="current">当前设置<a class="headerlink" href="#current" title="Permanent link">&para;</a></h2>
 <p>防火墙使用 Linux 自带的 iptables 管理，默认策略为 <code>INPUT DROP</code>, <code>FORWARD ACCEPT</code>, <code>OUTPUT ACCEPT</code>。方便起见使用 <code>iptables-persistent</code> 让防火墙规则开机自动加载。</p>
 <p>以下为 pv1 上的防火墙配置（<code>/etc/iptables/rules.v4</code> 和 <code>rules.v6</code> 文件内容一样）：</p>
 <div class="admonition todo">
 <p class="admonition-title">pv1 的额外配置</p>
 <p>pv1 需要修改以下配置，额外放行 8090 端口，以用于虚拟机创建时的额外初始化（post-creation-agent）。</p>
-<p>另外，由于 pv1 不运行用户容器，故屏蔽了 iptables-legacy 的相关模块，以减少潜在的故障可能。</p>
+<p>另外，由于 pv1 不运行用户容器，故屏蔽了 iptables-legacy 的相关模块，以<s>减少潜在的故障可能</s>展示闲着没事干的精神。</p>
 <div class="highlight"><span class="filename">/etc/modprobe.d/iptables-legacy.conf</span><pre><span></span><code>install<span class="w"> </span>iptable_filter<span class="w">    </span>/bin/true
 install<span class="w"> </span>iptable_nat<span class="w">       </span>/bin/true
 install<span class="w"> </span>iptable_mangle<span class="w">    </span>/bin/true
@@ -1808,7 +1972,7 @@ COMMIT
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2023</span>
       
     
   </small>
