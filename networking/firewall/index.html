@@ -1835,11 +1835,13 @@
 <h2 id="pve-firewall">计划中的新设置：使用自带的 PVE Firewall<a class="headerlink" href="#pve-firewall" title="Permanent link">&para;</a></h2>
 <p>优点：</p>
 <ul>
-<li>PVE 帮忙维护，省心</li>
+<li>PVE 帮忙维护，省心<ul>
 <li>尤其是在多个 PVE host 之间同步防火墙规则变得更简单了。只需要建一个 Security Group，然后把它绑定到多个 host 上就行了</li>
+</ul>
+</li>
 <li>跑在 PVE host 上，对虚拟机/容器完全透明（类似云服务器的安全组）</li>
 <li>自带 MAC filter 和 IP filter，我们就再也不用担心 spoofing 的问题了（虽然 IP filter 需要手动开一下，或者 PUT 一个 API）</li>
-<li>四层开关：</li>
+<li>四层开关：<ul>
 <li>Datacenter 级别的总开关，只要这个开关不开，就不会有任何规则生效，正式启用之前可以随意改规则</li>
 <li>Host 级别的开关，针对该主机上的规则（不包括其上的虚拟机）</li>
 <li>VM 级别的开关，针对该虚拟机的规则<ul>
@@ -1847,12 +1849,16 @@
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 <p>缺点：</p>
 <ul>
 <li>和 UFW / Firewalld 类似，PVE 也会弄出一堆 iptables 规则（性能未知，不过根据 UFW / Firewalld 的经验，瓶颈应该还在我们的千兆网口上）</li>
-<li>作为又一个 iptables 前端，PVE firewall 也要独占 ip(6)tables，需要把我们自己的 filter 规则完全迁移过去</li>
+<li>作为又一个 iptables 前端，PVE firewall 也要独占 ip(6)tables，需要把我们自己的 filter 规则完全迁移过去<ul>
 <li>好在初步观察发现它没有动 filter 以外的表（比如 nat），也就是我们自己的 443 → 8006 转发规则还可以留着不冲突，并且还可以继续使用 <code>iptables-persistent</code><ul>
 <li>但是这个规则还是需要我们手动同步</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>虚拟机层面的开关和一些其他选项（如 IP filter）默认关闭，需要在虚拟机创建好之后再 PUT 一个 API（考虑交给 vlab-pve-agent）</li>
