@@ -1856,23 +1856,24 @@
 <p>第二批 6 台普通计算服务器分别命名为 pv9 到 pv14，每台服务器包含双路 Intel Xeon Scalable Silver 4314 处理器（共 32 核心、64 线程），预装内存 256 GB（8 x 32 GB DDR4 2666 ECC），硬盘配置为两块 960 GB SSD（杂牌 SSSTC ER2-CD960A）。这款服务器配置了一块双口 I350（可能是板载）网卡和一块双口 82599ES SFP+ 网卡，以及独立的 IPMI 网口。新批次的服务器之间有一台新的光口交换机互联，新旧交换机之间有一个 QSFP+ 40 Gbps 的光纤。</p>
 <p>同前，主机的 IPMI 地址为 10.38.79.109 至 10.38.79.114。</p>
 <h3 id="compute-server-gpu">GPU 计算服务器<a class="headerlink" href="#compute-server-gpu" title="Permanent link">&para;</a></h3>
-<p>2 台 GPU 服务器，命名为 pvg1 和 pvg2，每台服务器包含双路 Intel Xeon Scalable Gold 5218 处理器（共 32 核心、64 线程），内存容量为 192 GB（组合及 NUMA 情况未知）。硬盘配置为两块 HPE SSD 480GB（pvg1 另有四块 Intel S4500 480GB），网卡配置与 CPU 计算服务器一致。</p>
+<p>2 台 GPU 服务器，命名为 pvg1 和 pvg2，每台服务器包含双路 Intel Xeon Scalable Gold 5218 处理器（共 32 核心、64 线程），内存容量为 192 GB（组合及 NUMA 情况未知）。硬盘配置为两块 HPE SSD 480GB（pvg1 另有四块 Intel DC S4500 480GB），网卡配置与 CPU 计算服务器一致。</p>
 <p>其中 pvg1 安装有两块 RTX 2070 Super GPU（可能为技嘉），pvg2 安装有一块 RTX 2070 Super GPU（型号未知）和一块 Quadro RTX 6000 GPU。</p>
-<p>主机的 IPMI 地址分别为 10.38.79.181 和 10.38.79.182，详见 <a href="../networking/ips/">IP 地址列表</a>。</p>
 <h2 id="operating-system">操作系统<a class="headerlink" href="#operating-system" title="Permanent link">&para;</a></h2>
 <p>这批服务器全部安装 <a href="https://pve.proxmox.com/">Proxmox VE</a> 系统，基于 Debian。本平台使用 Proxmox VE 管理 LXC 容器和 KVM 虚拟机。</p>
 <h2 id="storage-server">存储服务器<a class="headerlink" href="#storage-server" title="Permanent link">&para;</a></h2>
 <p>存储服务器为 HPE MSA 1050，有 24 个 2.5 寸 SAS 盘位和两个 iSCSI 控制器。购买时带有 18 块 1.2 TB 的硬盘，后来邢凯老师提供了一个额外的硬盘笼，扩展了 24 个盘位，正好放下 8 台计算服务器各自带的 3 块机械硬盘。</p>
 <p>该存储服务器有两个控制器，每个控制器各有一个以太网口（用于管理界面）和两个光纤接口（10 Gbps，用于数据传输）。目前两个控制器的管理接口都接入校园网，地址分别为 <a href="https://10.38.79.98/">10.38.79.98</a> 和 <a href="https://10.38.79.99/">10.38.79.99</a>。</p>
 <h2 id="location">机房<a class="headerlink" href="#location" title="Permanent link">&para;</a></h2>
-<p>机房在电三楼 524，除 pv0 以外的所有设备都在同一个机柜中，上面贴有标签。从下往上分别为：</p>
+<p>机房在电三楼 524：</p>
 <ul>
-<li>存储服务器的两个硬盘笼（标签 <mark>VLAB S0</mark> 和 <mark>VLAB S1</mark>）</li>
-<li>八台计算服务器，主机名为 pv1, pv2 到 pv8，标签为 <mark>VLAB 1</mark> 到 <mark>VLAB 8</mark></li>
-<li>机房的网线接口</li>
+<li>第一批八台计算服务器（pv1 到 pv8）在 5 号机柜，标签为 <mark>VLAB 1</mark> 到 <mark>VLAB 8</mark></li>
+<li>第一批存储服务器的两个硬盘笼在 5 号机柜最下方（标签 <mark>VLAB S0</mark> 和 <mark>VLAB S1</mark>），第三个闲置硬盘笼在旁边 6 号机柜正中间</li>
+<li>第二批六台计算服务器（pv9 到 pv14）在 8 号机柜，暂未贴标签，从下往上为 pv9 到 pv14</li>
+<li>第二批存储服务器也在 8 号机柜中</li>
+<li>pvg1 和 pvg2 在对面一排的某个机柜靠下的位置（HPE 塔式服务器，横放在铁板上）</li>
+<li>pv0 在 4 号机柜<em>最</em>下方</li>
 </ul>
-<p>机柜背后最上方是华为的光交换机，参见<a href="../networking/">网络配置</a>。</p>
-<p>pv0 在上述机柜左侧紧挨的机柜最下方。</p>
+<p>5 号机柜和 8 号机柜背后最上方各有一个光交换机和电交换机，参见<a href="../networking/">网络配置</a>。</p>
 <h2 id="resources">其他资源<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <p>学校官方域名 <code>vlab.ustc.edu.cn</code> 属于本项目，指向 A 202.38.75.226 及 AAAA 2001:da8:d800:75::226。另有静态 IP 地址 202.38.75.252 用作学生机网关，没有域名。关于 IP 地址详见<a href="../networking/ips/">这个页面</a>。</p>
 <p>所有计算服务器的 IPMI 网页、存储服务器的两个管理接口以及我们的测试环境都使用自己的 CA 签发的证书。该 CA 目前由 iBug 管理，CA 证书在<a href="../assets/iBug_Vlab_CA.crt">这里</a>，可以添加到系统的证书信任列表中，方便后续管理机器。</p>
@@ -1882,7 +1883,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 5, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 16, 2023</span>
       
     
   </small>

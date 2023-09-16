@@ -1834,13 +1834,18 @@
 <h1 id="更新记录">更新记录<a class="headerlink" href="#更新记录" title="Permanent link">&para;</a></h1>
 <p>记录我们上线部署新功能（或 bug fix 等）的历史。</p>
 <p>编写时请按时间倒序排序，即最新的日期在最上面。有专门的工作记录页面的请把时间链接到对应的页面。</p>
-<div class="admonition note 旧的记录可能不完整">
-<p class="admonition-title">Note</p>
-<p>本页面于 2020 年 9 月初创建，因此 2020 年 8 月及以前的更新记录是不完整的。尽管编者已从讨论群的聊天记录等地尽可能恢复（补写）出了一些，但许多细节仍然难以保证完整性及准确性。</p>
-</div>
 <h2 id="更新记录_1">更新记录<a class="headerlink" href="#更新记录_1" title="Permanent link">&para;</a></h2>
 <h3 id="2023-年">2023 年<a class="headerlink" href="#2023-年" title="Permanent link">&para;</a></h3>
 <dl>
+<dt>9 月 15 日</dt>
+<dd>
+<p>测试发现 HPE MSA 1050 的 Virtual Volume 是支持 SCSI Unmap 的，因此在所有计算节点的 <code>/etc/lvm/lvm.conf</code> 中添加了 <code>issue_discard = 1</code>，然后通过创建一个临时 LV 的方式把所有未分配空间都 unmap 了一下：</p>
+<div class="highlight"><pre><span></span><code>lvcreate<span class="w"> </span>-l<span class="w"> </span><span class="m">100</span>%FREE<span class="w"> </span>-n<span class="w"> </span><span class="nb">test</span><span class="w"> </span>user-data
+blkdiscard<span class="w"> </span>-f<span class="w"> </span>user-data/test
+lvremove<span class="w"> </span>user-data/test
+</code></pre></div>
+<p>存储服务器后台显示的 Allocated 从 30.3 TB 下降到了 17.1 TB。</p>
+</dd>
 <dt>9 月 5 日</dt>
 <dd>
 <p>实现了 Linux KVM 虚拟机镜像的可复现配置（见 labstrap 仓库中的 <code>kvmstrap</code> 代码，暂未全自动化），并据此构建出了第一份 可用的 KVM 镜像（VM 200）。</p>
@@ -1966,6 +1971,12 @@
 <dd>
 <p>用户可以选择关闭 VNC 登录时显示的加入 QQ 群的通知。</p>
 </dd>
+</dl>
+<div class="admonition note 旧的记录可能不完整">
+<p class="admonition-title">Note</p>
+<p>本页面于 2020 年 9 月初创建，因此 2020 年 8 月及以前的更新记录是不完整的。尽管编者已从讨论群的聊天记录等地尽可能恢复（补写）出了一些，但许多细节仍然难以保证完整性及准确性。</p>
+</div>
+<dl>
 <dt>9 月 8 日</dt>
 <dd>
 <p>完成了在容器之间共享实验软件的设计（镜像 01 已经替换为新版本），这可以减少相同的实验软件重复存储的问题，并且将软件放置在 SSD 上，也预期可以提高性能。同时，新创建的容器也支持嵌套容器了。</p>
@@ -2032,7 +2043,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 5, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 16, 2023</span>
       
     
   </small>
