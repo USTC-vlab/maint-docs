@@ -34,7 +34,7 @@ PVE 主机上可以使用 `pct enter` 和 `pct console` 命令获取 LXC 容器�
 
     ```shell
     cd /etc/pve/nodes
-    for i in *; do ssh "$i" < ~/pvestrap & done; wait
+    for i in *; do ssh -T "$i" < ~/pvestrap & done; wait
     ```
 
 ### Subuid 和 Subgid
@@ -58,7 +58,7 @@ lxc.cgroup2.pids.max = 32768
 !!! info
 
     从 PVE 7 开始此处设置需要用 `lxc.cgroup2`，cgroup1 的配置仅对 PVE 6 有效。
-    
+
     特别地，pv1 主机上这个配置是 8192（没有用户容器）。
 
 设置 16 MiB 的可锁定内存，为容器内使用 earlyoom 做准备。讨论见 [:fontawesome-brands-github: discussions#19](https://github.com/USTC-vlab/discussions/issues/19)
