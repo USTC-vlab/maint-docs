@@ -1903,7 +1903,7 @@ systemctl<span class="w"> </span>reload<span class="w"> </span>proxmox-backup-pr
 <p>我们已将此任务部分自动化，使用 <a href="https://github.com/USTC-vlab/labstrap">labstrap</a> 仓库中的 <code>pvestrap</code> 脚本。</p>
 <p>脚本的参考运行方式（以 pv1 为例）：</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/etc/pve/nodes
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>*<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>ssh<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span><span class="w"> </span>&lt;<span class="w"> </span>~/pvestrap<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="k">done</span><span class="p">;</span><span class="w"> </span><span class="nb">wait</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>*<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>ssh<span class="w"> </span>-T<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span><span class="w"> </span>&lt;<span class="w"> </span>~/pvestrap<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="k">done</span><span class="p">;</span><span class="w"> </span><span class="nb">wait</span>
 </code></pre></div>
 </div>
 <h3 id="subuid-和-subgid">Subuid 和 Subgid<a class="headerlink" href="#subuid-和-subgid" title="Permanent link">&para;</a></h3>
@@ -1929,7 +1929,7 @@ systemctl<span class="w"> </span>reload<span class="w"> </span>proxmox-backup-pr
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 18, 2023</span>
       
     
   </small>
