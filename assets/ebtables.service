@@ -1,0 +1,22 @@
+[Unit]
+Description=Ethernet Bridge Firewall
+After=network.target network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+ExecStartPre=-/usr/sbin/ebtables -F
+ExecStartPre=-/usr/sbin/ebtables -X
+ExecStartPre=-/usr/sbin/ebtables -Z
+
+ExecStart=/usr/sbin/ebtables -N VLAB_SECURE
+ExecStart=/usr/sbin/ebtables -A VLAB_SECURE -i vxlan1 -j ACCEPT
+ExecStart=/usr/sbin/ebtables -A VLAB_SECURE -i veth100i+ -j ACCEPT
+ExecStart=/usr/sbin/ebtables -A VLAB_SECURE -i veth101i+ -j ACCEPT
+ExecStart=/usr/sbin/ebtables -A VLAB_SECURE -j DROP
+ExecStart=/usr/sbin/ebtables -A FORWARD -p arp --arp-ip-src 172.31.0.0/30 -j VLAB_SECURE
+ExecStart=/usr/sbin/ebtables -A FORWARD -s 00:00:ac:1f:00:00/ff:ff:ff:ff:ff:fc -j VLAB_SECURE
+
+[Install]
+WantedBy=network.target

@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.0">
     
     
       
@@ -30,10 +30,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.9f615399.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.649f08f9.min.css">
       
       
 
@@ -519,8 +519,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#explanations" class="md-nav__link">
-    部分防火墙规则解释
+  <a href="#ebtables" class="md-nav__link">
+    以太网桥防火墙
   </a>
   
 </li>
@@ -1794,8 +1794,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#explanations" class="md-nav__link">
-    部分防火墙规则解释
+  <a href="#ebtables" class="md-nav__link">
+    以太网桥防火墙
   </a>
   
 </li>
@@ -1936,22 +1936,48 @@ COMMIT
 -A<span class="w"> </span>PREROUTING<span class="w"> </span>-m<span class="w"> </span>addrtype<span class="w"> </span>--dst-type<span class="w"> </span>LOCAL<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">443</span><span class="w"> </span>-j<span class="w"> </span>REDIRECT<span class="w"> </span>--to-ports<span class="w"> </span><span class="m">8006</span>
 COMMIT
 </code></pre></div>
-<h2 id="explanations">部分防火墙规则解释<a class="headerlink" href="#explanations" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>-A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>lo<span class="w"> </span>-j<span class="w"> </span>ACCEPT
--A<span class="w"> </span>INPUT<span class="w"> </span>-m<span class="w"> </span>conntrack<span class="w"> </span>--ctstate<span class="w"> </span>ESTABLISHED,RELATED<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+<h2 id="ebtables">以太网桥防火墙<a class="headerlink" href="#ebtables" title="Permanent link">&para;</a></h2>
+<p>我们使用了 ebtables 来防止用户虚拟机通过 ARP 欺骗伪装成 CT 100/101，因为这两个虚拟机对维持正常服务至关重要，但为每个用户虚拟机配置 MAC 地址过滤又过于繁琐、不现实。</p>
+<p>我们的 ebtables 规则简单过滤了从用户虚拟机发出的，受保护的源 MAC 地址的以太网帧和响应受保护的源 IP 地址的 ARP 包：</p>
+<div class="highlight"><pre><span></span><code>ebtables<span class="w"> </span>-N<span class="w"> </span>VLAB_SECURE
+ebtables<span class="w"> </span>-A<span class="w"> </span>VLAB_SECURE<span class="w"> </span>-i<span class="w"> </span>vxlan1<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+ebtables<span class="w"> </span>-A<span class="w"> </span>VLAB_SECURE<span class="w"> </span>-i<span class="w"> </span>veth100i+<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+ebtables<span class="w"> </span>-A<span class="w"> </span>VLAB_SECURE<span class="w"> </span>-i<span class="w"> </span>veth101i+<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+ebtables<span class="w"> </span>-A<span class="w"> </span>VLAB_SECURE<span class="w"> </span>-j<span class="w"> </span>DROP
+ebtables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-p<span class="w"> </span>arp<span class="w"> </span>--arp-ip-src<span class="w"> </span><span class="m">172</span>.31.0.0/30<span class="w"> </span>-j<span class="w"> </span>VLAB_SECURE
+ebtables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-s<span class="w"> </span><span class="m">00</span>:00:ac:1f:00:00/ff:ff:ff:ff:ff:fc<span class="w"> </span>-j<span class="w"> </span>VLAB_SECURE
 </code></pre></div>
-<p>这两个放最前面，让本机流量 <code>-i lo</code> 和已经建立起来的 TCP / UDP 连接经过最少的链项，提高性能降低 CPU 使用量，这是因为 iptables 规则是按顺序逐条匹配的。</p>
-<div class="highlight"><pre><span></span><code>-I<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>ens1f0<span class="w"> </span>-j<span class="w"> </span>ACCEPT
--I<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>ens1f1<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+<p>由于 ebtables 不自带 persistent 的服务，我们手写了一个 systemd 服务用于持久化 ebtables 规则。</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Ethernet Bridge Firewall</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target network-online.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
+<span class="na">RemainAfterExit</span><span class="o">=</span><span class="s">true</span>
+
+<span class="na">ExecStartPre</span><span class="o">=</span><span class="s">-/usr/sbin/ebtables -F</span>
+<span class="na">ExecStartPre</span><span class="o">=</span><span class="s">-/usr/sbin/ebtables -X</span>
+<span class="na">ExecStartPre</span><span class="o">=</span><span class="s">-/usr/sbin/ebtables -Z</span>
+
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/ebtables -N VLAB_SECURE</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/ebtables -A VLAB_SECURE -i vxlan1 -j ACCEPT</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/ebtables -A VLAB_SECURE -i veth100i+ -j ACCEPT</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/ebtables -A VLAB_SECURE -i veth101i+ -j ACCEPT</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/ebtables -A VLAB_SECURE -j DROP</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/ebtables -A FORWARD -p arp --arp-ip-src 172.31.0.0/30 -j VLAB_SECURE</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/sbin/ebtables -A FORWARD -s 00:00:ac:1f:00:00/ff:ff:ff:ff:ff:fc -j VLAB_SECURE</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">network.target</span>
 </code></pre></div>
-<p>光纤内网不设防。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 22, 2023</span>
       
     
   </small>
@@ -2029,10 +2055,10 @@ COMMIT
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      <script src="../../assets/javascripts/bundle.4e0fa4ba.min.js"></script>
       
     
   </body>
