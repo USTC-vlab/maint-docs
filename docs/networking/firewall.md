@@ -116,18 +116,24 @@ COMMIT
 COMMIT
 ```
 
-## 部分防火墙规则解释 {#explanations}
+## 以太网桥防火墙 {#ebtables}
+
+我们使用了 ebtables 来防止用户虚拟机通过 ARP 欺骗伪装成 CT 100/101，因为这两个虚拟机对维持正常服务至关重要，但为每个用户虚拟机配置 MAC 地址过滤又过于繁琐、不现实。
+
+我们的 ebtables 规则简单过滤了从用户虚拟机发出的，受保护的源 MAC 地址的以太网帧和响应受保护的源 IP 地址的 ARP 包：
 
 ```shell
--A INPUT -i lo -j ACCEPT
--A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+ebtables -N VLAB_SECURE
+ebtables -A VLAB_SECURE -i vxlan1 -j ACCEPT
+ebtables -A VLAB_SECURE -i veth100i+ -j ACCEPT
+ebtables -A VLAB_SECURE -i veth101i+ -j ACCEPT
+ebtables -A VLAB_SECURE -j DROP
+ebtables -A FORWARD -p arp --arp-ip-src 172.31.0.0/30 -j VLAB_SECURE
+ebtables -A FORWARD -s 00:00:ac:1f:00:00/ff:ff:ff:ff:ff:fc -j VLAB_SECURE
 ```
 
-这两个放最前面，让本机流量 `-i lo` 和已经建立起来的 TCP / UDP 连接经过最少的链项，提高性能降低 CPU 使用量，这是因为 iptables 规则是按顺序逐条匹配的。
+由于 ebtables 不自带 persistent 的服务，我们手写了一个 systemd 服务用于持久化 ebtables 规则。
 
-```shell
--I INPUT -i ens1f0 -j ACCEPT
--I INPUT -i ens1f1 -j ACCEPT
+```ini
+--8<-- "ebtables.service"
 ```
-
-光纤内网不设防。

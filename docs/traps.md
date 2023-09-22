@@ -257,6 +257,13 @@ VXLAN 是一种 overlay 网络实现，将帧包装在 UDP 包中传输。由于
 
   [windows-mtu]: http://networking.nitecruzr.net/2007/11/setting-mtu-in-windows-vista.html
 
+### PVE 防火墙与 ebtables {#pve-fwbr}
+
+为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然会为开启了防火墙的网卡进行桥接（额外创建 fwbrXXXiX），而新增的 fwbr 桥和我们以前手工配置的防止 ARP 欺骗的 ebtables 规则有冲突，导致向受影响虚拟机发出的 ARP 请求无法到达虚拟机。
+
+虽然 `ebtables -I VLAB_SECURE 4 -i fwln+ -j ACCEPT` 可以解决问题，但是既然要迁移了，我们还是选择直接删除手搓的 ebtables 配置，避免以后起更多冲突。
+
+
 ## 虚拟机 {#vm}
 
 ### systemd-logind 启动失败
