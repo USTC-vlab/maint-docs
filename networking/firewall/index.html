@@ -1909,7 +1909,12 @@
 <p>参见：<a href="https://pve.proxmox.com/wiki/Firewall">Firewall - Proxmox VE</a></p>
 <h3 id="config-vm">虚拟机设置<a class="headerlink" href="#config-vm" title="Permanent link">&para;</a></h3>
 <p>我们在 datacenter 上建一个 Security Group 叫 <code>vlab-vm</code> 用来配置需要对所有虚拟机的生效的规则，比如针对 code-server 和 VNC 的防火墙可以通过这种方式部署在虚拟机外面。</p>
-<p>如果设置里开启了 IP Filter，对于 LXC 容器，PVE 会自动把已配置好的 IP 地址加入这个白名单；但是对于 KVM 虚拟机，我们需要手动处理这个问题。目前做法是交给 vlab-pve-agent 来读取 VM 配置文件并生成防火墙配置。</p>
+<p>如果设置里开启了 IP Filter，对于 LXC 容器，PVE 会自动把已配置好的 IP 地址加入这个白名单，但是我们仍然需要手动处理另外两个问题：</p>
+<ul>
+<li>KVM 虚拟机的 IP 地址（通过 cloud-init 提供的）</li>
+<li>我们自己配置的 IPv6 SLAAC 地址</li>
+</ul>
+<p>目前做法是交给 vlab-pve-agent 来读取 VM 配置文件并生成防火墙配置。对于 IPv6 SLAAC 地址，我们选择偷个懒，直接把整段 /64 加入白名单。</p>
 <div class="highlight"><pre><span></span><code><span class="k">[OPTIONS]</span>
 
 <span class="na">policy_in</span><span class="o">:</span><span class="w"> </span><span class="s">ACCEPT</span>
