@@ -1904,7 +1904,7 @@ vmbr{{vmbr0}} ---|"fwpr100i0 / fwln100i0"| fwbr{{fwbr100i0}} ---|"veth100i0 / et
 </dd>
 </dl>
 <p>与 iptables 规则不同，这个行为不受 Cluster 全局防火墙开关的影响，因此只要为虚拟机网卡开启了防火墙，PVE 就会添加这样一层桥接。</p>
-<p>该桥接与我们<a href="../../networking/firewall/#ebtables">手搓的 ebtables 规则</a>有冲突，导致开启了接口防火墙的虚拟机无法连接。由于我们提前修改并部署了 Django，许多新建的虚拟机都开启了防火墙并遇到这个问题，所以我们立即下限了手搓的 ebtables，等到今天的维护窗口再来解决这个问题。</p>
+<p>该桥接与我们<a href="../../networking/firewall/#ebtables">手搓的 ebtables 规则</a>有冲突，导致开启了接口防火墙的虚拟机无法连接。由于我们提前修改并部署了 Django，许多新建的虚拟机都开启了防火墙并遇到这个问题，所以我们立即下线了手搓的 ebtables，等到今天的维护窗口再来解决这个问题。</p>
 
   <hr>
 <div class="md-source-file">
