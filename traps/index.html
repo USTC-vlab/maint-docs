@@ -1411,6 +1411,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#iptables-legacy-nft" class="md-nav__link">
+    iptables-legacy 与 iptables-nft
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2177,6 +2184,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#iptables-legacy-nft" class="md-nav__link">
+    iptables-legacy 与 iptables-nft
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2547,8 +2561,36 @@ iface bond0
 <p>解决方法倒也不难，在系统里设置网络的 MTU 为 1450 就行。Proxmox VE 创建容器的时候可以直接在网络参数中指定 <code>mtu=1450</code>，但 KVM 虚拟机就必须每个虚拟机设置了，这在 Windows 下<a href="http://networking.nitecruzr.net/2007/11/setting-mtu-in-windows-vista.html">尤其麻烦</a>。</p>
 <p>所以我们计划在 2020 年暑假把这个问题彻底解决，办法是把下层承载网的 MTU 调大 50 字节（变成 1550 字节，修改 pv1 到 pv8 的 ens1f1 界面），这样 VXLAN 就能拥有“正常”的 1500 字节的 MTU 了，能为以后减少不少麻烦。</p>
 <h3 id="pve-fwbr">PVE 防火墙与 ebtables<a class="headerlink" href="#pve-fwbr" title="Permanent link">&para;</a></h3>
-<p>为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然会为开启了防火墙的网卡进行桥接（额外创建 fwbrXXXiX），而新增的 fwbr 桥和我们以前手工配置的防止 ARP 欺骗的 ebtables 规则有冲突，导致向受影响虚拟机发出的 ARP 请求无法到达虚拟机。</p>
+<p>PVE 会将开启了 firewall 的虚拟机网卡额外桥接一次，如图所示：</p>
+<dl>
+<dt>未开启 firewall 时</dt>
+<dd>
+<!-- -->
+<pre class="mermaid"><code>flowchart LR
+vmbr{{vmbr0}} ---|"veth100i0 / eth0@vm"| vm([VM])</code></pre>
+</dd>
+<dt>开启 firewall 时</dt>
+<dd>
+<!-- -->
+<pre class="mermaid"><code>flowchart LR
+vmbr{{vmbr0}} ---|"fwpr100i0 / fwln100i0"| fwbr{{fwbr100i0}} ---|"veth100i0 / eth0@vm"| vm([VM])</code></pre>
+</dd>
+</dl>
+<p>为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然进行上述桥接操作。该桥接与我们<a href="../networking/firewall.md#ebtables">手搓的 ebtables 规则</a>有冲突，导致向受影响虚拟机发出的 ARP 请求无法到达虚拟机，进而使虚拟机整个断网。</p>
 <p>虽然 <code>ebtables -I VLAB_SECURE 4 -i fwln+ -j ACCEPT</code> 可以解决问题，但是既然要迁移了，我们还是选择直接删除手搓的 ebtables 配置，避免以后起更多冲突。</p>
+<h3 id="iptables-legacy-nft">iptables-legacy 与 iptables-nft<a class="headerlink" href="#iptables-legacy-nft" title="Permanent link">&para;</a></h3>
+<p>PVE Firewall 会在启动时自动将 iptables 命令的 alternatives <a href="https://forum.proxmox.com/threads/v6-0-move-from-iptables-to-nftables.55924/#post-257794">切换至 iptables-legacy</a>，但是并不会帮忙清掉 iptables-nft 里已有的规则，所以刚开启全局防火墙开关的时候，尽管 <code>iptables -S</code> 和 <code>iptables-save</code> 命令的输出看起来没啥问题，但是虚拟机还是断网了，仔细思考了 20 分钟才想起来这个问题。</p>
+<p>解决方法是手动清掉 iptables-nft 里的规则，在每个主机上运行：</p>
+<div class="highlight"><pre><span></span><code>iptables-nft<span class="w"> </span>-F
+iptables-nft<span class="w"> </span>-X
+iptables-nft<span class="w"> </span>-Z
+</code></pre></div>
+<p>此时还没有注意到 IPv6 也坏了，又花了 10 分钟想起来还需要执行下面的命令：</p>
+<div class="highlight"><pre><span></span><code>ip6tables-nft<span class="w"> </span>-F
+ip6tables-nft<span class="w"> </span>-X
+ip6tables-nft<span class="w"> </span>-Z
+</code></pre></div>
+<p>考虑到我们先前对 INPUT, OUTPUT, FORWARD 链设置的 policy 都是 ACCEPT，就不需要重置了。</p>
 <h2 id="vm">虚拟机<a class="headerlink" href="#vm" title="Permanent link">&para;</a></h2>
 <h3 id="systemd-logind-启动失败">systemd-logind 启动失败<a class="headerlink" href="#systemd-logind-启动失败" title="Permanent link">&para;</a></h3>
 <p>尤其是在容器从 Debian buster 升级到 bullseye 后容易出现。</p>
@@ -2665,7 +2707,7 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2023</span>
       
     
   </small>

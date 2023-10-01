@@ -1885,6 +1885,10 @@
 <h2 id="更新记录_1">更新记录<a class="headerlink" href="#更新记录_1" title="Permanent link">&para;</a></h2>
 <h3 id="2023-年">2023 年<a class="headerlink" href="#2023-年" title="Permanent link">&para;</a></h3>
 <dl>
+<dt><a href="../records/2023-10-01/">10 月 1 日</a></dt>
+<dd>
+<p>按照规划了一个多月以来的方案全面切换到了 PVE Firewall，并更新了 vlab-vnc、vlab-vscode 等因此受益的软件。</p>
+</dd>
 <dt>9 月 15 日</dt>
 <dd>
 <p>测试发现 HPE MSA 1050 的 Virtual Volume 是支持 SCSI Unmap 的，因此在所有计算节点的 <code>/etc/lvm/lvm.conf</code> 中添加了 <code>issue_discard = 1</code>，然后通过创建一个临时 LV 的方式把所有未分配空间都 unmap 了一下：</p>
@@ -2091,7 +2095,7 @@ lvremove<span class="w"> </span>user-data/test
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 16, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2023</span>
       
     
   </small>

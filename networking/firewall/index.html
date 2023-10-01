@@ -481,13 +481,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pve-firewall" class="md-nav__link">
-    计划中的新设置：使用自带的 PVE Firewall
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#config" class="md-nav__link">
     配置文件
   </a>
@@ -515,8 +508,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current" class="md-nav__link">
-    当前设置
+  <a href="#previous" class="md-nav__link">
+    旧的手工配置
   </a>
   
 </li>
@@ -1801,13 +1794,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pve-firewall" class="md-nav__link">
-    计划中的新设置：使用自带的 PVE Firewall
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#config" class="md-nav__link">
     配置文件
   </a>
@@ -1835,8 +1821,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current" class="md-nav__link">
-    当前设置
+  <a href="#previous" class="md-nav__link">
+    旧的手工配置
   </a>
   
 </li>
@@ -1880,7 +1866,9 @@
 
 
 <h1 id="服务器防火墙配置">服务器防火墙配置<a class="headerlink" href="#服务器防火墙配置" title="Permanent link">&para;</a></h1>
-<h2 id="pve-firewall">计划中的新设置：使用自带的 PVE Firewall<a class="headerlink" href="#pve-firewall" title="Permanent link">&para;</a></h2>
+<p>我们采用比手搓 iptables 更加靠谱合理的方案：使用 PVE Firewall。</p>
+<div class="admonition abstract">
+<p class="admonition-title">关于全面切换到 PVE Firewall 的调研</p>
 <p>优点：</p>
 <ul>
 <li>PVE 帮忙维护，省心<ul>
@@ -1911,14 +1899,17 @@
 </li>
 <li>虚拟机层面的开关和一些其他选项（如 IP filter）默认关闭，需要在虚拟机创建好之后再 PUT 一个 API（考虑交给 vlab-pve-agent）</li>
 </ul>
+</div>
 <h2 id="config">配置文件<a class="headerlink" href="#config" title="Permanent link">&para;</a></h2>
-<p>Datacenter 级别的配置文件在 <code>/etc/pve/firewall/cluster.fw</code>，Host 级别的配置文件在 <code>/etc/pve/nodes/{hostname}/host.fw</code>，VM 级别的配置文件在 <code>/etc/pve/firewall/&lt;id&gt;.fw</code>。</p>
+<p>Datacenter 级别的配置文件在 <code>/etc/pve/firewall/cluster.fw</code>，Host 级别的配置文件在 <code>/etc/pve/nodes/{hostname}/host.fw</code>，VM 级别的配置文件在 <code>/etc/pve/firewall/&lt;id&gt;.fw</code>。如果这些文件在磁盘上被修改了，PVE 会自动将修改同步到 iptables 规则里，测试表明 PVE 的扫描间隔大约为 10s。</p>
 <h3 id="config-host">主机设置<a class="headerlink" href="#config-host" title="Permanent link">&para;</a></h3>
-<p>PVE 会自动放通集群通信所需的端口，所以我们只需要创建一个名为 <code>management</code> 的 IPset，将我们自己登录 PVE 的 IP 加入就行了，PVE 会帮我们自动放通这个 IPset 里的 IP。</p>
+<p>PVE 会自动放通集群通信所需的端口，所以我们只需要创建一个名为 <code>management</code> 的 IPset，将我们自己登录 PVE 的 IP 加入就行了，PVE 会帮我们自动放通这个 IPset 里的 IP。目前添加了几个常用的 IP 地址，包括 iBug 的工作站和 LUG VPN 的出口 IP。</p>
 <p>另有一个特殊 IPset 叫做 <code>blacklist</code>，不过我们暂时用不上。</p>
+<p>其他需要的规则用 Security Group（安全组）实现。我们在集群层面建好了 <code>vlab-host</code> 和 <code>pbs</code> 等 SG，然后给每个主机都按需配上这些 SG 就行了。</p>
 <p>参见：<a href="https://pve.proxmox.com/wiki/Firewall">Firewall - Proxmox VE</a></p>
 <h3 id="config-vm">虚拟机设置<a class="headerlink" href="#config-vm" title="Permanent link">&para;</a></h3>
 <p>我们在 datacenter 上建一个 Security Group 叫 <code>vlab-vm</code> 用来配置需要对所有虚拟机的生效的规则，比如针对 code-server 和 VNC 的防火墙可以通过这种方式部署在虚拟机外面。</p>
+<p>如果设置里开启了 IP Filter，对于 LXC 容器，PVE 会自动把已配置好的 IP 地址加入这个白名单；但是对于 KVM 虚拟机，我们需要手动处理这个问题。目前做法是交给 vlab-pve-agent 来读取 VM 配置文件并生成防火墙配置。</p>
 <div class="highlight"><pre><span></span><code><span class="k">[OPTIONS]</span>
 
 <span class="na">policy_in</span><span class="o">:</span><span class="w"> </span><span class="s">ACCEPT</span>
@@ -1926,21 +1917,21 @@
 <span class="na">macfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
 <span class="na">enable</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
 
+<span class="k">[IPSET ipfilter-net0]</span>
+
+<span class="na">!2001</span><span class="o">:</span><span class="s">da8:d800:4bfc::/112</span>
+<span class="na">2001</span><span class="o">:</span><span class="s">da8:d800:4bfc::/64</span>
+
 <span class="k">[RULES]</span>
 
 <span class="na">GROUP vlab-vm</span>
 </code></pre></div>
-<p>配置过程：在网页上将 VM 1095 配好之后，进入 <code>/etc/pve/firewall</code>，将 <code>1095.fw</code> 为每个 VM 复制一份，参考代码如下：</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>id<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.ids | keys | .[]&#39;</span><span class="w"> </span>/etc/pve/.vmlist<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">1095</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
-<span class="w">  </span>cp<span class="w"> </span><span class="m">1095</span>.fw<span class="w"> </span><span class="nv">$id</span>.fw
-<span class="k">done</span>
-</code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">计划更新</p>
-<p>我们计划在下次维护时全面切换到 PVE firewall，以下信息是目前的手工配置。</p>
+<p>初始化配置过程见 <a href="../../records/2023-10-01/">2023 年 10 月 1 日工作记录</a></p>
+<h2 id="previous">旧的手工配置<a class="headerlink" href="#previous" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>以下内容已经过时，仅供参考。</p>
 </div>
-<h2 id="current">当前设置<a class="headerlink" href="#current" title="Permanent link">&para;</a></h2>
 <p>防火墙使用 Linux 自带的 iptables 管理，默认策略为 <code>INPUT DROP</code>, <code>FORWARD ACCEPT</code>, <code>OUTPUT ACCEPT</code>。方便起见使用 <code>iptables-persistent</code> 让防火墙规则开机自动加载。</p>
 <p>以下为 pv1 上的防火墙配置（<code>/etc/iptables/rules.v4</code> 和 <code>rules.v6</code> 文件内容一样）：</p>
 <div class="admonition todo">
@@ -2025,7 +2016,7 @@ ebtables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2023</span>
       
     
   </small>
