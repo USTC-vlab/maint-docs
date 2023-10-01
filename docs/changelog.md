@@ -8,6 +8,10 @@
 
 ### 2023 年
 
+[10 月 1 日](records/2023-10-01.md)
+
+:   按照规划了一个多月以来的方案全面切换到了 PVE Firewall，并更新了 vlab-vnc、vlab-vscode 等因此受益的软件。
+
 9 月 15 日
 
 :   测试发现 HPE MSA 1050 的 Virtual Volume 是支持 SCSI Unmap 的，因此在所有计算节点的 `/etc/lvm/lvm.conf` 中添加了 `issue_discard = 1`，然后通过创建一个临时 LV 的方式把所有未分配空间都 unmap 了一下：

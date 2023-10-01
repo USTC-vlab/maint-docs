@@ -1,0 +1,15 @@
+[OPTIONS]
+
+policy_in: ACCEPT
+ipfilter: 1
+macfilter: 1
+enable: 1
+
+[IPSET ipfilter-net0]
+
+!2001:da8:d800:4bfc::/112
+2001:da8:d800:4bfc::/64
+
+[RULES]
+
+GROUP vlab-vm

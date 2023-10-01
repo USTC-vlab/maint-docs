@@ -88,7 +88,7 @@ pvesm set pbs --fingerprint "$FP"
 6. `update-initramfs -u -k all` 更新 initramfs，重启
 
     !!! note ""
-    
+
         其实第 5 步不一定需要 chroot，但是这一步是需要的
 
 ### CT 100 和 CT 101 无法启动
@@ -259,9 +259,53 @@ VXLAN 是一种 overlay 网络实现，将帧包装在 UDP 包中传输。由于
 
 ### PVE 防火墙与 ebtables {#pve-fwbr}
 
-为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然会为开启了防火墙的网卡进行桥接（额外创建 fwbrXXXiX），而新增的 fwbr 桥和我们以前手工配置的防止 ARP 欺骗的 ebtables 规则有冲突，导致向受影响虚拟机发出的 ARP 请求无法到达虚拟机。
+PVE 会将开启了 firewall 的虚拟机网卡额外桥接一次，如图所示：
+
+未开启 firewall 时
+
+:   <!-- -->
+
+    ```mermaid
+    flowchart LR
+    vmbr{{vmbr0}} ---|"veth100i0 / eth0@vm"| vm([VM])
+    ```
+
+开启 firewall 时
+
+:   <!-- -->
+
+    ```mermaid
+    flowchart LR
+    vmbr{{vmbr0}} ---|"fwpr100i0 / fwln100i0"| fwbr{{fwbr100i0}} ---|"veth100i0 / eth0@vm"| vm([VM])
+    ```
+
+为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然进行上述桥接操作。该桥接与我们[手搓的 ebtables 规则](../networking/firewall.md#ebtables)有冲突，使所有帧都无法经过 fwbr100i0，导致虚拟机整个断网。
 
 虽然 `ebtables -I VLAB_SECURE 4 -i fwln+ -j ACCEPT` 可以解决问题，但是既然要迁移了，我们还是选择直接删除手搓的 ebtables 配置，避免以后起更多冲突。
+
+### iptables-legacy 与 iptables-nft {#iptables-legacy-nft}
+
+PVE Firewall 会在启动时自动将 iptables 命令的 alternatives [切换至 iptables-legacy][pve-iptables-legacy]，但是并不会帮忙清掉 iptables-nft 里已有的规则，所以刚开启全局防火墙开关的时候，尽管 `iptables -S` 和 `iptables-save` 命令的输出看起来没啥问题，但是虚拟机还是断网了，仔细思考了 20 分钟才想起来这个问题。
+
+  [pve-iptables-legacy]: https://forum.proxmox.com/threads/v6-0-move-from-iptables-to-nftables.55924/#post-257794
+
+解决方法是手动清掉 iptables-nft 里的规则，在每个主机上运行：
+
+```shell
+iptables-nft -F
+iptables-nft -X
+iptables-nft -Z
+```
+
+此时还没有注意到 IPv6 也坏了，又花了 10 分钟想起来还需要执行下面的命令：
+
+```shell
+ip6tables-nft -F
+ip6tables-nft -X
+ip6tables-nft -Z
+```
+
+考虑到我们先前对 INPUT, OUTPUT, FORWARD 链设置的 policy 都是 ACCEPT，就不需要重置了。
 
 
 ## 虚拟机 {#vm}
