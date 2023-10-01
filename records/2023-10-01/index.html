@@ -1308,6 +1308,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2023 年 10 月 1 日
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1317,6 +1328,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#为所有虚拟机启用防火墙" class="md-nav__link">
+    为所有虚拟机启用防火墙
+  </a>
+  
+    <nav class="md-nav" aria-label="为所有虚拟机启用防火墙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-firewall" class="md-nav__link">
+    虚拟机层面的防火墙
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iface-firewall" class="md-nav__link">
+    网卡层面的防火墙
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    踩坑
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1718,6 +1782,48 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#为所有虚拟机启用防火墙" class="md-nav__link">
+    为所有虚拟机启用防火墙
+  </a>
+  
+    <nav class="md-nav" aria-label="为所有虚拟机启用防火墙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-firewall" class="md-nav__link">
+    虚拟机层面的防火墙
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iface-firewall" class="md-nav__link">
+    网卡层面的防火墙
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traps" class="md-nav__link">
+    踩坑
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1749,13 +1855,63 @@
 
 <h1 id="2023-年-10-月-1-日工作总结">2023 年 10 月 1 日工作总结<a class="headerlink" href="#2023-年-10-月-1-日工作总结" title="Permanent link">&para;</a></h1>
 <p>今天晚上按照已经规划了一个多月的方案，全面抛弃手搓的 iptables 防火墙规则，并启用了 PVE Firewall。</p>
+<h2 id="为所有虚拟机启用防火墙">为所有虚拟机启用防火墙<a class="headerlink" href="#为所有虚拟机启用防火墙" title="Permanent link">&para;</a></h2>
+<h3 id="vm-firewall">虚拟机层面的防火墙<a class="headerlink" href="#vm-firewall" title="Permanent link">&para;</a></h3>
+<p>首先在 PVE Web 上面找一个虚拟机，调好防火墙选项，得到配置文件：</p>
+<div class="highlight"><span class="filename">/etc/pve/firewall/1095.fw</span><pre><span></span><code><span class="k">[OPTIONS]</span>
+
+<span class="na">enable</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+<span class="na">macfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+<span class="na">ipfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+<span class="na">policy_in</span><span class="o">:</span><span class="w"> </span><span class="s">ACCEPT</span>
+
+<span class="k">[RULES]</span>
+
+<span class="na">GROUP vlab-vm</span>
+</code></pre></div>
+<p>然后 ssh 进 PVE 把这份文件复制到所有虚拟机：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/etc/pve/firewall
+<span class="k">for</span><span class="w"> </span>id<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.ids | keys | .[]&#39;</span><span class="w"> </span>/etc/pve/.vmlist<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">1095</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<span class="w">  </span>cp<span class="w"> </span><span class="m">1095</span>.fw<span class="w"> </span><span class="nv">$id</span>.fw
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="iface-firewall">网卡层面的防火墙<a class="headerlink" href="#iface-firewall" title="Permanent link">&para;</a></h3>
+<p>为所有虚拟机的网卡（net0）加上 <code>firewall=1</code>。经过测试，直接对着 <code>/etc/pve/nodes/{node}/lxc/{vmid}.conf</code> 跑 sed 是不会为已经开机的虚拟机真正启用防火墙的，需要通过 API（HTTP 或 <code>pvesh</code> 均可）来修改。</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>id<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.ids | keys | .[]&#39;</span><span class="w"> </span>/etc/pve/.vmlist<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="o">[</span><span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$id</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<span class="w">  </span><span class="nv">node</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;.ids.\&quot;</span><span class="nv">$id</span><span class="s2">\&quot;.node&quot;</span><span class="w"> </span>/etc/pve/.vmlist<span class="k">)</span>
+<span class="w">  </span><span class="nv">f</span><span class="o">=</span><span class="s2">&quot;/etc/pve/nodes/</span><span class="nv">$node</span><span class="s2">/lxc/</span><span class="nv">$id</span><span class="s2">.conf&quot;</span>
+<span class="w">  </span><span class="nv">conf</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$1==&quot;net0:&quot;{print $2}&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$conf</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>*firewall<span class="o">=</span><span class="m">1</span>*<span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">continue</span>
+<span class="w">  </span>pvesh<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/nodes/<span class="nv">$node</span>/lxc/<span class="nv">$id</span>/config<span class="w"> </span>-net0<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$conf</span><span class="s2">,firewall=1&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+<h2 id="traps">踩坑<a class="headerlink" href="#traps" title="Permanent link">&para;</a></h2>
+<p>PVE 会将开启了 firewall 的虚拟机网卡额外桥接一次，如图所示：</p>
+<dl>
+<dt>未开启 firewall 时</dt>
+<dd>
+<!-- -->
+<pre class="mermaid"><code>flowchart LR
+vmbr{{vmbr0}} ---|"veth100i0 / eth0@vm"| vm([VM])</code></pre>
+</dd>
+<dt>开启 firewall 时</dt>
+<dd>
+<!-- -->
+<pre class="mermaid"><code>flowchart LR
+vmbr{{vmbr0}} ---|"fwpr100i0 / fwln100i0"| fwbr{{fwbr100i0}} ---|"veth100i0 / eth0@vm"| vm([VM])</code></pre>
+</dd>
+</dl>
+<p>与 iptables 规则不同，这个行为不受 Cluster 全局防火墙开关的影响，因此只要为虚拟机网卡开启了防火墙，PVE 就会添加这样一层桥接。</p>
+<p>该桥接与我们<a href="../../networking/firewall/#ebtables">手搓的 ebtables 规则</a>有冲突，导致开启了接口防火墙的虚拟机无法连接。由于我们提前修改并部署了 Django，许多新建的虚拟机都开启了防火墙并遇到这个问题，所以我们立即下限了手搓的 ebtables，等到今天的维护窗口再来解决这个问题。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2023</span>
       
     
   </small>
