@@ -1886,7 +1886,7 @@
 <h2 id="host-firewall">更新主机防火墙<a class="headerlink" href="#host-firewall" title="Permanent link">&para;</a></h2>
 <p>在 PVE Web 界面上操作建好了 <code>management</code>、<code>blacklist</code> 等 IPSet，并且建好了 <code>vlab-host</code>、<code>vlab-vm</code> 和 <code>pbs</code> 三个 Security Group。</p>
 <p>在 pv1 上配好了防火墙，检查配置文件 <code>/etc/pve/nodes/pv1/host.fw</code>，并（去掉 pbs 之后）复制到其他节点上。</p>
-<p>最后<a href="../../networking/firewall/#previous">在 pv1 上删除</a>了 <code>/etc/modprobe.d/iptables-legacy.conf</code> 这个毫无必要的文件，清理了曾经给自己埋下的坑。</p>
+<p>最后<a href="../../networking/firewall/#previous">在 pv1 上删除</a>了 <code>/etc/modprobe.d/iptables-legacy.conf</code> 这个毫无必要的文件，清除了一个曾经给自己埋下的坑（但是幸亏记住了）。</p>
 <h2 id="为所有虚拟机启用防火墙">为所有虚拟机启用防火墙<a class="headerlink" href="#为所有虚拟机启用防火墙" title="Permanent link">&para;</a></h2>
 <h3 id="vm-firewall">虚拟机层面的防火墙<a class="headerlink" href="#vm-firewall" title="Permanent link">&para;</a></h3>
 <p>首先在 PVE Web 上面找一个虚拟机，调好防火墙选项，得到配置文件：</p>
