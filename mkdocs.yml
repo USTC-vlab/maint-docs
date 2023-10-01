@@ -68,9 +68,13 @@ markdown_extensions:
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.mark
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.snippets:
-      base_path: docs/assets/
+      base_path: [docs/assets/]
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
@@ -79,7 +83,9 @@ markdown_extensions:
       subscript: false
   - toc:
       permalink: true
-      slugify: !!python/name:pymdownx.slugs.uslugify
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
 
 nav:
   - 首页: index.md
