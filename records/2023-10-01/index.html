@@ -1892,10 +1892,15 @@
 <p>首先在 PVE Web 上面找一个虚拟机，调好防火墙选项，得到配置文件：</p>
 <div class="highlight"><span class="filename">/etc/pve/firewall/1095.fw</span><pre><span></span><code><span class="k">[OPTIONS]</span>
 
-<span class="na">enable</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
-<span class="na">macfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
-<span class="na">ipfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
 <span class="na">policy_in</span><span class="o">:</span><span class="w"> </span><span class="s">ACCEPT</span>
+<span class="na">ipfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+<span class="na">macfilter</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+<span class="na">enable</span><span class="o">:</span><span class="w"> </span><span class="s">1</span>
+
+<span class="k">[IPSET ipfilter-net0]</span>
+
+<span class="na">!2001</span><span class="o">:</span><span class="s">da8:d800:4bfc::/112</span>
+<span class="na">2001</span><span class="o">:</span><span class="s">da8:d800:4bfc::/64</span>
 
 <span class="k">[RULES]</span>
 
