@@ -8,6 +8,16 @@
 
 ### 2023 年
 
+10 月 2 日
+
+:   Vlab Software 上线了 Vivado 2023.1，容量约为 29 GB。
+
+    ```text
+    /opt/vlab/applications/vivado2023.desktop
+    /opt/vlab/bin/vivado2023
+    /opt/vlab/vivado/Xilinx/Vivado/2023.1/
+    ```
+
 [10 月 1 日](records/2023-10-01.md)
 
 :   按照规划了一个多月以来的方案全面切换到了 PVE Firewall，并更新了 vlab-vnc、vlab-vscode 等因此受益的软件。
