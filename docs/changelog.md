@@ -18,6 +18,8 @@
     /opt/vlab/vivado/Xilinx/Vivado/2023.1/
     ```
 
+    测试发现 Vivado 2023.1 在开始综合和开始实现的时候都会闪退，被迫补上了祖传的 LD\_PRELOAD Ubuntu 18.04 的 `libudev.so.1.6.9`；接下来 route_design 一步还是会异常结束（但程序没有整个闪退），又被迫补上了 `libdbus-glib-1.so.2.3.4`。
+
 [10 月 1 日](records/2023-10-01.md)
 
 :   按照规划了一个多月以来的方案全面切换到了 PVE Firewall，并更新了 vlab-vnc、vlab-vscode 等因此受益的软件。
