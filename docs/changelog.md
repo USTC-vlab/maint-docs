@@ -8,6 +8,12 @@
 
 ### 2023 年
 
+[11 月 16 日](records/2023-11-18.md)
+
+:   在 pv9 - pv14 上安装了新的 `intel-microcode` 包并安排计划重启，修复了 CVE-2023-23583。
+
+    同时更新了 Django，在虚拟机 ID 后面显示节点名称。
+
 10 月 2 日
 
 :   Vlab Software 上线了 Vivado 2023.1，容量约为 29 GB。
