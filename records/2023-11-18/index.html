@@ -1827,8 +1827,9 @@
 <p>（今天啥都没干，实际工作已经在 11 月 16 日完成了。）</p>
 <h2 id="cve-2023-23583">CVE-2023-23583<a class="headerlink" href="#cve-2023-23583" title="Permanent link">&para;</a></h2>
 <p>11 月 16 日有同学在 vlab 上测试 <a href="https://www.intel.com/content/www/us/en/developer/topic-technology/software-security-guidance/processors-affected-consolidated-product-cpu-model.html">CVE-2023-23583</a> 导致 pv11, pv13, pv14 三台 host 故障并自动重启，然后私聊我们反馈了这个问题。调查发现 Intel 已经发布了修复后的微码，但是 Debian 还没有打包，所以我们手动下载了由 Ubuntu 打包的微码（<code>intel-microcode_3.20231114.0ubuntu0.22.04.1_amd64.deb</code>）并 <code>dpkg -i</code>。</p>
-<p>我们对这一批机器（pv9 到 pv14）都进行了相同的操作，然后将 pv9 先行重启，确认故障已经修复后，发布公告计划在 18 日凌晨 0 点重启正式提供服务的 5 台机器。</p>
+<p>我们对这一批机器（pv9 到 pv14）都进行了相同的操作，然后将 pv9 先行重启，确认故障已经修复后，发布公告计划在 18 日凌晨 0 点重启运行着用户虚拟机的 5 台机器。</p>
 <p>这回偷了个懒，在自己的机器上用 at(8) 定时任务 ssh 到 5 台节点上运行 <code>reboot</code>，节省了人工操作的时间。</p>
+<p>同时也更新了 Django，在虚拟机 ID 后面显示节点名称。</p>
 
   <hr>
 <div class="md-source-file">
