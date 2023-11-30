@@ -1144,6 +1144,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="从主机上寻找 PID 所属的容器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1866,6 +1890,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="从主机上寻找 PID 所属的容器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1910,6 +1958,15 @@
 <li><a href="https://forum.proxmox.com/threads/list-all-vmids-from-command-line.10964/">List all VMID's from command line? | Proxmox Support Forum</a></li>
 </ul>
 <h2 id="从主机上寻找-pid-所属的容器">从主机上寻找 PID 所属的容器<a class="headerlink" href="#从主机上寻找-pid-所属的容器" title="Permanent link">&para;</a></h2>
+<h3 id="方法-1">方法 1<a class="headerlink" href="#方法-1" title="Permanent link">&para;</a></h3>
+<p>进程的 cgroup 结构里包含了容器 ID，例如：</p>
+<div class="highlight"><pre><span></span><code><span class="gp"># </span>cat<span class="w"> </span>/proc/114514/cgroup
+<span class="go">0::/lxc/6666/ns/system.slice/lightdm.service</span>
+</code></pre></div>
+<p>所以只需要对着这个 cgroup 文件 grep 出来即可：</p>
+<div class="highlight"><pre><span></span><code>grep<span class="w"> </span>-Po<span class="w"> </span><span class="s1">&#39;/lxc/\K\d+&#39;</span><span class="w"> </span>/proc/<span class="nv">$PID</span>/cgroup
+</code></pre></div>
+<h3 id="方法-2">方法 2<a class="headerlink" href="#方法-2" title="Permanent link">&para;</a></h3>
 <p>思路：从 <code>/proc</code> 里不断读取其父 PID 直到找到容器里的 PID 1，这个 "PID 1" 的父进程 <code>lxc-start</code> 的命令行里可以看到容器 ID。</p>
 <p>参考代码：</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
@@ -1937,7 +1994,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 30, 2023</span>
       
     
   </small>
