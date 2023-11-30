@@ -13,8 +13,25 @@ jq -r '.ids | to_entries[] | select(.value.type == "lxc") | .key' /etc/pve/.vmli
 参考资料：
 
 - [List all VMID's from command line? | Proxmox Support Forum](https://forum.proxmox.com/threads/list-all-vmids-from-command-line.10964/)
-  
+
 ## 从主机上寻找 PID 所属的容器
+
+### 方法 1
+
+进程的 cgroup 结构里包含了容器 ID，例如：
+
+```console
+# cat /proc/114514/cgroup
+0::/lxc/6666/ns/system.slice/lightdm.service
+```
+
+所以只需要对着这个 cgroup 文件 grep 出来即可：
+
+```shell
+grep -Po '/lxc/\K\d+' /proc/$PID/cgroup
+```
+
+### 方法 2
 
 思路：从 `/proc` 里不断读取其父 PID 直到找到容器里的 PID 1，这个 "PID 1" 的父进程 `lxc-start` 的命令行里可以看到容器 ID。
 
