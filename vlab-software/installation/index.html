@@ -1887,8 +1887,16 @@
 <p>更新脚本：</p>
 <div class="highlight"><span class="filename">pv1:/root/vlab-software/code-server.sh</span><pre><span></span><code><span class="ch">#!/bin/sh</span>
 
+<span class="nv">LOCALDIR</span><span class="o">=</span>/opt/vlab/code-server
+<span class="nv">LOCALVERSION</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span>.version<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOCALDIR</span><span class="s2">/package.json&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+
 <span class="nv">URL</span><span class="o">=</span><span class="s2">&quot;https://github.com/coder/code-server/releases/latest&quot;</span>
 <span class="nv">VERSION</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-sI<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$URL</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>perl<span class="w"> </span>-ne<span class="w"> </span><span class="s1">&#39;/^location:/ &amp;&amp; /v([\d.]*)\s*$/ &amp;&amp; print $1&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOCALVERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Already up-to-date.&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
 
 <span class="nv">URL</span><span class="o">=</span><span class="s2">&quot;https://github.com/coder/code-server/releases/download/v</span><span class="nv">$VERSION</span><span class="s2">/code-server-</span><span class="nv">$VERSION</span><span class="s2">-linux-amd64.tar.gz&quot;</span>
 <span class="nv">BASENAME</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>basename<span class="w"> </span>-s<span class="w"> </span>.tar.gz<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$URL</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
@@ -1897,7 +1905,7 @@
 <span class="nb">cd</span><span class="w"> </span>/tmp
 wget<span class="w"> </span>-O<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASENAME</span><span class="s2">.tar.gz&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$URL</span><span class="s2">&quot;</span>
 tar<span class="w"> </span>zxf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASENAME</span><span class="s2">.tar.gz&quot;</span>
-rsync<span class="w"> </span>-avAX<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASENAME</span><span class="s2">&quot;</span>/<span class="w"> </span>/opt/vlab/code-server/
+rsync<span class="w"> </span>-avAX<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASENAME</span><span class="s2">&quot;</span>/<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOCALDIR</span><span class="s2">&quot;</span>/
 rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASENAME</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASENAME</span><span class="s2">.tar.gz&quot;</span>
 </code></pre></div>
 
