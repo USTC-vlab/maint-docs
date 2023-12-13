@@ -1735,6 +1735,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../records/2023-12-13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2023 年 12 月 13 日
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../records/2023-11-18/" class="md-nav__link">
         
   
@@ -2796,7 +2817,7 @@ vmbr{{vmbr0}} ---|"veth100i0 / eth0@vm"| vm([VM])</code></pre>
 vmbr{{vmbr0}} ---|"fwpr100i0 / fwln100i0"| fwbr{{fwbr100i0}} ---|"veth100i0 / eth0@vm"| vm([VM])</code></pre>
 </dd>
 </dl>
-<p>为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然进行上述桥接操作。该桥接与我们<a href="../networking/firewall.md#ebtables">手搓的 ebtables 规则</a>有冲突，使所有帧都无法经过 fwbr100i0，导致虚拟机整个断网。</p>
+<p>为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然进行上述桥接操作。该桥接与我们<a href="../networking/firewall/#ebtables">手搓的 ebtables 规则</a>有冲突，使所有帧都无法经过 fwbr100i0，导致虚拟机整个断网。</p>
 <p>虽然 <code>ebtables -I VLAB_SECURE 4 -i fwln+ -j ACCEPT</code> 可以解决问题，但是既然要迁移了，我们还是选择直接删除手搓的 ebtables 配置，避免以后起更多冲突。</p>
 <h3 id="iptables-legacy-nft">iptables-legacy 与 iptables-nft<a class="headerlink" href="#iptables-legacy-nft" title="Permanent link">&para;</a></h3>
 <p>PVE Firewall 会在启动时自动将 iptables 命令的 alternatives <a href="https://forum.proxmox.com/threads/v6-0-move-from-iptables-to-nftables.55924/#post-257794">切换至 iptables-legacy</a>，但是并不会帮忙清掉 iptables-nft 里已有的规则，所以刚开启全局防火墙开关的时候，尽管 <code>iptables -S</code> 和 <code>iptables-save</code> 命令的输出看起来没啥问题，但是虚拟机还是断网了，仔细思考了 20 分钟才想起来这个问题。</p>
@@ -2941,7 +2962,7 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 13, 2023</span>
   </span>
 
     
