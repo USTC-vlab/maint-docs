@@ -279,7 +279,7 @@ PVE 会将开启了 firewall 的虚拟机网卡额外桥接一次，如图所示
     vmbr{{vmbr0}} ---|"fwpr100i0 / fwln100i0"| fwbr{{fwbr100i0}} ---|"veth100i0 / eth0@vm"| vm([VM])
     ```
 
-为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然进行上述桥接操作。该桥接与我们[手搓的 ebtables 规则](../networking/firewall.md#ebtables)有冲突，使所有帧都无法经过 fwbr100i0，导致虚拟机整个断网。
+为了全面迁移到 PVE 防火墙，我们提前修改了 Django 为新建的虚拟机的网卡启用防火墙，但是意外的是，PVE Datacenter 层面的防火墙总开关只控制是否应用 iptables 规则，总开关关闭的情况下 PVE 仍然进行上述桥接操作。该桥接与我们[手搓的 ebtables 规则](./networking/firewall.md#ebtables)有冲突，使所有帧都无法经过 fwbr100i0，导致虚拟机整个断网。
 
 虽然 `ebtables -I VLAB_SECURE 4 -i fwln+ -j ACCEPT` 可以解决问题，但是既然要迁移了，我们还是选择直接删除手搓的 ebtables 配置，避免以后起更多冲突。
 

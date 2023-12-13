@@ -65,8 +65,8 @@ markdown_extensions:
   - markdown.extensions.def_list
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.mark
   - pymdownx.superfences:
@@ -129,6 +129,7 @@ nav:
     - 踩坑记录: traps.md
     - 更新历史: changelog.md
     - 工作总结:
+      - 2023 年 12 月 13 日: records/2023-12-13.md
       - 2023 年 11 月 18 日: records/2023-11-18.md
       - 2023 年 10 月 1 日: records/2023-10-01.md
       - 2023 年 8 月 6 日: records/2023-08-06.md
