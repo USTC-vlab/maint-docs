@@ -36,6 +36,7 @@ theme:
     - content.action.edit
     - content.action.view
     - content.code.copy
+    - content.tooltips
     - navigation.instant
     - navigation.top
     - navigation.sections
