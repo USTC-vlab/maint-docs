@@ -57,3 +57,13 @@ while :; do
   fi
 done
 ```
+
+## 调试容器启动失败的原因
+
+PVE 的容器采用 systemd 管理，所以首先可以 `systemctl status pve-container@114514` 查看情况。如果这里没有足够的日志，可以把 ExecStart 命令拷下来手动运行，例如：
+
+```shell
+/usr/bin/lxc-start -F -n 114514
+```
+
+然后按提示加上 `--logfile /dev/stdout --logpriority INFO`（或者 DEBUG），应该就有足够详细的日志来判断问题了。
