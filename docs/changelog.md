@@ -6,6 +6,12 @@
 
 ## 更新记录
 
+### 2024 年
+
+1 月 14 日
+
+:   更新了 Ubuntu 22.04, Ubuntu 20.04 和 CECS 三个镜像，给 systemd-journald 加上了写盘和写 `/run` 的容量限制。
+
 ### 2023 年
 
 [11 月 16 日](records/2023-11-18.md)
@@ -24,7 +30,7 @@
     /opt/vlab/vivado/Xilinx/Vivado/2023.1/
     ```
 
-    测试发现 Vivado 2023.1 在开始综合和开始实现的时候都会闪退，被迫补上了祖传的 LD\_PRELOAD Ubuntu 18.04 的 `libudev.so.1.6.9`；接下来 route_design 一步还是会异常结束（但程序没有整个闪退），又被迫补上了 `libdbus-glib-1.so.2.3.4`。
+    测试发现 Vivado 2023.1 在开始综合和开始实现的时候都会闪退，被迫补上了祖传的 LD\_PRELOAD Ubuntu 18.04 的 `libudev.so.1.6.9`；接下来 route\_design 一步还是会异常结束（但程序没有整个闪退），又被迫补上了 `libdbus-glib-1.so.2.3.4`。
 
 [10 月 1 日](records/2023-10-01.md)
 
