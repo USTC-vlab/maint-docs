@@ -16,6 +16,10 @@ jq -r '.ids | to_entries[] | select(.value.type == "lxc") | .key' /etc/pve/.vmli
 
 ## 从主机上寻找 PID 所属的容器
 
+!!! success "使用 Vlab Container Tool 工具"
+
+    我们已将方法 1 整合进 [Vlab Container Tool 工具](https://github.com/USTC-vlab/vct)，可以使用 `vct findpid <pid>...` 来查找 PID 所属的容器。
+
 ### 方法 1
 
 进程的 cgroup 结构里包含了容器 ID，例如：
