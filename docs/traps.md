@@ -460,7 +460,7 @@ See [2023 年 1 月 28 日工作记录](./records/2023-01-28.md).
 ```console
 # pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- systemctl disable man-db.timer
 # pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- systemctl disable apt-daily-upgrade.timer
-# pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- bash -c 'mkdir -p /etc/systemd/system/logrotate.timer.d && echo -e "[Timer]\nRandomizedDelaySec=3h" > /etc/systemd/system/logrotate.timer.d/vlab.conf && systemctl daemon-reload'
+# pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- bash -c 'echo xxx && [ ! -f "/etc/systemd/system/logrotate.timer.d/vlab.conf" ] && mkdir -p /etc/systemd/system/logrotate.timer.d && echo -e "[Timer]\nRandomizedDelaySec=3h" > /etc/systemd/system/logrotate.timer.d/vlab.conf && systemctl daemon-reload'
 ```
 
 ## Web 及用户界面
