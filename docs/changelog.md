@@ -1,3 +1,7 @@
+---
+icon: material/clock-outline
+---
+
 # 更新历史
 
 记录我们上线部署新功能（或 bug fix 等）的历史。
@@ -7,6 +11,14 @@
 ## 更新记录
 
 ### 2024 年
+
+2 月 18 日
+
+:   修复了 KVM 虚拟机默认不带 `zram.ko` 的问题（通过 `cloud.cfg` 加装 `linux-image-extra-virtual`），并更新了虚拟机镜像。
+
+2 月 14 日
+
+:   全面开放了 KVM 虚拟机权限，允许用户自行创建 KVM 虚拟机。
 
 1 月 14 日
 
