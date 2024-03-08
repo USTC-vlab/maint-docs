@@ -3,8 +3,8 @@
 SRC="/etc/pve/nodes/pv1"
 DSTROOT="/etc/pve/nodes"
 
-scp web:/etc/acme.sh/ibuglab.com/ibuglab.com.key "$SRC/pveproxy-ssl.key"
-scp web:/etc/acme.sh/ibuglab.com/fullchain.cer "$SRC/pveproxy-ssl.pem"
+scp web:/etc/ssl/private/ibuglab.com/ibuglab.com.key "$SRC/pveproxy-ssl.key"
+scp web:/etc/ssl/private/ibuglab.com/fullchain.cer "$SRC/pveproxy-ssl.pem"
 systemctl reload pveproxy.service vlab-pve-agent.service
 
 for DST in "$DSTROOT"/*; do
