@@ -12,6 +12,10 @@ icon: material/clock-outline
 
 ### 2024 年
 
+3 月 8 日
+
+:   调整了 SSL 证书的部署方式。
+
 2 月 18 日
 
 :   修复了 KVM 虚拟机默认不带 `zram.ko` 的问题（通过 `cloud.cfg` 加装 `linux-image-extra-virtual`），并更新了虚拟机镜像。
