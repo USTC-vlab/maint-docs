@@ -2104,6 +2104,7 @@ iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> <
 <div class="highlight"><pre><span></span><code><span class="na">node.startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">automatic</span>
 <span class="na">node.conn[0].startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">automatic</span>
 </code></pre></div>
+<p>注意路径中的 <code>10.0.0.200,3260,1</code> 目录名就是 IP 地址 + 端口号 + 控制器序号。存储服务器的另一个控制器位于 <code>10.0.0.201,3260,2</code>。</p>
 </div>
 <h2 id="挂载-nfs-镜像共享">挂载 NFS 镜像共享<a class="headerlink" href="#挂载-nfs-镜像共享" title="Permanent link">&para;</a></h2>
 <p>挂载 NFS 共享所用的 <code>/etc/fstab</code> 条目：</p>
