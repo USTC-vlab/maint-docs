@@ -81,6 +81,17 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200
 
 注意正确填写选项 `-T` 和 `-p` 的参数。
 
+!!! tip "也可以直接编辑配置文件"
+
+    或者，一个等价的做法是编辑 `/etc/iscsi/nodes/iqn.2015-11.com.hpe:storage.msa1050.1840436ed4/10.0.0.200,3260,1/default` 文件，找到如下两行并修改为 `automatic`：
+
+    ```ini
+    node.startup = automatic
+    node.conn[0].startup = automatic
+    ```
+
+    注意路径中的 `10.0.0.200,3260,1` 目录名就是 IP 地址 + 端口号 + 控制器序号。存储服务器的另一个控制器位于 `10.0.0.201,3260,2`。
+
 ## 挂载 NFS 镜像共享
 
 挂载 NFS 共享所用的 `/etc/fstab` 条目：
