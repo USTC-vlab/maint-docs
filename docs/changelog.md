@@ -12,6 +12,10 @@ icon: material/clock-outline
 
 ### 2024 年
 
+5 月 10 日
+
+:   **:material-hammer-wrench: 修复**：更新 code-server 的脚本（`pv1:/root/vlab-software/code-server.sh`）调用 rsync 时忘记加 `--delete` 了，导致更新到 4.89.0 后出错。
+
 4 月 13 日
 
 :   在虚拟机管理页面新增了重命名虚拟机的选项和“管理员消息”功能，并将所有虚拟机的内存容量增加到了 6 GB（新创建虚拟机也采用 6 GB）。

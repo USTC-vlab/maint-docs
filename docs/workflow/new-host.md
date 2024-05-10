@@ -12,7 +12,7 @@
 
 修改 `/etc/apt/sources.list`，将软件源替换为 TUNA：
 
-```
+```debsources
 deb https://mirrors.ustc.edu.cn/debian bullseye main contrib
 deb https://mirrors.ustc.edu.cn/debian bullseye-updates main contrib
 deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
@@ -20,7 +20,7 @@ deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 
 删除 `/etc/apt/sources.list.d/pve-enterprise.list`，新建 `/etc/apt/sources.list.d/pve.list`，写入以下内容：
 
-```
+```debsources
 deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 ```
 
@@ -96,7 +96,7 @@ iscsiadm -m node -T iqn.2015-11.com.hpe:storage.msa1050.1840436ed4 -p 10.0.0.200
 
 挂载 NFS 共享所用的 `/etc/fstab` 条目：
 
-```
+```shell
 10.0.0.1:/var/lib/vz /mnt/vz nfs rw,async,hard,intr,noexec 0 0
 ```
 
