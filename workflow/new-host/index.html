@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -2055,12 +2055,12 @@
 <p><strong>在加入现有的 Proxmox VE 集群后</strong>删除 root 密码（<code>passwd -d root</code>），方便以后维护。</p>
 <h2 id="软件源">软件源<a class="headerlink" href="#软件源" title="Permanent link">&para;</a></h2>
 <p>修改 <code>/etc/apt/sources.list</code>，将软件源替换为 TUNA：</p>
-<div class="highlight"><pre><span></span><code>deb https://mirrors.ustc.edu.cn/debian bullseye main contrib
-deb https://mirrors.ustc.edu.cn/debian bullseye-updates main contrib
-deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
+<div class="highlight"><pre><span></span><code><span class="k">deb</span><span class="w"> </span><span class="s">https://mirrors.ustc.edu.cn/debian</span><span class="w"> </span><span class="kp">bullseye</span><span class="w"> </span><span class="kp">main</span><span class="w"> </span><span class="kp">contrib</span>
+<span class="k">deb</span><span class="w"> </span><span class="s">https://mirrors.ustc.edu.cn/debian</span><span class="w"> </span><span class="kp">bullseye-updates</span><span class="w"> </span><span class="kp">main</span><span class="w"> </span><span class="kp">contrib</span>
+<span class="k">deb</span><span class="w"> </span><span class="s">https://mirrors.ustc.edu.cn/debian-security</span><span class="w"> </span><span class="kp">bullseye-security</span><span class="w"> </span><span class="kp">main</span><span class="w"> </span><span class="kp">contrib</span>
 </code></pre></div>
 <p>删除 <code>/etc/apt/sources.list.d/pve-enterprise.list</code>，新建 <code>/etc/apt/sources.list.d/pve.list</code>，写入以下内容：</p>
-<div class="highlight"><pre><span></span><code>deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
+<div class="highlight"><pre><span></span><code><span class="k">deb</span><span class="w"> </span><span class="s">https://mirrors.ustc.edu.cn/proxmox/debian</span><span class="w"> </span><span class="kp">bullseye</span><span class="w"> </span><span class="kp">pve-no-subscription</span>
 </code></pre></div>
 <p>刷新软件源并安装更新。</p>
 <h2 id="安装软件可选">安装软件（可选）<a class="headerlink" href="#安装软件可选" title="Permanent link">&para;</a></h2>
@@ -2108,7 +2108,7 @@ iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> <
 </div>
 <h2 id="挂载-nfs-镜像共享">挂载 NFS 镜像共享<a class="headerlink" href="#挂载-nfs-镜像共享" title="Permanent link">&para;</a></h2>
 <p>挂载 NFS 共享所用的 <code>/etc/fstab</code> 条目：</p>
-<div class="highlight"><pre><span></span><code>10.0.0.1:/var/lib/vz /mnt/vz nfs rw,async,hard,intr,noexec 0 0
+<div class="highlight"><pre><span></span><code><span class="m">10</span>.0.0.1:/var/lib/vz<span class="w"> </span>/mnt/vz<span class="w"> </span>nfs<span class="w"> </span>rw,async,hard,intr,noexec<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 </code></pre></div>
 <p>注意先在 pv1 上编辑 <code>/etc/exports</code> 并运行 <code>exportfs -a</code> 刷新挂载权限。</p>
 <h2 id="额外的系统设置">额外的系统设置<a class="headerlink" href="#额外的系统设置" title="Permanent link">&para;</a></h2>
@@ -2133,7 +2133,7 @@ iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> <
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2024</span>
   </span>
 
     
@@ -2219,7 +2219,7 @@ iscsiadm<span class="w"> </span>-m<span class="w"> </span>node<span class="w"> <
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tooltips", "navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
       
     
   </body>
