@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -703,6 +703,15 @@
   <a href="#grafana-security" class="md-nav__link">
     <span class="md-ellipsis">
       安全维护
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      限制校外访问
     </span>
   </a>
   
@@ -2036,6 +2045,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#external-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      限制校外访问
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2198,15 +2216,14 @@
 <p>用户在虚拟机内使用我们自己编写的 <code>vscode</code> 命令来管理 code-server 对应的系统服务，这是一个（粗制滥造的）Bash 脚本，见 <a href="../../assets/vscode">vscode</a>。</p>
 <h2 id="user-docs">Webhook 与用户文档<a class="headerlink" href="#user-docs" title="Permanent link">&para;</a></h2>
 <p>容器里有一个 webhook 服务器，从 GitHub 接收用户文档仓库 <a href="https://github.com/USTC-vlab/docs">USTC-vlab/docs</a> 的更新通知并拉取更新。</p>
-<p>代码曾经是用 <a href="https://sinatrarb.com/">Ruby Sinatra</a> 写的，后来换成了 Go，参见 <code>/root/webhook/main.go</code>（或<a href="https://gist.github.com/iBug/34caff517617bfd0de2205d2466a3b78">这个 Gist</a>）</p>
-<p>由于该 webhook 过于简单，它自己甚至没有一个 Git 仓库做版本管理（</p>
+<p>代码曾经是用 <a href="https://sinatrarb.com/">Ruby Sinatra</a> 写的，后来换成了 Go，参见 <a href="https://github.com/ustclug-dev/webhook-go">ustclug-dev/webhook-go</a> 和服务器上的 <code>/etc/webhook-go.yml</code>。</p>
 <div class="admonition info">
 <p class="admonition-title">注意</p>
-<p>这个 webhook 前面还是套了一层 Nginx 的，不是直连的</p>
+<p>这个 webhook 前面还是套了一层 Nginx 的，不是直连的。</p>
 </div>
 <h2 id="grafana">Grafana 与监控、统计<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h2>
 <h3 id="grafana-security">安全维护<a class="headerlink" href="#grafana-security" title="Permanent link">&para;</a></h3>
-<p>根据相关要求，grafana 限制仅允许校园网访问。尽管如此，我们仍然需要保证 grafana 始终处在安全的最新版本。建议维护者使用 RSS 订阅 <a href="https://grafana.com/tags/security/index.xml">https://grafana.com/tags/security/index.xml</a>，在有安全通知发布后检查版本并及时升级。</p>
+<p>根据相关要求，Grafana 限制仅允许校园网访问，但我们仍然需要保证 Grafana 始终处在安全的最新版本。建议维护者使用 RSS 订阅 <a href="https://grafana.com/tags/security/index.xml">https://grafana.com/tags/security/index.xml</a>，在有安全通知发布后检查版本并及时升级。</p>
 <p>升级步骤：</p>
 <ol>
 <li>检查 <a href="https://grafana.com/docs/grafana/latest/setup-grafana/upgrade-grafana">https://grafana.com/docs/grafana/latest/setup-grafana/upgrade-grafana</a> 是否包含可能破坏当前功能的修改。</li>
@@ -2214,6 +2231,30 @@
 <li>执行 <code>~/docker/grafana.sh</code></li>
 </ol>
 <p>其他配置未完待续。</p>
+<h3 id="external-access">限制校外访问<a class="headerlink" href="#external-access" title="Permanent link">&para;</a></h3>
+<p>采用与 VS Code 反代相同的方案，这次是将 CAS 用户名和过期时间放在一起 HMAC-SHA1 签名，格式为 <code>username/timestamp+signature</code>。</p>
+<p>校外用户访问 Grafana 时，会展示一个 403 页面并提示登录。Nginx 会将 <code>/ibug-auth</code> 转发给后端 Go 程序，后端程序会请求 <code>https://passport.ustc.edu.cn/serviceValidate</code> 验证 ticket，生成签名过的 cookie 并重定向回来。</p>
+<p>对某个 location 启用校外 CAS 认证，只需要在当前 location 内 <code>include snippets/nginx-pass-location</code>，并在外层的 server 块中 <code>include snippets/nginx-pass</code> 即可。</p>
+<div class="highlight"><span class="filename">/etc/nginx/snippets/nginx-pass</span><pre><span></span><code><span class="k">location</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">/403-nginx-pass.html</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">root</span><span class="w"> </span><span class="s">/srv/www/html</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">sub_filter</span><span class="w"> </span><span class="s">&quot;</span><span class="nv">${dollar}host&quot;</span><span class="w"> </span><span class="s">&quot;</span><span class="nv">$http_host&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">sub_filter_last_modified</span><span class="w"> </span><span class="no">on</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">sub_filter_once</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">location</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">/ibug-auth</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:8002</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">include</span><span class="w"> </span><span class="s">snippets/proxy-common</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">/etc/nginx/snippets/nginx-pass-location</span><pre><span></span><code><span class="k">error_page</span><span class="w"> </span><span class="mi">403</span><span class="w"> </span><span class="s">/403-nginx-pass.html</span><span class="p">;</span>
+<span class="k">set_by_lua_file</span><span class="w"> </span><span class="nv">$nginx_pass</span><span class="w"> </span><span class="s">/etc/nginx/lua/nginx_pass.lua</span><span class="p">;</span>
+<span class="k">set</span><span class="w"> </span><span class="nv">$nginx_pass_status</span><span class="w"> </span><span class="s">&quot;</span><span class="nv">$ustcnet:$nginx_pass&quot;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="s">(</span><span class="nv">$nginx_pass_status</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;0:missing&quot;)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">return</span><span class="w"> </span><span class="mi">403</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="s">(</span><span class="nv">$nginx_pass_status</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;0:invalid&quot;)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">return</span><span class="w"> </span><span class="mi">403</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="s">(</span><span class="nv">$nginx_pass_status</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;0:failed&quot;)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">return</span><span class="w"> </span><span class="mi">403</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="s">(</span><span class="nv">$nginx_pass_status</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;0:expired&quot;)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">return</span><span class="w"> </span><span class="mi">403</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
 
 
 
@@ -2234,7 +2275,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 8, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 4, 2024</span>
   </span>
 
     
@@ -2320,7 +2361,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tooltips", "navigation.instant", "navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
       
     
   </body>
