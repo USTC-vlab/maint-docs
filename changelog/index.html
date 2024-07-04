@@ -2075,8 +2075,7 @@ debug1: SSH2_MSG_SERVICE_ACCEPT received
 </code></pre></div>
 <p>而同样的客户端直连 OpenSSH 8.9 服务端（Ubuntu 22.04）的日志节选如下：</p>
 <div class="highlight"><pre><span></span><code>debug1: SSH2_MSG_EXT_INFO received
-debug1: kex_ext_info_client_parse: server-sig-algs=&lt;ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ss
-h-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com,webauthn-sk-ecdsa-sha2-nistp256@openssh.com&gt;
+debug1: kex_ext_info_client_parse: server-sig-algs=&lt;ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com,webauthn-sk-ecdsa-sha2-nistp256@openssh.com&gt;
 debug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=&lt;0&gt;
 debug2: service_accept: ssh-userauth
 debug1: SSH2_MSG_SERVICE_ACCEPT received
