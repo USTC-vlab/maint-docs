@@ -12,6 +12,40 @@ icon: material/clock-outline
 
 ### 2024 年
 
+7 月 4 日
+
+:   由于 RegreSSHion（CVE-2024-6387）漏洞，修改防火墙使虚拟机的 22 端口只能从 web 容器连接，避免用户内网内部互相扫描爆破。
+
+    另外修复了 sshmux 由于上游 `x/crypto` 更新导致 SSH 连接出现 `sign_and_send_pubkey: no mutual signature supported` 的问题。
+
+    ??? example "细节"
+
+        OpenSSH 开启 DEBUG1 之后可以看到如下输出：
+
+        ```text
+        debug1: kex_ext_info_client_parse: server-sig-algs=<>
+        ```
+
+        检查 1 月份将 `x/crypto` [更新][x/crypto-v0.18.0]到 v0.18.0 的时候没有注意到 `ServerConfig` 添加了一个字段 `PublicKeyAuthAlgorithms`，且默认的列表仅在 `NewServerConn` 内设置（不像 `Config` 有 `SetDefaults` 方法）；而我们使用了自己写的 `NewPipeSession` 方法，因此这个字段一直为空。
+
+        解决方法是在 `pipe.go` 中加一个函数将默认的 algorithm 列表导出：
+
+        ```go
+        func DefaultPublicKeyAuthAlgos() []string {
+            return supportedPublicKeyAuthAlgos
+        }
+        ```
+
+        然后在我们的前端代码中使用即可：
+
+        ```go
+        sshConfig := &ssh.ServerConfig{
+            PublicKeyAuthAlgorithms: ssh.DefaultPublicKeyAuthAlgos(),
+        }
+        ```
+
+  [x/crypto-v0.18.0]: https://github.com/USTC-vlab/sshmux/commit/8775b78a26631bdb74d0f69a50d027ae5d9eb237#diff-636282d8dee065d904d0a0074f64f4780fb719ef3354da1e22eab3609e6adc07
+
 5 月 10 日
 
 :   **:material-hammer-wrench: 修复**：更新 code-server 的脚本（`pv1:/root/vlab-software/code-server.sh`）调用 rsync 时忘记加 `--delete` 了，导致更新到 4.89.0 后出错。
