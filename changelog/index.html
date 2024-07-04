@@ -2080,7 +2080,7 @@ debug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=&lt;0&gt;
 debug2: service_accept: ssh-userauth
 debug1: SSH2_MSG_SERVICE_ACCEPT received
 </code></pre></div>
-<p>因此确认问题为 sshmux 转发了 packet type 192。</p>
+<p>因此确认问题为 sshmux 向客户端宣告支持 <code>ping@openssh.com</code> 扩展，并转发了 packet type 192。</p>
 <p>解决方法是在 <code>x/crypto/ssh</code> 中找到 <code>ext_info</code> 相关代码并从中删掉 <code>ping@openssh.com</code> 的支持：<a href="https://github.com/USTC-vlab/sshmux/commit/42b20754147cb6d9264d92c005b765fedb269593"><code>42b2075</code> @ USTC-vlab/sshmux</a></p>
 </details>
 </dd>
