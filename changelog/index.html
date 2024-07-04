@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
     
     
       
@@ -179,7 +179,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -2032,6 +2032,28 @@
 <h2 id="更新记录">更新记录<a class="headerlink" href="#更新记录" title="Permanent link">&para;</a></h2>
 <h3 id="2024-年">2024 年<a class="headerlink" href="#2024-年" title="Permanent link">&para;</a></h3>
 <dl>
+<dt>7 月 4 日</dt>
+<dd>
+<p>由于 RegreSSHion（CVE-2024-6387）漏洞，修改防火墙使虚拟机的 22 端口只能从 web 容器连接，避免用户内网内部互相扫描爆破。</p>
+<p>另外修复了 sshmux 由于上游 <code>x/crypto</code> 更新导致 SSH 连接出现 <code>sign_and_send_pubkey: no mutual signature supported</code> 的问题。</p>
+<details class="example">
+<summary>细节</summary>
+<p>OpenSSH 开启 DEBUG1 之后可以看到如下输出：</p>
+<div class="highlight"><pre><span></span><code>debug1: kex_ext_info_client_parse: server-sig-algs=&lt;&gt;
+</code></pre></div>
+<p>检查 1 月份将 <code>x/crypto</code> <a href="https://github.com/USTC-vlab/sshmux/commit/8775b78a26631bdb74d0f69a50d027ae5d9eb237#diff-636282d8dee065d904d0a0074f64f4780fb719ef3354da1e22eab3609e6adc07">更新</a>到 v0.18.0 的时候没有注意到 <code>ServerConfig</code> 添加了一个字段 <code>PublicKeyAuthAlgorithms</code>，且默认的列表仅在 <code>NewServerConn</code> 内设置（不像 <code>Config</code> 有 <code>SetDefaults</code> 方法）；而我们使用了自己写的 <code>NewPipeSession</code> 方法，因此这个字段一直为空。</p>
+<p>解决方法是在 <code>pipe.go</code> 中加一个函数将默认的 algorithm 列表导出：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">DefaultPublicKeyAuthAlgos</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">supportedPublicKeyAuthAlgos</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>然后在我们的前端代码中使用即可：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">sshConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ServerConfig</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">PublicKeyAuthAlgorithms</span><span class="p">:</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">DefaultPublicKeyAuthAlgos</span><span class="p">(),</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+</dd>
 <dt>5 月 10 日</dt>
 <dd>
 <p><strong><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.78 15.3 6 6 2.11-2.16-6-6-2.11 2.16m3.72-5.2c-.39 0-.81-.05-1.14-.19L4.97 21.25l-2.11-2.11 7.41-7.4L8.5 9.96l-.72.7-1.45-1.41v2.86l-.7.7-3.52-3.56.7-.7h2.81l-1.4-1.41 3.56-3.56a2.976 2.976 0 0 1 4.22 0L9.89 5.74l1.41 1.4-.71.71 1.79 1.78 1.82-1.88c-.14-.33-.2-.75-.2-1.12a3.49 3.49 0 0 1 3.5-3.52c.59 0 1.11.14 1.58.42L16.41 6.2l1.5 1.5 2.67-2.67c.28.47.42.97.42 1.6 0 1.92-1.55 3.47-3.5 3.47Z"/></svg></span> 修复</strong>：更新 code-server 的脚本（<code>pv1:/root/vlab-software/code-server.sh</code>）调用 rsync 时忘记加 <code>--delete</code> 了，导致更新到 4.89.0 后出错。</p>
@@ -2297,7 +2319,7 @@ lvremove<span class="w"> </span>user-data/test
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 4, 2024</span>
   </span>
 
     
@@ -2383,7 +2405,7 @@ lvremove<span class="w"> </span>user-data/test
     <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "content.tooltips", "navigation.instant", "navigation.top", "navigation.sections"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>
