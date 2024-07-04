@@ -12,6 +12,79 @@ icon: material/clock-outline
 
 ### 2024 年
 
+7 月 5 日
+
+:   修复了使用较新的 OpenSSH 客户端（&gt;= 9.5）连接 sshmux，且虚拟机中的 OpenSSH 服务端较老（&lt; 9.5）时，按任意键盘按键会导致连接断开的问题。
+
+    ??? example "细节"
+
+        在 sshmux 中添加输出打印连接断开的理由，发现错误内容为：
+
+        ```text
+        ssh: disconnect, reason 2: Invalid ssh2 packet type: 192
+        ```
+
+        检查 `x/crypto/ssh` 的代码未发现相关字符串，然后在虚拟机内关闭 sshd 并手动以 debug 模式启动（`/usr/sbin/sshd -ddd`），发现如下输出：
+
+        ```text
+        debug3: receive packet: type 192
+        debug2: sshpkt_disconnect: sending SSH2_MSG_DISCONNECT: Invalid ssh2 packet type: 192
+        ```
+
+        查询 SSH packet type，发现 [RFC 4250 § 4.1.3](https://datatracker.ietf.org/doc/html/rfc4250#section-4.1.3) 将 192-255 定义为 private use，也就是 OpenSSH 使用这些数值实现了自己的扩展。
+
+        同时检查 `x/crypto/ssh` 和 OpenSSH 的代码，发现相互匹配的定义：
+
+        ```go title="golang.org/x/crypto/ssh/handshake.go"
+        // Transport layer OpenSSH extension. See [PROTOCOL], section 1.9
+        const msgPing = 192
+
+        type pingMsg struct {
+            Data string `sshtype:"192"`
+        }
+
+        // Transport layer OpenSSH extension. See [PROTOCOL], section 1.9
+        const msgPong = 193
+
+        type pongMsg struct {
+            Data string `sshtype:"193"`
+        }
+        ```
+
+        ```c title="ssh2.h"
+        /* transport layer: OpenSSH extensions */
+        #define SSH2_MSG_PING                   192
+        #define SSH2_MSG_PONG                   193
+        ```
+
+        继续搜索发现 [OpenSSH 9.5 (2023/08/27)](https://undeadly.org/cgi?action=article;sid=20230829051257) 引入了 Keystroke timing obfuscation，对应这两个新的 message type。
+
+        问题在于，使用较新的客户端和较新的 `x/crypto` 写成的 sshmux 服务端会协商出这个扩展，而 sshmux 直接在客户端和上游服务端之间转发所有的 SSH packet，忽略的服务端支持的扩展，导致了客户端发送了一个服务端不认识的 packet，从而使服务端断开连接。
+
+        OpenSSH 9.6 客户端和基于 `x/crypto` v0.24.0 服务端的日志节选如下：
+
+        ```text
+        debug1: SSH2_MSG_EXT_INFO received
+        debug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,rsa-sha2-256,rsa-sha2-512,ssh-rsa,ssh-dss>
+        debug1: kex_ext_info_check_ver: ping@openssh.com=<0>
+        debug2: service_accept: ssh-userauth
+        debug1: SSH2_MSG_SERVICE_ACCEPT received
+        ```
+
+        而同样的客户端直连 OpenSSH 8.9 服务端（Ubuntu 22.04）的日志节选如下：
+
+        ```text
+        debug1: SSH2_MSG_EXT_INFO received
+        debug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com,webauthn-sk-ecdsa-sha2-nistp256@openssh.com>
+        debug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=<0>
+        debug2: service_accept: ssh-userauth
+        debug1: SSH2_MSG_SERVICE_ACCEPT received
+        ```
+
+        因此确认问题为 sshmux 向客户端宣告支持 `ping@openssh.com` 扩展，并转发了 packet type 192。
+
+        解决方法是在 `x/crypto/ssh` 中找到 `ext_info` 相关代码并从中删掉 `ping@openssh.com` 的支持：[`42b2075` @ USTC-vlab/sshmux](https://github.com/USTC-vlab/sshmux/commit/42b20754147cb6d9264d92c005b765fedb269593)
+
 7 月 4 日
 
 :   由于 RegreSSHion（CVE-2024-6387）漏洞，修改防火墙使虚拟机的 22 端口只能从 web 容器连接，避免用户内网内部互相扫描爆破。
