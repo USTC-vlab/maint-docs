@@ -12,6 +12,12 @@ icon: material/clock-outline
 
 ### 2024 年
 
+7 月 18 日
+
+:   为了处理学校邮件系统升级事宜，我们更换了存储服务器的 SMTP 邮件密码。[测试中发现 HPE MSA 如果要发送测试邮件，那么邮件等级必须要设置为最后一项（发送包括 information 在内的全部内容），否则测试邮件不会发送](https://support.hpe.com/hpesc/public/docDisplay?docId=sd00002146en_us&page=GUID-2FD89E8A-5484-44AE-BD6D-80BDF9B45270.html)。
+
+    第一代的 HPE MSA 存储服务器由于未知原因，无法正常发信至学校服务器，因此设置为使用另一台邮件服务器代发信，作为临时的解决方案。新的存储服务器能够正常发信。
+
 7 月 5 日
 
 :   修复了使用较新的 OpenSSH 客户端（&gt;= 9.5）连接 sshmux，且虚拟机中的 OpenSSH 服务端较老（&lt; 9.5）时，按任意键盘按键会导致连接断开的问题。
