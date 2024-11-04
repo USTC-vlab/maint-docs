@@ -12,6 +12,10 @@ icon: material/clock-outline
 
 ### 2024 年
 
+11 月 5 日
+
+:   配置了 KVM 虚拟机通过 [virtiofsd](kvm/virtiofsd.md) 使用 `/opt/vlab` 的方法，但是由于技术细节较为复杂（及与预期的 KVM 使用方式不符），暂时没有尝试自动化 KVM virtiofsd 配置。
+
 7 月 18 日
 
 :   为了处理学校邮件系统升级事宜，我们更换了存储服务器的 SMTP 邮件密码。[测试中发现 HPE MSA 如果要发送测试邮件，那么邮件等级必须要设置为最后一项（发送包括 information 在内的全部内容），否则测试邮件不会发送](https://support.hpe.com/hpesc/public/docDisplay?docId=sd00002146en_us&page=GUID-2FD89E8A-5484-44AE-BD6D-80BDF9B45270.html)。
