@@ -2006,7 +2006,7 @@
 <h1 id="虚拟机-virtio-fs-文件系统配置">虚拟机 VirtIO FS 文件系统配置<a class="headerlink" href="#虚拟机-virtio-fs-文件系统配置" title="Permanent link">&para;</a></h1>
 <p><a href="https://virtio-fs.gitlab.io/">virtiofsd</a> 是一种将主机上的文件系统共享进虚拟机的机制，类似 NFS，但不经过网络，而是使用本地的 Unix socket 和 FUSE 语义，可以提供比 NFS 更好的性能。</p>
 <h2 id="主机配置">主机配置<a class="headerlink" href="#主机配置" title="Permanent link">&para;</a></h2>
-<p>为 virtiofsd 创建一个模板化的 systemd 服务，以便在主机上启动 virtiofsd 服务：</p>
+<p>为 virtiofsd 创建一个模板化的 systemd 服务，以便在主机上启动 virtiofsd 服务（<a href="../../assets/virtiofsd%40.service">文件下载</a>）：</p>
 <div class="highlight"><span class="filename">/etc/systemd/system/virtiofsd@.service</span><pre><span></span><code><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">VirtIO Filesystem Daemon for /opt/vlab (VMID: %i)</span>
 
@@ -2041,7 +2041,7 @@
 <span class="na">ProtectKernelTunables</span><span class="o">=</span><span class="s">yes</span>
 <span class="na">ProtectSystem</span><span class="o">=</span><span class="s">yes</span>
 </code></pre></div>
-<p>然后编写一个 hook script 脚本：</p>
+<p>然后编写一个 hook script 脚本（<a href="../../assets/virtiofsd.sh">文件下载</a>）：</p>
 <div class="highlight"><span class="filename">/mnt/vz/snippets/virtiofsd.sh</span><pre><span></span><code><span class="ch">#!/bin/sh</span>
 
 <span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">2</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
