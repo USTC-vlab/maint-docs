@@ -2039,7 +2039,7 @@
 <span class="na">ProtectKernelLogs</span><span class="o">=</span><span class="s">yes</span>
 <span class="na">ProtectKernelModules</span><span class="o">=</span><span class="s">yes</span>
 <span class="na">ProtectKernelTunables</span><span class="o">=</span><span class="s">yes</span>
-<span class="na">ProtectSystem</span><span class="o">=</span><span class="s">yes</span>
+<span class="na">ProtectSystem</span><span class="o">=</span><span class="s">strict</span>
 </code></pre></div>
 <p>然后编写一个 hook script 脚本（<a href="../../assets/virtiofsd.sh">文件下载</a>）：</p>
 <div class="highlight"><span class="filename">/mnt/vz/snippets/virtiofsd.sh</span><pre><span></span><code><span class="ch">#!/bin/sh</span>
