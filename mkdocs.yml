@@ -112,6 +112,7 @@ nav:
     - 相关记录: vlab-software/misc.md
   - KVM 虚拟机:
     - cloud-init 配置: kvm/cloud-init.md
+    - VirtIO FS 配置: kvm/virtiofsd.md
   - 测试环境:
     - 简介: testing/index.md
     - Vlab VPN: testing/devvpn.md

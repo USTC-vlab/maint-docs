@@ -1,0 +1,33 @@
+[Unit]
+Description=VirtIO Filesystem Daemon for /opt/vlab (VMID: %i)
+
+[Service]
+Type=exec
+WorkingDirectory=/run/virtiofsd
+RuntimeDirectory=virtiofsd
+Environment=SHARED_DIR=/opt/vlab
+ExecStart=/usr/libexec/virtiofsd \
+  --syslog \
+  --socket-path /run/virtiofsd/%i.sock \
+  --shared-dir $SHARED_DIR \
+  --sandbox namespace \
+  --announce-submounts \
+  --inode-file-handles=prefer
+
+ReadOnlyPaths=/opt/vlab
+InaccessiblePaths=/boot /etc /home /var
+
+SystemCallArchitectures=native
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictAddressFamilies=AF_UNIX
+
+PrivateTmp=yes
+#PrivateDevices=yes
+ProtectClock=yes
+ProtectHome=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectSystem=yes
