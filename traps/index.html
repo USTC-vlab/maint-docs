@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -1292,6 +1292,8 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 12h-4v-2h4m0 6h-4v-2h4m6-6h-2.81a6 6 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17a6 6 0 0 0-2.83 0L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20z"/></svg>
+  
   <span class="md-ellipsis">
     踩坑记录
   </span>
@@ -1302,6 +1304,8 @@
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 12h-4v-2h4m0 6h-4v-2h4m6-6h-2.81a6 6 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17a6 6 0 0 0-2.83 0L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20z"/></svg>
   
   <span class="md-ellipsis">
     踩坑记录
@@ -1624,6 +1628,15 @@
   <a href="#定时任务调整" class="md-nav__link">
     <span class="md-ellipsis">
       定时任务调整
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#新建的虚拟机随机出现-gpt-分区表损坏" class="md-nav__link">
+    <span class="md-ellipsis">
+      新建的虚拟机随机出现 GPT 分区表损坏
     </span>
   </a>
   
@@ -2579,6 +2592,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#新建的虚拟机随机出现-gpt-分区表损坏" class="md-nav__link">
+    <span class="md-ellipsis">
+      新建的虚拟机随机出现 GPT 分区表损坏
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2684,8 +2706,8 @@
 <h3 id="ha-提示-service-ct100-in-error-state-must-be-disabled-and-fixed-first">HA 提示 <code>service 'ct:100' in error state, must be disabled and fixed first</code><a class="headerlink" href="#ha-提示-service-ct100-in-error-state-must-be-disabled-and-fixed-first" title="Permanent link">&para;</a></h3>
 <p>需要先 disable：<code>ha-manager set ct:100 --state disabled</code>（<code>ct:100</code> 替换为报错提示中对应的名字）</p>
 <h3 id="migrate-提示-error-migration-aborted-duration-000000-ct-is-locked-migrate">Migrate 提示 <code>ERROR: migration aborted (duration 00:00:00): CT is locked (migrate)</code><a class="headerlink" href="#migrate-提示-error-migration-aborted-duration-000000-ct-is-locked-migrate" title="Permanent link">&para;</a></h3>
-<p>容器：<code>pct unlock &lt;ID 号&gt;</code></p>
-<p>虚拟机：<code>qm unlock &lt;ID 号&gt;</code></p>
+<p>容器：<code>pct unlock &lt;ID&gt;</code></p>
+<p>虚拟机：<code>qm unlock &lt;ID&gt;</code></p>
 <div class="admonition warning">
 <p class="admonition-title">HA 注意事项</p>
 <p>请勿 bind mount 或挂载 ISO，否则节点下线时无法进行自动 migrate。</p>
@@ -2994,6 +3016,9 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
 <span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>apt-daily-upgrade.timer
 <span class="gp"># </span>pct<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2==&quot;running&quot;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span>xxx<span class="w"> </span>pct<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>xxx<span class="w"> </span>--<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;echo xxx &amp;&amp; [ ! -f &quot;/etc/systemd/system/logrotate.timer.d/vlab.conf&quot; ] &amp;&amp; mkdir -p /etc/systemd/system/logrotate.timer.d &amp;&amp; echo -e &quot;[Timer]\nRandomizedDelaySec=3h&quot; &gt; /etc/systemd/system/logrotate.timer.d/vlab.conf &amp;&amp; systemctl daemon-reload&#39;</span>
 </code></pre></div>
+<h3 id="新建的虚拟机随机出现-gpt-分区表损坏">新建的虚拟机随机出现 GPT 分区表损坏<a class="headerlink" href="#新建的虚拟机随机出现-gpt-分区表损坏" title="Permanent link">&para;</a></h3>
+<p>这个问题困扰了我们很久，根本原因是 HPE 的 SAN 汇报其会对通过 SCSI UNMAP 命令释放的块进行清零处理，但实际上并不会，导致 <code>qemu-img convert</code> 往新建的 LVM 写入镜像时跳过了清零操作，而未清零的残余数据导致了 GPT 分区表损坏。</p>
+<p>排查过程和解决方法详见 <a href="../records/2024-10-02/">2024 年 10 月 2 日的工作记录</a>。</p>
 <h2 id="web-及用户界面">Web 及用户界面<a class="headerlink" href="#web-及用户界面" title="Permanent link">&para;</a></h2>
 <h3 id="创建虚拟机出现-connection-aborted-remotedisconnectedremote-end-closed-connection-without-response">创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')<a class="headerlink" href="#创建虚拟机出现-connection-aborted-remotedisconnectedremote-end-closed-connection-without-response" title="Permanent link">&para;</a></h3>
 <p>查看 pv1 上的 <code>systemctl status pveproxy</code> 可见如下内容：</p>
@@ -3027,7 +3052,7 @@ sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年1月18日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年11月19日</span>
   </span>
 
     
