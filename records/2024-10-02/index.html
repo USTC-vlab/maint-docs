@@ -2011,7 +2011,7 @@
 <div class="highlight"><pre><span></span><code>SPARSE_SIZE indicates the consecutive number of bytes (defaults to 4k) that must contain only zeros for qemu-img to create a sparse image during conversion. If SPARSE_SIZE is 0, the source will not be scanned for unallocated or zero sectors, and the destination image will always be fully allocated.
 </code></pre></div>
 <p>在添加 <code>-S 0</code> 后测试，<code>qemu-img convert</code> 能够正常工作。由于一个 GPT 项只有 128B，而 <code>qemu-img</code> 默认 sparse size 为 4K，因此如果刚好对应的块设备区域没有被写零清空，那么本来为 0 的 GPT 表区域就会包含残留数据，进而导致了分区表校验和错误。</p>
-<p>相关问题已反馈 Proxmox: <a href="https://bugzilla.proxmox.com/show_bug.cgi?id=5754">https://bugzilla.proxmox.com/show_bug.cgi?id=5754</a>。经过内部讨论，我们暂时添加了 <code>-S 1M</code> 参数，并且 <code>apt-mark hold qemu-server</code> 锁定版本。</p>
+<p>相关问题已反馈 Proxmox: <a href="https://bugzilla.proxmox.com/show_bug.cgi?id=5754">https://bugzilla.proxmox.com/show_bug.cgi?id=5754</a>。经过内部讨论，我们暂时修改了 <code>QemuServer.pm</code> 添加 <code>-S 1M</code> 参数，并且 <code>apt-mark hold qemu-server</code> 锁定版本避免该 Perl 代码被覆盖。</p>
 <h2 id="后续">后续<a class="headerlink" href="#后续" title="Permanent link">&para;</a></h2>
 <p>在 Proxmox 开发者的提示下，我们检查 HPE 存储柜汇报的 SCSI 功能特性：</p>
 <div class="highlight"><pre><span></span><code><span class="gp">root@pv1:~# </span>sg_vpd<span class="w"> </span>--page<span class="o">=</span>0xb2<span class="w"> </span>/dev/sde
@@ -2026,7 +2026,7 @@
 <p>保险起见，我们决定禁用“以 UNMAP 作清零”的功能，具体做法是向 <code>/sys/devices/platform/host*/session*/target*/scsi_disk/*/zeroing_mode</code> 中写入 <code>writesame</code>。持久化该设置的方式是通过 udev：</p>
 <div class="highlight"><span class="filename">/etc/udev/rules.d/99-scsi-zeroing-mode.rules</span><pre><span></span><code><span class="nv">ACTION</span><span class="o">==</span><span class="s2">&quot;add&quot;</span>,<span class="w"> </span><span class="nv">SUBSYSTEM</span><span class="o">==</span><span class="s2">&quot;scsi_disk&quot;</span>,<span class="w"> </span><span class="nv">DEVPATH</span><span class="o">==</span><span class="s2">&quot;/devices/platform/host*/session*/target*/scsi_disk/*&quot;</span>,<span class="w"> </span>ATTR<span class="o">{</span>zeroing_mode<span class="o">}=</span><span class="s2">&quot;writesame&quot;</span>
 </code></pre></div>
-<p>我们只在 pv1 上创建了该文件，因为通过 Proxmox VE API 创建虚拟机的操作都是在 pv1 上进行的。</p>
+<p>我们只在 pv1 上创建了该文件，因为通过 Proxmox VE API 创建虚拟机的操作都是在 pv1 上进行的。同时我们 <code>apt-mark unhold qemu-server</code> 解除了锁定（不再需要给 <code>qemu-img</code> 加参数了）。</p>
 <p>完整的讨论过程参见上面的 Proxmox Bugzilla 链接。</p>
 
 
