@@ -2026,6 +2026,7 @@
 <p>保险起见，我们决定禁用“以 UNMAP 作清零”的功能，具体做法是向 <code>/sys/devices/platform/host*/session*/target*/scsi_disk/*/zeroing_mode</code> 中写入 <code>writesame</code>。持久化该设置的方式是通过 udev：</p>
 <div class="highlight"><span class="filename">/etc/udev/rules.d/99-scsi-zeroing-mode.rules</span><pre><span></span><code><span class="nv">ACTION</span><span class="o">==</span><span class="s2">&quot;add&quot;</span>,<span class="w"> </span><span class="nv">SUBSYSTEM</span><span class="o">==</span><span class="s2">&quot;scsi_disk&quot;</span>,<span class="w"> </span><span class="nv">DEVPATH</span><span class="o">==</span><span class="s2">&quot;/devices/platform/host*/session*/target*/scsi_disk/*&quot;</span>,<span class="w"> </span>ATTR<span class="o">{</span>zeroing_mode<span class="o">}=</span><span class="s2">&quot;writesame&quot;</span>
 </code></pre></div>
+<p>我们只在 pv1 上创建了该文件，因为通过 Proxmox VE API 创建虚拟机的操作都是在 pv1 上进行的。</p>
 <p>完整的讨论过程参见上面的 Proxmox Bugzilla 链接。</p>
 
 
