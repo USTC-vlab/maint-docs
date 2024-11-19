@@ -2022,8 +2022,8 @@
 <span class="go">  Logical block provisioning read zeros (LBPRZ): 1</span>
 <span class="go">[...]</span>
 </code></pre></div>
-<p>而实际上该存储柜仅当 SCSI UNMAP 命令覆盖完整的 1 MiB 段时才会清零对应位置的数据，而 qemu-img 的 sparse size 默认为 4K，因此当 qemu-img 以 4K 为单位 <code>fallocate()</code> 时底层存储的数据并没有清零。</p>
-<p>保险起见，我们决定禁用“以 UNMAP 作清零”的功能，具体做法是向 <code>/sys/devices/platform/host*/session*/target*/scsi_disk/*/zeroing_mode</code> 中写入 <code>writesame</code>。持久化该设置的方式是通过 udev：</p>
+<p>而实际上该存储柜根本不会清零 SCSI UNMAP 过的磁盘区域的数据（至少对于我们的机械盘阵列不会），因此当 qemu-img 以 <code>fallocate()</code> 替代写零的时候就出现了意外结果。</p>
+<p>因此我们需要禁用“以 UNMAP 作清零”的功能，具体做法是向 <code>/sys/devices/platform/host*/session*/target*/scsi_disk/*/zeroing_mode</code> 中写入 <code>writesame</code>。持久化该设置的方式是通过 udev：</p>
 <div class="highlight"><span class="filename">/etc/udev/rules.d/99-scsi-zeroing-mode.rules</span><pre><span></span><code><span class="nv">ACTION</span><span class="o">==</span><span class="s2">&quot;add&quot;</span>,<span class="w"> </span><span class="nv">SUBSYSTEM</span><span class="o">==</span><span class="s2">&quot;scsi_disk&quot;</span>,<span class="w"> </span><span class="nv">DEVPATH</span><span class="o">==</span><span class="s2">&quot;/devices/platform/host*/session*/target*/scsi_disk/*&quot;</span>,<span class="w"> </span>ATTR<span class="o">{</span>zeroing_mode<span class="o">}=</span><span class="s2">&quot;writesame&quot;</span>
 </code></pre></div>
 <p>我们只在 pv1 上创建了该文件，因为通过 Proxmox VE API 创建虚拟机的操作都是在 pv1 上进行的。同时我们 <code>apt-mark unhold qemu-server</code> 解除了锁定（不再需要给 <code>qemu-img</code> 加参数了）。</p>
