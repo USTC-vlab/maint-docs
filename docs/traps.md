@@ -1,3 +1,7 @@
+---
+icon: material/bug
+---
+
 # 踩坑记录
 
 ## Proxmox VE
@@ -26,9 +30,9 @@
 
 ### Migrate 提示 `ERROR: migration aborted (duration 00:00:00): CT is locked (migrate)`
 
-容器：`pct unlock <ID 号>`
+容器：`pct unlock <ID>`
 
-虚拟机：`qm unlock <ID 号>`
+虚拟机：`qm unlock <ID>`
 
 !!! warning "HA 注意事项"
 
@@ -462,6 +466,12 @@ See [2023 年 1 月 28 日工作记录](./records/2023-01-28.md).
 # pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- systemctl disable apt-daily-upgrade.timer
 # pct list | awk '$2=="running"{print $1}' | xargs -I xxx pct exec xxx -- bash -c 'echo xxx && [ ! -f "/etc/systemd/system/logrotate.timer.d/vlab.conf" ] && mkdir -p /etc/systemd/system/logrotate.timer.d && echo -e "[Timer]\nRandomizedDelaySec=3h" > /etc/systemd/system/logrotate.timer.d/vlab.conf && systemctl daemon-reload'
 ```
+
+### 新建的虚拟机随机出现 GPT 分区表损坏
+
+这个问题困扰了我们很久，根本原因是 HPE 的 SAN 汇报其会对通过 SCSI UNMAP 命令释放的块进行清零处理，但实际上并不会，导致 `qemu-img convert` 往新建的 LVM 写入镜像时跳过了清零操作，而未清零的残余数据导致了 GPT 分区表损坏。
+
+排查过程和解决方法详见 [2024 年 10 月 2 日的工作记录](records/2024-10-02.md)。
 
 ## Web 及用户界面
 
