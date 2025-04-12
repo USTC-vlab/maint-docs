@@ -473,6 +473,13 @@ See [2023 年 1 月 28 日工作记录](./records/2023-01-28.md).
 
 排查过程和解决方法详见 [2024 年 10 月 2 日的工作记录](records/2024-10-02.md)。
 
+### 解决 FUSE 死锁
+
+FUSE 死锁时（有应用在容器中访问 FUSE，但是 FUSE 的应用因为某种原因工作不正确）需要使用内核的 fuse 管理接口手工结束连接，方法如下：
+
+1. 在 `/sys/fs/fuse/connections` 下运行 `for i in */waiting; do echo $i; cat $i; done`，保险起见可以多跑几遍，收集所有一直在 waiting 的连接。
+2. 对每个连接 `echo 1 > xxxx/abort` 杀掉连接。
+
 ## Web 及用户界面
 
 ### 创建虚拟机出现 Connection aborted, RemoteDisconnected('Remote end closed connection without response')
