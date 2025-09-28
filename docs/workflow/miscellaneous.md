@@ -71,3 +71,37 @@ PVE 的容器采用 systemd 管理，所以首先可以 `systemctl status pve-co
 ```
 
 然后按提示加上 `--logfile /dev/stdout --logpriority INFO`（或者 DEBUG），应该就有足够详细的日志来判断问题了。
+
+## 为容器添加 rootless container 支持
+
+### 添加 `lxc.idmap` 配置
+
+由于 PVE 默认会强塞一条 lxc.idmap 配置，而且无法通过全局设置移除，且 API 不支持设置 lxc 底层配置，因此需要在对应 node 上手动编辑 `/etc/pve/lxc/<vmid>.conf`，添加如下配置：
+
+```
+lxc.idmap: u 0 100000 165536
+lxc.idmap: g 0 100000 165536
+```
+
+配完对容器关机再开机即可。
+
+### 安装 lightdm hooks（无桌面环境可跳过）
+
+修复 lightdm 对 seat0 处理不正确，导致 systemd user session 不正确的问题：
+
+```shell
+sudo apt install lightdm-hooks
+```
+
+### 配置 TUN 设备
+
+```shell
+sudo /opt/vlab/.dev/enable-dev.sh
+```
+
+### 测试
+
+```shell
+podman ps
+podman run -it --rm ghcr.io/ustclug/debian:13
+```
