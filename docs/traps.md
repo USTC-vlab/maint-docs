@@ -455,6 +455,10 @@ sudo apparmor_parser -R /etc/apparmor.d/disable/
 
 2023/04/07 遇到一个盘写满，结果写不了需要给 systemd-network 的临时文件，然后启动失败的，之后给 postcreation 的 tune2fs 设置了保留 1% 的预留空间（而不是不保留）。
 
+2025 年下半年遇到 `pve-container` 的设计缺陷（[Bugzilla #7271](https://bugzilla.proxmox.com/show_bug.cgi?id=7271)）导致使用了 ro bind mount 的容器都无法开机，将 `pve-container` 降级到 6.0.18 并 hold 后暂时解决。
+
+有问题的 `pve-container` 版本范围为 `>=6.1.0, <6.1.2`。
+
 ### 定时任务调整
 
 如果发现凌晨 0 点或者凌晨 6 至 7 点 iowait% 以及 IO time 过高，对所有正在运行的容器执行以下操作：
