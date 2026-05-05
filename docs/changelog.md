@@ -16,6 +16,8 @@ icon: material/clock-outline
 
 :   将 `/opt/vlab` 迁移到 Btrfs，并启用了 `zstd:3` 级别的透明压缩，也跑了一遍用户态去重，将 `/opt/vlab` 的占用从 ~160 GiB 降到了 ~80 GiB。
 
+    其他：尝试将 `pvestrap` 迁移到一系列 Ansible playbook 上，开始体验 configuration as code。
+
 ### 2024 年
 
 11 月 5 日
