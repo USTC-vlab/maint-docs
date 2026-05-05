@@ -10,6 +10,12 @@ icon: material/clock-outline
 
 ## 更新记录
 
+### 2026 年
+
+[5 月 5 日](records/2026-05-05.md)
+
+:   将 `/opt/vlab` 迁移到 Btrfs，并启用了 `zstd:3` 级别的透明压缩，也跑了一遍用户态去重，将 `/opt/vlab` 的占用从 ~160 GiB 降到了 ~80 GiB。
+
 ### 2024 年
 
 11 月 5 日
