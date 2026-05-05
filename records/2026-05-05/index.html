@@ -2596,6 +2596,7 @@
 </ul>
 <h2 id="内核更新">内核更新<a class="headerlink" href="#内核更新" title="Permanent link">&para;</a></h2>
 <p>使用 <a href="https://github.com/USTC-vlab/labstrap/blob/139c6e967c02611be0f8cd69da9e9fc6990736b8/pvestrap/apt-packages.yml#L114">Ansible playbook</a> 将所有节点的 <code>proxmox-ve</code> 更新到最新即可。</p>
+<p>在重启完成后，再次使用 Ansible playbook 删除所有节点上的 <code>/etc/modprobe.d/disable-algif.conf</code> 文件。</p>
 <h2 id="迁移-optvlab">迁移 <code>/opt/vlab</code><a class="headerlink" href="#迁移-optvlab" title="Permanent link">&para;</a></h2>
 <p>因为 pv1 没有容器在使用 <code>/opt/vlab</code>，所以提前在 pv1 上做好准备工作，把 <code>/opt/vlab</code> 格式化好，并从 pv2 拉回数据：</p>
 <div class="highlight"><pre><span></span><code>umount<span class="w"> </span>/opt/vlab
@@ -2605,7 +2606,7 @@ vim<span class="w"> </span>/etc/fstab
 systemctl<span class="w"> </span>daemon-reload
 mount<span class="w"> </span>/opt/vlab
 rsync<span class="w"> </span>-aHAXxv<span class="w"> </span>pv2:/opt/vlab/<span class="w"> </span>/opt/vlab/
-<span class="c1"># dedup?</span>
+duperemove<span class="w"> </span>--hashfile<span class="o">=</span>/root/opt-vlab.hashfile<span class="w"> </span>-dhr<span class="w"> </span>/opt/vlab/
 btrfs<span class="w"> </span>subvolume<span class="w"> </span>snapshot<span class="w"> </span>/opt/vlab<span class="w"> </span>/opt/vlab/20260505-send
 </code></pre></div>
 <p>接下来对于所有其他机器，按上述操作执行到 <code>rsync</code> 步骤之前，然后用 <code>btrfs send</code> 代替 <code>rsync</code>：</p>
@@ -2657,7 +2658,7 @@ proxmox-boot-tool<span class="w"> </span>init<span class="w"> </span>/dev/sdXX<s
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月5日 17:53:40 UTC">2026年5月5日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年5月5日 17:58:23 UTC">2026年5月5日</span>
   </span>
 
     
